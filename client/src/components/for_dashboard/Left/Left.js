@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // internal components
-import { current_user } from "./../../../dummy_data";
+import { d_current_user } from "./../../../dummy_data";
 import "./Left.css";
 
 const Left = () => {
@@ -31,10 +31,14 @@ const Left = () => {
 	return (
 		<>
 			<div className="current-user">
-				<img src={current_user.img} alt="profile-img" className="profile-img" />
+				<img
+					src={d_current_user.img}
+					alt="profile-img"
+					className="profile-img"
+				/>
 				<div className="info">
-					<h4>{current_user.name}</h4>
-					<h6>role :</h6> <span>{current_user.role}</span>
+					<h4>{d_current_user.name}</h4>
+					<h6>role :</h6> <span>{d_current_user.role}</span>
 				</div>
 			</div>
 
@@ -51,7 +55,7 @@ const Left = () => {
 					onClick={instructor_handler}
 					className={instructor ? "instructor-active" : null}
 				>
-					<i className="fa-solid fa-user-graduate"></i>
+					<i className="fa-solid fa-user-tie"></i>
 					<h5>Instructor</h5>
 				</span>
 

@@ -2,7 +2,7 @@
 
 :root {
 	/* common */
-	--card-border-radius: 16px;
+	--card-border-radius: 10px;
 	--body-bg: hsl(252, 30%, 95%);
 	--box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
 
@@ -13,6 +13,9 @@
 
 	/* dashboard-left */
 	--hover-bg-color: hsl(252, 30%, 95%);
+
+	/* dashboard right  */
+	--selected-chat-color: #006d77;
 }
 
 * {
@@ -35,15 +38,17 @@ body {
 	aspect-ratio: 1/1;
 	border-radius: 50%;
 	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
 }
 
 /* Scrollbar Styling  start */
 ::-webkit-scrollbar {
-	width: 7px;
+	width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-	background-color: #eaf4f4;
+	background-color: transparent;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 }
@@ -51,6 +56,6 @@ body {
 ::-webkit-scrollbar-thumb {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	background: #2ec4b6;
+	background: #cfd3da;
 }
 /* Scrollbar Styling  end */

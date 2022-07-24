@@ -1,0 +1,53 @@
+.dashboard-container .right .input-box-container {
+	display: flex;
+	align-items: flex-end;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 5px 15px 10px 15px;
+	background-color: #edf6f9;
+}
+
+.right .input-box-container .input-box {
+	flex-grow: 1;
+	background-color: white;
+	padding: 9px 15px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.right .input-box-container .input-box #text-area {
+	resize: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	font-size: 15px;
+}
+
+.right .input-box-container .input-box i {
+	align-self: flex-end;
+}
+
+.right .input-box-container .icon {
+	font-size: 22px;
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.right .input-box-container #attachment {
+	margin: 0px 10px 10px 0;
+}
+
+.right .input-box-container button {
+	margin: 0 0 0px 10px;
+	padding: 11px 16px;
+	border: none;
+	outline: none;
+	background-color: #0ead69;
+	color: white;
+	font-weight: 500;
+	border-radius: var(--card-border-radius);
+	font-size: 19px;
+}

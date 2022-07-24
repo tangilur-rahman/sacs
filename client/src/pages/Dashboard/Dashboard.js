@@ -1,5 +1,7 @@
 // internal components
 import Left from "../../components/for_dashboard/Left/Left";
+import Middle from "../../components/for_dashboard/Middle/Middle";
+import Right from "../../components/for_dashboard/Right/Right";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Dashboard.css";
 
@@ -14,11 +16,15 @@ const Dashboard = () => {
 					</div>
 
 					{/* middle-section-start  */}
-					<div className="col-3 p-0 middle">middle</div>
+					<div className="col-4 p-0 middle">
+						<Middle />
+					</div>
 					{/* middle-section-end  */}
 
 					{/* right-section-start  */}
-					<div className="col-5 p-0 right">right</div>
+					<div className="col-4 p-0 right">
+						<Right />
+					</div>
 					{/* right-section-end  */}
 				</div>
 			</div>

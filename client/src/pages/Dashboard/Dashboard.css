@@ -7,16 +7,24 @@
 .dashboard-container {
 	display: flex;
 	justify-content: space-between;
-	column-gap: 20px;
 }
 
+.dashboard-container .left {
+	margin-right: 15px;
+}
 
 .dashboard-container .middle {
-	border: 1px solid red;
+	background-color: white;
+	border-radius: 10px 0 0 0;
+	box-shadow: var(--box-shadow);
+	overflow-y: scroll;
+	height: 88.5vh;
 }
 
 .dashboard-container .right {
-	border: 1px solid red;
 	flex-grow: 1;
+	border-radius: 0 10px 0 0;
+	box-shadow: var(--box-shadow);
+	position: relative;
+	overflow: hidden;
 }
-

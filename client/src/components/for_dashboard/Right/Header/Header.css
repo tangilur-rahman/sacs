@@ -1,0 +1,46 @@
+.dashboard-container .right .header-container {
+	background-color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 15px;
+}
+
+.right .header-container .selected-user {
+	display: flex;
+	align-items: center;
+	width: 50%;
+	overflow: hidden;
+}
+
+.right .header-container .selected-user img {
+	width: 45px;
+	min-width: 45px;
+	height: 45px;
+	min-height: 45px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
+	cursor: pointer;
+}
+
+.right .header-container .selected-user h6 {
+	margin: 0 0px 0 8px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	word-spacing: 4px;
+	font-size: 20px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--selected-chat-color);
+}
+
+.right .header-container span i {
+	font-size: 22px;
+	opacity: 0.7;
+	cursor: pointer;
+}
