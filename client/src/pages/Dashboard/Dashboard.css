@@ -1,0 +1,22 @@
+.dashboard-main-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.dashboard-container {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 20px;
+}
+
+
+.dashboard-container .middle {
+	border: 1px solid red;
+}
+
+.dashboard-container .right {
+	border: 1px solid red;
+	flex-grow: 1;
+}
+

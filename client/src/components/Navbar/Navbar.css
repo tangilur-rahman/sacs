@@ -1,0 +1,113 @@
+.navbar-main-container {
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	padding: 3px 0;
+}
+
+.navbar-main-container .navbar-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* left start  */
+.navbar-container .left {
+	display: flex;
+	align-items: center;
+}
+
+.navbar-container .left img {
+	width: 60px;
+	min-width: 60px;
+	height: 60px;
+	min-height: 60px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.navbar-container .left h2 {
+	font-weight: 600;
+	margin: 0 0 0 10px;
+	letter-spacing: 2px;
+	color: var(--project-name-color);
+}
+/* left end  */
+
+/* middle start  */
+.navbar-container .middle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.navbar-container .middle .total {
+	color: #fff;
+	font-weight: 600;
+	padding: 10px 45px;
+	font-size: 17px;
+	border-radius: 7px;
+	box-shadow: var(--box-shadow);
+}
+
+.navbar-container .middle .total:first-child {
+	background-color: var(--instructor-bg-color);
+	margin: 0 0 0 20px;
+}
+.navbar-container .middle .total:last-child {
+	background-color: var(--student-bg-color);
+	margin: 0 0 0 30px;
+}
+/* middle end  */
+
+/* right start  */
+.navbar-container .right {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.navbar-container .right .icon-style {
+	display: flex;
+	justify-content: space-evenly;
+	flex-grow: 1;
+}
+
+.right .icon-style span i {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #738290;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.5s;
+	font-size: 22px;
+	cursor: pointer;
+}
+
+.right .icon-style span i::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: -90px;
+	left: 0;
+	background: linear-gradient(-45deg, #ed1c94, #06d6a0);
+	transition: transform 0.4s;
+	transition: color 0.5s;
+	z-index: -1;
+}
+
+.right .icon-style span i:hover::after {
+	top: 0;
+}
+.right .icon-style span i:hover {
+	transform: translateY(-5px);
+	color: #faf3dd;
+}
+/* right end  */

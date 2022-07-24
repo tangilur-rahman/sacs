@@ -1,0 +1,98 @@
+.dashboard-container .left .current-user {
+	display: flex;
+	background-color: white;
+	padding: 15px 10px;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+}
+
+.dashboard-container .left .current-user .info {
+	margin: 0 0 0 10px;
+}
+
+.left .current-user .info h4 {
+	margin: 0;
+	text-transform: capitalize;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	font-size: 1.4rem;
+}
+
+.left .current-user .info h6 {
+	display: inline-block;
+	margin: 0;
+}
+
+.dashboard-container .left .other-user {
+	margin-top: 15px;
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+	overflow: hidden;
+}
+
+.left .other-user span {
+	display: flex;
+	padding: 20.5px 0;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+}
+
+.left .other-user span:hover {
+	background-color: var(--hover-bg-color);
+}
+
+.left .other-user span h5 {
+	margin: 0 0 0 1.5rem;
+	font-size: 17px;
+}
+
+.left .other-user span i {
+	font-size: 1.3rem;
+	margin: 0 0 0 2rem;
+	opacity: 0.7;
+}
+
+/* active-class style start  */
+.left .other-user .administrator-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.left .other-user .administrator-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.left .other-user .instructor-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+
+.left .other-user .instructor-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.left .other-user .student-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+
+.left .other-user .student-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+/* active-class style end  */
