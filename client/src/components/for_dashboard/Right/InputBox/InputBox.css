@@ -5,12 +5,18 @@
 	bottom: 0;
 	width: 100%;
 	padding: 5px 15px 10px 15px;
-	background-color: #edf6f9;
+	background-color: var(--input-box-container-bg);
+}
+
+.right .input-box-container .icon {
+	font-size: 22px;
+	opacity: 0.7;
+	cursor: pointer;
 }
 
 .right .input-box-container .input-box {
 	flex-grow: 1;
-	background-color: white;
+	background-color: var(--input-box-bg);
 	padding: 9px 15px;
 	border-radius: 10px;
 	display: flex;
@@ -23,31 +29,197 @@
 	border: none;
 	outline: none;
 	width: 100%;
-	font-size: 15px;
 }
 
+/* for emoji style start  */
+.right .input-box-container .input-box span {
+	position: relative;
+}
 .right .input-box-container .input-box i {
 	align-self: flex-end;
 }
 
-.right .input-box-container .icon {
-	font-size: 22px;
-	opacity: 0.7;
+.input-box-container .input-box .emoji-picker-react input.emoji-search {
+	display: none;
+}
+.input-box-container .input-box .emoji-picker-react img.emoji-img {
+	height: 30px;
+	width: 30px;
+	margin: 5px;
+}
+/* for emoji style end  */
+
+/* attachment container start  */
+.right .input-box-container .attachment-container {
+	margin: 0px 10px 10px 0;
+	position: relative;
+}
+
+.right .input-box-container .attachment-container .attachments {
+	display: flex;
+	flex-direction: column-reverse;
+	position: absolute;
+	bottom: 50px;
+	margin: 0 0px 0 -12px;
+}
+
+.attachment-container .attachments span {
+	font-size: 24px;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	margin: 16px 0 0px 0;
+	color: white;
+	display: none;
+	width: 50px;
+	height: 50px;
 	cursor: pointer;
 }
 
-.right .input-box-container #attachment {
-	margin: 0px 10px 10px 0;
+.attachment-container .attachments span.active {
+	animation: for-attachment-active 0.5s linear forwards;
+	display: flex;
 }
 
-.right .input-box-container button {
+.attachment-container .attachments span i:hover {
+	transform: scale(0.8);
+	transition: all 0.3s;
+}
+
+.attachment-container .attachments span.inactive {
+	animation: for-attachment-inactive 0.4s linear forwards;
+	display: flex;
+	/* display: none; */
+}
+
+@keyframes for-attachment-active {
+	0% {
+		transform: scale(0);
+	}
+	20% {
+		transform: scale(0.4);
+	}
+	40% {
+		transform: scale(0.6);
+	}
+	60% {
+		transform: scale(0.8);
+	}
+	80% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes for-attachment-inactive {
+	0% {
+		transform: scale(1);
+	}
+	20% {
+		transform: scale(0.8);
+	}
+	40% {
+		transform: scale(0.6);
+	}
+	60% {
+		transform: scale(0.4);
+	}
+	80% {
+		transform: scale(0.2);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+
+.attachment-container .attachments span:first-child {
+	background-image: linear-gradient(
+		45deg,
+		hsl(315deg 99% 52%) 0%,
+		hsl(320deg 100% 50%) 11%,
+		hsl(330deg 100% 56%) 22%,
+		hsl(344deg 100% 63%) 33%,
+		hsl(2deg 100% 68%) 44%,
+		hsl(20deg 100% 63%) 56%,
+		hsl(33deg 100% 58%) 67%,
+		hsl(44deg 100% 50%) 78%,
+		hsl(50deg 100% 50%) 89%,
+		hsl(55deg 100% 50%) 100%
+	);
+}
+
+.attachment-container .attachments span:nth-child(2) {
+	background-image: linear-gradient(
+		45deg,
+		hsl(315deg 99% 52%) 0%,
+		hsl(310deg 100% 48%) 11%,
+		hsl(306deg 100% 45%) 22%,
+		hsl(300deg 100% 42%) 33%,
+		hsl(294deg 100% 43%) 44%,
+		hsl(287deg 100% 45%) 56%,
+		hsl(279deg 89% 49%) 67%,
+		hsl(268deg 89% 53%) 78%,
+		hsl(255deg 95% 56%) 89%,
+		hsl(229deg 100% 50%) 100%
+	);
+}
+
+.attachment-container .attachments span:nth-child(3) {
+	background-image: linear-gradient(
+		45deg,
+		hsl(35deg 99% 52%) 0%,
+		hsl(23deg 100% 60%) 11%,
+		hsl(9deg 100% 66%) 22%,
+		hsl(350deg 100% 67%) 33%,
+		hsl(336deg 100% 65%) 44%,
+		hsl(326deg 100% 65%) 56%,
+		hsl(310deg 74% 63%) 67%,
+		hsl(280deg 73% 66%) 78%,
+		hsl(247deg 90% 71%) 89%,
+		hsl(210deg 100% 50%) 100%
+	);
+}
+
+.attachment-container .attachments span:last-child {
+	background-image: linear-gradient(
+		45deg,
+		hsl(21deg 99% 52%) 0%,
+		hsl(32deg 100% 47%) 11%,
+		hsl(40deg 100% 44%) 22%,
+		hsl(50deg 100% 40%) 33%,
+		hsl(62deg 90% 39%) 44%,
+		hsl(78deg 60% 52%) 56%,
+		hsl(99deg 64% 62%) 67%,
+		hsl(131deg 74% 67%) 78%,
+		hsl(154deg 89% 63%) 89%,
+		hsl(169deg 100% 50%) 100%
+	);
+}
+
+/* attachment container end  */
+
+/* send btn style start  */
+.right .input-box-container button.btn-active {
 	margin: 0 0 0px 10px;
 	padding: 11px 16px;
 	border: none;
 	outline: none;
-	background-color: #0ead69;
-	color: white;
+	background-color: var(--input-box-btn-bg);
+	color: var(--input-box-btn-color);
 	font-weight: 500;
 	border-radius: var(--card-border-radius);
 	font-size: 19px;
 }
+
+.right .input-box-container button.btn-active:hover {
+	transform: scale(0.95);
+	transition: all 0.1s;
+}
+
+.right .input-box-container button.btn-inactive {
+	opacity: 0.9;
+	cursor: text;
+}
+/* send btn style end  */

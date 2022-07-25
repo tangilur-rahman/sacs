@@ -15,7 +15,13 @@
 	--hover-bg-color: hsl(252, 30%, 95%);
 
 	/* dashboard right  */
-	--selected-chat-color: #006d77;
+	--selected-user-color: #006d77;
+
+	/* right - input-box  */
+	--input-box-container-bg: #d5eef7;
+	--input-box-bg: white;
+	--input-box-btn-bg: #0ead69;
+	--input-box-btn-color: white;
 }
 
 * {
@@ -40,6 +46,10 @@ body {
 	overflow: hidden;
 	object-fit: cover;
 	object-position: center;
+}
+
+::selection {
+	background: rgb(204, 228, 235);
 }
 
 /* Scrollbar Styling  start */
