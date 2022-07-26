@@ -9,7 +9,7 @@ const Dashboard = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="container-fluid dashboard-main-container">
+			<div className="container-fluid p-0 dashboard-main-container ">
 				<div className="row col-11 dashboard-container">
 					<div className="col-3 p-0 left">
 						<Left />

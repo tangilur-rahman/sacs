@@ -2,7 +2,7 @@
 
 // internal components
 import "./Middle.css";
-import { d_message } from "./../../../dummy_data";
+import { d_user } from "./../../../dummy_data";
 
 const Middle = () => {
 	return (
@@ -18,8 +18,8 @@ const Middle = () => {
 				/>
 			</div>
 
-			{d_message &&
-				d_message.map((value, index) => {
+			{d_user &&
+				d_user.map((value, index) => {
 					return (
 						<div className="user" key={index}>
 							<img src={value.img} alt="profile-img" className="profile-img" />

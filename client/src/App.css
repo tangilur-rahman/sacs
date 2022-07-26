@@ -49,7 +49,7 @@ body {
 }
 
 ::selection {
-	background: rgb(204, 228, 235);
+	background: #cddafd;
 }
 
 /* Scrollbar Styling  start */

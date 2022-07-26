@@ -4,7 +4,7 @@ export const d_current_user = {
 	role: "Administrator"
 };
 
-export const d_message = [
+export const d_user = [
 	{
 		img: "assets/profile/tangil.png",
 		name: "Tangilur Rahman",
@@ -81,5 +81,34 @@ export const d_message = [
 		role: "Student",
 		last_message: "Sir, i need a appointment",
 		time: "11:30 AM"
+	}
+];
+
+export const d_message = [
+	{
+		user_id: "1",
+		img: "assets/profile/tangil.png",
+		message: "What's up! ",
+		time: "10:30 AM"
+	},
+	{
+		user_id: "2",
+		img: "assets/profile/mehrab.png",
+		message:
+			"Hi, how are you? my aname is fji fdfi fjd fod ofh  df ohs  dfh hfd ohd hdof hisd sdhdsi h isdhd hihs hisdhs,",
+		time: "10:30 AM"
+	},
+	{
+		user_id: "2",
+		img: "assets/profile/mehrab.png",
+		message:
+			"I am good, what's about you? my aname is fji fdfi fjd fod ofh  df ohs  dfh hfd ohd hdof ",
+		time: "10:30 AM"
+	},
+	{
+		user_id: "1",
+		img: "assets/profile/tangil.png",
+		message: "I am also good",
+		time: "10:30 AM"
 	}
 ];

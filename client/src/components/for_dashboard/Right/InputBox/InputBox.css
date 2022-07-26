@@ -64,32 +64,34 @@
 }
 
 .attachment-container .attachments span {
-	font-size: 24px;
 	border-radius: 50%;
 	align-items: center;
 	justify-content: center;
-	margin: 16px 0 0px 0;
+	margin: 16px 0 0 0;
 	color: white;
 	display: none;
 	width: 50px;
 	height: 50px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.attachment-container .attachments span:hover {
+	font-size: 22px;
+	transition: all 0.2s linear;
+}
+
+.attachment-container .attachments span i {
 	cursor: pointer;
 }
 
 .attachment-container .attachments span.active {
+	display: flex;
 	animation: for-attachment-active 0.5s linear forwards;
-	display: flex;
 }
-
-.attachment-container .attachments span i:hover {
-	transform: scale(0.8);
-	transition: all 0.3s;
-}
-
 .attachment-container .attachments span.inactive {
-	animation: for-attachment-inactive 0.4s linear forwards;
 	display: flex;
-	/* display: none; */
+	animation: for-attachment-inactive 0.4s linear forwards;
 }
 
 @keyframes for-attachment-active {
@@ -213,7 +215,7 @@
 	font-size: 19px;
 }
 
-.right .input-box-container button.btn-active:hover {
+.right .input-box-container button.hover:hover {
 	transform: scale(0.95);
 	transition: all 0.1s;
 }
