@@ -37,10 +37,10 @@ const Signup = () => {
 	return (
 		<>
 			{signupT && (
-				<div ref={myRef} className="container-fluid  p-0 signup-main-container">
+				<div className="container-fluid  p-0 signup-main-container">
 					<div className="row m-0 signup-wrapper">
 						<div className="col-9 p-0 ">
-							<div className="row m-0 signup-container">
+							<div ref={myRef} className="row m-0 signup-container">
 								<div className="col-6 p-0 left">
 									<img
 										src="/assets/images/sign-up-img.png"
