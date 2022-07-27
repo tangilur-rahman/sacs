@@ -49,59 +49,59 @@ const Signup = () => {
 						<div className="col-6 right">
 							<h2>Register New User</h2>
 							<form>
-								<div class="form-floating mb-3">
+								<div className="form-floating mb-3">
 									<input
 										type="text"
-										class="form-control"
+										className="form-control"
 										id="name"
 										placeholder="Enter your name..."
 										required
 									/>
-									<label for="name">Name : </label>
+									<label htmlFor="name">Name : </label>
 								</div>
 
-								<div class="form-floating mb-3">
+								<div className="form-floating mb-3">
 									<input
 										type="number"
-										class="form-control"
+										className="form-control"
 										id="id"
 										placeholder="Enter your id..."
 										required
 									/>
-									<label for="id">ID : </label>
+									<label htmlFor="id">ID : </label>
 								</div>
 
-								<div class="form-floating mb-3">
+								<div className="form-floating mb-3">
 									<input
 										type="email"
-										class="form-control"
+										className="form-control"
 										id="email"
 										placeholder="Enter your email..."
 										required
 									/>
-									<label for="email">Email : </label>
+									<label htmlFor="email">Email : </label>
 								</div>
 
-								<div class="form-floating mb-3">
+								<div className="form-floating mb-3">
 									<input
 										type="password"
-										class="form-control"
+										className="form-control"
 										id="password"
 										placeholder="Enter your password..."
 										required
 									/>
-									<label for="password">Password : </label>
+									<label htmlFor="password">Password : </label>
 								</div>
 
-								<div class="form-floating mb-3">
+								<div className="form-floating mb-3">
 									<input
 										type="password"
-										class="form-control"
+										className="form-control"
 										id="c_password"
 										placeholder="Enter your password..."
 										required
 									/>
-									<label for="c_password">Conform Password : </label>
+									<label htmlFor="c_password">Conform Password : </label>
 								</div>
 
 								{/* dropdown start  */}
@@ -128,12 +128,12 @@ const Signup = () => {
 											</div>
 										)}
 
-										<div className="button-container">
-											<button type="button" class="btn btn-danger">
+										<div className="btn-container">
+											<button type="button" className="btn btn-danger">
 												Cancel
 											</button>
 
-											<button type="button" class="btn btn-success">
+											<button type="button" className="btn btn-success">
 												Submit
 											</button>
 										</div>
