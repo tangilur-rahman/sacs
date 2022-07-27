@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 // internal components
 import { GetContextApi } from "./../../../ContextApi";
+
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
 import GroupDropdown from "./Dropdown/GroupDropdown/GroupDropdown";
 import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
@@ -11,7 +12,11 @@ import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 import "./Signup.css";
 
 const Signup = () => {
+	// for signup toggle
 	const { signupT, setSignupT } = GetContextApi();
+
+	// get user role
+	const [getRole, setGetRole] = useState("");
 
 	// for outside-click close start
 	const myRef = useRef();
@@ -42,7 +47,7 @@ const Signup = () => {
 							/>
 						</div>
 						<div className="col-6 right">
-							<h2>Register</h2>
+							<h2>Register New User</h2>
 							<form>
 								<div class="form-floating mb-3">
 									<input
@@ -100,15 +105,32 @@ const Signup = () => {
 								</div>
 
 								{/* dropdown start  */}
-								{/* <RoleDropdown />
-								<DepartDropdown />
-								<GroupDropdown />
-								<SemesterDropDown /> */}
-								<YearDropdown />
+								<div className="group">
+									<RoleDropdown getRole={getRole} setGetRole={setGetRole} />
+									<DepartDropdown />
+								</div>
 
-								{/* dropdown end  */}
+								<div className="group">
+									<GroupDropdown />
+									<SemesterDropDown />
+								</div>
 
-								<button type="submit">Submit</button>
+								<div className="signup-footer">
+									<div className="year">
+										<span>Year :</span>
+										<YearDropdown />
+									</div>
+
+									<div className="button-container">
+										<button type="button" class="btn btn-danger">
+											Cancel
+										</button>
+
+										<button type="button" class="btn btn-success">
+											Submit
+										</button>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>

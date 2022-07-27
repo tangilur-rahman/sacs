@@ -1,6 +1,6 @@
 .signup-container .right .role-container {
 	position: relative;
-	width: 208px;
+	width: 48%;
 	margin: -5px 0 0 0;
 }
 
@@ -38,7 +38,7 @@
 
 .signup-container .right .role-container input::placeholder {
 	padding-left: 10px;
-	color: black;
+	color: #757575;
 	font-weight: 500;
 }
 
@@ -55,7 +55,7 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 1;
+	z-index: 10;
 	font-weight: 500;
 }
 

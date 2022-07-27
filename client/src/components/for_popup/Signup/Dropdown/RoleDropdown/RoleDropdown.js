@@ -4,8 +4,7 @@ import React, { useState } from "react";
 // internal components
 import "./RoleDropdown.css";
 
-const RoleDropdown = () => {
-	const [getRole, setGetRole] = useState("");
+const RoleDropdown = ({ getRole, setGetRole }) => {
 	const [roleDrop, setRoleDrop] = useState(false);
 
 	return (

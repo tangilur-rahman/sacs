@@ -1,6 +1,6 @@
 .signup-container .right .year-container {
+	display: inline-block;
 	position: relative;
-	width: 208px;
 	margin: -5px 0 0 0;
 }
 
@@ -22,6 +22,11 @@
 }
 
 /* year-picker modify start  */
+
+.year-container .picker-panel {
+	z-index: 10;
+}
+
 .year-container .year-wrapper:hover {
 	background-color: #ade8f4 !important;
 	border-radius: 10px;

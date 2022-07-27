@@ -11,6 +11,7 @@
 
 .dashboard-main-container #blur {
 	filter: blur(1.5px);
+	background-color: #e9ecef;
 }
 
 .dashboard-container .left {
