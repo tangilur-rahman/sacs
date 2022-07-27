@@ -1,6 +1,7 @@
 .signup-container .right .role-container {
 	position: relative;
-	width: 48%;
+	max-width: 48%;
+	min-width: 208px;
 	margin: -5px 0 0 0;
 }
 

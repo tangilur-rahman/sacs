@@ -16,7 +16,7 @@ const Signup = () => {
 	const { signupT, setSignupT } = GetContextApi();
 
 	// get user role
-	const [getRole, setGetRole] = useState("");
+	const [getRole, setGetRole] = useState("Administrator");
 
 	// for outside-click close start
 	const myRef = useRef();
@@ -105,30 +105,38 @@ const Signup = () => {
 								</div>
 
 								{/* dropdown start  */}
-								<div className="group">
-									<RoleDropdown getRole={getRole} setGetRole={setGetRole} />
-									<DepartDropdown />
-								</div>
-
-								<div className="group">
-									<GroupDropdown />
-									<SemesterDropDown />
-								</div>
-
-								<div className="signup-footer">
-									<div className="year">
-										<span>Year :</span>
-										<YearDropdown />
+								<div
+									className={getRole === "Administrator" && "for-admin-role"}
+								>
+									<div className="group">
+										<RoleDropdown getRole={getRole} setGetRole={setGetRole} />
+										{getRole !== "Administrator" && <DepartDropdown />}
 									</div>
 
-									<div className="button-container">
-										<button type="button" class="btn btn-danger">
-											Cancel
-										</button>
+									{getRole !== "Administrator" && (
+										<div className="group">
+											<GroupDropdown />
+											<SemesterDropDown />
+										</div>
+									)}
 
-										<button type="button" class="btn btn-success">
-											Submit
-										</button>
+									<div className="signup-footer">
+										{getRole !== "Administrator" && (
+											<div className="year">
+												<span>Year :</span>
+												<YearDropdown />
+											</div>
+										)}
+
+										<div className="button-container">
+											<button type="button" class="btn btn-danger">
+												Cancel
+											</button>
+
+											<button type="button" class="btn btn-success">
+												Submit
+											</button>
+										</div>
 									</div>
 								</div>
 							</form>

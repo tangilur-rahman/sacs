@@ -7,6 +7,16 @@ import "./RoleDropdown.css";
 const RoleDropdown = ({ getRole, setGetRole }) => {
 	const [roleDrop, setRoleDrop] = useState(false);
 
+	const displayRole = () => {
+		if (getRole === "Administrator") {
+			return "🏫  Administrator";
+		} else if (getRole === "Instructor") {
+			return "🤵  Instructor";
+		} else {
+			return "👨‍🎓  Student";
+		}
+	};
+
 	return (
 		<>
 			<div
@@ -17,17 +27,17 @@ const RoleDropdown = ({ getRole, setGetRole }) => {
 					type="text"
 					placeholder="Select Role"
 					readOnly
-					value={getRole}
+					value={displayRole()}
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setGetRole("🏫  Administrator")}>
+					<div onClick={() => setGetRole("Administrator")}>
 						<span>🏫 &nbsp;Administrator</span>
 					</div>
-					<div onClick={() => setGetRole("🤵  Instructor")}>
+					<div onClick={() => setGetRole("Instructor")}>
 						<span>🤵 &nbsp;Instructor</span>
 					</div>
-					<div onClick={() => setGetRole("👨‍🎓  Student")}>
+					<div onClick={() => setGetRole("Student")}>
 						<span>👨‍🎓 &nbsp;Student</span>
 					</div>
 				</div>

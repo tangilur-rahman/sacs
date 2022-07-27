@@ -43,6 +43,11 @@
 	font-weight: 500;
 }
 
+.signup-container .right form .for-admin-role {
+	display: flex;
+	justify-content: space-between;
+}
+
 .signup-container .right form .group {
 	display: flex;
 	justify-content: space-between;
