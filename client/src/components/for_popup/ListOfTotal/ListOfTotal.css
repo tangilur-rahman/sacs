@@ -3,5 +3,14 @@
 	z-index: 10;
 }
 
-.total-container {
+.total-main-container .total-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.total-wrapper .total-container {
+	height: max-content;
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	border-radius: var(--card-border-radius);
 }

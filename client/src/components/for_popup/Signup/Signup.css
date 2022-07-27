@@ -8,12 +8,11 @@
 	justify-content: center;
 }
 
-.signup-container {
+.signup-wrapper .signup-container {
 	height: max-content;
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
-	z-index: 10;
 }
 
 .signup-container .left {
