@@ -22,7 +22,11 @@ const Middle = () => {
 				d_user.map((value, index) => {
 					return (
 						<div className="user" key={index}>
-							<img src={value.img} alt="profile-img" className="profile-img" />
+							<img
+								src={value.img}
+								alt="profile-img"
+								className="profile-img img-fluid"
+							/>
 
 							<section>
 								<div className="above">

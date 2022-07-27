@@ -1,12 +1,16 @@
 .dashboard-main-container {
 	display: flex;
 	justify-content: center;
-	margin-top: 15px;
+	margin: 15px 0 0 0;
 }
 
-.dashboard-container {
+.dashboard-main-container .dashboard-container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+}
+
+.dashboard-main-container #blur {
+	filter: blur(1.5px);
 }
 
 .dashboard-container .left {

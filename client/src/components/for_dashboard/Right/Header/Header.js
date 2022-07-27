@@ -5,7 +5,11 @@ const Header = () => {
 		<>
 			<div className="header-container">
 				<div className="selected-user">
-					<img src="/assets/profile/tangil.png" alt="profile-img" />
+					<img
+						src="/assets/profile/tangil.png"
+						alt="profile-img"
+						className="img-fluid"
+					/>
 					<h6>Tangilur Rahman</h6>
 				</div>
 

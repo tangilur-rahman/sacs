@@ -1,13 +1,21 @@
 import "./Navbar.css";
 
+import { GetContextApi } from "./../../ContextApi";
+
 const Navbar = () => {
+	const { signupT, setSignupT } = GetContextApi();
+
 	return (
 		<>
 			<div className="container-fluid navbar-main-container">
 				<div className="row col-11 navbar-container">
 					<div className="col-2 p-0">
 						<div className="left">
-							<img src="/assets/logo/university-logo.png" alt="logo" />
+							<img
+								src="/assets/logo/university-logo.png"
+								alt="logo"
+								className="img-fluid"
+							/>
 							<h2>SACS</h2>
 						</div>
 					</div>
@@ -27,7 +35,7 @@ const Navbar = () => {
 					<div className="col-3 p-0">
 						<div className="right">
 							<div className="icon-style">
-								<span>
+								<span onClick={() => setSignupT(!signupT)}>
 									<i className="bi bi-plus-circle-dotted"></i>
 								</span>
 
@@ -43,7 +51,7 @@ const Navbar = () => {
 							<img
 								src="/assets/profile/tangil.png"
 								alt="profile img"
-								className="profile-img"
+								className="profile-img img-fluid"
 							/>
 						</div>
 					</div>

@@ -12,6 +12,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-textarea-autosize": "^8.3.4",
+    "react-year-picker": "^0.3.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,0 +1,49 @@
+.signup-container .right .year-container {
+	position: relative;
+	width: 208px;
+	margin: -5px 0 0 0;
+}
+
+.signup-container .right .year-container input {
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
+	padding: 7px 14px;
+	border-radius: 5px;
+	font-weight: 600;
+	font-size: 18px;
+	width: 100%;
+}
+
+.signup-container .right .year-container input:focus {
+	outline: 4px solid #c2daff;
+}
+
+/* year-picker modify start  */
+.year-container .year-wrapper:hover {
+	background-color: #ade8f4 !important;
+	border-radius: 10px;
+}
+
+.year-container .year-wrapper a {
+	color: black;
+	text-decoration: none;
+}
+
+.year-container .year-wrapper .selected-year {
+	width: 95%;
+	color: #fff;
+}
+
+.year-container .footer-today {
+	font-weight: 600;
+	color: #008000;
+	text-decoration: none;
+}
+
+.year-container .input-icon {
+	right: 7px;
+}
+/* year-picker modify end  */

@@ -34,7 +34,7 @@ const Left = () => {
 				<img
 					src={d_current_user.img}
 					alt="profile-img"
-					className="profile-img"
+					className="profile-img img-fluid"
 				/>
 				<div className="info">
 					<h4>{d_current_user.name}</h4>

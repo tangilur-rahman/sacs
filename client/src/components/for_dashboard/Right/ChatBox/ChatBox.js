@@ -20,7 +20,7 @@ const ChatBox = () => {
 								<img
 									src={message.img}
 									alt="profile-img"
-									className="profile-img"
+									className="profile-img img-fluid"
 								/>
 
 								<div className="message">
