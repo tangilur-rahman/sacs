@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { GetContextApi } from "./../../ContextApi";
 
 const Navbar = () => {
-	const { signupT, setSignupT } = GetContextApi();
+	const { signupT, setSignupT, setTotalT } = GetContextApi();
 
 	return (
 		<>
@@ -22,11 +22,17 @@ const Navbar = () => {
 
 					<div className="col-7 p-0">
 						<div className="middle">
-							<div className="total">
+							<div
+								className="total"
+								onClick={() => setTotalT("List Of Instructors")}
+							>
 								Total Instructors : &nbsp; <span>10</span>
 							</div>
 
-							<div className="total">
+							<div
+								className="total"
+								onClick={() => setTotalT("List Of Students")}
+							>
 								Total Students : &nbsp; <span>100</span>
 							</div>
 						</div>

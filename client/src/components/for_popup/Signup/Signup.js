@@ -37,109 +37,118 @@ const Signup = () => {
 	return (
 		<>
 			{signupT && (
-				<div ref={myRef} className="container-fluid signup-container p-0">
-					<div className="row">
-						<div className="col-6 left">
-							<img
-								src="/assets/images/sign-up-img.png"
-								alt="cover-img"
-								className="img-fluid"
-							/>
-						</div>
-						<div className="col-6 right">
-							<h2>Register New User</h2>
-							<form>
-								<div className="form-floating mb-3">
-									<input
-										type="text"
-										className="form-control"
-										id="name"
-										placeholder="Enter your name..."
-										required
+				<div ref={myRef} className="container-fluid  p-0 signup-main-container">
+					<div className="row m-0">
+						<div className="col-9 p-0 signup-container">
+							<div className="row m-0 ">
+								<div className="col-6 p-0 left">
+									<img
+										src="/assets/images/sign-up-img.png"
+										alt="cover-img"
+										className="img-fluid"
 									/>
-									<label htmlFor="name">Name : </label>
 								</div>
-
-								<div className="form-floating mb-3">
-									<input
-										type="number"
-										className="form-control"
-										id="id"
-										placeholder="Enter your id..."
-										required
-									/>
-									<label htmlFor="id">ID : </label>
-								</div>
-
-								<div className="form-floating mb-3">
-									<input
-										type="email"
-										className="form-control"
-										id="email"
-										placeholder="Enter your email..."
-										required
-									/>
-									<label htmlFor="email">Email : </label>
-								</div>
-
-								<div className="form-floating mb-3">
-									<input
-										type="password"
-										className="form-control"
-										id="password"
-										placeholder="Enter your password..."
-										required
-									/>
-									<label htmlFor="password">Password : </label>
-								</div>
-
-								<div className="form-floating mb-3">
-									<input
-										type="password"
-										className="form-control"
-										id="c_password"
-										placeholder="Enter your password..."
-										required
-									/>
-									<label htmlFor="c_password">Conform Password : </label>
-								</div>
-
-								{/* dropdown start  */}
-								<div
-									className={getRole === "Administrator" && "for-admin-role"}
-								>
-									<div className="group">
-										<RoleDropdown getRole={getRole} setGetRole={setGetRole} />
-										{getRole !== "Administrator" && <DepartDropdown />}
-									</div>
-
-									{getRole !== "Administrator" && (
-										<div className="group">
-											<GroupDropdown />
-											<SemesterDropDown />
+								<div className="col-6 p-0 right">
+									<h2>Register New User</h2>
+									<form>
+										<div className="form-floating mb-3">
+											<input
+												type="text"
+												className="form-control"
+												id="name"
+												placeholder="Enter your name..."
+												required
+											/>
+											<label htmlFor="name">Name : </label>
 										</div>
-									)}
 
-									<div className="signup-footer">
-										{getRole !== "Administrator" && (
-											<div className="year">
-												<span>Year :</span>
-												<YearDropdown />
+										<div className="form-floating mb-3">
+											<input
+												type="number"
+												className="form-control"
+												id="id"
+												placeholder="Enter your id..."
+												required
+											/>
+											<label htmlFor="id">ID : </label>
+										</div>
+
+										<div className="form-floating mb-3">
+											<input
+												type="email"
+												className="form-control"
+												id="email"
+												placeholder="Enter your email..."
+												required
+											/>
+											<label htmlFor="email">Email : </label>
+										</div>
+
+										<div className="form-floating mb-3">
+											<input
+												type="password"
+												className="form-control"
+												id="password"
+												placeholder="Enter your password..."
+												required
+											/>
+											<label htmlFor="password">Password : </label>
+										</div>
+
+										<div className="form-floating mb-3">
+											<input
+												type="password"
+												className="form-control"
+												id="c_password"
+												placeholder="Enter your password..."
+												required
+											/>
+											<label htmlFor="c_password">Conform Password : </label>
+										</div>
+
+										{/* dropdown start  */}
+										<div
+											className={
+												getRole === "Administrator" && "for-admin-role"
+											}
+										>
+											<div className="group">
+												<RoleDropdown
+													getRole={getRole}
+													setGetRole={setGetRole}
+												/>
+												{getRole !== "Administrator" && <DepartDropdown />}
 											</div>
-										)}
 
-										<div className="btn-container">
-											<button type="button" className="btn btn-danger">
-												Cancel
-											</button>
+											{getRole !== "Administrator" && (
+												<div className="group">
+													<GroupDropdown />
+													<SemesterDropDown />
+												</div>
+											)}
 
-											<button type="button" className="btn btn-success">
-												Submit
-											</button>
+											<div className="signup-footer">
+												{getRole !== "Administrator" && (
+													<div className="year">
+														<span>Year :</span>
+														<YearDropdown />
+													</div>
+												)}
+
+												<div className="btn-container">
+													<button type="button" className="btn btn-danger">
+														Cancel
+													</button>
+
+													<button type="button" className="btn btn-success">
+														Submit
+													</button>
+												</div>
+											</div>
 										</div>
-									</div>
+									</form>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>

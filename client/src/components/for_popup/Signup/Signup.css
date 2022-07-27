@@ -1,8 +1,9 @@
-.signup-container {
-	display: flex;
-	flex-direction: column;
+.signup-main-container {
 	position: absolute;
-	width: 70%;
+	z-index: 10;
+}
+
+.signup-container {
 	height: max-content;
 	margin: auto;
 	background-color: white;
@@ -23,11 +24,6 @@
 }
 
 /* right section start  */
-.signup-container .right {
-	display: flex;
-	flex-direction: column;
-}
-
 .signup-container .right h2 {
 	color: var(--project-name-color);
 	margin: 0;

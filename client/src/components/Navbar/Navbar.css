@@ -53,6 +53,7 @@
 	font-size: 17px;
 	border-radius: 7px;
 	box-shadow: var(--box-shadow);
+	cursor: pointer;
 }
 
 .navbar-container .middle .total:first-child {
