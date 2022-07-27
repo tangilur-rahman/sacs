@@ -19,7 +19,7 @@
 
 .login-container .form-container .right h2 {
 	color: var(--project-name-color);
-	margin: 0;
+	margin: 35px 0 0 0;
 	padding: 15px 0px 10px 0;
 	text-align: center;
 	font-weight: 600;

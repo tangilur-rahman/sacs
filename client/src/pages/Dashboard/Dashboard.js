@@ -7,6 +7,7 @@ import "./Dashboard.css";
 
 import { GetContextApi } from "./../../ContextApi";
 import Signup from "../../components/for_popup/Signup/Signup";
+import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
 
 const Dashboard = () => {
 	const { signupT } = GetContextApi();
@@ -34,6 +35,7 @@ const Dashboard = () => {
 					</div>
 				</div>
 				<Signup />
+				<ListOfTotal />
 			</div>
 		</>
 	);
