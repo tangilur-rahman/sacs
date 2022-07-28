@@ -1,4 +1,4 @@
-const userModel = require("./../Models/userModel");
+const userModel = require("./../models/userModel");
 const bcrypt = require("bcrypt");
 
 //  "/register"
@@ -76,12 +76,12 @@ const createNewUser = async (req, res) => {
 										.status(200)
 										.json({ message: "Add new user successfully" });
 								} else {
-									res.status(422).json({ error: "Fill-up all fields" });
+									res.status(422).json({ error: "Fill-up all fields!" });
 								}
 							}
 						}
 					} else {
-						res.status(401).json({ error: "Password Didn't Match 😣" });
+						res.status(401).json({ error: "Password didn't match 😣" });
 					}
 				}
 			}
@@ -89,7 +89,7 @@ const createNewUser = async (req, res) => {
 			res.status(500).json({ error: error.message });
 		}
 	} else {
-		res.status(422).json({ error: "Fill-up all fields" });
+		res.status(422).json({ error: "Fill-up all fields!" });
 	}
 };
 

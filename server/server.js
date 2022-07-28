@@ -11,6 +11,7 @@ require("./Config/ConnectMongoDB");
 
 // internal modules
 const registerRouter = require("./router/registerRouter");
+const loginRouter = require("./router/loginRouter");
 const customErrorHandler = require("./middleware/errorHandler");
 
 // application-level middleware
@@ -19,6 +20,7 @@ app.use(cookie());
 
 // router
 app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 
 // error handler
 app.use(customErrorHandler);

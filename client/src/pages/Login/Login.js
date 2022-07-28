@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // react-toastify
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // internal components
@@ -55,14 +55,20 @@ const Login = () => {
 					autoClose: 3000
 				});
 			} else {
-				toast.success("Login Successfully ❤️", {
+				toast.success(result.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2000
 				});
 				setTimeout(() => {
-					return Navigate("/");
+					return Navigate("/dashboard");
 				}, 3000);
+
+				// for clear fields
+				setUser({
+					id_or_email: "",
+					password: ""
+				});
 			}
 		} catch (error) {
 			toast.error(error.message, {
@@ -70,11 +76,6 @@ const Login = () => {
 				theme: "colored"
 			});
 		}
-
-		setUser({
-			id_or_email: "",
-			password: ""
-		});
 	};
 
 	return (
@@ -130,6 +131,7 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
+				<ToastContainer />
 			</div>
 		</>
 	);

@@ -70,7 +70,16 @@ const schema = mongoose.Schema(
 		year: {
 			type: String,
 			trim: true
-		}
+		},
+		tokens: [
+			{
+				token: {
+					type: String,
+					unique: true,
+					required: true
+				}
+			}
+		]
 	},
 	{ timestamps: true }
 );
