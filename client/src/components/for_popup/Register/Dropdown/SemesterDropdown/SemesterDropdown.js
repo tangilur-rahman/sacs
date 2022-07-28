@@ -4,8 +4,7 @@ import React, { useState } from "react";
 // internal components
 import "./SemesterDropdown.css";
 
-const SemesterDropDown = () => {
-	const [getSemester, setGetSemester] = useState("");
+const SemesterDropDown = ({ getSemester, setGetSemester }) => {
 	const [semesterDrop, setSemesterDrop] = useState(false);
 	return (
 		<>

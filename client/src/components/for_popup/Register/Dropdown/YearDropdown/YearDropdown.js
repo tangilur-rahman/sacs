@@ -5,9 +5,7 @@ import YearPicker from "react-year-picker";
 // internal components
 import "./YearDropdown.css";
 
-const YearDropdown = () => {
-	const [year, setYear] = useState("");
-
+const YearDropdown = ({ setYear }) => {
 	return (
 		<>
 			<div className="year-container">

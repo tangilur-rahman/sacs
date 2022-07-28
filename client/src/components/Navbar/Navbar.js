@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { GetContextApi } from "./../../ContextApi";
 
 const Navbar = () => {
-	const { signupT, setSignupT, setTotalT } = GetContextApi();
+	const { registerT, setRegisterT, setTotalT } = GetContextApi();
 
 	return (
 		<>
@@ -41,7 +41,7 @@ const Navbar = () => {
 					<div className="col-3 p-0">
 						<div className="right">
 							<div className="icon-style">
-								<span onClick={() => setSignupT(!signupT)}>
+								<span onClick={() => setRegisterT(!registerT)}>
 									<i className="bi bi-plus-circle-dotted"></i>
 								</span>
 

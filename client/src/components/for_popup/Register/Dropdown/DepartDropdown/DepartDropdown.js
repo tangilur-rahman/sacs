@@ -4,8 +4,7 @@ import React, { useState } from "react";
 // internal components
 import "./DepartDropdown.css";
 
-const DepartDropdown = () => {
-	const [getDepart, setGetDepart] = useState("");
+const DepartDropdown = ({ getDepart, setGetDepart }) => {
 	const [departDrop, setDepartDrop] = useState(false);
 
 	const displayDepartment = () => {

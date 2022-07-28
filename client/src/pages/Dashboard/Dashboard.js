@@ -6,11 +6,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import "./Dashboard.css";
 
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
-import Signup from "../../components/for_popup/Signup/Signup";
+import Register from "../../components/for_popup/Register/Register";
 import { GetContextApi } from "./../../ContextApi";
 
 const Dashboard = () => {
-	const { signupT, totalT } = GetContextApi();
+	const { registerT, totalT } = GetContextApi();
 
 	return (
 		<>
@@ -19,7 +19,7 @@ const Dashboard = () => {
 			<div className="container-fluid p-0 dashboard-main-container ">
 				<div
 					className="row dashboard-container"
-					id={signupT || totalT ? "blur" : null}
+					id={registerT || totalT ? "blur" : null}
 				>
 					<div className="col-11">
 						<div className="row">
@@ -37,7 +37,7 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
-				<Signup />
+				<Register />
 				<ListOfTotal />
 			</div>
 		</>

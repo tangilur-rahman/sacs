@@ -4,8 +4,7 @@ import React, { useState } from "react";
 // internal components
 import "./GroupDropdown.css";
 
-const GroupDropdown = () => {
-	const [getGroup, setGetGroup] = useState("");
+const GroupDropdown = ({ getGroup, setGetGroup }) => {
 	const [groupDrop, setGroupDrop] = useState(false);
 	return (
 		<>

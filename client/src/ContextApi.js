@@ -4,13 +4,15 @@ import { createContext, useContext, useState } from "react";
 const rootContext = createContext(null);
 
 const ContextHandler = ({ children }) => {
-	const [signupT, setSignupT] = useState(false);
+	const [registerT, setRegisterT] = useState(false);
 
 	const [totalT, setTotalT] = useState("");
 
 	return (
 		<>
-			<rootContext.Provider value={{ signupT, setSignupT, totalT, setTotalT }}>
+			<rootContext.Provider
+				value={{ registerT, setRegisterT, totalT, setTotalT }}
+			>
 				{children}
 			</rootContext.Provider>
 		</>
