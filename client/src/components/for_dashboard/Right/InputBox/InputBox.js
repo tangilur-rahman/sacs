@@ -122,7 +122,7 @@ const InputBox = () => {
 					</span>
 				</div>
 				<button
-					className={input ? "btn-active hover" : "btn-active btn-inactive"}
+					className={input ? "btn-active active" : "btn-active btn-inactive"}
 				>
 					Send
 				</button>

@@ -14,3 +14,128 @@
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
 }
+
+.total-wrapper .total-container h2 {
+	color: var(--project-name-color);
+	margin: 0;
+	padding: 20px 0px;
+	text-align: center;
+	font-weight: 600;
+	letter-spacing: 1px;
+	word-spacing: 10px;
+}
+
+/* table style start  */
+.total-wrapper .total-container table thead {
+	background-color: #470a77;
+	color: white;
+}
+
+.total-container table thead tr th {
+	border-right: 0.5px solid #dee2e6;
+	text-align: center;
+	cursor: pointer;
+}
+
+.total-container table thead tr th:hover {
+	background-color: var(--project-name-color);
+	transition: all 0.5s;
+}
+
+.total-container table tbody #profile-img {
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	min-height: 50px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* table's row style start  */
+.total-container table tbody tr {
+	cursor: pointer;
+}
+.total-container table tbody input {
+	border: none;
+	outline: none;
+	font-weight: 500;
+	margin: 3px 0 0 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.total-container table tbody input.bg-remove {
+	background-color: transparent;
+}
+
+.total-container table #name {
+	display: flex;
+	align-items: center;
+}
+
+.total-container table #name input {
+	margin: 0px 0px 0 6px;
+	width: 160px;
+}
+
+.total-container table #id input {
+	width: 100px;
+}
+
+.total-container table #email input {
+	width: initial;
+}
+
+.total-container table #department input {
+	width: 101px;
+}
+
+.total-container table #semester input {
+	width: 79px;
+}
+
+.total-container table #year input {
+	width: 43px;
+}
+
+.total-container table #group input {
+	width: 52px;
+}
+
+.total-container table #join-date input {
+	width: 100px;
+}
+
+.total-container table #update-date input {
+	width: 100px;
+}
+
+.total-container table .modify {
+	display: flex;
+	justify-content: space-between;
+	margin: 12px 0 0 0;
+}
+
+.total-container table .modify i {
+	font-size: 20px;
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+.total-container table .modify i:active {
+	transform: scale(0.9);
+}
+.total-container table .modify span:first-child {
+	margin-right: 10px;
+	color: #0ead69;
+}
+
+.total-container table .modify span:last-child {
+	color: red;
+}

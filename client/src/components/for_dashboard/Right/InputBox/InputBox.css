@@ -215,9 +215,8 @@
 	font-size: 19px;
 }
 
-.right .input-box-container button.hover:hover {
-	transform: scale(0.95);
-	transition: all 0.1s;
+.right .input-box-container button.active:active {
+	transform: scale(0.97);
 }
 
 .right .input-box-container button.btn-inactive {

@@ -5,19 +5,22 @@ import Right from "../../components/for_dashboard/Right/Right";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Dashboard.css";
 
-import { GetContextApi } from "./../../ContextApi";
-import Signup from "../../components/for_popup/Signup/Signup";
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
+import Signup from "../../components/for_popup/Signup/Signup";
+import { GetContextApi } from "./../../ContextApi";
 
 const Dashboard = () => {
-	const { signupT } = GetContextApi();
+	const { signupT, totalT } = GetContextApi();
 
 	return (
 		<>
 			<Navbar />
 
 			<div className="container-fluid p-0 dashboard-main-container ">
-				<div className="row dashboard-container" id={signupT ? "blur" : null}>
+				<div
+					className="row dashboard-container"
+					id={signupT || totalT ? "blur" : null}
+				>
 					<div className="col-11">
 						<div className="row">
 							<div className="col-3 p-0 left">
