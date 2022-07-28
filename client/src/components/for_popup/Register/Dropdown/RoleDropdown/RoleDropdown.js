@@ -12,7 +12,7 @@ const RoleDropdown = ({ getRole, setGetRole }) => {
 			return "🏫  Administrator";
 		} else if (getRole === "Instructor") {
 			return "🤵  Instructor";
-		} else {
+		} else if (getRole === "Student") {
 			return "👨‍🎓  Student";
 		}
 	};

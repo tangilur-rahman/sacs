@@ -19,7 +19,7 @@ const Register = () => {
 	const { registerT, setRegisterT } = GetContextApi();
 
 	// get dropdown section values
-	const [getRole, setGetRole] = useState("Administrator");
+	const [getRole, setGetRole] = useState(null);
 	const [getDepart, setGetDepart] = useState("");
 	const [getGroup, setGetGroup] = useState("");
 	const [getSemester, setGetSemester] = useState("");
@@ -78,20 +78,33 @@ const Register = () => {
 				toast.warn(result.error, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 5000
+					autoClose: 3000
 				});
 			} else {
 				toast.success(result.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 5000
+					autoClose: 3000
+				});
+
+				setUser({
+					name: "",
+					id: "",
+					email: "",
+					password: "",
+					c_password: "",
+					role: "",
+					department: "",
+					group: "",
+					semester: "",
+					year: ""
 				});
 			}
 		} catch (error) {
 			toast.error(error.message, {
 				position: "top-right",
 				theme: "colored",
-				autoClose: 5000
+				autoClose: 3000
 			});
 		}
 	};
@@ -137,6 +150,7 @@ const Register = () => {
 												name="name"
 												placeholder="Enter your name..."
 												required
+												value={name}
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="name">Name : </label>
@@ -150,6 +164,7 @@ const Register = () => {
 												name="id"
 												placeholder="Enter your id..."
 												required
+												value={id}
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="id">ID : </label>
@@ -163,6 +178,7 @@ const Register = () => {
 												name="email"
 												placeholder="Enter your email..."
 												required
+												value={email}
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="email">Email : </label>
@@ -176,6 +192,7 @@ const Register = () => {
 												name="password"
 												placeholder="Enter your password..."
 												required
+												value={password}
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="password">Password : </label>
@@ -189,6 +206,7 @@ const Register = () => {
 												name="c_password"
 												placeholder="Enter your password..."
 												required
+												value={c_password}
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="c_password">Conform Password : </label>
@@ -205,7 +223,8 @@ const Register = () => {
 													getRole={getRole}
 													setGetRole={setGetRole}
 												/>
-												{getRole !== "Administrator" && (
+
+												{getRole !== "Administrator" && getRole !== null && (
 													<DepartDropdown
 														getDepart={getDepart}
 														setGetDepart={setGetDepart}
@@ -213,7 +232,7 @@ const Register = () => {
 												)}
 											</div>
 
-											{getRole !== "Administrator" && (
+											{getRole !== "Administrator" && getRole !== null && (
 												<div className="group">
 													<GroupDropdown
 														getGroup={getGroup}
@@ -227,7 +246,7 @@ const Register = () => {
 											)}
 
 											<div className="signup-footer">
-												{getRole !== "Administrator" && (
+												{getRole !== "Administrator" && getRole !== null && (
 													<div className="year">
 														<span>Year :</span>
 														<YearDropdown setYear={setYear} />

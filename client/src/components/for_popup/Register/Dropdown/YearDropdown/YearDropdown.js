@@ -1,5 +1,4 @@
 // external components
-import { useState } from "react";
 import YearPicker from "react-year-picker";
 
 // internal components
