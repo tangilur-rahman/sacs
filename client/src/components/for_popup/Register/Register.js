@@ -246,7 +246,7 @@ const Register = () => {
 													<button
 														type="button"
 														className="btn btn-success"
-														onSubmit={submitHandle}
+														onClick={submitHandle}
 													>
 														Submit
 													</button>

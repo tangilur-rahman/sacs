@@ -1,18 +1,24 @@
 // external modules
 const express = require("express");
+const cookie = require("cookie-parser");
 require("dotenv").config();
-
-// internal modules
-const customErrorHandler = require("./middleware/errorHandler");
 
 // express server
 const app = express();
 
+// connection with mongodb
+require("./Config/ConnectMongoDB");
+
+// internal modules
+const registerRouter = require("./router/registerRouter");
+const customErrorHandler = require("./middleware/errorHandler");
+
 // application-level middleware
 app.use(express.json());
+app.use(cookie());
 
 // router
-
+app.use("/register", registerRouter);
 
 // error handler
 app.use(customErrorHandler);
@@ -21,5 +27,5 @@ app.use(customErrorHandler);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-   console.log(`Server is running at http://localhost:${port}`)
-})
+	console.log(`Server is running at http://localhost:${port}`);
+});

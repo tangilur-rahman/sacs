@@ -1,11 +1,13 @@
 // external components
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// internal components
 import "./App.css";
 
 // pages
+import Error from "./components/Error/Error";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
-import Error from "./components/Error/Error";
 
 const App = () => {
 	return (
