@@ -1,82 +1,52 @@
 //external components
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // internal components
 import "./LeftSidebar.css";
+import WhenAdministrator from "./WhenAdministrator/WhenAdministrator";
+import WhenInstructor from "./WhenInstructor/WhenInstructor";
+import WhenStudent from "./WhenStudent/WhenStudent";
 
-const LeftSidebar = ({ currentUser }) => {
-	const [administrator, setAdministrator] = useState(true);
-	const [instructor, setInstructor] = useState(false);
-	const [student, setStudent] = useState(false);
-
+const LeftSidebar = ({ currentUser, selected, setSelected }) => {
+	// for set initial-value
 	useEffect(() => {
 		if (currentUser.role === "Administrator") {
-			setInstructor(true);
+			setSelected("");
+		} else if (currentUser.role === "Instructor") {
+			setSelected("");
+		} else if (currentUser.role === "Student") {
+			setSelected("dashboard");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const administrator_handler = () => {
-		setAdministrator(true);
-		setInstructor(false);
-		setStudent(false);
-	};
-
-	const instructor_handler = () => {
-		setAdministrator(false);
-		setInstructor(true);
-		setStudent(false);
-	};
-
-	const student_handler = () => {
-		setAdministrator(false);
-		setInstructor(false);
-		setStudent(true);
-	};
+	}, [currentUser]);
 
 	return (
 		<>
 			<div className="current-user">
 				<img
-					src={currentUser.profile_img}
+					src="/assets/profile/tangil.png"
 					alt="profile-img"
-					className="profile-img img-fluid"
+					className="img-fluid"
 				/>
 				<div className="info">
-					<h4>{currentUser.name}</h4>
-					<h6>role :</h6> <span>{currentUser.role}</span>
+					<h4>{"Tangilur Rahman"}</h4>
+					<div>
+						<h6>ID :</h6> <span>{currentUser.id}</span>{" "}
+					</div>
 				</div>
 			</div>
 
-			<div className="other-user">
-				{currentUser.role !== "Administrator" && (
-					<span
-						onClick={administrator_handler}
-						className={administrator ? "administrator-active" : null}
-					>
-						<i className="fa-solid fa-building-columns"></i>
-						<h5>Administrator</h5>
-					</span>
+			<div className="tab-container">
+				{currentUser.role === "Administrator" && (
+					<WhenAdministrator selected={selected} setSelected={setSelected} />
 				)}
 
-				{currentUser.role !== "Instructor" && (
-					<span
-						onClick={instructor_handler}
-						className={instructor ? "instructor-active" : null}
-					>
-						<i className="fa-solid fa-user-tie"></i>
-						<h5>Instructor</h5>
-					</span>
+				{currentUser.role === "Instructor" && (
+					<WhenInstructor selected={selected} setSelected={setSelected} />
 				)}
 
-				{currentUser.role !== "Student" && (
-					<span
-						onClick={student_handler}
-						className={student ? "student-active" : null}
-					>
-						<i className="bi bi-person-workspace"></i>
-						<h5>Students</h5>
-					</span>
+				{currentUser.role === "Student" && (
+					<WhenStudent selected={selected} setSelected={setSelected} />
 				)}
 			</div>
 		</>

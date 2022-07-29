@@ -24,6 +24,9 @@ const Homepage = () => {
 	const [registerT, setRegisterT] = useState(false);
 	const [totalT, setTotalT] = useState(false);
 
+	// for get selected left-sidebar
+	const [selected, setSelected] = useState("");
+
 	// for get current user
 	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
 
@@ -65,10 +68,14 @@ const Homepage = () => {
 					<div className="col-11 p-0 ">
 						<div className="row m-0 ">
 							<div className="col-3 p-0 left">
-								<LeftSidebar currentUser={currentUser} />
+								<LeftSidebar
+									currentUser={currentUser}
+									selected={selected}
+									setSelected={setSelected}
+								/>
 							</div>
 
-							<div className="col-8 right">{/* <Outlet /> */}</div>
+							<div className="col-9 right">{/* <Outlet /> */}</div>
 						</div>
 					</div>
 				</div>

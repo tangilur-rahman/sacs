@@ -1,5 +1,8 @@
 .homepage-container .left .current-user {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	background-color: white;
 	padding: 15px 10px;
 	border-radius: var(--card-border-radius);
@@ -7,28 +10,45 @@
 }
 
 .homepage-container .left .current-user img {
-	cursor: pointer;
+	width: 150px;
+	min-width: 150px;
+	height: 150px;
+	min-height: 150px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
+	margin: 10px 0 0 0;
 }
 
 .homepage-container .left .current-user .info {
-	margin: 0 0 0 10px;
-	flex-grow: 1;
+	width: 100%;
+	margin: 10px 0 0 0;
 	overflow: hidden;
 }
 
 .left .current-user .info h4 {
 	margin: 0;
 	text-transform: capitalize;
-	letter-spacing: 1px;
+	letter-spacing: 0.5px;
 	word-spacing: 2px;
 	font-size: 1.4rem;
-	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: var(--selected-chat-color);
+	padding: 0 20px;
+	text-align: center;
 }
 
+.left .current-user .info div {
+	text-align: center;
+	padding: 0 30px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .left .current-user .info h6 {
 	display: inline-block;
 	margin: 0;
@@ -42,15 +62,15 @@
 	font-weight: 500;
 }
 
-.homepage-container .left .other-user {
-	margin-top: 15px;
+.homepage-container .left .tab-container {
+	margin-top: 20px;
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
 	overflow: hidden;
 }
 
-.left .other-user span {
+.left .tab-container span {
 	display: flex;
 	padding: 20.5px 0;
 	align-items: center;
@@ -58,60 +78,17 @@
 	position: relative;
 }
 
-.left .other-user span:hover {
+.left .tab-container span:hover {
 	background-color: var(--hover-bg-color);
 }
 
-.left .other-user span h5 {
+.left .tab-container span h5 {
 	margin: 0 0 0 1.5rem;
 	font-size: 17px;
 }
 
-.left .other-user span i {
+.left .tab-container span i {
 	font-size: 1.3rem;
 	margin: 0 0 0 2rem;
-	opacity: 0.7;
+	opacity: 0.8;
 }
-
-/* active-class style start  */
-.left .other-user .administrator-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-.left .other-user .administrator-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.left .other-user .instructor-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-
-.left .other-user .instructor-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.left .other-user .student-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-
-.left .other-user .student-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-/* active-class style end  */

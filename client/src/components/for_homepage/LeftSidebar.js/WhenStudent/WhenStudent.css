@@ -1,0 +1,51 @@
+.left .tab-container .dashboard-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.left .tab-container .dashboard-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.left .tab-container .group-chat-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.left .tab-container .group-chat-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.left .tab-container .appointment-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.left .tab-container .appointment-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.left .tab-container .instructor-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.left .tab-container .instructor-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
