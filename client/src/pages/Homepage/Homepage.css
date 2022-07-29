@@ -24,4 +24,5 @@
 	box-shadow: var(--box-shadow);
 	position: relative;
 	overflow: hidden;
+	padding: 0;
 }

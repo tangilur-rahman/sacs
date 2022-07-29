@@ -3,7 +3,7 @@
 :root {
 	/* common */
 	--card-border-radius: 10px;
-	--body-bg: hsl(252, 30%, 95%);
+	--body-bg: #f1f4fb;
 	--box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
 
 	/* navbar  */

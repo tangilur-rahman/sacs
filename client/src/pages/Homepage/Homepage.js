@@ -58,7 +58,7 @@ const Homepage = () => {
 
 	// navigate url
 	useEffect(() => {
-		if (selected === "Administrator") {
+		if (selected === "dashboard") {
 			return Navigate("dashboard");
 		} else if (selected === "group-chat") {
 			return Navigate("chat");
