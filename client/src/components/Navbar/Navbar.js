@@ -2,7 +2,7 @@ import "./Navbar.css";
 
 import { GetContextApi } from "./../../ContextApi";
 
-const Navbar = () => {
+const Navbar = ({ currentUser }) => {
 	const { registerT, setRegisterT, setTotalT } = GetContextApi();
 
 	return (
@@ -21,29 +21,33 @@ const Navbar = () => {
 					</div>
 
 					<div className="col-7 p-0">
-						<div className="middle">
-							<div
-								className="total"
-								onClick={() => setTotalT("List Of Instructors")}
-							>
-								Total Instructors : &nbsp; <span>10</span>
-							</div>
+						{currentUser.role === "Administrator" && (
+							<div className="middle">
+								<div
+									className="total"
+									onClick={() => setTotalT("List Of Instructors")}
+								>
+									Total Instructors : &nbsp; <span>10</span>
+								</div>
 
-							<div
-								className="total"
-								onClick={() => setTotalT("List Of Students")}
-							>
-								Total Students : &nbsp; <span>100</span>
+								<div
+									className="total"
+									onClick={() => setTotalT("List Of Students")}
+								>
+									Total Students : &nbsp; <span>100</span>
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 
 					<div className="col-3 p-0">
 						<div className="right">
 							<div className="icon-style">
-								<span onClick={() => setRegisterT(!registerT)}>
-									<i className="bi bi-plus-circle-dotted"></i>
-								</span>
+								{currentUser.role === "Administrator" && (
+									<span onClick={() => setRegisterT(!registerT)}>
+										<i className="bi bi-plus-circle-dotted"></i>
+									</span>
+								)}
 
 								<span>
 									<i className="bi bi-chat-heart"></i>
@@ -55,7 +59,7 @@ const Navbar = () => {
 							</div>
 
 							<img
-								src="/assets/profile/tangil.png"
+								src={currentUser.profile_img}
 								alt="profile img"
 								className="profile-img img-fluid"
 							/>

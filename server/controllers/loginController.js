@@ -8,7 +8,9 @@ const checkLogin = async (req, res) => {
 
 	if (id_or_email && password) {
 		try {
-			const checkExist = await userModel.findOne({ email: id_or_email });
+			const checkExist = await userModel.findOne({
+				$or: [{ email: id_or_email }, { id: id_or_email }]
+			});
 
 			const comparePassword = await bcrypt.compare(
 				password,
@@ -18,7 +20,7 @@ const checkLogin = async (req, res) => {
 			if (comparePassword) {
 				// create token
 				const token = await jwt.sign(
-					{ id: checkExist._id, email: checkExist.email },
+					{ mongodb_id: checkExist._id, id: checkExist.id },
 					process.env.SECRET_KEY,
 					{ expiresIn: "365d" }
 				);
@@ -36,8 +38,7 @@ const checkLogin = async (req, res) => {
 				res.status(400).json({ error: "Authentication Failed!" });
 			}
 		} catch (error) {
-			// res.status(400).json({ error: "Invalid Account!" });
-			res.status(400).json({ error: error.message });
+			res.status(400).json({ error: "Invalid Account!" });
 		}
 	} else {
 		res.status(400).json({ error: "Fill-up all fields!" });
