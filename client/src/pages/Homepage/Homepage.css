@@ -1,0 +1,26 @@
+.homepage-main-container {
+	margin: 20px 0 0 0;
+}
+
+.homepage-main-container .homepage-container {
+	display: flex;
+	justify-content: center;
+	flex-grow: 1;
+}
+
+.homepage-main-container #blur {
+	filter: blur(1.5px);
+	background-color: #e9ecef;
+}
+
+.homepage-container .left {
+	margin-right: 15px;
+}
+
+.homepage-container .right {
+	flex-grow: 1;
+	border-radius: 0 10px 0 0;
+	box-shadow: var(--box-shadow);
+	position: relative;
+	overflow: hidden;
+}

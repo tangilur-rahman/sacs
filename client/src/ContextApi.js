@@ -4,14 +4,18 @@ import { createContext, useContext, useState } from "react";
 const rootContext = createContext(null);
 
 const ContextHandler = ({ children }) => {
-	const [registerT, setRegisterT] = useState(false);
-
-	const [totalT, setTotalT] = useState("");
+	const [currentUser, setCurrentUser] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 
 	return (
 		<>
 			<rootContext.Provider
-				value={{ registerT, setRegisterT, totalT, setTotalT }}
+				value={{
+					currentUser,
+					setCurrentUser,
+					isLoading,
+					setIsLoading
+				}}
 			>
 				{children}
 			</rootContext.Provider>

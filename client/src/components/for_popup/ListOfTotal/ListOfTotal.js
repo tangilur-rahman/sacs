@@ -17,8 +17,6 @@ const ListOfTotal = () => {
 	// fetching from database start
 	const [data, setData] = useState("");
 
-	console.log(totalT === "List Of Instructors");
-
 	const getList = async () => {
 		try {
 			if (totalT === "List Of Instructors") {

@@ -2,7 +2,7 @@
 
 // internal components
 import "./Middle.css";
-import { d_user } from "./../../../dummy_data";
+import { d_user } from "../../../../dummy_data";
 
 const Middle = () => {
 	return (

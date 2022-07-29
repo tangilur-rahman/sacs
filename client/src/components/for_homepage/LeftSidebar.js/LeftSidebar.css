@@ -1,4 +1,4 @@
-.dashboard-container .left .current-user {
+.homepage-container .left .current-user {
 	display: flex;
 	background-color: white;
 	padding: 15px 10px;
@@ -6,11 +6,11 @@
 	box-shadow: var(--box-shadow);
 }
 
-.dashboard-container .left .current-user img {
+.homepage-container .left .current-user img {
 	cursor: pointer;
 }
 
-.dashboard-container .left .current-user .info {
+.homepage-container .left .current-user .info {
 	margin: 0 0 0 10px;
 	flex-grow: 1;
 	overflow: hidden;
@@ -42,7 +42,7 @@
 	font-weight: 500;
 }
 
-.dashboard-container .left .other-user {
+.homepage-container .left .other-user {
 	margin-top: 15px;
 	background-color: white;
 	border-radius: var(--card-border-radius);

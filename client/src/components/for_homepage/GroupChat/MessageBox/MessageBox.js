@@ -2,7 +2,7 @@
 import ChatBox from "./ChatBox/ChatBox";
 import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
-import "./Right.css";
+import "./MessageBox.css";
 
 const Right = () => {
 	return (

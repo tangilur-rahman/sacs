@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 
 // internal components
-import "./Left.css";
+import "./LeftSidebar.css";
 
-const Left = ({ currentUser, check }) => {
+const LeftSidebar = ({ currentUser }) => {
 	const [administrator, setAdministrator] = useState(true);
 	const [instructor, setInstructor] = useState(false);
 	const [student, setStudent] = useState(false);
@@ -14,7 +14,7 @@ const Left = ({ currentUser, check }) => {
 			setInstructor(true);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [check]);
+	}, []);
 
 	const administrator_handler = () => {
 		setAdministrator(true);
@@ -83,4 +83,4 @@ const Left = ({ currentUser, check }) => {
 	);
 };
 
-export default Left;
+export default LeftSidebar;

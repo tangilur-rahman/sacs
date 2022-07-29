@@ -13,7 +13,7 @@ require("./Config/ConnectMongoDB");
 const customErrorHandler = require("./middleware/errorHandler");
 const registerRouter = require("./router/registerRouter");
 const loginRouter = require("./router/loginRouter");
-const dashboardRouter = require("./router/dashboardRouter");
+const userRouter = require("./router/userRouter");
 const instructorRouter = require("./router/instructorListRouter");
 const studentRouter = require("./router/studentListRouter");
 
@@ -22,9 +22,9 @@ app.use(express.json());
 app.use(cookie());
 
 // router
+app.use("/user", userRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
-app.use("/dashboard", dashboardRouter);
 app.use("/instructor-list", instructorRouter);
 app.use("/student-list", studentRouter);
 

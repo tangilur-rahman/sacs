@@ -1,5 +1,5 @@
 // internal components
-import { d_message } from "./../../../../dummy_data";
+import { d_message } from "../../../../../dummy_data";
 import "./ChatBox.css";
 
 const ChatBox = () => {
