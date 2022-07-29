@@ -1,13 +1,11 @@
 import "./WhenStudent.css";
 
 const WhenStudent = ({ selected, setSelected }) => {
-	console.log("i" + selected);
-
 	return (
 		<>
 			<span
 				onClick={() => setSelected("dashboard")}
-				className={selected === "dashboard" && "dashboard-active"}
+				className={selected === "dashboard" ? "dashboard-active" : ""}
 			>
 				<i className="bi bi-journal-medical"></i>
 				<h5>Dashboard</h5>
@@ -15,7 +13,7 @@ const WhenStudent = ({ selected, setSelected }) => {
 
 			<span
 				onClick={() => setSelected("group-chat")}
-				className={selected === "group-chat" && "group-chat-active"}
+				className={selected === "group-chat" ? "group-chat-active" : ""}
 			>
 				<i className="fa-solid fa-comments"></i>
 				<h5>Group Chat</h5>
@@ -23,7 +21,7 @@ const WhenStudent = ({ selected, setSelected }) => {
 
 			<span
 				onClick={() => setSelected("appointment")}
-				className={selected === "appointment" && "appointment-active"}
+				className={selected === "appointment" ? "appointment-active" : ""}
 			>
 				<i className="fa-solid fa-user-tie"></i>
 				<h5>Appointment</h5>
@@ -31,7 +29,7 @@ const WhenStudent = ({ selected, setSelected }) => {
 
 			<span
 				onClick={() => setSelected("instructor")}
-				className={selected === "instructor" && "instructor-active"}
+				className={selected === "instructor" ? "instructor-active" : ""}
 			>
 				<i className="bi bi-calendar2-check"></i>
 				<h5>My Instructor</h5>

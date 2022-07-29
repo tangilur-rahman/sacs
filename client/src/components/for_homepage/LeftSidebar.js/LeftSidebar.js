@@ -31,7 +31,7 @@ const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 				<div className="info">
 					<h4>{"Tangilur Rahman"}</h4>
 					<div>
-						<h6>ID :</h6> <span>{currentUser.id}</span>{" "}
+						<h6>ID :</h6> <span>{currentUser.id}</span>
 					</div>
 				</div>
 			</div>

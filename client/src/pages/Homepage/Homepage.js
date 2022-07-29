@@ -1,6 +1,6 @@
 // external components
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 // react-toastify
 import { toast, ToastContainer } from "react-toastify";
@@ -17,6 +17,8 @@ import { GetContextApi } from "../../ContextApi";
 import Register from "./../../components/for_popup/Register/Register";
 
 const Homepage = () => {
+	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
+
 	// for redirect login-page
 	const Navigate = useNavigate();
 
@@ -28,8 +30,6 @@ const Homepage = () => {
 	const [selected, setSelected] = useState("");
 
 	// for get current user
-	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
-
 	const getCurrentUser = async () => {
 		try {
 			const response = await fetch("/user");
@@ -56,6 +56,20 @@ const Homepage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	// navigate url
+	useEffect(() => {
+		if (selected === "Administrator") {
+			return Navigate("dashboard");
+		} else if (selected === "group-chat") {
+			return Navigate("chat");
+		} else if (selected === "appointment") {
+			return Navigate("create-appointment");
+		} else if (selected === "instructor") {
+			return Navigate("my-instructor");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selected]);
+
 	return (
 		<>
 			<Navbar currentUser={currentUser} />
@@ -63,7 +77,7 @@ const Homepage = () => {
 			<div className="container-fluid p-0 homepage-main-container">
 				<div
 					className="row m-0 homepage-container"
-					id={(registerT || totalT) && "blur"}
+					id={registerT || totalT ? "blur" : ""}
 				>
 					<div className="col-11 p-0 ">
 						<div className="row m-0 ">
@@ -75,7 +89,9 @@ const Homepage = () => {
 								/>
 							</div>
 
-							<div className="col-9 right">{/* <Outlet /> */}</div>
+							<div className="col-9 right">
+								<Outlet />
+							</div>
 						</div>
 					</div>
 				</div>
