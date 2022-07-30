@@ -1,6 +1,9 @@
+// external components
+
+// internal components
 import "./Dashboard.css";
 
-const Dashboard = () => {
+const Dashboard = ({ setSelected }) => {
 	return (
 		<>
 			<div className="dashboard-container">
@@ -44,9 +47,37 @@ const Dashboard = () => {
 				</div>
 
 				<div className="row m-0 appointment-container">
-					<div className="col-11 p-0">
+					<div className="col-12 p-0">
 						<div className="appointment-list">
-							<div className="">list of dashboard</div>
+							<div className="header">
+								<h5>Appointment Summary</h5>
+								<button
+									type="button"
+									class="btn"
+									onClick={() => setSelected("appointment")}
+								>
+									<i className="bi bi-plus-circle-dotted"></i> Create
+									Appointment
+								</button>
+							</div>
+							<table className="table table-hover">
+								<thead>
+									<tr className="layout">
+										<th scope="col">#</th>
+										<th scope="col">Appt.. Subject</th>
+										<th scope="col">Appt.. Category</th>
+										<th scope="col">Appt.. Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Mark</td>
+										<td>Otto</td>
+										<td>@mdo</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

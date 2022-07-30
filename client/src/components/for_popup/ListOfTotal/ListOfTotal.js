@@ -6,12 +6,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // internal components
-import { GetContextApi } from "../../../ContextApi";
 import "./ListOfTotal.css";
 
-const ListOfTotal = () => {
-	const { totalT, setTotalT } = GetContextApi();
-
+const ListOfTotal = ({ totalT, setTotalT }) => {
 	const [readOnlyT, setReadOnlyT] = useState(true);
 
 	// fetching from database start

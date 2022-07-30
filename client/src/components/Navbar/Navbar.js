@@ -1,10 +1,7 @@
+// internal components
 import "./Navbar.css";
 
-import { GetContextApi } from "./../../ContextApi";
-
-const Navbar = ({ currentUser }) => {
-	const { registerT, setRegisterT, setTotalT } = GetContextApi();
-
+const Navbar = ({ currentUser, registerT, setRegisterT, setTotalT }) => {
 	return (
 		<>
 			<div className="container-fluid navbar-main-container">

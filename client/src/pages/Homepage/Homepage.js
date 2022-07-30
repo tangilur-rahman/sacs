@@ -16,7 +16,7 @@ import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
 import { GetContextApi } from "../../ContextApi";
 import Register from "./../../components/for_popup/Register/Register";
 
-const Homepage = () => {
+const Homepage = ({ selected, setSelected }) => {
 	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
 
 	// for redirect login-page
@@ -25,9 +25,6 @@ const Homepage = () => {
 	// for pop-up toggle
 	const [registerT, setRegisterT] = useState(false);
 	const [totalT, setTotalT] = useState(false);
-
-	// for get selected left-sidebar
-	const [selected, setSelected] = useState("");
 
 	// for get current user
 	const getCurrentUser = async () => {
@@ -72,7 +69,12 @@ const Homepage = () => {
 
 	return (
 		<>
-			<Navbar currentUser={currentUser} />
+			<Navbar
+				currentUser={currentUser}
+				registerT={registerT}
+				setRegisterT={setRegisterT}
+				setTotalT={setTotalT}
+			/>
 
 			<div className="container-fluid p-0 homepage-main-container">
 				<div

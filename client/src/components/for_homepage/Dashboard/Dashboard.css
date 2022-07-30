@@ -85,11 +85,51 @@
 /* appointment-summary style end  */
 
 /* appointment-list style start  */
-
 .dashboard-container .appointment-list {
-	display: flex;
-	margin-top: 100px;
-	border: 1px solid red;
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+	height: 67vh;
+	margin-top: 40px;
+	overflow-y: scroll;
+	/* padding: 20px 10px 0; */
 }
 
+.appointment-list .header {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+	border-bottom: 1px solid red;
+}
+
+.appointment-list .header h5 {
+	margin: 0;
+	word-spacing: 5px;
+	padding: 0 0 0 20px;
+	border-left: 5px solid #3366ff;
+	align-self: center;
+	opacity: 0.9;
+}
+
+.appointment-list .header .btn {
+	font-weight: 500;
+	background-color: #184780;
+	color: white;
+	font-size: 14px;
+	margin: 0px 12px 0px 0px;
+}
+
+.appointment-list .header .btn i {
+	margin-right: 5px;
+	font-size: 15px;
+}
+
+/* for scrollbar style  */
+.appointment-list::-webkit-scrollbar-thumb {
+	background-color: #7400b8;
+}
+
+.appointment-list::-webkit-scrollbar {
+	width: 4px;
+}
 /* appointment-list style end  */

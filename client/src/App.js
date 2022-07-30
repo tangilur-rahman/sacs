@@ -1,4 +1,5 @@
 // external components
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // internal components
@@ -14,12 +15,21 @@ import Homepage from "./pages/Homepage/Homepage";
 import Login from "./pages/Login/Login";
 
 const App = () => {
+	// for get selected value from left-sidebar
+	const [selected, setSelected] = useState("");
+
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<Homepage />}>
-						<Route path="dashboard" element={<Dashboard />} />
+					<Route
+						path="/"
+						element={<Homepage selected={selected} setSelected={setSelected} />}
+					>
+						<Route
+							path="dashboard"
+							element={<Dashboard setSelected={setSelected} />}
+						/>
 						<Route path="chat" element={<GroupChat />} />
 						<Route path="create-appointment" element={<Appointment />} />
 						<Route path="my-instructor" element={<InstructorDetails />} />

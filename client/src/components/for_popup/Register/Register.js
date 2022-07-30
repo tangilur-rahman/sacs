@@ -5,8 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // internal components
-import { GetContextApi } from "../../../ContextApi";
-
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
 import GroupDropdown from "./Dropdown/GroupDropdown/GroupDropdown";
 import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
@@ -14,10 +12,7 @@ import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
 import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 import "./Register.css";
 
-const Register = () => {
-	// for register toggle
-	const { registerT, setRegisterT } = GetContextApi();
-
+const Register = ({ registerT, setRegisterT }) => {
 	// get dropdown section values
 	const [getRole, setGetRole] = useState(null);
 	const [getDepart, setGetDepart] = useState("");
@@ -215,7 +210,7 @@ const Register = () => {
 										{/* dropdown start  */}
 										<div
 											className={
-												getRole === "Administrator" && "for-admin-role"
+												getRole === "Administrator" ? "for-admin-role" : ""
 											}
 										>
 											<div className="group">
