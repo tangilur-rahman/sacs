@@ -1,10 +1,9 @@
 // external components
 
 // internal components
-import AppointmentDetails from "./AppointmentDetails/AppointmentDetails";
 import "./Dashboard.css";
 
-const Dashboard = ({ setSelected }) => {
+const Dashboard = ({ setSelected, setAppointmentT }) => {
 	return (
 		<>
 			<div className="dashboard-container">
@@ -54,7 +53,7 @@ const Dashboard = ({ setSelected }) => {
 								<h5>Appointment Summary</h5>
 								<button
 									type="button"
-									class="btn"
+									className="btn"
 									onClick={() => setSelected("appointment")}
 								>
 									<i className="bi bi-plus-circle-dotted"></i> Create
@@ -74,31 +73,31 @@ const Dashboard = ({ setSelected }) => {
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr onClick={() => setAppointmentT("I am dummy subject")}>
 											<td id="id">
 												<span>1</span>
 											</td>
 											<td>
 												<input
 													type="text"
-													readonly
+													readOnly
 													value={"application for tuition fee"}
 												/>
 											</td>
 											<td>
-												<input type="text" readonly value={"Tuition Fee"} />
+												<input type="text" readOnly value={"Tuition Fee"} />
 											</td>
 											<td>
 												<input
 													type="text"
-													readonly
+													readOnly
 													value={
 														"Due to the widespread use of <table> elements across third-party widgets like calendars and date pickers"
 													}
 												/>
 											</td>
 											<td>
-												<input type="text" readonly value={"12-2-2022"} />
+												<input type="text" readOnly value={"12-2-2022"} />
 											</td>
 											<td id="for-icon">
 												<span className="icon" id="solved-icon">
@@ -114,7 +113,6 @@ const Dashboard = ({ setSelected }) => {
 												</span> */}
 											</td>
 										</tr>
-										<AppointmentDetails />
 									</tbody>
 								</table>
 							</div>

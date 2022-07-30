@@ -1,0 +1,70 @@
+.appointment-details-container {
+	position: absolute;
+	top: 0;
+}
+.appointment-details-container .layout-center {
+	display: flex;
+	justify-content: center;
+}
+
+.appointment-details-container .appointment-details {
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+	height: 75vh;
+	overflow-y: scroll;
+	padding: 0 30px;
+	position: relative;
+}
+
+.appointment-details h3 {
+	padding: 30px;
+	text-align: center;
+	text-transform: capitalize;
+	color: #006d77;
+	font-weight: 600;
+}
+
+.appointment-details > div {
+	display: flex;
+}
+
+.appointment-details > div span {
+	font-weight: 600;
+	flex-basis: 12%;
+}
+.appointment-details > div p {
+	text-align: justify;
+	flex-basis: 87%;
+}
+
+.appointment-details .for-margin {
+	margin-top: 20px;
+}
+
+.appointment-details a {
+	color: #006d77;
+	font-weight: 500;
+	margin-right: 20px;
+}
+
+.appointment-details .icon {
+	padding: 5px 11px;
+	border-radius: 50%;
+	background-color: #fff2e5;
+	color: #f3722c;
+	font-size: 28px;
+	position: absolute;
+	top: 10px;
+	right: 12px;
+	cursor: pointer;
+}
+
+/* for scrollbar style  */
+.appointment-details::-webkit-scrollbar-thumb {
+	background-color: #7400b8;
+}
+
+.appointment-details::-webkit-scrollbar {
+	width: 4px;
+}

@@ -63,7 +63,7 @@ const ListOfTotal = ({ totalT, setTotalT }) => {
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
-		if (!myRef.current.contains(e.target)) {
+		if (!myRef.current?.contains(e.target)) {
 			setTotalT(false);
 		}
 	};
@@ -72,7 +72,7 @@ const ListOfTotal = ({ totalT, setTotalT }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [totalT]);
 	// for outside-click closed end
 
 	return (

@@ -9,14 +9,15 @@ import "react-toastify/dist/ReactToastify.css";
 // internal components
 import LeftSidebar from "../../components/for_homepage/LeftSidebar.js/LeftSidebar";
 import Navbar from "../../components/Navbar/Navbar";
+import { GetContextApi } from "../../ContextApi";
 import "./Homepage.css";
 
 // pop-up components
+import AppointmentDetails from "../../components/for_homepage/Dashboard/AppointmentDetails/AppointmentDetails";
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
-import { GetContextApi } from "../../ContextApi";
 import Register from "./../../components/for_popup/Register/Register";
 
-const Homepage = ({ selected, setSelected }) => {
+const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
 
 	// for redirect login-page
@@ -79,7 +80,7 @@ const Homepage = ({ selected, setSelected }) => {
 			<div className="container-fluid p-0 homepage-main-container">
 				<div
 					className="row m-0 homepage-container"
-					id={registerT || totalT ? "blur" : ""}
+					id={registerT || totalT || appointmentT ? "blur" : ""}
 				>
 					<div className="col-11 p-0 ">
 						<div className="row m-0 ">
@@ -97,9 +98,18 @@ const Homepage = ({ selected, setSelected }) => {
 						</div>
 					</div>
 				</div>
+
+				{/* all popup declare here  */}
 				<Register registerT={registerT} setRegisterT={setRegisterT} />
 
 				<ListOfTotal totalT={totalT} setTotalT={setTotalT} />
+
+				{appointmentT && (
+					<AppointmentDetails
+						appointmentT={appointmentT}
+						setAppointmentT={setAppointmentT}
+					/>
+				)}
 				<ToastContainer />
 			</div>
 		</>

@@ -18,17 +18,31 @@ const App = () => {
 	// for get selected value from left-sidebar
 	const [selected, setSelected] = useState("");
 
+	const [appointmentT, setAppointmentT] = useState(false);
+
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
 					<Route
 						path="/"
-						element={<Homepage selected={selected} setSelected={setSelected} />}
+						element={
+							<Homepage
+								selected={selected}
+								setSelected={setSelected}
+								appointmentT={appointmentT}
+								setAppointmentT={setAppointmentT}
+							/>
+						}
 					>
 						<Route
 							path="dashboard"
-							element={<Dashboard setSelected={setSelected} />}
+							element={
+								<Dashboard
+									setSelected={setSelected}
+									setAppointmentT={setAppointmentT}
+								/>
+							}
 						/>
 						<Route path="chat" element={<GroupChat />} />
 						<Route path="create-appointment" element={<Appointment />} />
