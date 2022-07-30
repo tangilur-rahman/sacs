@@ -4,14 +4,16 @@ import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
 import "./MessageBox.css";
 
-const Right = () => {
+const MessageBox = () => {
 	return (
 		<>
-			<Header />
-			<ChatBox />
-			<InputBox />
+			<div className="message-box">
+				<Header />
+				<ChatBox />
+				<InputBox />
+			</div>
 		</>
 	);
 };
 
-export default Right;
+export default MessageBox;

@@ -9,6 +9,7 @@ import "./InputBox.css";
 const InputBox = () => {
 	const [input, setInput] = useState("");
 	const [attachmentT, setAttachmentT] = useState(false);
+
 	// eslint-disable-next-line no-unused-vars
 	const [chosenEmoji, setChosenEmoji] = useState(null);
 	const [emojiToggle, setEmojiToggle] = useState(false);
@@ -17,7 +18,7 @@ const InputBox = () => {
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
-		if (!myRef.current.contains(e.target)) {
+		if (!myRef.current?.contains(e.target)) {
 			setAttachmentT(false);
 		}
 	};

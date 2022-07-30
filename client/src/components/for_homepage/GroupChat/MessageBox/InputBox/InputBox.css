@@ -1,4 +1,4 @@
-.homepage-container .right .input-box-container {
+.message-box .input-box-container {
 	display: flex;
 	align-items: flex-end;
 	position: absolute;
@@ -8,13 +8,13 @@
 	background-color: var(--input-box-container-bg);
 }
 
-.right .input-box-container .icon {
+.message-box .input-box-container .icon {
 	font-size: 22px;
 	opacity: 0.7;
 	cursor: pointer;
 }
 
-.right .input-box-container .input-box {
+.message-box .input-box-container .input-box {
 	flex-grow: 1;
 	background-color: var(--input-box-bg);
 	padding: 9px 15px;
@@ -24,7 +24,7 @@
 	align-items: center;
 }
 
-.right .input-box-container .input-box #text-area {
+.message-box .input-box-container .input-box #text-area {
 	resize: none;
 	border: none;
 	outline: none;
@@ -32,17 +32,19 @@
 }
 
 /* for emoji style start  */
-.right .input-box-container .input-box span {
+.message-box .input-box-container .input-box span {
 	position: relative;
 }
-.right .input-box-container .input-box i {
+
+.message-box .input-box-container .input-box i {
 	align-self: flex-end;
 }
 
-.input-box-container .input-box .emoji-picker-react input.emoji-search {
+.input-box .emoji-picker-react input.emoji-search {
 	display: none;
 }
-.input-box-container .input-box .emoji-picker-react img.emoji-img {
+
+.input-box .emoji-picker-react img.emoji-img {
 	height: 30px;
 	width: 30px;
 	margin: 5px;
@@ -50,12 +52,12 @@
 /* for emoji style end  */
 
 /* attachment container start  */
-.right .input-box-container .attachment-container {
+.message-box .input-box-container .attachment-container {
 	margin: 0px 10px 10px 0;
 	position: relative;
 }
 
-.right .input-box-container .attachment-container .attachments {
+.input-box-container .attachment-container .attachments {
 	display: flex;
 	flex-direction: column-reverse;
 	position: absolute;
@@ -203,7 +205,7 @@
 /* attachment container end  */
 
 /* send btn style start  */
-.right .input-box-container button.btn-active {
+.message-box .input-box-container button.btn-active {
 	margin: 0 0 0px 10px;
 	padding: 11px 16px;
 	border: none;
@@ -215,11 +217,11 @@
 	font-size: 19px;
 }
 
-.right .input-box-container button.active:active {
+.message-box .input-box-container button.active:active {
 	transform: scale(0.97);
 }
 
-.right .input-box-container button.btn-inactive {
+.message-box .input-box-container button.btn-inactive {
 	opacity: 0.9;
 	cursor: text;
 }
