@@ -1,5 +1,13 @@
+.user-box {
+	background-color: white;
+	border-radius: 10px 0 0 0;
+	box-shadow: var(--box-shadow);
+	overflow-y: scroll;
+	height: 88.5vh;
+}
+
 /* search-bar style start  */
-.homepage-container .middle .search {
+.user-box .search {
 	display: flex;
 	align-items: center;
 	align-self: center;
@@ -7,13 +15,13 @@
 	padding: 13px 11px;
 }
 
-.homepage-container .middle .search i {
+.user-box .search i {
 	font-size: 21px;
 	margin: 3px 0 0 10px;
 	color: #738290;
 }
 
-.homepage-container .middle .search input {
+.user-box .search input {
 	margin: 0 0 0 11px;
 	width: 100%;
 	background-color: transparent;
@@ -22,21 +30,21 @@
 }
 /* search-bar style end  */
 
-.homepage-container .middle .user {
+.user-box .user {
 	display: flex;
 	align-items: center;
 }
 
-.homepage-container .middle .user:hover {
+.user-box .user:hover {
 	background-color: var(--hover-bg-color);
 }
 
-.homepage-container .middle .user img {
+.user-box .user img {
 	margin: 0 0 0 10px;
 	cursor: pointer;
 }
 
-.middle .user section {
+.user-box .user section {
 	flex-grow: 1;
 	padding: 15px 10px;
 	border-bottom: 1px solid #dad7cd;
@@ -44,13 +52,13 @@
 	overflow: hidden;
 }
 
-.middle .user .above {
+.user-box .user .above {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
 
-.middle .user .above h6 {
+.user-box .user .above h6 {
 	margin: 3px 0 0 0;
 	font-weight: 600;
 	letter-spacing: 0.5px;
@@ -62,21 +70,13 @@
 	text-overflow: ellipsis;
 }
 
-.middle .user .above span {
+.user-box .user .above span {
 	margin: 4px 0 0 0;
 	font-size: 13px;
 }
-.middle .user .down {
+.user-box .user .down {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-size: 15px;
 }
-
-/* .homepage-container .middle {
-	background-color: white;
-	border-radius: 10px 0 0 0;
-	box-shadow: var(--box-shadow);
-	overflow-y: scroll;
-	height: 88.5vh;
-} */
