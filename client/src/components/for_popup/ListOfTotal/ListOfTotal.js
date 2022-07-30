@@ -208,6 +208,9 @@ const ListOfTotal = ({ totalT, setTotalT }) => {
 								</tbody>
 							</table>
 							{/* table end  */}
+							<span className="icon" onClick={() => setTotalT(false)}>
+								<i className="fa-solid fa-circle-xmark"></i>
+							</span>
 						</div>
 					</div>
 					<ToastContainer />
