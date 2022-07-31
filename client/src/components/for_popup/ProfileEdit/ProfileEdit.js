@@ -49,7 +49,7 @@ const ProfileEdit = ({ profileT, setProfileT }) => {
 							</div>
 							<div className="curr-user-info">
 								<div className="row info">
-									<span>
+									<span id="name">
 										name : <input value={"Shakib Al Hassan"} readOnly />
 									</span>
 
