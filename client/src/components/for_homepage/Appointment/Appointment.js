@@ -104,7 +104,7 @@ const Appointment = () => {
 							/>
 						</div>
 
-						<div className="btn-container">
+						<div className="submit-btn">
 							<button
 								className="btn btn-success btn-style"
 								onClick={onSubmitHandler}

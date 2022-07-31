@@ -1,7 +1,7 @@
 import "./InstructorDetails.css";
 
 const InstructorDetails = () => {
-	return <div>InstructorDetails</div>;
+	return <></>;
 };
 
 export default InstructorDetails;

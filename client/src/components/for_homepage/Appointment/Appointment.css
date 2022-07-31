@@ -95,13 +95,20 @@
 	display: none;
 }
 
-.input-box .btn-container {
+.input-box .submit-btn {
 	display: flex;
 	justify-content: flex-end;
 	margin: 20px 0 0 0;
 }
 
-.input-box .btn-container button:active {
+.input-box .submit-btn button {
+	font-weight: 500;
+	margin: 0 30px 0 0;
+	padding: 7px 20px;
+	font-size: 18px;
+}
+
+.input-box .submit-btn button:active {
 	transform: scale(0.97);
 }
 
