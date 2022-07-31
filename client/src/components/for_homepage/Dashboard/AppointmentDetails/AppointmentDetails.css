@@ -60,6 +60,10 @@
 	cursor: pointer;
 }
 
+.appointment-details .icon:hover {
+	transform: scale(0.97);
+}
+
 /* for scrollbar style  */
 .appointment-details::-webkit-scrollbar-thumb {
 	background-color: #7400b8;

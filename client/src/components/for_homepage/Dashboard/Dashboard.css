@@ -117,6 +117,9 @@
 	font-size: 14px;
 	margin: 0px 12px 0px 0px;
 }
+.appointment-list .header .btn:hover {
+	transform: scale(0.98);
+}
 
 .appointment-list .header .btn i {
 	margin-right: 5px;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // react-toastify
 import { toast } from "react-toastify";
 
-const Logout = ({ setProfileT }) => {
+const Logout = () => {
 	// For Redirect "/login"
 	const Navigate = useNavigate();
 
@@ -41,7 +41,6 @@ const Logout = ({ setProfileT }) => {
 
 	useEffect(() => {
 		logoutHandler();
-		setProfileT(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

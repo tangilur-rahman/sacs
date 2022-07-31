@@ -108,7 +108,7 @@
 	font-size: 18px;
 }
 
-.input-box .submit-btn button:active {
+.input-box .submit-btn button:hover {
 	transform: scale(0.97);
 }
 

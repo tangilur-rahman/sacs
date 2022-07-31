@@ -15,8 +15,9 @@ import "./Homepage.css";
 // pop-up components
 import AppointmentDetails from "../../components/for_homepage/Dashboard/AppointmentDetails/AppointmentDetails";
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
-import Register from "./../../components/for_popup/Register/Register";
+import ProfileEdit from "../../components/for_popup/ProfileEdit/ProfileEdit";
 import Logout from "../../components/Logout";
+import Register from "./../../components/for_popup/Register/Register";
 
 const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
@@ -84,7 +85,11 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 			<div className="container-fluid p-0 homepage-main-container">
 				<div
 					className="row m-0 homepage-container"
-					id={registerT || totalT || appointmentT ? "blur" : ""}
+					id={
+						registerT || totalT || appointmentT || profileT === "profile"
+							? "blur"
+							: ""
+					}
 				>
 					<div className="col-11 p-0 ">
 						<div className="row m-0 ">
@@ -115,7 +120,11 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 					/>
 				)}
 
-				{profileT === "logout" && <Logout setProfileT={setProfileT} />}
+				{profileT === "profile" && (
+					<ProfileEdit setProfileT={setProfileT} profileT={profileT} />
+				)}
+
+				{profileT === "logout" && <Logout />}
 
 				<ToastContainer />
 			</div>

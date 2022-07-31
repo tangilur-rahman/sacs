@@ -1,5 +1,5 @@
 // external components
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./Navbar.css";
@@ -12,12 +12,14 @@ const Navbar = ({
 	profileT,
 	setProfileT
 }) => {
+	const [dropdownT, setDropdownT] = useState(false);
+
 	// for close from outside-click start
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
-			setProfileT(false);
+			setDropdownT(false);
 		}
 	};
 
@@ -25,7 +27,7 @@ const Navbar = ({
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profileT]);
+	}, [dropdownT]);
 	// for close from outside-click end
 
 	return (
@@ -86,15 +88,25 @@ const Navbar = ({
 									src={currentUser.profile_img}
 									alt="profile img"
 									className="profile-img img-fluid"
-									onClick={() => setProfileT(!profileT)}
+									onClick={() => setDropdownT(!dropdownT)}
 								/>
-								{profileT && (
+								{dropdownT && (
 									<ul ref={myRef}>
-										<li onClick={() => setProfileT("profile")}>
+										<li
+											onClick={() => {
+												setProfileT("profile");
+												setDropdownT(false);
+											}}
+										>
 											<i className="bi bi-person-circle"></i>
 											<span>My Profile</span>
 										</li>
-										<li onClick={() => setProfileT("logout")}>
+										<li
+											onClick={() => {
+												setProfileT("logout");
+												setDropdownT(false);
+											}}
+										>
 											<i className="fa-solid fa-right-from-bracket"></i>
 											<span>Log out</span>
 										</li>
