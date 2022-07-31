@@ -1,8 +1,8 @@
 // external components
 import { useEffect, useRef, useState } from "react";
+
 // react-toastify
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 // internal components
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
@@ -272,7 +272,6 @@ const Register = ({ registerT, setRegisterT }) => {
 							</div>
 						</div>
 					</div>
-					<ToastContainer />
 				</div>
 			)}
 		</>

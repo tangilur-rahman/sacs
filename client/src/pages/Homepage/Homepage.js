@@ -16,6 +16,7 @@ import "./Homepage.css";
 import AppointmentDetails from "../../components/for_homepage/Dashboard/AppointmentDetails/AppointmentDetails";
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
 import Register from "./../../components/for_popup/Register/Register";
+import Logout from "../../components/Logout";
 
 const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
@@ -26,6 +27,7 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	// for pop-up toggle
 	const [registerT, setRegisterT] = useState(false);
 	const [totalT, setTotalT] = useState(false);
+	const [profileT, setProfileT] = useState(false);
 
 	// for get current user
 	const getCurrentUser = async () => {
@@ -75,6 +77,8 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 				registerT={registerT}
 				setRegisterT={setRegisterT}
 				setTotalT={setTotalT}
+				profileT={profileT}
+				setProfileT={setProfileT}
 			/>
 
 			<div className="container-fluid p-0 homepage-main-container">
@@ -110,6 +114,9 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 						setAppointmentT={setAppointmentT}
 					/>
 				)}
+
+				{profileT === "logout" && <Logout setProfileT={setProfileT} />}
+
 				<ToastContainer />
 			</div>
 		</>
