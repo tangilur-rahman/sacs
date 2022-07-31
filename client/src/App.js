@@ -7,7 +7,7 @@ import "./App.css";
 import Appointment from "./components/for_homepage/Appointment/Appointment";
 import Dashboard from "./components/for_homepage/Dashboard/Dashboard";
 import GroupChat from "./components/for_homepage/GroupChat/GroupChat";
-import InstructorDetails from "./components/for_homepage/InstructorDetails/InstructorDetails";
+import InstructorInfo from "./components/for_homepage/InstructorInfo/InstructorInfo";
 
 // pages
 import Error from "./components/Error/Error";
@@ -46,7 +46,7 @@ const App = () => {
 						/>
 						<Route path="chat" element={<GroupChat />} />
 						<Route path="create-appointment" element={<Appointment />} />
-						<Route path="my-instructor" element={<InstructorDetails />} />
+						<Route path="my-instructor" element={<InstructorInfo />} />
 					</Route>
 					<Route path="login" element={<Login />} />
 					<Route path="*" element={<Error />} />
