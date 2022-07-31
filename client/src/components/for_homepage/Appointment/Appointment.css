@@ -1,0 +1,115 @@
+.c-appointment-container {
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+	max-height: 88vh;
+	overflow: scroll;
+}
+
+.c-appointment-container h5 {
+	margin-top: 30px;
+	word-spacing: 5px;
+	padding: 0 0 0 20px;
+	border-left: 5px solid #3366ff;
+	align-self: center;
+	opacity: 0.9;
+}
+
+.c-appointment-container .input-box {
+	padding: 20px 25px 10px;
+}
+
+.input-box .division {
+	display: flex;
+}
+
+.input-box .division label {
+	flex-basis: 15%;
+	margin: 15px 0;
+	font-weight: 500;
+}
+
+.input-box .division .input-field {
+	flex-basis: 85%;
+	margin: 15px 0;
+}
+
+.input-box .division input {
+	padding: 9px 20px;
+	border: 1px solid #d3dfea;
+	border-radius: 10px;
+}
+
+.input-box .division input:focus {
+	outline: 4px solid #c2daff;
+	border-radius: 10px;
+}
+
+.input-box .division:nth-child(3) label {
+	margin: 25px 0;
+}
+.input-box .division #description {
+	margin: 25px 0;
+	border: 1px solid #d3dfea;
+	padding: 15px 20px 15px 20px;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
+	overflow: auto;
+	border-radius: 10px;
+}
+
+.input-box .division #description:focus {
+	outline: 4px solid #c2daff;
+}
+
+/* attachment section style  */
+.input-box .division .kiHXWb {
+	flex-grow: 1;
+	height: 80px;
+	background-color: #eaefff;
+	min-width: 85%;
+}
+
+.input-box .fVfcRr > span {
+	flex-grow: 1;
+	padding: 5px;
+	font-size: 18px;
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+
+.input-box .cXBrtO span {
+	-webkit-text-decoration: none;
+	text-decoration: none;
+	margin-right: 5px;
+}
+
+.input-box .fVfcRr .file-types {
+	display: none;
+}
+
+.input-box svg {
+	display: none;
+}
+
+.input-box .btn-container {
+	display: flex;
+	justify-content: flex-end;
+	margin: 20px 0 0 0;
+}
+
+.input-box .btn-container button:active {
+	transform: scale(0.97);
+}
+
+/* for scrollbar style  */
+.c-appointment-container::-webkit-scrollbar-thumb {
+	background-color: #7400b8;
+}
+
+.c-appointment-container::-webkit-scrollbar {
+	width: 4px;
+}

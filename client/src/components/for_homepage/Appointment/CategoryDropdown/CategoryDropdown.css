@@ -1,0 +1,82 @@
+.c-appointment-container .category-container {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	width: 85%;
+}
+
+.category-container::before {
+	content: "";
+	position: absolute;
+	right: 26px;
+	top: 25px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+.category-container.active::before {
+	top: 30px;
+	transform: rotate(-225deg);
+}
+.c-appointment-container .category-container input {
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-weight: 500;
+	font-size: 18px;
+	width: 100%;
+}
+
+.category-container input::placeholder {
+	padding-left: 10px;
+	color: #757575;
+	font-weight: 500;
+}
+
+.category-container input:focus {
+	outline: 4px solid #c2daff;
+}
+
+.category-container .option {
+	position: absolute;
+	top: 68px;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 10;
+	font-weight: 500;
+}
+
+.category-container.active .option {
+	display: block;
+}
+
+.category-container .option div {
+	padding: 10px 20px;
+	cursor: pointer;
+}
+
+.category-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+}
+
+.category-container .option div i {
+	position: relative;
+	top: 0px;
+	font-size: 1em;
+	margin: 0 10px 0 0;
+}

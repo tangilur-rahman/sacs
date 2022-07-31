@@ -1,5 +1,5 @@
 // external components
-import React, { useState } from "react";
+import { useState } from "react";
 
 // internal components
 import "./SemesterDropdown.css";

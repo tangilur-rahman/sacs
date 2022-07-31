@@ -92,7 +92,7 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 								/>
 							</div>
 
-							<div className="col-9 right">
+							<div className="col-8 right">
 								<Outlet />
 							</div>
 						</div>
