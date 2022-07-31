@@ -64,7 +64,10 @@
 	object-position: top center;
 	border-radius: 50%;
 	border: 3px solid white;
-	/* animation: float 6s ease-in-out infinite; */
+}
+
+.profile-edit-container .curr-user-profile img.animation {
+	animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -134,16 +137,21 @@
 
 .profile-edit-container .curr-user-info #current-p input {
 	width: 60%;
-}
-
-.profile-edit-container .curr-user-info #new-p {
-	margin: 0;
-	flex-basis: 43%;
-	margin-left: 35px;
+	margin-left: 5px;
 }
 
 .profile-edit-container .curr-user-info #new-p input {
 	width: 60%;
+}
+
+.profile-edit-container .curr-user-info #current-p {
+	outline: 4px solid #c2daff;
+}
+.profile-edit-container .curr-user-info #new-p {
+	margin: 0;
+	flex-basis: 43%;
+	margin-left: 35px;
+	outline: 4px solid #c2daff;
 }
 
 .profile-edit-container .curr-user-info .last-field {

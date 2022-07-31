@@ -17,18 +17,18 @@ const InstructorInfo = () => {
 							<div className="inner"></div>
 						</div>
 						<div className="info">
-							<h5>
-								Name : <span> Tangilur Rahman</span>
-							</h5>
-							<h5>
-								Email : <span>mohammad@gmail.com</span>
-							</h5>
-							<h5>
-								Phone : <span>0171111111</span>
-							</h5>
-							<h5>
-								Department : <span>CSE</span>
-							</h5>
+							<span>
+								Name : <input value={"Shakib Al Hassan"} readOnly />
+							</span>
+							<span>
+								Email : <input value={"mohammadtangilur@gmail.com"} readOnly />
+							</span>
+							<span>
+								Phone : <input value={"01711111"} readOnly />
+							</span>
+							<span>
+								Department : <input value={"CSE"} readOnly />
+							</span>
 						</div>
 					</div>
 				</div>

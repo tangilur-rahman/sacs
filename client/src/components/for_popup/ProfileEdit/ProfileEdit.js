@@ -1,5 +1,5 @@
 // external components
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./ProfileEdit.css";
@@ -22,6 +22,8 @@ const ProfileEdit = ({ profileT, setProfileT }) => {
 	}, [profileT]);
 	// for close when clicked outside start
 
+	const [editT, setEditT] = useState(false);
+
 	return (
 		<>
 			<div className="profile-edit-container">
@@ -31,21 +33,24 @@ const ProfileEdit = ({ profileT, setProfileT }) => {
 							<div className="curr-user-profile">
 								<span className="img-wrapper">
 									<img
-										src="/assets/profile/tangil.png"
+										src="/assets/profile/mehrab.png"
 										alt="profile-img"
-										className="img-fluid"
+										className={editT ? "img-fluid" : "img-fluid animation"}
 									/>
-									<span className="change-img">
-										<label htmlFor="change-img">
-											<i className="fa-solid fa-camera"></i>
-										</label>
-									</span>
+
+									{editT && (
+										<span className="change-img">
+											<label htmlFor="change-img">
+												<i className="fa-solid fa-camera"></i>
+											</label>
+										</span>
+									)}
 								</span>
 							</div>
 							<div className="curr-user-info">
 								<div className="row info">
 									<span>
-										name : <input value={"Tangilur Rahman"} readOnly />
+										name : <input value={"Shakib Al Hassan"} readOnly />
 									</span>
 
 									<span>
@@ -53,7 +58,7 @@ const ProfileEdit = ({ profileT, setProfileT }) => {
 									</span>
 
 									<span id="email">
-										Email : <input value={"mohammad@gmail.com"} readOnly />
+										Email : <input value={"shakib@gmail.com"} readOnly />
 									</span>
 
 									<span>
@@ -69,31 +74,35 @@ const ProfileEdit = ({ profileT, setProfileT }) => {
 									</span>
 
 									<span>
-										Year : <input value={"B"} readOnly />
+										Year : <input value={"2022"} readOnly />
 									</span>
 
-									<span id="current-p">
-										Current Password :{" "}
-										<input type="password" name="current_p" />
-									</span>
-
-									<div className="last-field">
-										<span id="new-p">
-											New Password : <input type="password" name="new_p" />
+									{editT && (
+										<span id="current-p">
+											Current Password :
+											<input type="password" name="current_p" autoFocus />
 										</span>
-										<div className="profile-btn">
-											<button class="btn btn-success">Submit</button>
+									)}
+
+									{editT && (
+										<div className="last-field">
+											<span id="new-p">
+												New Password : <input type="password" name="new_p" />
+											</span>
+											<div className="profile-btn">
+												<button class="btn btn-success">Submit</button>
+											</div>
 										</div>
-									</div>
+									)}
 								</div>
 							</div>
 
 							<div className="icon">
-								<span>
+								<span onClick={() => setEditT(!editT)}>
 									<i className="fa-solid fa-user-pen"></i>
 								</span>
 
-								<span>
+								<span onClick={() => setProfileT(false)}>
 									<i className="fa-solid fa-circle-xmark"></i>
 								</span>
 							</div>

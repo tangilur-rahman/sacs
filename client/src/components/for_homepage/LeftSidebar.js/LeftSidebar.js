@@ -24,12 +24,12 @@ const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 		<>
 			<div className="current-user">
 				<img
-					src="/assets/profile/tangil.png"
+					src="/assets/profile/developer-2.png"
 					alt="profile-img"
 					className="img-fluid"
 				/>
 				<div className="info">
-					<h4>{"Tangilur Rahman"}</h4>
+					<h4>{"Shakib Al Hassan"}</h4>
 					<div>
 						<h6>ID :</h6> <span>{currentUser.id}</span>
 					</div>
