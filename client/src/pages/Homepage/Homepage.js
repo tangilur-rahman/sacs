@@ -13,10 +13,10 @@ import { GetContextApi } from "../../ContextApi";
 import "./Homepage.css";
 
 // pop-up components
-import AppointmentDetails from "../../components/for_homepage/Dashboard/AppointmentDetails/AppointmentDetails";
 import ListOfTotal from "../../components/for_popup/ListOfTotal/ListOfTotal";
 import ProfileEdit from "../../components/for_popup/ProfileEdit/ProfileEdit";
 import Logout from "../../components/Logout";
+import AppointmentDetails from "./../../components/for_popup/AppointmentDetails/AppointmentDetails";
 import Register from "./../../components/for_popup/Register/Register";
 
 const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
