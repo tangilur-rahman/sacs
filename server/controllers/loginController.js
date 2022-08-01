@@ -35,13 +35,13 @@ const checkLogin = async (req, res) => {
 
 				res.status(200).json({ message: "Welcome to dashboard" });
 			} else {
-				res.status(400).json({ error: "Authentication Failed!" });
+				res.status(400).json({ message: "Authentication Failed!" });
 			}
 		} catch (error) {
-			res.status(400).json({ error: "Invalid Account!" });
+			res.status(500).json({ message: "Invalid Account!" });
 		}
 	} else {
-		res.status(400).json({ error: "Fill-up all fields!" });
+		res.status(400).json({ message: "Fill-up all fields!" });
 	}
 };
 

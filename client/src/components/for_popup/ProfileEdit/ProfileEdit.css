@@ -37,6 +37,10 @@
 	margin-right: 20px;
 }
 
+.profile-edit-container .wrapper .icon span:first-child i {
+	margin-left: 4px;
+}
+
 .profile-edit-container .wrapper .icon span:last-child {
 	border-radius: 50%;
 	padding: 5px 11px;
@@ -120,6 +124,10 @@
 	margin: 15px 20px;
 	font-weight: 500;
 	flex-basis: 40%;
+}
+
+.profile-edit-container .curr-user-info span label {
+	cursor: pointer;
 }
 
 .profile-edit-container .curr-user-info span input {

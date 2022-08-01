@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./RoleDropdown.css";
 
-const RoleDropdown = ({ getRole, setGetRole }) => {
+const RoleDropdown = ({ getRole, setRole }) => {
 	const [roleDrop, setRoleDrop] = useState(false);
 
 	const displayRole = () => {
@@ -31,13 +31,13 @@ const RoleDropdown = ({ getRole, setGetRole }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setGetRole("Administrator")}>
+					<div onClick={() => setRole("Administrator")}>
 						<span>🏫 &nbsp;Administrator</span>
 					</div>
-					<div onClick={() => setGetRole("Instructor")}>
+					<div onClick={() => setRole("Instructor")}>
 						<span>🤵 &nbsp;Instructor</span>
 					</div>
-					<div onClick={() => setGetRole("Student")}>
+					<div onClick={() => setRole("Student")}>
 						<span>👨‍🎓 &nbsp;Student</span>
 					</div>
 				</div>

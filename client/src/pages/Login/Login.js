@@ -48,13 +48,7 @@ const Login = () => {
 
 			const result = await response.json();
 
-			if (result.error) {
-				toast.warn(result.error, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 3000
-				});
-			} else {
+			if (response.status === 200) {
 				toast.success(result.message, {
 					position: "top-right",
 					theme: "colored",
@@ -68,6 +62,18 @@ const Login = () => {
 				setUser({
 					id_or_email: "",
 					password: ""
+				});
+			} else if (response.status === 400) {
+				toast(result.message, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+			} else {
+				toast.error(result.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
 				});
 			}
 		} catch (error) {

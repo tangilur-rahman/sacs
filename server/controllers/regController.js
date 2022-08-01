@@ -22,23 +22,22 @@ const createNewUser = async (req, res) => {
 			const checkId = await userModel.findOne({ id });
 
 			if (checkId) {
-				res.status(406).json({ error: "That Id Already Used" });
+				res.status(400).json({ message: "That Id Already Used" });
 			} else {
 				// check Email Already Exists or not
 				const checkEmail = await userModel.findOne({ email });
 
 				if (checkEmail) {
-					res.status(406).json({ error: "That Email Already Used" });
+					res.status(400).json({ message: "That Email Already Used" });
 				} else {
 					// check password match or not
 					if (password === c_password) {
 						if (password.length < 8) {
 							res
-								.status(406)
-								.json({ error: "Password must be minimum 8 length " });
+								.status(400)
+								.json({ message: "Password must be minimum 8 length " });
 						} else {
 							const hashPassword = await bcrypt.hash(password, 10);
-							const c_HashPassword = await bcrypt.hash(c_password, 10);
 
 							if (role === "Administrator") {
 								const document = await userModel({
@@ -46,7 +45,6 @@ const createNewUser = async (req, res) => {
 									id,
 									email,
 									password: hashPassword,
-									c_password: c_HashPassword,
 									role
 								});
 
@@ -62,7 +60,6 @@ const createNewUser = async (req, res) => {
 										id,
 										email,
 										password: hashPassword,
-										c_password: c_HashPassword,
 										role,
 										department,
 										group,
@@ -76,20 +73,20 @@ const createNewUser = async (req, res) => {
 										.status(200)
 										.json({ message: "Add new user successfully" });
 								} else {
-									res.status(422).json({ error: "Fill-up all fields!" });
+									res.status(400).json({ message: "Fill-up all fields!" });
 								}
 							}
 						}
 					} else {
-						res.status(401).json({ error: "Password didn't match 😣" });
+						res.status(400).json({ message: "Password didn't match 😣" });
 					}
 				}
 			}
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			res.status(500).json({ message: "Invalid Email or, server-side error!" });
 		}
 	} else {
-		res.status(422).json({ error: "Fill-up all fields!" });
+		res.status(400).json({ message: "Fill-up all fields!" });
 	}
 };
 

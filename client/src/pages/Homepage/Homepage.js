@@ -121,7 +121,11 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 				)}
 
 				{profileT === "profile" && (
-					<ProfileEdit setProfileT={setProfileT} profileT={profileT} />
+					<ProfileEdit
+						setProfileT={setProfileT}
+						profileT={profileT}
+						currentUser={currentUser}
+					/>
 				)}
 
 				{profileT === "logout" && <Logout />}

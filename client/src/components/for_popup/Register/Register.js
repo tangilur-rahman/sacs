@@ -14,10 +14,10 @@ import "./Register.css";
 
 const Register = ({ registerT, setRegisterT }) => {
 	// get dropdown section values
-	const [getRole, setGetRole] = useState(null);
-	const [getDepart, setGetDepart] = useState("");
-	const [getGroup, setGetGroup] = useState("");
-	const [getSemester, setGetSemester] = useState("");
+	const [getRole, setRole] = useState(null);
+	const [getDepart, setDepart] = useState("");
+	const [getGroup, setGroup] = useState("");
+	const [getSemester, setSemester] = useState("");
 	const [year, setYear] = useState("");
 
 	// get user information
@@ -69,13 +69,7 @@ const Register = ({ registerT, setRegisterT }) => {
 
 			const result = await response.json();
 
-			if (result.error) {
-				toast.warn(result.error, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 3000
-				});
-			} else {
+			if (response.status === 200) {
 				toast.success(result.message, {
 					position: "top-right",
 					theme: "colored",
@@ -87,12 +81,19 @@ const Register = ({ registerT, setRegisterT }) => {
 					id: "",
 					email: "",
 					password: "",
-					c_password: "",
-					role: "",
-					department: "",
-					group: "",
-					semester: "",
-					year: ""
+					c_password: ""
+				});
+			} else if (response.status === 400) {
+				toast(result.message, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+			} else {
+				toast.error(result.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
 				});
 			}
 		} catch (error) {
@@ -214,15 +215,12 @@ const Register = ({ registerT, setRegisterT }) => {
 											}
 										>
 											<div className="group">
-												<RoleDropdown
-													getRole={getRole}
-													setGetRole={setGetRole}
-												/>
+												<RoleDropdown getRole={getRole} setRole={setRole} />
 
 												{getRole !== "Administrator" && getRole !== null && (
 													<DepartDropdown
 														getDepart={getDepart}
-														setGetDepart={setGetDepart}
+														setDepart={setDepart}
 													/>
 												)}
 											</div>
@@ -231,11 +229,11 @@ const Register = ({ registerT, setRegisterT }) => {
 												<div className="group">
 													<GroupDropdown
 														getGroup={getGroup}
-														setGetGroup={setGetGroup}
+														setGroup={setGroup}
 													/>
 													<SemesterDropDown
 														getSemester={getSemester}
-														setGetSemester={setGetSemester}
+														setSemester={setSemester}
 													/>
 												</div>
 											)}

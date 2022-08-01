@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./DepartDropdown.css";
 
-const DepartDropdown = ({ getDepart, setGetDepart }) => {
+const DepartDropdown = ({ getDepart, setDepart }) => {
 	const [departDrop, setDepartDrop] = useState(false);
 
 	const displayDepartment = () => {
@@ -40,35 +40,35 @@ const DepartDropdown = ({ getDepart, setGetDepart }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setGetDepart("CSS")}>
+					<div onClick={() => setDepart("CSS")}>
 						<span>💻 &nbsp;CSS</span>
 					</div>
 
-					<div onClick={() => setGetDepart("EEE")}>
+					<div onClick={() => setDepart("EEE")}>
 						<span>💡 &nbsp;EEE</span>
 					</div>
 
-					<div onClick={() => setGetDepart("TEXTILE")}>
+					<div onClick={() => setDepart("TEXTILE")}>
 						<span>🕸️ &nbsp;TEXTILE</span>
 					</div>
 
-					<div onClick={() => setGetDepart("B.PHARMACY")}>
+					<div onClick={() => setDepart("B.PHARMACY")}>
 						<span>💊 &nbsp; B.PHARMACY</span>
 					</div>
 
-					<div onClick={() => setGetDepart("BBA")}>
+					<div onClick={() => setDepart("BBA")}>
 						<span>📈 &nbsp; BBA</span>
 					</div>
 
-					<div onClick={() => setGetDepart("LLB")}>
+					<div onClick={() => setDepart("LLB")}>
 						<span>⚖️&nbsp; LLB</span>
 					</div>
 
-					<div onClick={() => setGetDepart("English")}>
+					<div onClick={() => setDepart("English")}>
 						<span>🔤 &nbsp; English</span>
 					</div>
 
-					<div onClick={() => setGetDepart("Bangla")}>
+					<div onClick={() => setDepart("Bangla")}>
 						<span>অ &nbsp; Bangla</span>
 					</div>
 				</div>

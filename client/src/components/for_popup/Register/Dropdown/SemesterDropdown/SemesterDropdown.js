@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./SemesterDropdown.css";
 
-const SemesterDropDown = ({ getSemester, setGetSemester }) => {
+const SemesterDropDown = ({ getSemester, setSemester }) => {
 	const [semesterDrop, setSemesterDrop] = useState(false);
 	return (
 		<>
@@ -22,50 +22,50 @@ const SemesterDropDown = ({ getSemester, setGetSemester }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setGetSemester("1st")}>
+					<div onClick={() => setSemester("1st")}>
 						<span>1st</span>
 					</div>
-					<div onClick={() => setGetSemester("2nd")}>
+					<div onClick={() => setSemester("2nd")}>
 						<span>2nd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("3rd")}>
+					<div onClick={() => setSemester("3rd")}>
 						<span>3rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("4rd")}>
+					<div onClick={() => setSemester("4rd")}>
 						<span>4rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("5rd")}>
+					<div onClick={() => setSemester("5rd")}>
 						<span>5rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("6rd")}>
+					<div onClick={() => setSemester("6rd")}>
 						<span>6rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("7rd")}>
+					<div onClick={() => setSemester("7rd")}>
 						<span>7rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("8rd")}>
+					<div onClick={() => setSemester("8rd")}>
 						<span>8rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("9rd")}>
+					<div onClick={() => setSemester("9rd")}>
 						<span>9rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("10rd")}>
+					<div onClick={() => setSemester("10rd")}>
 						<span>10rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("11rd")}>
+					<div onClick={() => setSemester("11rd")}>
 						<span>11rd</span>
 					</div>
 
-					<div onClick={() => setGetSemester("12rd")}>
+					<div onClick={() => setSemester("12rd")}>
 						<span>12rd</span>
 					</div>
 				</div>

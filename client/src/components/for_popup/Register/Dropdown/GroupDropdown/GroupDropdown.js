@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./GroupDropdown.css";
 
-const GroupDropdown = ({ getGroup, setGetGroup }) => {
+const GroupDropdown = ({ getGroup, setGroup }) => {
 	const [groupDrop, setGroupDrop] = useState(false);
 	return (
 		<>
@@ -20,30 +20,30 @@ const GroupDropdown = ({ getGroup, setGetGroup }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setGetGroup("A")}>
+					<div onClick={() => setGroup("A")}>
 						<span>
-							<i class="fa-solid fa-a"></i>
+							<i className="fa-solid fa-a"></i>
 						</span>
 					</div>
-					<div onClick={() => setGetGroup("B")}>
+					<div onClick={() => setGroup("B")}>
 						<span>
-							<i class="fa-solid fa-b"></i>
+							<i className="fa-solid fa-b"></i>
 						</span>
 					</div>
 
-					<div onClick={() => setGetGroup("C")}>
+					<div onClick={() => setGroup("C")}>
 						<span>
 							<i className="fa-solid fa-c"></i>
 						</span>
 					</div>
 
-					<div onClick={() => setGetGroup("D")}>
+					<div onClick={() => setGroup("D")}>
 						<span>
 							<i className="fa-solid fa-d"></i>
 						</span>
 					</div>
 
-					<div onClick={() => setGetGroup("E")}>
+					<div onClick={() => setGroup("E")}>
 						<span>
 							<i className="fa-solid fa-e"></i>
 						</span>

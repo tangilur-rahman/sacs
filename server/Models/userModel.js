@@ -35,13 +35,6 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		c_password: {
-			type: String,
-			required: true,
-			minLength: [8, "Minimum 8 length required"],
-			trim: true
-		},
-
 		profile_img: {
 			type: String,
 			default: "/assets/images/default-img.png",
