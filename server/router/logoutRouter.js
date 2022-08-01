@@ -1,7 +1,11 @@
+// external modules
 const express = require("express");
-const authUser = require("./../middleware/authUser");
 
+// sub-router
 const logout = express.Router();
+
+// internal modules
+const authUser = require("./../middleware/authUser");
 
 logout.get("/", authUser, async (req, res) => {
 	try {

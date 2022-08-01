@@ -1,11 +1,12 @@
 // external modules
 const express = require("express");
 
+// sub-router
+const student = express.Router();
+
 // internal modules
 const authUser = require("./../middleware/authUser");
 const userModel = require("./../models/userModel");
-
-const student = express.Router();
 
 student.get("/", authUser, async (req, res) => {
 	try {

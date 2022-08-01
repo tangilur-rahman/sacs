@@ -80,7 +80,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 				autoClose: 3000
 			});
 		}
-
 		// for update password end
 
 		// for upload profile-img start
@@ -103,7 +102,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 				toast.error(error.message);
 			}
 		}
-
 		// for upload profile-img end
 	};
 
