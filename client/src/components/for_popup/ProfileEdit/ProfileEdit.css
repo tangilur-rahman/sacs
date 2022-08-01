@@ -16,6 +16,11 @@
 	position: relative;
 }
 
+.profile-edit-container .layout #blur {
+	filter: blur(1.5px);
+	background-color: white;
+}
+
 /* icon style start  */
 .profile-edit-container .wrapper .icon {
 	font-size: 25px;

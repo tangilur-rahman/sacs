@@ -3,13 +3,19 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
 const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 	// for toggle edit option
 	const [editT, setEditT] = useState(false);
+	const [changeProfileT, setChangeProfileT] = useState(false);
 
-	const [file, setFile] = useState("");
+	const [getFile, setFile] = useState("");
+	const [previewImg, setPreviewImg] = useState(
+		`uploads/${currentUser.profile_img}`
+	);
+
 	const [cpassword, setCpassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 
@@ -30,15 +36,20 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 	}, [profileT]);
 	// for close when clicked outside start
 
+	// for preview
+	const imgHandler = (event) => {
+		setFile(event.target.files[0]);
+		const reader = new FileReader();
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setPreviewImg(reader.result);
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	};
+
 	// submit handler
-	const submitHandler = async (event) => {
-		event.preventDefault();
-
-		const formData = new FormData();
-
-		formData.append("file", file);
-
-		// for update password start
+	const submitHandler = async () => {
 		try {
 			const response = await fetch("/profile/update", {
 				method: "PUT",
@@ -80,29 +91,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 				autoClose: 3000
 			});
 		}
-		// for update password end
-
-		// for upload profile-img start
-		if (file) {
-			try {
-				const response = await fetch("/profile/upload", {
-					method: "POST",
-					body: formData,
-					headers: { "Content-Type": "multipart/form-data" }
-				});
-
-				const result = await response.json();
-
-				if (result.message) {
-					toast.success(result.message);
-				} else {
-					toast.warn(result.error);
-				}
-			} catch (error) {
-				toast.error(error.message);
-			}
-		}
-		// for upload profile-img end
 	};
 
 	return (
@@ -110,17 +98,24 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 			<div className="profile-edit-container">
 				<div className="row m-0 layout">
 					<div className="col-9 p-0">
-						<div ref={myRef} className="wrapper">
+						<div
+							ref={myRef}
+							className="wrapper"
+							id={changeProfileT ? "blur" : null}
+						>
 							<div className="curr-user-profile">
 								<span className="img-wrapper">
 									<img
-										src={currentUser.profile_img}
+										src={`uploads/${currentUser.profile_img}`}
 										alt="profile-img"
 										className={editT ? "img-fluid" : "img-fluid animation"}
 									/>
 
 									{editT && (
-										<span className="change-img">
+										<span
+											className="change-img"
+											onClick={() => setChangeProfileT(!changeProfileT)}
+										>
 											<label htmlFor="change-img">
 												<i className="fa-solid fa-camera"></i>
 											</label>
@@ -189,7 +184,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 											</span>
 											<div className="profile-btn">
 												<button
-													type="submit"
 													className="btn btn-success"
 													onClick={submitHandler}
 												>
@@ -218,9 +212,18 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 					name="profile-img"
 					id="change-img"
 					accept="image/png, image/gif, image/jpeg"
-					onChange={(event) => setFile(event.target.files[0])}
+					onChange={imgHandler}
 					style={{ display: "none" }}
 				/>
+				{changeProfileT && (
+					<CngProfileImg
+						changeProfileT={changeProfileT}
+						setChangeProfileT={setChangeProfileT}
+						profileRef={myRef}
+						previewImg={previewImg}
+						getFile={getFile}
+					/>
+				)}
 			</div>
 		</>
 	);

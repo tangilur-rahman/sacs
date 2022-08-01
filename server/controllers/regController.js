@@ -83,7 +83,7 @@ const createNewUser = async (req, res) => {
 				}
 			}
 		} catch (error) {
-			res.status(500).json({ message: "Invalid Email or, server-side error!" });
+			res.status(500).json({ message: "Invalid Email or server-side error!" });
 		}
 	} else {
 		res.status(400).json({ message: "Fill-up all fields!" });

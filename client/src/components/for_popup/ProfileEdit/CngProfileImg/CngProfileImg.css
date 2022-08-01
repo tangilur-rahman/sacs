@@ -1,0 +1,51 @@
+.c-pro-img-container {
+	position: absolute;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+.c-pro-img-container .c-pro-layout {
+	display: flex;
+	justify-content: center;
+}
+
+.c-pro-img-container .c-pro-layout .wrapper {
+	display: flex;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: var(--box-shadow);
+	padding: 20px 10px !important;
+}
+
+.c-pro-img-container .c-pro-layout #left img {
+	width: 200px;
+	height: 200px;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	object-position: top center;
+	border-radius: 50%;
+	border: 3px solid white;
+}
+
+.c-pro-img-container .c-pro-layout .wrapper #right {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+}
+
+.wrapper #right .c-pro-btn button {
+	padding: 7px 20px;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.wrapper #right .c-pro-btn button:hover {
+	transform: scale(0.98);
+}
+
+.wrapper #right .c-pro-btn button:first-child {
+	margin-right: 30px;
+}

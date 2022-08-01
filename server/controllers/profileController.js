@@ -33,4 +33,18 @@ const updatePassword = async (req, res) => {
 	}
 };
 
-module.exports = { updatePassword };
+const changeProfileImg = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.userDocument._id },
+			{
+				$set: { profile_img: req.file.filename }
+			}
+		);
+		res.status(200).json({ message: "Profile image update successfully" });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
+module.exports = { updatePassword, changeProfileImg };

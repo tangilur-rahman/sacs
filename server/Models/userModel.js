@@ -37,7 +37,7 @@ const schema = mongoose.Schema(
 
 		profile_img: {
 			type: String,
-			default: "/assets/images/default-img.png",
+			default: "default-img.png",
 			trim: true
 		},
 
