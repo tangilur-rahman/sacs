@@ -108,6 +108,7 @@
 
 .profile-edit-container .curr-user-profile .change-img i {
 	font-size: 24px;
+	cursor: pointer;
 }
 /* profile-img style end  */
 
