@@ -10,8 +10,8 @@ const RoleDropdown = ({ getRole, setRole }) => {
 	const displayRole = () => {
 		if (getRole === "administrator") {
 			return "🏫  Administrator";
-		} else if (getRole === "instructor") {
-			return "🤵  Instructor";
+		} else if (getRole === "advisor") {
+			return "🤵  Advisor";
 		} else if (getRole === "student") {
 			return "👨‍🎓  Student";
 		}
@@ -34,8 +34,8 @@ const RoleDropdown = ({ getRole, setRole }) => {
 					<div onClick={() => setRole("administrator")}>
 						<span>🏫 &nbsp;Administrator</span>
 					</div>
-					<div onClick={() => setRole("instructor")}>
-						<span>🤵 &nbsp;Instructor</span>
+					<div onClick={() => setRole("advisor")}>
+						<span>🤵 &nbsp;Advisor</span>
 					</div>
 					<div onClick={() => setRole("student")}>
 						<span>👨‍🎓 &nbsp;Student</span>
