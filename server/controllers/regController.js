@@ -1,5 +1,10 @@
-const userModel = require("./../models/userModel");
+// external modules
 const bcrypt = require("bcrypt");
+
+// internal modules
+const adminModel = require("./../models/administratorModel");
+const advisorModel = require("./../models/advisorModel");
+const studentModel = require("./../models/studentModel");
 
 //  "/register"
 const createNewUser = async (req, res) => {
@@ -9,81 +14,128 @@ const createNewUser = async (req, res) => {
 		email,
 		password,
 		c_password,
+		gender,
 		role,
 		department,
-		group,
 		semester,
 		year
 	} = req.body;
 
-	if (name && id && email && password && c_password) {
+	if (name && id && email && password && c_password && gender && role) {
 		try {
-			// check ID Already Exists or not
-			const checkId = await userModel.findOne({ id });
-
-			if (checkId) {
-				res.status(400).json({ message: "That Id Already Used" });
+			if (password !== c_password) {
+				res.status(400).json({ message: "Password doesn't match!" });
+			} else if (password < 8) {
+				res.status(400).json({ message: "Password must be minimum 8 length " });
 			} else {
-				// check Email Already Exists or not
-				const checkEmail = await userModel.findOne({ email });
+				// hash password
+				const hashPassword = await bcrypt.hash(password, 10);
 
-				if (checkEmail) {
-					res.status(400).json({ message: "That Email Already Used" });
-				} else {
-					// check password match or not
-					if (password === c_password) {
-						if (password.length < 8) {
-							res
-								.status(400)
-								.json({ message: "Password must be minimum 8 length " });
+				if (role === "administrator") {
+					// check id exists or not
+					const checkId = await adminModel.findOne({ id });
+
+					if (checkId) {
+						res.status(400).json({ message: "That Id already used" });
+					} else {
+						// check email exists or not
+						const checkEmail = await adminModel.findOne({ email });
+
+						if (checkEmail) {
+							res.status(400).json({ message: "That email already used" });
 						} else {
-							const hashPassword = await bcrypt.hash(password, 10);
+							const document = await adminModel({
+								name,
+								id,
+								email,
+								gender,
+								password: hashPassword,
+								role
+							});
 
-							if (role === "Administrator") {
-								const document = await userModel({
+							await document.save();
+
+							res
+								.status(200)
+								.json({ message: "New administrator add successfully" });
+						}
+					}
+				} else if (role === "advisor") {
+					if (!(department && semester && year)) {
+						res.status(400).json({ message: "Fill-up all fields!" });
+					} else {
+						// check id exists or not
+						const checkId = await advisorModel.findOne({ id });
+
+						if (checkId) {
+							res.status(400).json({ message: "That Id already used" });
+						} else {
+							// check email exists or not
+							const checkEmail = await advisorModel.findOne({ email });
+
+							if (checkEmail) {
+								res.status(400).json({ message: "That email already used" });
+							} else {
+								const document = await advisorModel({
 									name,
 									id,
 									email,
+									gender,
 									password: hashPassword,
-									role
+									role,
+									department,
+									semester,
+									year
 								});
 
-								// save that document into mongoDB
 								await document.save();
+
 								res
 									.status(200)
-									.json({ message: "Add new administrator successfully" });
-							} else {
-								if (department && group && semester && year) {
-									const document = await userModel({
-										name,
-										id,
-										email,
-										password: hashPassword,
-										role,
-										department,
-										group,
-										semester,
-										year
-									});
-
-									// save that document into mongoDB
-									await document.save();
-									res
-										.status(200)
-										.json({ message: "Add new user successfully" });
-								} else {
-									res.status(400).json({ message: "Fill-up all fields!" });
-								}
+									.json({ message: "New advisor add successfully" });
 							}
 						}
+					}
+				} else if (role === "student") {
+					if (!(department && semester && year)) {
+						res.status(400).json({ message: "Fill-up all fields!" });
 					} else {
-						res.status(400).json({ message: "Password didn't match 😣" });
+						// check id exists or not
+						const checkId = await studentModel.findOne({ id });
+
+						if (checkId) {
+							res.status(400).json({ message: "That Id already used" });
+						} else {
+							// check email exists or not
+							const checkEmail = await studentModel.findOne({ email });
+
+							if (checkEmail) {
+								res.status(400).json({ message: "That email already used" });
+							} else {
+								const document = await studentModel({
+									name,
+									id,
+									email,
+									gender,
+									password: hashPassword,
+									role,
+									department,
+									semester,
+									year
+								});
+
+								await document.save();
+
+								res
+									.status(200)
+									.json({ message: "New Student add successfully" });
+							}
+						}
 					}
 				}
 			}
 		} catch (error) {
-			res.status(500).json({ message: "Invalid Email or server-side error!" });
+			res.status(500).json({ error: "Invalid inputted values!" });
 		}
 	} else {
 		res.status(400).json({ message: "Fill-up all fields!" });

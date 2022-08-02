@@ -68,7 +68,7 @@ const Navbar = ({
 					<div className="col-3 p-0">
 						<div className="right">
 							<div className="icon-style">
-								{currentUser.role === "Administrator" && (
+								{currentUser.role === "administrator" && (
 									<span onClick={() => setRegisterT(!registerT)}>
 										<i className="bi bi-plus-circle-dotted"></i>
 									</span>

@@ -2,7 +2,9 @@
 const jwt = require("jsonwebtoken");
 
 // internal modules
-const userModel = require("./../models/userModel");
+const adminModel = require("./../models/administratorModel");
+const advisorModel = require("./../models/advisorModel");
+const studentModel = require("./../models/studentModel");
 
 const authUser = async (req, res, next) => {
 	try {
@@ -11,14 +13,36 @@ const authUser = async (req, res, next) => {
 			process.env.SECRET_KEY
 		);
 
-		const document = await userModel.findOne({
-			_id: user.mongodb_id,
-			id: user.id
-		});
+		let document = null;
 
-		req.userDocument = document;
+		if (document === null) {
+			document = await adminModel.findOne({
+				_id: user.mongodb_id,
+				id: user.id
+			});
+			req.currentUser = document;
 
-		next();
+			if (document === null) {
+				document = await advisorModel.findOne({
+					_id: user.mongodb_id,
+					id: user.id
+				});
+				req.currentUser = document;
+
+				if (document === null) {
+					document = await studentModel.findOne({
+						_id: user.mongodb_id,
+						id: user.id
+					});
+					req.currentUser = document;
+					next();
+				}
+			} else {
+				next();
+			}
+		} else {
+			next();
+		}
 	} catch (error) {
 		res.status(400).json({ error: "Authentication Failed!" });
 	}

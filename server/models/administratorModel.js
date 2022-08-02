@@ -25,10 +25,6 @@ const schema = mongoose.Schema(
 				}
 			}
 		},
-		gender: {
-			type: String,
-			trim: true
-		},
 
 		password: {
 			type: String,
@@ -49,25 +45,16 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		department: {
+		gender: {
 			type: String,
 			trim: true
 		},
 
-		semester: {
-			type: String,
-			trim: true
-		},
-		year: {
-			type: String,
-			trim: true
-		},
 		tokens: [
 			{
 				token: {
 					type: String,
-					unique: true,
-					required: true
+					unique: true
 				}
 			}
 		]
@@ -75,6 +62,6 @@ const schema = mongoose.Schema(
 	{ timestamps: true }
 );
 
-const studentModel = mongoose.model("student", schema);
+const adminModel = mongoose.model("administrator", schema);
 
-module.exports = studentModel;
+module.exports = adminModel;

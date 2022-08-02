@@ -8,7 +8,7 @@ const user = express.Router();
 const authUser = require("../middleware/authUser");
 
 user.get("/", authUser, (req, res) => {
-	res.status(200).json(req.userDocument);
+	res.status(200).json(req.currentUser);
 });
 
 module.exports = user;

@@ -61,7 +61,7 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	useEffect(() => {
 		if (selected === "dashboard") {
 			return Navigate("dashboard");
-		} else if (selected === "group-chat") {
+		} else if (selected === "chat") {
 			return Navigate("chat");
 		} else if (selected === "appointment") {
 			return Navigate("create-appointment");

@@ -13,6 +13,8 @@ logout.get("/", authUser, async (req, res) => {
 
 		res.status(200).json({ message: "Logout Successfully" });
 	} catch (error) {
+		console.log(error.message);
+
 		res.status(500).json({ error: "Something Was Wrong,Try Later" });
 	}
 });

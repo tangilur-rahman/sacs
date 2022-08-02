@@ -13,7 +13,7 @@ const schema = mongoose.Schema(
 
 		id: {
 			type: Number,
-			required: true
+			required: true,
 		},
 
 		email: {
@@ -75,6 +75,6 @@ const schema = mongoose.Schema(
 	{ timestamps: true }
 );
 
-const studentModel = mongoose.model("student", schema);
+const advisorModel = mongoose.model("advisor", schema);
 
-module.exports = studentModel;
+module.exports = advisorModel;

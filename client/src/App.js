@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Appointment from "./components/for_homepage/Appointment/Appointment";
 import Dashboard from "./components/for_homepage/Dashboard/Dashboard";
-import GroupChat from "./components/for_homepage/GroupChat/GroupChat";
+import Chat from "./components/for_homepage/Chat/Chat";
 import InstructorInfo from "./components/for_homepage/InstructorInfo/InstructorInfo";
 
 // pages
@@ -44,7 +44,7 @@ const App = () => {
 								/>
 							}
 						/>
-						<Route path="chat" element={<GroupChat />} />
+						<Route path="chat" element={<Chat />} />
 						<Route path="create-appointment" element={<Appointment />} />
 						<Route path="my-instructor" element={<InstructorInfo />} />
 					</Route>

@@ -69,8 +69,8 @@ const Login = () => {
 					theme: "dark",
 					autoClose: 3000
 				});
-			} else {
-				toast.error(result.message, {
+			} else if (result.error) {
+				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000

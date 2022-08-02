@@ -69,6 +69,8 @@ const Register = ({ registerT, setRegisterT }) => {
 
 			const result = await response.json();
 
+			console.log(result.error);
+
 			if (response.status === 200) {
 				toast.success(result.message, {
 					position: "top-right",
@@ -89,8 +91,8 @@ const Register = ({ registerT, setRegisterT }) => {
 					theme: "dark",
 					autoClose: 3000
 				});
-			} else {
-				toast.error(result.message, {
+			} else if (result.error) {
+				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000

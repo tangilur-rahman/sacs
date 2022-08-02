@@ -12,11 +12,11 @@ const WhenStudent = ({ selected, setSelected }) => {
 			</span>
 
 			<span
-				onClick={() => setSelected("group-chat")}
-				className={selected === "group-chat" ? "group-chat-active" : ""}
+				onClick={() => setSelected("chat")}
+				className={selected === "chat" ? "group-chat-active" : ""}
 			>
 				<i className="fa-solid fa-comments"></i>
-				<h5>Group Chat</h5>
+				<h5>Chat</h5>
 			</span>
 
 			<span

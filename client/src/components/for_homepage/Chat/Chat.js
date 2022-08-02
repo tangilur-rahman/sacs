@@ -1,5 +1,5 @@
 // internal components
-import "./GroupChat.css";
+import "./Chat.css";
 import MessageBox from "./MessageBox/MessageBox";
 import UserBox from "./UserBox/UserBox";
 

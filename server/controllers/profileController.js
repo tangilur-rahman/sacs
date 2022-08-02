@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 
 // internal modules
-const userModel = require("../models/userModel");
+const adminModel = require("./../models/administratorModel");
 
 const updatePassword = async (req, res) => {
 	const { cpassword, newPassword } = req.body;
@@ -19,7 +19,7 @@ const updatePassword = async (req, res) => {
 		} else {
 			const hashPassword = await bcrypt.hash(newPassword, 10);
 
-			await userModel.updateOne(
+			await userModel.adminModel(
 				{ _id: req.userDocument._id },
 				{
 					$set: { password: hashPassword }
@@ -35,7 +35,7 @@ const updatePassword = async (req, res) => {
 
 const changeProfileImg = async (req, res) => {
 	try {
-		await userModel.updateOne(
+		await adminModel.updateOne(
 			{ _id: req.userDocument._id },
 			{
 				$set: { profile_img: req.file.filename }

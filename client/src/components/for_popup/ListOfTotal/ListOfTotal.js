@@ -54,7 +54,7 @@ const ListOfTotal = ({ totalT, setTotalT }) => {
 	// console.log(data);
 
 	useEffect(() => {
-		getList();
+		// getList();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [totalT]);
 	// fetching from database end

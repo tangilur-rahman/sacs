@@ -10,11 +10,11 @@ import WhenStudent from "./WhenStudent/WhenStudent";
 const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 	// for set initial-value
 	useEffect(() => {
-		if (currentUser.role === "Administrator") {
+		if (currentUser.role === "administrator") {
 			setSelected("");
-		} else if (currentUser.role === "Instructor") {
+		} else if (currentUser.role === "advisor") {
 			setSelected("");
-		} else if (currentUser.role === "Student") {
+		} else if (currentUser.role === "student") {
 			setSelected("dashboard");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,15 +37,15 @@ const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 			</div>
 
 			<div className="tab-container">
-				{currentUser.role === "Administrator" && (
+				{currentUser.role === "administrator" && (
 					<WhenAdministrator selected={selected} setSelected={setSelected} />
 				)}
 
-				{currentUser.role === "Instructor" && (
+				{currentUser.role === "instructor" && (
 					<WhenInstructor selected={selected} setSelected={setSelected} />
 				)}
 
-				{currentUser.role === "Student" && (
+				{currentUser.role === "student" && (
 					<WhenStudent selected={selected} setSelected={setSelected} />
 				)}
 			</div>

@@ -1,6 +1,11 @@
-const userModel = require("../models/userModel");
+// external modules
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+// internal modules
+const adminModel = require("./../models/administratorModel");
+const advisorModel = require("./../models/advisorModel");
+const studentModel = require("./../models/studentModel");
 
 //  "/login"
 const checkLogin = async (req, res) => {
@@ -8,9 +13,24 @@ const checkLogin = async (req, res) => {
 
 	if (id_or_email && password) {
 		try {
-			const checkExist = await userModel.findOne({
-				$or: [{ email: id_or_email }, { id: id_or_email }]
-			});
+			let checkExist = null;
+
+			if (checkExist === null) {
+				checkExist = await adminModel.findOne({
+					$or: [{ email: id_or_email }, { id: id_or_email }]
+				});
+
+				if (checkExist === null) {
+					checkExist = await advisorModel.findOne({
+						$or: [{ email: id_or_email }, { id: id_or_email }]
+					});
+					if (checkExist === null) {
+						checkExist = await studentModel.findOne({
+							$or: [{ email: id_or_email }, { id: id_or_email }]
+						});
+					}
+				}
+			}
 
 			const comparePassword = await bcrypt.compare(
 				password,
@@ -38,7 +58,7 @@ const checkLogin = async (req, res) => {
 				res.status(400).json({ message: "Authentication Failed!" });
 			}
 		} catch (error) {
-			res.status(500).json({ message: "Invalid Account!" });
+			res.status(500).json({ error: "Invalid Account!" });
 		}
 	} else {
 		res.status(400).json({ message: "Fill-up all fields!" });
