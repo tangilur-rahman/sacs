@@ -46,11 +46,6 @@
 	font-weight: 500;
 }
 
-.signup-container .right form .for-admin-role {
-	display: flex;
-	justify-content: space-between;
-}
-
 .signup-container .right form .group {
 	display: flex;
 	justify-content: space-between;
@@ -64,15 +59,19 @@
 }
 
 .signup-container .right form .year span {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 500;
 	color: #383131;
-	margin: 2px 10px 0 2px;
+	margin: 0px 17px 0 0px;
 }
 
 .signup-container .right form .btn-container {
 	display: flex;
 	justify-content: flex-end;
+}
+
+.signup-container .right form #increase-width {
+	width: 100%;
 }
 
 .right form .btn-container button {

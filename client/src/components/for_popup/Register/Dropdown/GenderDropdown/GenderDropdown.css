@@ -1,10 +1,10 @@
-.signup-container .right .group-container {
+.signup-container .right .gender-container {
 	position: relative;
 	width: 48%;
 	margin: -5px 0 0 0;
 }
 
-.group-container::before {
+.gender-container::before {
 	content: "";
 	position: absolute;
 	right: 12px;
@@ -19,36 +19,38 @@
 	transition: 0.5s;
 	pointer-events: none;
 }
-.group-container.active::before {
+
+.gender-container.active::before {
 	top: 20px;
 	transform: rotate(-225deg);
 }
-.signup-container .right .group-container input {
+
+.signup-container .right .gender-container input {
 	cursor: pointer;
 	background-color: #fff;
 	border: none;
 	outline: none;
 	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
-	padding: 7px 14px;
+	padding: 7px 16px;
 	border-radius: 5px;
 	font-weight: 600;
 	font-size: 18px;
 	width: 100%;
 }
 
-.signup-container .right .group-container input::placeholder {
+.signup-container .right .gender-container input::placeholder {
 	padding-left: 10px;
 	color: #757575;
 	font-weight: 500;
 }
 
-.signup-container .right .group-container input:focus {
+.signup-container .right .gender-container input:focus {
 	outline: 4px solid #c2daff;
 }
 
-.group-container .option {
+.gender-container .option {
 	position: absolute;
-	bottom: 54px;
+	top: 54px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
@@ -59,26 +61,21 @@
 	font-weight: 500;
 }
 
-.group-container.active .option {
+.gender-container.active .option {
 	display: block;
 }
 
-.group-container .option div {
+.gender-container .option div {
 	padding: 7px 10px;
 	cursor: pointer;
 }
 
-.group-container .option div:hover {
+.gender-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.group-container .option div span {
-	display: flex;
-	justify-content: center;
-}
-
-.group-container .option div i {
+.gender-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

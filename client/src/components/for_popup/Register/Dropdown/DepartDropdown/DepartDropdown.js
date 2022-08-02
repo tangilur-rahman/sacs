@@ -8,21 +8,21 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 	const [departDrop, setDepartDrop] = useState(false);
 
 	const displayDepartment = () => {
-		if (getDepart === "CSS") {
+		if (getDepart === "css") {
 			return "💻  CSS";
-		} else if (getDepart === "EEE") {
+		} else if (getDepart === "eee") {
 			return "💡  EEE";
-		} else if (getDepart === "TEXTILE") {
+		} else if (getDepart === "textile") {
 			return "🕸️  TEXTILE";
-		} else if (getDepart === "B.PHARMACY") {
+		} else if (getDepart === "pharmacy") {
 			return "💊   B.PHARMACY";
-		} else if (getDepart === "BBA") {
+		} else if (getDepart === "bba") {
 			return "📈   BBA";
-		} else if (getDepart === "LLB") {
+		} else if (getDepart === "llb") {
 			return "⚖️  LLB";
-		} else if (getDepart === "English") {
+		} else if (getDepart === "english") {
 			return "🔤   English";
-		} else if (getDepart === "Bangla") {
+		} else if (getDepart === "bangla") {
 			return "অ   Bangla";
 		}
 	};
@@ -40,35 +40,35 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setDepart("CSS")}>
+					<div onClick={() => setDepart("css")}>
 						<span>💻 &nbsp;CSS</span>
 					</div>
 
-					<div onClick={() => setDepart("EEE")}>
+					<div onClick={() => setDepart("eee")}>
 						<span>💡 &nbsp;EEE</span>
 					</div>
 
-					<div onClick={() => setDepart("TEXTILE")}>
+					<div onClick={() => setDepart("textile")}>
 						<span>🕸️ &nbsp;TEXTILE</span>
 					</div>
 
-					<div onClick={() => setDepart("B.PHARMACY")}>
+					<div onClick={() => setDepart("pharmacy")}>
 						<span>💊 &nbsp; B.PHARMACY</span>
 					</div>
 
-					<div onClick={() => setDepart("BBA")}>
+					<div onClick={() => setDepart("bba")}>
 						<span>📈 &nbsp; BBA</span>
 					</div>
 
-					<div onClick={() => setDepart("LLB")}>
+					<div onClick={() => setDepart("llb")}>
 						<span>⚖️&nbsp; LLB</span>
 					</div>
 
-					<div onClick={() => setDepart("English")}>
+					<div onClick={() => setDepart("english")}>
 						<span>🔤 &nbsp; English</span>
 					</div>
 
-					<div onClick={() => setDepart("Bangla")}>
+					<div onClick={() => setDepart("bangla")}>
 						<span>অ &nbsp; Bangla</span>
 					</div>
 				</div>

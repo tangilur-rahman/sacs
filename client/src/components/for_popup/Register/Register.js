@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 // internal components
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
-import GroupDropdown from "./Dropdown/GroupDropdown/GroupDropdown";
+import GenderDropdown from "./Dropdown/GenderDropdown/GenderDropdown";
 import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
 import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
 import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
@@ -16,7 +16,7 @@ const Register = ({ registerT, setRegisterT }) => {
 	// get dropdown section values
 	const [getRole, setRole] = useState(null);
 	const [getDepart, setDepart] = useState("");
-	const [getGroup, setGroup] = useState("");
+	const [getGender, setGender] = useState("");
 	const [getSemester, setSemester] = useState("");
 	const [year, setYear] = useState("");
 
@@ -51,9 +51,9 @@ const Register = ({ registerT, setRegisterT }) => {
 			email,
 			password,
 			c_password,
+			gender: getGender,
 			role: getRole,
 			department: getDepart,
-			group: getGroup,
 			semester: getSemester,
 			year: year
 		};
@@ -209,60 +209,60 @@ const Register = ({ registerT, setRegisterT }) => {
 										</div>
 
 										{/* dropdown start  */}
-										<div
-											className={
-												getRole === "Administrator" ? "for-admin-role" : ""
-											}
-										>
+
+										<div className="group">
+											<GenderDropdown
+												getGender={getGender}
+												setGender={setGender}
+											/>
+											<RoleDropdown getRole={getRole} setRole={setRole} />
+										</div>
+
+										{getRole !== "administrator" && getRole !== null && (
 											<div className="group">
-												<RoleDropdown getRole={getRole} setRole={setRole} />
+												<DepartDropdown
+													getDepart={getDepart}
+													setDepart={setDepart}
+												/>
 
-												{getRole !== "Administrator" && getRole !== null && (
-													<DepartDropdown
-														getDepart={getDepart}
-														setDepart={setDepart}
-													/>
-												)}
+												<SemesterDropDown
+													getSemester={getSemester}
+													setSemester={setSemester}
+												/>
 											</div>
+										)}
 
-											{getRole !== "Administrator" && getRole !== null && (
-												<div className="group">
-													<GroupDropdown
-														getGroup={getGroup}
-														setGroup={setGroup}
-													/>
-													<SemesterDropDown
-														getSemester={getSemester}
-														setSemester={setSemester}
-													/>
+										<div className="signup-footer">
+											{getRole !== "administrator" && getRole !== null && (
+												<div className="year">
+													<span>Academic Year :</span>
+													<YearDropdown setYear={setYear} />
 												</div>
 											)}
 
-											<div className="signup-footer">
-												{getRole !== "Administrator" && getRole !== null && (
-													<div className="year">
-														<span>Year :</span>
-														<YearDropdown setYear={setYear} />
-													</div>
-												)}
+											<div
+												className="btn-container"
+												id={
+													getRole === "administrator" || getRole === null
+														? "increase-width"
+														: ""
+												}
+											>
+												<button
+													type="button"
+													className="btn btn-danger"
+													onClick={() => setRegisterT(false)}
+												>
+													Cancel
+												</button>
 
-												<div className="btn-container">
-													<button
-														type="button"
-														className="btn btn-danger"
-														onClick={() => setRegisterT(false)}
-													>
-														Cancel
-													</button>
-
-													<button
-														type="button"
-														className="btn btn-success"
-														onClick={submitHandle}
-													>
-														Submit
-													</button>
-												</div>
+												<button
+													type="button"
+													className="btn btn-success"
+													onClick={submitHandle}
+												>
+													Submit
+												</button>
 											</div>
 										</div>
 									</form>

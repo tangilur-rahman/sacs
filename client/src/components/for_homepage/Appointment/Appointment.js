@@ -1,7 +1,7 @@
 // external components
 import { useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import { FileUploader } from "react-drag-drop-files";
+import TextareaAutosize from "react-textarea-autosize";
 
 // internal components
 import "./Appointment.css";
