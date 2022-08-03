@@ -9,12 +9,10 @@ const authUser = require("./../middleware/authUser");
 
 logout.get("/", authUser, async (req, res) => {
 	try {
-		await res.clearCookie("sacsCookie");
+		await res.clearCookie(process.env.COOKIES_NAME);
 
 		res.status(200).json({ message: "Logout Successfully" });
 	} catch (error) {
-		console.log(error.message);
-
 		res.status(500).json({ error: "Something Was Wrong,Try Later" });
 	}
 });

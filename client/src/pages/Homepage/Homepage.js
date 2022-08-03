@@ -20,7 +20,8 @@ import AppointmentDetails from "./../../components/for_popup/AppointmentDetails/
 import Register from "./../../components/for_popup/Register/Register";
 
 const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
-	const { currentUser, setCurrentUser, setIsLoading } = GetContextApi();
+	const { currentUser, setCurrentUser, setIsLoading, updated } =
+		GetContextApi();
 
 	// for redirect login-page
 	const Navigate = useNavigate();
@@ -55,7 +56,7 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 	useEffect(() => {
 		getCurrentUser();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [updated]);
 
 	// navigate url
 	useEffect(() => {

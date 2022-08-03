@@ -10,7 +10,8 @@ const CngProfileImg = ({
 	setChangeProfileT,
 	profileRef,
 	previewImg,
-	getFile
+	getFile,
+	setUpdated
 }) => {
 	// for close when clicked outside start
 	const myUseRef = useRef();
@@ -48,8 +49,9 @@ const CngProfileImg = ({
 					autoClose: 1500
 				});
 				setTimeout(() => {
-					window.location.reload();
-				}, 2000);
+					setUpdated("profile-img update successfully");
+					setChangeProfileT(false);
+				}, 2500);
 			} else if (response.status === 400) {
 				toast(result.message, {
 					position: "top-right",

@@ -49,7 +49,7 @@ const checkLogin = async (req, res) => {
 
 				await checkExist.save();
 
-				res.cookie("sacsCookie", token, {
+				await res.cookie(process.env.COOKIES_NAME, token, {
 					expires: new Date(Date.now() + 31556952000)
 				});
 

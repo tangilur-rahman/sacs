@@ -13,28 +13,37 @@ const authUser = async (req, res, next) => {
 			process.env.SECRET_KEY
 		);
 
-		let document = null;
+		let admin = null;
+		let advisor = null;
+		let student = null;
 
-		if (document === null) {
-			document = await adminModel.findOne({
+		if (admin === null) {
+			admin = await adminModel.findOne({
 				_id: user.mongodb_id,
 				id: user.id
 			});
-			req.currentUser = document;
+			req.currentUser = admin;
 
-			if (document === null) {
-				document = await advisorModel.findOne({
+			if (admin === null) {
+				advisor = await advisorModel.findOne({
 					_id: user.mongodb_id,
 					id: user.id
 				});
-				req.currentUser = document;
+				req.currentUser = advisor;
 
-				if (document === null) {
-					document = await studentModel.findOne({
+				if (advisor === null) {
+					student = await studentModel.findOne({
 						_id: user.mongodb_id,
 						id: user.id
 					});
-					req.currentUser = document;
+					req.currentUser = student;
+
+					if (student === null) {
+						res.status(500).json({ error: "server-side error!" });
+					} else {
+						next();
+					}
+				} else {
 					next();
 				}
 			} else {

@@ -1,23 +1,29 @@
 // external components
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { GetContextApi } from "../../../ContextApi";
 
 // internal components
 import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
 const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
+	const { setUpdated } = GetContextApi();
+
 	// for toggle edit option
 	const [editT, setEditT] = useState(false);
 	const [changeProfileT, setChangeProfileT] = useState(false);
 
+	// for file handle
 	const [getFile, setFile] = useState("");
 	const [previewImg, setPreviewImg] = useState(
 		`uploads/${currentUser.profile_img}`
 	);
 
+	// for get input-field's value
 	const [cpassword, setCpassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
+	const [getPhone, setPhone] = useState("");
 
 	// for close when clicked outside start
 	const myRef = useRef();
@@ -55,7 +61,8 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 				method: "PUT",
 				body: JSON.stringify({
 					cpassword,
-					newPassword
+					newPassword,
+					getPhone
 				}),
 				headers: { "Content-Type": "application/json" }
 			});
@@ -68,6 +75,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 					theme: "colored",
 					autoClose: 3000
 				});
+				setUpdated("phone or password updated");
 				setCpassword("");
 				setNewPassword("");
 				setEditT(false);
@@ -77,8 +85,8 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 					theme: "dark",
 					autoClose: 3000
 				});
-			} else {
-				toast.error(result.message, {
+			} else if (result.error) {
+				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000
@@ -92,6 +100,18 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 			});
 		}
 	};
+
+	const displayValue = () => {
+		if (editT) {
+			return getPhone;
+		} else if (currentUser.phone) {
+			return "+88 " + currentUser.phone;
+		} else {
+			return "null";
+		}
+	};
+
+	console.log(getPhone);
 
 	return (
 		<>
@@ -138,7 +158,11 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 									</span>
 
 									<span>
-										Department :
+										Gender : <input value={currentUser.gender} readOnly />
+									</span>
+
+									<span>
+										Department : &nbsp;
 										<input value={currentUser.department} readOnly />
 									</span>
 
@@ -146,37 +170,53 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 										Semester : <input value={currentUser.semester} readOnly />
 									</span>
 
-									<span>
-										Group : <input value={currentUser.group} readOnly />
-									</span>
-
-									<span>
-										Year : <input value={currentUser.year} readOnly />
-									</span>
-
 									{editT && (
 										<span id="current-p">
-											<label htmlFor="current_p">Current Password :</label>
+											<label htmlFor="currPassword">Current Password :</label>
 
 											<input
 												type="password"
 												name="current_p"
-												id="current_p"
+												id="currPassword"
 												autoFocus
 												onChange={(event) => setCpassword(event.target.value)}
 											/>
 										</span>
 									)}
 
+									{currentUser.role === "advisor" && (
+										<span id={editT ? "phone-number" : ""}>
+											<label htmlFor="phone">
+												Phone : &nbsp; {editT && <h6>+880</h6>}
+											</label>
+
+											<input
+												type={editT ? "number" : "text"}
+												name="phone"
+												id="phone"
+												value={displayValue()}
+												readOnly={editT ? false : true}
+												onChange={(event) => setPhone(event.target.value)}
+											/>
+										</span>
+									)}
+
+									{currentUser.role === "student" && (
+										<span id="year">
+											Academic Year :&nbsp;
+											<input value={currentUser.year} readOnly />
+										</span>
+									)}
+
 									{editT && (
 										<div className="last-field">
 											<span id="new-p">
-												<label htmlFor="new_p">New Password :</label>
+												<label htmlFor="newPassword">New Password :</label>
 
 												<input
 													type="password"
 													name="new_p"
-													id="new_p"
+													id="newPassword"
 													onChange={(event) =>
 														setNewPassword(event.target.value)
 													}
@@ -222,6 +262,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 						profileRef={myRef}
 						previewImg={previewImg}
 						getFile={getFile}
+						setUpdated={setUpdated}
 					/>
 				)}
 			</div>

@@ -13,7 +13,7 @@ const schema = mongoose.Schema(
 
 		id: {
 			type: Number,
-			required: true,
+			required: true
 		},
 
 		email: {
@@ -25,6 +25,16 @@ const schema = mongoose.Schema(
 				}
 			}
 		},
+
+		phone: {
+			type: Number,
+			validate(value) {
+				if (!validator.isMobilePhone(value, ["bn-BD"])) {
+					throw new Error("Invalid phone number!");
+				}
+			}
+		},
+
 		gender: {
 			type: String,
 			trim: true
@@ -58,10 +68,12 @@ const schema = mongoose.Schema(
 			type: String,
 			trim: true
 		},
+
 		year: {
 			type: String,
 			trim: true
 		},
+
 		tokens: [
 			{
 				token: {

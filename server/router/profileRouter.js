@@ -8,12 +8,12 @@ const profile = express.Router();
 // internal modules
 const authUser = require("../middleware/authUser");
 const {
-	updatePassword,
+	updateInfo,
 	changeProfileImg
 } = require("./../controllers/profileController");
 const multerManager = require("./../Config/multerManager");
 
-profile.put("/update", authUser, updatePassword);
+profile.put("/update", authUser, updateInfo);
 
 const upload = multerManager("file");
 profile.put("/upload", authUser, upload.single("file"), changeProfileImg);

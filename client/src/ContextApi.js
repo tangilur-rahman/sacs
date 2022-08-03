@@ -6,6 +6,7 @@ const rootContext = createContext(null);
 const ContextHandler = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
+	const [updated, setUpdated] = useState("");
 
 	return (
 		<>
@@ -14,7 +15,9 @@ const ContextHandler = ({ children }) => {
 					currentUser,
 					setCurrentUser,
 					isLoading,
-					setIsLoading
+					setIsLoading,
+					updated,
+					setUpdated
 				}}
 			>
 				{children}

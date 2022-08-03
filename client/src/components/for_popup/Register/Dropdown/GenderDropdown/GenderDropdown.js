@@ -25,7 +25,7 @@ const GenderDropdown = ({ getGender, setGender }) => {
 			>
 				<input
 					type="text"
-					placeholder="Select Group"
+					placeholder="Select Gender"
 					readOnly
 					value={displayGender()}
 					required

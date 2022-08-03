@@ -145,6 +145,7 @@
 	color: #006d77;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	text-transform: capitalize;
 }
 
 .profile-edit-container .curr-user-info #name input {
@@ -153,9 +154,18 @@
 
 .profile-edit-container .curr-user-info #email input {
 	width: 85%;
+	text-transform: none;
+}
+.profile-edit-container .curr-user-info #year input {
+	width: max-content;
 }
 
 .profile-edit-container .curr-user-info #current-p input {
+	width: 60%;
+	margin-left: 5px;
+}
+
+.profile-edit-container .curr-user-info #phone-number input {
 	width: 60%;
 	margin-left: 5px;
 }
@@ -165,13 +175,24 @@
 }
 
 .profile-edit-container .curr-user-info #current-p {
-	outline: 4px solid #c2daff;
+	outline: 3px solid #c2daff;
 }
+
+.profile-edit-container .curr-user-info #phone-number {
+	outline: 3px solid #c2daff;
+}
+.profile-edit-container .curr-user-info #phone-number h6 {
+	display: inline;
+	font-weight: 600;
+	color: #006d77;
+	margin: 0;
+}
+
 .profile-edit-container .curr-user-info #new-p {
 	margin: 0;
-	flex-basis: 43%;
+	flex-basis: 42.7%;
 	margin-left: 35px;
-	outline: 4px solid #c2daff;
+	outline: 3px solid #c2daff;
 }
 
 .profile-edit-container .curr-user-info .last-field {

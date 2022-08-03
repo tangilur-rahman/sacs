@@ -31,9 +31,7 @@ const Login = () => {
 		}
 	};
 
-	const submitHandler = async (event) => {
-		event.preventDefault();
-
+	const submitHandler = async () => {
 		const userObject = {
 			id_or_email,
 			password
