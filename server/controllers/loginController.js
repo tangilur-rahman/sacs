@@ -45,7 +45,28 @@ const checkLogin = async (req, res) => {
 					{ expiresIn: "365d" }
 				);
 
-				checkExist.tokens = [].concat({ token: token });
+				if (checkExist.role === "administrator") {
+					await adminModel.updateOne(
+						{
+							id: checkExist.id
+						},
+						{ $set: { token } }
+					);
+				} else if (checkExist.role === "advisor") {
+					await advisorModel.updateOne(
+						{
+							id: checkExist.id
+						},
+						{ $set: { token } }
+					);
+				} else if (checkExist.role === "student") {
+					await studentModel.updateOne(
+						{
+							id: checkExist.id
+						},
+						{ $set: { token } }
+					);
+				}
 
 				await checkExist.save();
 

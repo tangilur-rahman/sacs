@@ -74,15 +74,19 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		tokens: [
+		students: [
 			{
-				token: {
-					type: String,
-					unique: true,
-					required: true
+				student: {
+					type: mongoose.Types.ObjectId,
+					ref: "student"
 				}
 			}
-		]
+		],
+
+		token: {
+			type: String,
+			default: ""
+		}
 	},
 	{ timestamps: true }
 );

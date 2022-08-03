@@ -50,14 +50,10 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		tokens: [
-			{
-				token: {
-					type: String,
-					unique: true
-				}
-			}
-		]
+		token: {
+			type: String,
+			default: ""
+		}
 	},
 	{ timestamps: true }
 );

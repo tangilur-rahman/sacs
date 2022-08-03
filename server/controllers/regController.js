@@ -88,6 +88,18 @@ const createNewUser = async (req, res) => {
 									year
 								});
 
+								// get related students
+								const myStudentAry = await studentModel.find({
+									department,
+									semester,
+									year
+								});
+
+								// saved related students's _id
+								document.students = myStudentAry.map((value) => {
+									return [].concat({ student: value._id });
+								});
+
 								await document.save();
 
 								res
@@ -112,6 +124,13 @@ const createNewUser = async (req, res) => {
 							if (checkEmail) {
 								res.status(400).json({ message: "That email already used" });
 							} else {
+								// get my advisor
+								const myAdvisor = await advisorModel.findOne({
+									department,
+									semester,
+									year
+								});
+
 								const document = await studentModel({
 									name,
 									id,
@@ -121,7 +140,8 @@ const createNewUser = async (req, res) => {
 									role,
 									department,
 									semester,
-									year
+									year,
+									advisor: myAdvisor._id
 								});
 
 								await document.save();

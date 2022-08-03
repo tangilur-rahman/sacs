@@ -32,7 +32,7 @@ const WhenStudent = ({ selected, setSelected }) => {
 				className={selected === "instructor" ? "instructor-active" : ""}
 			>
 				<i className="bi bi-calendar2-check"></i>
-				<h5>My Instructor</h5>
+				<h5>My Advisor</h5>
 			</span>
 		</>
 	);

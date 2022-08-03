@@ -62,15 +62,16 @@ const schema = mongoose.Schema(
 			type: String,
 			trim: true
 		},
-		tokens: [
-			{
-				token: {
-					type: String,
-					unique: true,
-					required: true
-				}
-			}
-		]
+
+		advisor: {
+			type: mongoose.Types.ObjectId,
+			ref: "advisor"
+		},
+
+		token: {
+			type: String,
+			default: ""
+		}
 	},
 	{ timestamps: true }
 );

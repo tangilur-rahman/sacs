@@ -69,8 +69,6 @@ const Register = ({ registerT, setRegisterT }) => {
 
 			const result = await response.json();
 
-			console.log(result.error);
-
 			if (response.status === 200) {
 				toast.success(result.message, {
 					position: "top-right",

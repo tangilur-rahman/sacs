@@ -111,8 +111,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 		}
 	};
 
-	console.log(getPhone);
-
 	return (
 		<>
 			<div className="profile-edit-container">
