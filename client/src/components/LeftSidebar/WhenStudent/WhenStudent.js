@@ -28,8 +28,8 @@ const WhenStudent = ({ selected, setSelected }) => {
 			</span>
 
 			<span
-				onClick={() => setSelected("instructor")}
-				className={selected === "instructor" ? "instructor-active" : ""}
+				onClick={() => setSelected("advisor")}
+				className={selected === "advisor" ? "advisor-active" : ""}
 			>
 				<i className="bi bi-calendar2-check"></i>
 				<h5>My Advisor</h5>

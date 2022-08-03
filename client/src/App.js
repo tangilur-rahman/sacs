@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // internal components
 import "./App.css";
-import Appointment from "./components/for_homepage/Appointment/Appointment";
-import Dashboard from "./components/for_homepage/Dashboard/Dashboard";
-import Chat from "./components/for_homepage/Chat/Chat";
-import InstructorInfo from "./components/for_homepage/InstructorInfo/InstructorInfo";
+import Appointment from "./components/for_student/Appointment/Appointment";
+import Dashboard from "./components/for_student/Dashboard/Dashboard";
+import Chat from "./components/for_student/Chat/Chat";
+import AdvisorInfo from "./components/for_student/AdvisorInfo/AdvisorInfo";
 
 // pages
 import Error from "./components/Error/Error";
@@ -46,7 +46,7 @@ const App = () => {
 						/>
 						<Route path="chat" element={<Chat />} />
 						<Route path="create-appointment" element={<Appointment />} />
-						<Route path="my-instructor" element={<InstructorInfo />} />
+						<Route path="my-advisor" element={<AdvisorInfo />} />
 					</Route>
 					<Route path="login" element={<Login />} />
 					<Route path="*" element={<Error />} />

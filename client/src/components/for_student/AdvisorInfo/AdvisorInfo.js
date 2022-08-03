@@ -1,6 +1,6 @@
-import "./InstructorInfo.css";
+import "./AdvisorInfo.css";
 
-const InstructorInfo = () => {
+const AdvisorInfo = () => {
 	return (
 		<>
 			<div className="instructor-container">
@@ -37,4 +37,4 @@ const InstructorInfo = () => {
 	);
 };
 
-export default InstructorInfo;
+export default AdvisorInfo;

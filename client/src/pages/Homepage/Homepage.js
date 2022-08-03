@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // internal components
-import LeftSidebar from "../../components/for_homepage/LeftSidebar.js/LeftSidebar";
+import LeftSidebar from "./../../components/LeftSidebar/LeftSidebar";
 import Navbar from "../../components/Navbar/Navbar";
 import { GetContextApi } from "../../ContextApi";
 import "./Homepage.css";
@@ -66,8 +66,8 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 			return Navigate("chat");
 		} else if (selected === "appointment") {
 			return Navigate("create-appointment");
-		} else if (selected === "instructor") {
-			return Navigate("my-instructor");
+		} else if (selected === "advisor") {
+			return Navigate("my-advisor");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected]);
