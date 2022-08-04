@@ -85,7 +85,7 @@ const Navbar = ({
 
 							<span className="nav-profile">
 								<img
-									src={`uploads/${currentUser.profile_img}`}
+									src={`uploads/profile-img/${currentUser.profile_img}`}
 									alt="profile img"
 									className="profile-img img-fluid"
 									onClick={() => setDropdownT(!dropdownT)}

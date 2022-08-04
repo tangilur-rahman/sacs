@@ -19,6 +19,7 @@ const loginRouter = require("./router/loginRouter");
 const logoutRouter = require("./router/logoutRouter");
 const profileRouter = require("./router/profileRouter");
 const myAdvisorRouter = require("./router/myAdvisorRouter");
+const appointmentRouter = require("./router/appointmentRouter");
 
 // application-level middleware
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/profile", profileRouter);
 app.use("/my-advisor", myAdvisorRouter);
+app.use("/appointment", appointmentRouter);
 
 // error handler
 app.use(customErrorHandler);

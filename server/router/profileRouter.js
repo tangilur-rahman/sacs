@@ -11,11 +11,11 @@ const {
 	updateInfo,
 	changeProfileImg
 } = require("./../controllers/profileController");
-const multerManager = require("./../Config/multerManager");
+const { multerForImg } = require("../Config/multerManager");
 
 profile.put("/update", authUser, updateInfo);
 
-const upload = multerManager("file");
+const upload = multerForImg("file");
 profile.put("/upload", authUser, upload.single("file"), changeProfileImg);
 
 module.exports = profile;

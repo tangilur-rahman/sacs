@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import TextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
 
 // internal components
 import "./Appointment.css";
@@ -12,17 +13,16 @@ const Appointment = () => {
 	const [getCateV, setCateV] = useState("");
 
 	// for get file
-	const [getFile, setFile] = useState("");
+	const [getFiles, setFiles] = useState("");
 
 	// for get input fields values
 	const [getAppointmentV, setAppointmentV] = useState({
 		subject: "",
 		category: "",
-		description: "",
-		attachment: []
+		description: ""
 	});
 
-	const { subject, category, description } = getAppointmentV;
+	const { subject, description } = getAppointmentV;
 
 	const onChangeHandler = (event) => {
 		setAppointmentV({
@@ -31,11 +31,55 @@ const Appointment = () => {
 		});
 	};
 
-	const onSubmitHandler = (event) => {
+	const onSubmitHandler = async (event) => {
 		event.preventDefault();
-	};
 
-	console.log(getFile);
+		// for submit appointment's information
+		try {
+			const formData = new FormData();
+
+			for (let i = 0; i < getFiles.length; i++) {
+				formData.append("files", getFiles[i]);
+			}
+
+			formData.append("subject", subject);
+			formData.append("description", description);
+			formData.append("category", getCateV);
+
+			const response = await fetch("/appointment", {
+				method: "POST",
+				body: formData
+			});
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success(result.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			} else if (response.status === 400) {
+				toast(result.message, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
 
 	return (
 		<>
@@ -59,11 +103,7 @@ const Appointment = () => {
 
 						<div className="division">
 							<label htmlFor="category">Category : </label>
-							<CategoryDropdown
-								setCateV={setCateV}
-								category={category}
-								getCateV={getCateV}
-							/>
+							<CategoryDropdown setCateV={setCateV} getCateV={getCateV} />
 						</div>
 
 						<div className="division">
@@ -85,7 +125,7 @@ const Appointment = () => {
 								label="Upload or drop a file here..."
 								multiple={true}
 								name="file"
-								handleChange={(file) => setFile(file)}
+								handleChange={(files) => setFiles(files)}
 								types={[
 									"JPEG",
 									"JPG",
@@ -93,12 +133,12 @@ const Appointment = () => {
 									"GIF",
 									"PDF",
 									"PPT",
-									"PPTX",
 									"TXT",
 									"DOC",
-									"DOCX",
-									"XLSX",
-									"XLS"
+									"XLS",
+									"MP3",
+									"MP4",
+									"GIF"
 								]}
 								className="input-field"
 							/>

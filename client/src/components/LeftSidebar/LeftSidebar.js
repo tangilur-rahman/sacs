@@ -24,7 +24,7 @@ const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 		<>
 			<div className="current-user">
 				<img
-					src={`uploads/${currentUser.profile_img}`}
+					src={`uploads/profile-img/${currentUser.profile_img}`}
 					alt="profile-img"
 					className="img-fluid"
 				/>

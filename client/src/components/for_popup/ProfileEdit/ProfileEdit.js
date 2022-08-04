@@ -17,7 +17,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 	// for file handle
 	const [getFile, setFile] = useState("");
 	const [previewImg, setPreviewImg] = useState(
-		`uploads/${currentUser.profile_img}`
+		`uploads/profile-img/${currentUser.profile_img}`
 	);
 
 	// for get input-field's value
@@ -124,7 +124,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 							<div className="curr-user-profile">
 								<span className="img-wrapper">
 									<img
-										src={`uploads/${currentUser.profile_img}`}
+										src={`uploads/profile-img/${currentUser.profile_img}`}
 										alt="profile-img"
 										className={editT ? "img-fluid" : "img-fluid animation"}
 									/>

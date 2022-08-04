@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./CategoryDropdown.css";
 
-const CategoryDropdown = ({ getCateV, setCateV, category }) => {
+const CategoryDropdown = ({ getCateV, setCateV }) => {
 	const [cateDropT, setCateDropT] = useState(false);
 
 	return (
