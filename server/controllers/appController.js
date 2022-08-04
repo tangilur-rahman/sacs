@@ -28,4 +28,14 @@ const submitAppointment = async (req, res) => {
 	}
 };
 
-module.exports = { submitAppointment };
+const getAllAppointments = async (req, res) => {
+	try {
+		const appDocuments = await appModel.find({ student: req.currentUser._id });
+
+		res.status(200).json(appDocuments);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { submitAppointment, getAllAppointments };

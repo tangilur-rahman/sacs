@@ -32,7 +32,12 @@ const schema = mongoose.Schema(
 			{
 				type: String
 			}
-		]
+		],
+
+		status: {
+			type: String,
+			default: "pending"
+		}
 	},
 	{ timestamps: true }
 );

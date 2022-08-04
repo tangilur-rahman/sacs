@@ -1,9 +1,43 @@
 // external components
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import moment from "moment";
 
 // internal components
 import "./Dashboard.css";
 
 const Dashboard = ({ setSelected, setAppointmentT }) => {
+	const [getAppointments, setAppointments] = useState("");
+
+	// get current-user's appointment
+	const getAllAppointment = async () => {
+		try {
+			const response = await fetch("/appointment");
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setAppointments(result);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+
+	useEffect(() => {
+		getAllAppointment();
+	}, []);
+
 	return (
 		<>
 			<div className="dashboard-container">
@@ -73,46 +107,56 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 										</tr>
 									</thead>
 									<tbody>
-										<tr onClick={() => setAppointmentT("I am dummy subject")}>
-											<td id="id">
-												<span>1</span>
-											</td>
-											<td>
-												<input
-													type="text"
-													readOnly
-													value={"application for tuition fee"}
-												/>
-											</td>
-											<td>
-												<input type="text" readOnly value={"Tuition Fee"} />
-											</td>
-											<td>
-												<input
-													type="text"
-													readOnly
-													value={
-														"Due to the widespread use of <table> elements across third-party widgets like calendars and date pickers"
-													}
-												/>
-											</td>
-											<td>
-												<input type="text" readOnly value={"12-2-2022"} />
-											</td>
-											<td id="for-icon">
-												<span className="icon" id="solved-icon">
-													<i className="fa-solid fa-circle-check"></i>
-												</span>
+										{getAppointments &&
+											getAppointments.map((value, index) => {
+												return (
+													<tr
+														onClick={() => setAppointmentT(value.subject)}
+														key={index}
+													>
+														<td id="id">
+															<span>{index + 1}</span>
+														</td>
+														<td>
+															<input readOnly value={value.subject} />
+														</td>
+														<td>
+															<input readOnly value={value.category} />
+														</td>
+														<td>
+															<input readOnly value={value.description} />
+														</td>
+														<td>
+															<input
+																readOnly
+																value={moment(value.createAt).format(
+																	"DD-MM-YYYY"
+																)}
+															/>
+														</td>
 
-												{/* <span className="icon" id="pending-icon">
-													<i className="fa-solid fa-hourglass-half"></i>
-												</span>
+														<td id="for-icon">
+															{value.status === "solved" && (
+																<span className="icon" id="solved-icon">
+																	<i className="fa-solid fa-circle-check"></i>
+																</span>
+															)}
 
-												<span className="icon" id="rejected-icon">
-													<i className="fa-solid fa-circle-xmark"></i>
-												</span> */}
-											</td>
-										</tr>
+															{value.status === "pending" && (
+																<span className="icon" id="pending-icon">
+																	<i className="fa-solid fa-hourglass-half"></i>
+																</span>
+															)}
+
+															{value.status === "rejected" && (
+																<span className="icon" id="rejected-icon">
+																	<i className="fa-solid fa-circle-xmark"></i>
+																</span>
+															)}
+														</td>
+													</tr>
+												);
+											})}
 									</tbody>
 								</table>
 							</div>
