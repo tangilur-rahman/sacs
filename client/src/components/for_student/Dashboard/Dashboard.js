@@ -38,6 +38,18 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 		getAllAppointment();
 	}, []);
 
+	const totalSolved = getAppointments.filter(
+		(value) => value.status === "solved"
+	);
+
+	const totalPending = getAppointments?.filter(
+		(value) => value.status === "pending"
+	);
+
+	const totalRejected = getAppointments.filter(
+		(value) => value.status === "rejected"
+	);
+
 	return (
 		<>
 			<div className="dashboard-container">
@@ -46,7 +58,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 						<div className="appointment-summary">
 							<div className="appointment-count">
 								<div className="total">
-									Total Appointment <span>100</span>
+									Total Appointment <span>{getAppointments.length}</span>
 								</div>
 								<span className="icon" id="total-icon">
 									<i className="fa-solid fa-list-check"></i>
@@ -54,7 +66,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="solved">
-									Solved Appt..<span>12</span>
+									Solved Appt..<span>{totalSolved.length}</span>
 								</div>
 								<span className="icon" id="solved-icon">
 									<i className="fa-solid fa-circle-check"></i>
@@ -62,7 +74,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="pending">
-									Pending Appt..<span>14</span>
+									Pending Appt..<span>{totalPending.length}</span>
 								</div>
 								<span className="icon" id="pending-icon">
 									<i className="fa-solid fa-hourglass-half"></i>
@@ -70,7 +82,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="rejected">
-									Rejected Appt..<span>18</span>
+									Rejected Appt..<span>{totalRejected.length}</span>
 								</div>
 								<span className="icon" id="rejected-icon">
 									<i className="fa-solid fa-circle-xmark"></i>
