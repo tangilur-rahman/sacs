@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // internal components
 import "./App.css";
-import Appointment from "./components/for_student/Appointment/Appointment";
-import Dashboard from "./components/for_student/Dashboard/Dashboard";
-import Chat from "./components/for_student/Chat/Chat";
 import AdvisorInfo from "./components/for_student/AdvisorInfo/AdvisorInfo";
+import Appointment from "./components/for_student/Appointment/Appointment";
+import Chat from "./components/for_student/Chat/Chat";
+import Dashboard from "./components/for_student/Dashboard/Dashboard";
 
 // pages
 import Error from "./components/Error/Error";

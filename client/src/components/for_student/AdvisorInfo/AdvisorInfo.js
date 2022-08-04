@@ -1,34 +1,90 @@
+// external components
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+// internal components
 import "./AdvisorInfo.css";
 
 const AdvisorInfo = () => {
+	const [getAdvisor, setAdvisor] = useState("");
+
+	const getMyAdvisor = async () => {
+		try {
+			const response = await fetch("/my-advisor");
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setAdvisor(result);
+			} else if (response.status === 400) {
+				toast(result.message, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+
+	useEffect(() => {
+		getMyAdvisor();
+	}, []);
+
 	return (
 		<>
-			<div className="instructor-container">
-				<div className="row">
-					<div className="col-5 instructor-img">
-						<img
-							src="/assets/profile/developer-2.png"
-							alt="profile-img"
-							className="img-fluid"
-						/>
-					</div>
-					<div className="col-6 instructor-info">
-						<div className="outer">
-							<div className="inner"></div>
-						</div>
-						<div className="info">
-							<span>
-								Name : <input value={"Shakib Al Hassan"} readOnly />
-							</span>
-							<span>
-								Email : <input value={"mohammadtangilur@gmail.com"} readOnly />
-							</span>
-							<span>
-								Phone : <input value={"01711111"} readOnly />
-							</span>
-							<span>
-								Department : <input value={"CSE"} readOnly />
-							</span>
+			<div className="advisor-info-container">
+				<div className="row m-0 layout">
+					<div className="col-12 p-0">
+						<div className="wrapper">
+							<div className="advisor-profile">
+								<span className="img-wrapper">
+									<img
+										src={`uploads/${getAdvisor.profile_img}`}
+										alt="profile-img"
+										className="img-fluid animation"
+									/>
+								</span>
+							</div>
+							<div className="advisor-info">
+								<div className="row info">
+									<span id="name">
+										Name : <input value={getAdvisor.name} readOnly />
+									</span>
+									<span>
+										ID : <input value={getAdvisor.id} readOnly />
+									</span>
+									<span id="email">
+										Email : <input value={getAdvisor.email} readOnly />
+									</span>
+									<span id="phone-number">
+										Phone : &nbsp; <h6>+880</h6>
+										<input readOnly value={getAdvisor.phone} />
+									</span>
+									<span>
+										Gender : <input value={getAdvisor.gender} readOnly />
+									</span>
+									<span>
+										Department : &nbsp;
+										<input
+											value={getAdvisor.department}
+											readOnly
+											id="department"
+										/>
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

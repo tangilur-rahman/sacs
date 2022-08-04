@@ -144,7 +144,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 							<div className="curr-user-info">
 								<div className="row info">
 									<span id="name">
-										name : <input value={currentUser.name} readOnly />
+										Name : <input value={currentUser.name} readOnly />
 									</span>
 
 									<span>

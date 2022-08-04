@@ -1,85 +1,113 @@
-.instructor-container {
+.advisor-info-container .layout .wrapper {
 	background-color: white;
 	border-radius: 10px;
-	overflow: hidden;
-}
-
-.instructor-container .instructor-img {
-	height: 76vh;
-}
-
-.instructor-container .instructor-img img {
-	object-position: top center;
-	object-fit: cover;
-	height: 100%;
-}
-
-.instructor-container .instructor-info {
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	box-shadow: var(--box-shadow);
 	position: relative;
 }
 
-.instructor-info .outer {
-	width: 2px;
-	height: 100%;
-	margin: auto;
-	overflow: hidden;
-	position: absolute;
-	top: -8%;
-	left: 9%;
-}
-
-.instructor-info .inner {
-	position: absolute;
-	width: 100%;
-	height: 71%;
-	background: #006d77;
-	top: 21%;
-	box-shadow: 0px 0px 30px 20px #006d77;
-}
-
-.instructor-info .info {
+/* profile-img style start  */
+.advisor-info-container .advisor-profile {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
-	align-content: center;
-	width: 70%;
-	margin-left: 40px;
+	align-items: center;
 }
 
-.instructor-container .instructor-info span {
+.advisor-info-container .advisor-profile .img-wrapper {
+	margin: 30px 0 0 0;
+}
+.advisor-info-container .advisor-profile img {
+	width: 200px;
+	height: 200px;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	object-position: top center;
+	border-radius: 50%;
+	border: 3px solid white;
+}
+
+.advisor-info-container .advisor-profile img.animation {
+	animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translateY(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+		transform: translateY(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translateY(0px);
+	}
+}
+
+/* profile-img style end  */
+
+/* input field style start  */
+.advisor-info-container .advisor-info {
+	margin: 10px 0 0 0;
+	padding-bottom: 19px;
+}
+
+.advisor-info-container .advisor-info .info {
+	display: flex;
+	justify-content: center;
+}
+
+.advisor-info-container .advisor-info span {
 	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
-	padding: 18px 20px;
-	margin: 14px 0;
+	padding: 15px 20px;
+	margin: 20px;
 	font-weight: 500;
+	flex-basis: 40%;
 }
 
-.instructor-info span input {
-	font-weight: 500;
-	margin-left: 10px;
+.advisor-info-container .advisor-info span label {
+	cursor: pointer;
+}
+
+.advisor-info-container .advisor-info span input {
+	border: none;
+	outline: none;
+	width: 65%;
+	padding-left: 5px;
+	font-weight: 600;
 	color: #006d77;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	border: none;
-	outline: none;
+	text-transform: capitalize;
+}
+
+.advisor-info-container .advisor-info #name input {
+	width: 84%;
+}
+
+.advisor-info-container .advisor-info #email input {
+	width: 85%;
+	text-transform: none;
+}
+.advisor-info-container .advisor-info #year input {
+	width: max-content;
+}
+
+.advisor-info-container .advisor-info #phone-number input {
+	width: 60%;
+	margin-left: 5px;
+}
+
+.advisor-info-container .advisor-info #phone-number h6 {
+	display: inline;
 	font-weight: 600;
+	color: #006d77;
+	margin: 0;
 }
 
-.instructor-info span:first-child input {
-	width: 80%;
-}
-.instructor-info span:nth-child(2) input {
-	width: 82%;
+.advisor-info-container .advisor-info #department {
+	text-transform: uppercase;
 }
 
-.instructor-info span:nth-child(3) input {
-	width: 80%;
-}
-.instructor-info span:last-child input {
-	width: 68%;
-}
+/* input field style end  */
