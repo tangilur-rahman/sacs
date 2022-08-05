@@ -38,4 +38,16 @@ const getAllAppointments = async (req, res) => {
 	}
 };
 
-module.exports = { submitAppointment, getAllAppointments };
+const getSpecificApp = async (req, res) => {
+	try {
+		const specificApp = await appModel.findOne({
+			_id: req.params.appDisplay
+		});
+
+		res.status(200).json(specificApp);
+	} catch (error) {
+		res.status(500).json({ error: "Server-side error, Try again!" });
+	}
+};
+
+module.exports = { submitAppointment, getAllAppointments, getSpecificApp };

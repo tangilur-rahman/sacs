@@ -1,6 +1,7 @@
 .appointment-details-container {
 	position: absolute;
 	top: 0;
+	width: 100%;
 }
 .appointment-details-container .layout-center {
 	display: flex;
@@ -39,7 +40,7 @@
 }
 
 .appointment-details .for-margin {
-	margin-top: 20px;
+	margin-top: 7px;
 }
 
 .appointment-details a {
