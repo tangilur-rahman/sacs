@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "./Appointment.css";
 import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 
-const Appointment = () => {
+const Appointment = ({ setIsSubmitted, setSelected }) => {
 	// for get category values
 	const [getCateV, setCateV] = useState("");
 
@@ -57,8 +57,13 @@ const Appointment = () => {
 				toast.success(result.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 1500
 				});
+
+				setTimeout(() => {
+					setIsSubmitted(Date.now());
+					setSelected("dashboard");
+				}, 2500);
 			} else if (response.status === 400) {
 				toast(result.message, {
 					position: "top-right",

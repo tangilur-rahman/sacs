@@ -7,9 +7,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // internal components
-import LeftSidebar from "./../../components/LeftSidebar/LeftSidebar";
 import Navbar from "../../components/Navbar/Navbar";
 import { GetContextApi } from "../../ContextApi";
+import LeftSidebar from "./../../components/LeftSidebar/LeftSidebar";
 import "./Homepage.css";
 
 // pop-up components
@@ -19,7 +19,7 @@ import Logout from "../../components/Logout";
 import AppointmentDetails from "./../../components/for_popup/AppointmentDetails/AppointmentDetails";
 import Register from "./../../components/for_popup/Register/Register";
 
-const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
+const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 	const { currentUser, setCurrentUser, setIsLoading, updated } =
 		GetContextApi();
 
@@ -87,7 +87,7 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 				<div
 					className="row m-0 homepage-container"
 					id={
-						registerT || totalT || appointmentT || profileT === "profile"
+						registerT || totalT || appDisplay || profileT === "profile"
 							? "blur"
 							: ""
 					}
@@ -114,10 +114,10 @@ const Homepage = ({ selected, setSelected, appointmentT, setAppointmentT }) => {
 
 				<ListOfTotal totalT={totalT} setTotalT={setTotalT} />
 
-				{appointmentT && (
+				{appDisplay && (
 					<AppointmentDetails
-						appointmentT={appointmentT}
-						setAppointmentT={setAppointmentT}
+						appDisplay={appDisplay}
+						setAppDisplay={setAppDisplay}
 					/>
 				)}
 

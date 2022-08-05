@@ -18,7 +18,11 @@ const App = () => {
 	// for get selected value from left-sidebar
 	const [selected, setSelected] = useState("");
 
-	const [appointmentT, setAppointmentT] = useState(false);
+	// for appointment-details popup toggle
+	const [appDisplay, setAppDisplay] = useState(false);
+
+	// for when submitted appointment, refetching data in dashboard
+	const [isSubmitted, setIsSubmitted] = useState("");
 
 	return (
 		<>
@@ -30,8 +34,8 @@ const App = () => {
 							<Homepage
 								selected={selected}
 								setSelected={setSelected}
-								appointmentT={appointmentT}
-								setAppointmentT={setAppointmentT}
+								appDisplay={appDisplay}
+								setAppDisplay={setAppDisplay}
 							/>
 						}
 					>
@@ -40,12 +44,21 @@ const App = () => {
 							element={
 								<Dashboard
 									setSelected={setSelected}
-									setAppointmentT={setAppointmentT}
+									setAppDisplay={setAppDisplay}
+									isSubmitted={isSubmitted}
 								/>
 							}
 						/>
 						<Route path="chat" element={<Chat />} />
-						<Route path="create-appointment" element={<Appointment />} />
+						<Route
+							path="create-appointment"
+							element={
+								<Appointment
+									setIsSubmitted={setIsSubmitted}
+									setSelected={setSelected}
+								/>
+							}
+						/>
 						<Route path="my-advisor" element={<AdvisorInfo />} />
 					</Route>
 					<Route path="login" element={<Login />} />

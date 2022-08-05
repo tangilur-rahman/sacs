@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 // internal components
 import "./Dashboard.css";
 
-const Dashboard = ({ setSelected, setAppointmentT }) => {
+const Dashboard = ({ setSelected, setAppDisplay, isSubmitted }) => {
 	const [getAppointments, setAppointments] = useState("");
 
 	// get current-user's appointment
@@ -36,7 +36,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 
 	useEffect(() => {
 		getAllAppointment();
-	}, []);
+	}, [isSubmitted]);
 
 	return (
 		<>
@@ -129,7 +129,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 											getAppointments.map((value, index) => {
 												return (
 													<tr
-														onClick={() => setAppointmentT(value.subject)}
+														onClick={() => setAppDisplay(value._id)}
 														key={index}
 													>
 														<td id="id">
@@ -148,7 +148,7 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 															<input
 																readOnly
 																value={moment(value.createAt).format(
-																	"DD-MM-YYYY"
+																	"MMMM d, YYYY"
 																)}
 															/>
 														</td>
