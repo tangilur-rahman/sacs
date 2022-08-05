@@ -1,7 +1,7 @@
 // external components
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import moment from "moment";
 
 // internal components
 import "./Dashboard.css";
@@ -38,18 +38,6 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 		getAllAppointment();
 	}, []);
 
-	const totalSolved = getAppointments.filter(
-		(value) => value.status === "solved"
-	);
-
-	const totalPending = getAppointments?.filter(
-		(value) => value.status === "pending"
-	);
-
-	const totalRejected = getAppointments.filter(
-		(value) => value.status === "rejected"
-	);
-
 	return (
 		<>
 			<div className="dashboard-container">
@@ -66,7 +54,13 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="solved">
-									Solved Appt..<span>{totalSolved.length}</span>
+									Solved Appt..
+									<span>
+										{getAppointments &&
+											getAppointments.filter(
+												(value) => value.status === "solved"
+											).length}
+									</span>
 								</div>
 								<span className="icon" id="solved-icon">
 									<i className="fa-solid fa-circle-check"></i>
@@ -74,7 +68,13 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="pending">
-									Pending Appt..<span>{totalPending.length}</span>
+									Pending Appt..
+									<span>
+										{getAppointments &&
+											getAppointments.filter(
+												(value) => value.status === "pending"
+											).length}
+									</span>
 								</div>
 								<span className="icon" id="pending-icon">
 									<i className="fa-solid fa-hourglass-half"></i>
@@ -82,7 +82,13 @@ const Dashboard = ({ setSelected, setAppointmentT }) => {
 							</div>
 							<div className="appointment-count">
 								<div className="rejected">
-									Rejected Appt..<span>{totalRejected.length}</span>
+									Rejected Appt..
+									<span>
+										{getAppointments &&
+											getAppointments.filter(
+												(value) => value.status === "rejected"
+											).length}
+									</span>
 								</div>
 								<span className="icon" id="rejected-icon">
 									<i className="fa-solid fa-circle-xmark"></i>
