@@ -12,7 +12,7 @@
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
-	height: 75vh;
+	height: 80vh;
 	overflow-y: scroll;
 	padding: 0 30px;
 	position: relative;
@@ -115,10 +115,11 @@
 .appointment-details .details > div p {
 	text-align: justify;
 	flex-basis: 87%;
+	margin: 0;
 }
 
 .appointment-details .details .for-margin {
-	margin-top: 7px;
+	margin-top: 15px;
 }
 
 /* top row style start  */
@@ -180,7 +181,7 @@
 }
 
 .appointment-details .details #status {
-	margin-top: 15px;
+	margin: 15px 0;
 }
 /* details style end  */
 
@@ -294,6 +295,66 @@
 }
 
 /* advisor-section style end  */
+
+/* reply-link section start  */
+
+.reply-link {
+	margin-top: 10px;
+	font-weight: 600;
+	text-decoration: underline;
+	color: #006d77;
+	cursor: pointer;
+}
+.reply-link:hover {
+	color: #0a9396;
+	transition: all 0.5s;
+}
+/* reply-link section end  */
+
+/* reply-box-container start  */
+.reply-box-container {
+	margin-top: 15px;
+	display: flex;
+}
+
+.reply-box-container span {
+	flex-basis: 12%;
+	font-weight: 600;
+}
+
+.reply-box-container .reply-box {
+	display: flex;
+	width: 100%;
+	align-items: flex-end;
+}
+
+.reply-box-container #reply-box {
+	border: 1px solid #d3dfea;
+	padding: 15px 20px 15px 20px;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
+	overflow: auto;
+	border-radius: 10px;
+	flex-grow: 1;
+}
+
+.reply-box-container .reply-box button {
+	margin-left: 20px;
+	padding: 7px 15px;
+	color: white;
+	font-weight: 500;
+}
+
+.reply-box-container .reply-box button:active {
+	transform: scale(0.97);
+}
+
+.reply-box-container #reply-box:focus {
+	outline: 4px solid #c2daff;
+}
+/* reply-box-container end  */
 
 /* for scrollbar style start */
 .appointment-details ::-webkit-scrollbar-thumb {

@@ -2,6 +2,7 @@
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
+import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
 // internal components
@@ -10,6 +11,9 @@ import "./AppointmentDetails.css";
 const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 	// for pick date-time
 	const [value, onChange] = useState();
+
+	// for get reply-text
+	const [replyText, setReplyText] = useState("");
 
 	// for outside click to close
 	const myRef = useRef();
@@ -64,6 +68,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 				<div className="row m-0 layout-center">
 					<div className="col-9 p-0">
 						<div ref={myRef} className="appointment-details">
+							{/* header section start  */}
 							<div className="header">
 								<div className="student-info">
 									<img
@@ -92,7 +97,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 									<i className="fa-solid fa-circle-xmark"></i>
 								</span>
 							</div>
+							{/* header section end  */}
 
+							{/* details section start  */}
 							<div className="details">
 								<div className="top-row for-margin">
 									<div id="category">
@@ -146,7 +153,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 									<p>{specificApp.category}</p>
 								</div> */}
 							</div>
+							{/* details section start  */}
 
+							{/* advisor-section start  */}
 							<div className="advisor-section">
 								<span>Appointment Date &nbsp;:</span>
 								<div className="wrapper">
@@ -178,11 +187,27 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 									</div>
 								</div>
 							</div>
+							{/* advisor-section end  */}
 
-							<div className="appointment-reply-container">
+							{/* reply-link start  */}
+							<div className="reply-link">View all 3 replies</div>
+							{/* reply-link end  */}
+
+							{/* reply-box start  */}
+							<div className="reply-box-container">
 								<span>Reply &nbsp;:</span>
-								<div className="reply-container"></div>
+
+								<div className="reply-box">
+									<TextareaAutosize
+										placeholder="Your reply..."
+										onChange={(e) => setReplyText(e.target.value)}
+										minRows={2}
+										id="reply-box"
+									/>
+									<button className="btn btn-success">Submit</button>
+								</div>
 							</div>
+							{/* reply-box end  */}
 						</div>
 					</div>
 				</div>
