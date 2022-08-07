@@ -1,14 +1,15 @@
 // external components
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { GetContextApi } from "../../../ContextApi";
 
 // internal components
+import { GetContextApi } from "../../../ContextApi";
 import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
-const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
-	const { setUpdated } = GetContextApi();
+const ProfileEdit = ({ setProfileT, currentUser }) => {
+	// for updating dashboard
+	const { setIsSubmitted } = GetContextApi();
 
 	// for toggle edit option
 	const [editT, setEditT] = useState(false);
@@ -39,7 +40,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profileT]);
+	}, []);
 	// for close when clicked outside start
 
 	// for preview
@@ -75,7 +76,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 					theme: "colored",
 					autoClose: 3000
 				});
-				setUpdated("phone or password updated");
+				setIsSubmitted(Date.now());
 				setCpassword("");
 				setNewPassword("");
 				setEditT(false);
@@ -258,7 +259,6 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 						setChangeProfileT={setChangeProfileT}
 						previewImg={previewImg}
 						getFile={getFile}
-						setUpdated={setUpdated}
 					/>
 				)}
 			</div>

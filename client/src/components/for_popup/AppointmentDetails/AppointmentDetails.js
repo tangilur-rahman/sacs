@@ -8,8 +8,12 @@ import { toast } from "react-toastify";
 // internal components
 import "./AppointmentDetails.css";
 import ReplyPopup from "./ReplyPopup/ReplyPopup";
+import { GetContextApi } from "../../../ContextApi";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
+	// for updating dashboard
+	const { setIsSubmitted } = GetContextApi();
+
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);
 
@@ -17,11 +21,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	const [specificApp, setSpecificApp] = useState("");
 
 	// for pick date-time
-	const [picDate, onChange] = useState();
+	const [picDate, setPicDate] = useState("");
 
 	// for get reply-text & status
 	const [replyText, setReplyText] = useState("");
-	const [getStatus, setStatus] = useState();
+	const [getStatus, setStatus] = useState("");
 
 	// for value change fetching again
 	const [checked, setChecked] = useState("");
@@ -52,6 +56,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			if (response.status === 200) {
 				setSpecificApp(result);
 				setStatus(result.status);
+				setPicDate(result.appointment_date);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -104,6 +109,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						autoClose: 3000
 					});
 					setChecked(Date.now());
+					setIsSubmitted(Date.now());
 					setReplyText("");
 				} else if (response.status === 400) {
 					toast(result.message, {
@@ -128,9 +134,6 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 		}
 	};
 
-	console.log(getStatus);
-	console.log(specificApp.status);
-
 	return (
 		<>
 			<div className="appointment-details-container">
@@ -154,14 +157,14 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 										<div className="info">
 											<h6>{specificApp.student?.name}</h6>
 											<h6>
-												Id : <span>{specificApp.student?.id}</span>
+												Id&nbsp;: &nbsp;<span>{specificApp.student?.id}</span>
 											</h6>
 										</div>
 									</div>
 								)}
 
 								<div className="subject">
-									<h3>{specificApp.subject}</h3>
+									<h3>{specificApp?.subject}</h3>
 								</div>
 
 								<span className="icon" onClick={() => setAppDisplay(false)}>
@@ -175,13 +178,13 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 								<div className="top-row for-margin">
 									<div id="category">
 										<span>Category&nbsp;:</span>
-										<p>{specificApp.category}</p>
+										<p>{specificApp?.category}</p>
 									</div>
 
 									<div id="date">
 										<span>Date&nbsp;:</span>
 										<p>
-											{moment(specificApp.createdAt).format(
+											{moment(specificApp?.createdAt).format(
 												"h:mm A - MMMM DD, YYYY"
 											)}
 										</p>
@@ -191,14 +194,14 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 								<div className="for-margin">
 									<span>Description &nbsp;:</span>
 									<div className="description">
-										<p>{specificApp.description}</p>
+										<p>{specificApp?.description}</p>
 									</div>
 								</div>
 
 								<div className="for-margin">
 									<span>Attachments &nbsp;:</span>
 									<div className="attachments">
-										{specificApp.attachments &&
+										{specificApp.attachments?.length > 0 ? (
 											specificApp.attachments.map((value, index) => {
 												return (
 													<a
@@ -211,14 +214,32 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 															value.split(".").splice(-1)}
 													</a>
 												);
-											})}
+											})
+										) : (
+											<h6>Null</h6>
+										)}
 									</div>
 								</div>
 
 								{currentUser.role === "student" && (
 									<div className="for-margin" id="status">
-										<span>Status&nbsp;:</span>
-										<p>{specificApp.status}</p>
+										<span>Curr.. &nbsp;Status&nbsp;:</span>
+										<p>{specificApp?.status}</p>
+									</div>
+								)}
+
+								{currentUser.role === "student" && (
+									<div className="for-margin" id="appointment-date">
+										<span>Appt.. &nbsp;Date&nbsp;:</span>
+										{specificApp?.appointment_date ? (
+											<p>
+												{moment(specificApp?.appointment_date).format(
+													"h:mm A - MMMM DD, YYYY"
+												)}
+											</p>
+										) : (
+											<p>Null</p>
+										)}
 									</div>
 								)}
 							</div>
@@ -231,7 +252,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 									<div className="wrapper">
 										<div className="app-date">
 											<DateTimePicker
-												onChange={onChange}
+												onChange={(date) => setPicDate(date)}
 												value={picDate}
 												className="date-picker"
 											/>

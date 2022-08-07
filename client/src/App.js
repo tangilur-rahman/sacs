@@ -21,9 +21,6 @@ const App = () => {
 	// for appointment-details popup toggle
 	const [appDisplay, setAppDisplay] = useState(false);
 
-	// for when submitted appointment, refetching data in dashboard
-	const [isSubmitted, setIsSubmitted] = useState("");
-
 	return (
 		<>
 			<BrowserRouter>
@@ -45,19 +42,13 @@ const App = () => {
 								<Dashboard
 									setSelected={setSelected}
 									setAppDisplay={setAppDisplay}
-									isSubmitted={isSubmitted}
 								/>
 							}
 						/>
 						<Route path="chat" element={<Chat />} />
 						<Route
 							path="create-appointment"
-							element={
-								<Appointment
-									setIsSubmitted={setIsSubmitted}
-									setSelected={setSelected}
-								/>
-							}
+							element={<Appointment setSelected={setSelected} />}
 						/>
 						<Route path="my-advisor" element={<AdvisorInfo />} />
 					</Route>

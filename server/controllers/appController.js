@@ -68,10 +68,10 @@ const replyUpdate = async (req, res) => {
 		await appModel.updateOne(
 			{ _id },
 			{
-				$set: [
-					{ appointment_date: picDate || appDoc.appointment_date },
-					{ status: getStatus || appDoc.status }
-				]
+				$set: {
+					appointment_date: picDate ? picDate : "",
+					status: getStatus ? getStatus : "pending"
+				}
 			}
 		);
 

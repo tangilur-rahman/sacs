@@ -6,7 +6,9 @@ const rootContext = createContext(null);
 const ContextHandler = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
-	const [updated, setUpdated] = useState("");
+
+	// for when submitted appointment, refetching data in dashboard
+	const [isSubmitted, setIsSubmitted] = useState("");
 
 	return (
 		<>
@@ -16,8 +18,8 @@ const ContextHandler = ({ children }) => {
 					setCurrentUser,
 					isLoading,
 					setIsLoading,
-					updated,
-					setUpdated
+					isSubmitted,
+					setIsSubmitted
 				}}
 			>
 				{children}

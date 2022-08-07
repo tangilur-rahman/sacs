@@ -5,10 +5,14 @@ import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../ContextApi";
 import "./Appointment.css";
 import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 
-const Appointment = ({ setIsSubmitted, setSelected }) => {
+const Appointment = ({ setSelected }) => {
+	// for updating dashboard
+	const { setIsSubmitted } = GetContextApi();
+
 	// for get category values
 	const [getCateV, setCateV] = useState("");
 

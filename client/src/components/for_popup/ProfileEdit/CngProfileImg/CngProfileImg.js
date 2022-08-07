@@ -3,14 +3,13 @@ import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../../ContextApi";
 import "./CngProfileImg.css";
 
-const CngProfileImg = ({
-	setChangeProfileT,
-	previewImg,
-	getFile,
-	setUpdated
-}) => {
+const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
+	// for updating dashboard
+	const { setIsSubmitted } = GetContextApi();
+
 	// for close when clicked outside start
 	const myUseRef = useRef();
 
@@ -64,7 +63,7 @@ const CngProfileImg = ({
 					autoClose: 1500
 				});
 				setTimeout(() => {
-					setUpdated("profile-img update successfully");
+					setIsSubmitted(Date.now());
 					setChangeProfileT(false);
 				}, 2500);
 			} else if (response.status === 400) {

@@ -59,15 +59,17 @@
 .header .student-info .info h6 {
 	display: inline-block;
 	text-transform: capitalize;
-	font-weight: 500;
+	font-weight: 600;
 	height: fit-content;
 	margin: 0;
 	font-size: 17px;
+	color: #006d77;
 }
 
 .header .student-info .info h6:last-child {
 	text-align: start;
 	margin-top: 5px;
+	font-weight: 500;
 }
 
 .appointment-details .subject {
@@ -189,8 +191,14 @@
 	text-decoration: underline;
 }
 
+.appointment-details .details .attachments h6 {
+	margin: 3px 0 0 0;
+	color: #006d77;
+	font-weight: 500;
+}
+
 .appointment-details .details #status {
-	margin: 15px 0;
+	margin: 15px 0 0 0;
 }
 
 .appointment-details .details #status p {
@@ -198,6 +206,16 @@
 	color: #006d77;
 	text-transform: capitalize;
 }
+
+.appointment-details .details #appointment-date {
+	margin: 15px 0 5px 0;
+}
+
+.appointment-details .details #appointment-date p {
+	font-weight: 500;
+	color: #006d77;
+}
+
 /* details style end  */
 
 /* advisor-section style start  */
@@ -246,6 +264,7 @@
 	border-radius: 10px;
 	font-weight: 500;
 	border: 2px solid #dee2e6;
+	cursor: pointer;
 }
 
 .advisor-section .app-status #solved:hover {
@@ -266,6 +285,7 @@
 	font-weight: 500;
 	border-radius: 10px;
 	border: 2px solid #dee2e6;
+	cursor: pointer;
 }
 
 .advisor-section .app-status #pending:hover {
@@ -285,6 +305,7 @@
 	box-shadow: 0 0 20px 2px rgb(0 0 0 / 5%);
 	border-radius: 10px;
 	border: 2px solid #dee2e6;
+	cursor: pointer;
 }
 
 .advisor-section .app-status #rejected:hover {

@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../ContextApi";
 import "./Dashboard.css";
 
-const Dashboard = ({ setSelected, setAppDisplay, isSubmitted }) => {
+const Dashboard = ({ setSelected, setAppDisplay }) => {
+	const { isSubmitted } = GetContextApi();
+
 	const [getAppointments, setAppointments] = useState("");
 
 	// get current-user's appointment
@@ -46,7 +49,7 @@ const Dashboard = ({ setSelected, setAppDisplay, isSubmitted }) => {
 						<div className="appointment-summary">
 							<div className="appointment-count">
 								<div className="total">
-									Total Appointment <span>{getAppointments.length}</span>
+									Total Appointment <span>{getAppointments?.length}</span>
 								</div>
 								<span className="icon" id="total-icon">
 									<i className="fa-solid fa-list-check"></i>
