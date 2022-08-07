@@ -6,9 +6,9 @@ import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../ContextApi";
 import "./AppointmentDetails.css";
 import ReplyPopup from "./ReplyPopup/ReplyPopup";
-import { GetContextApi } from "../../../ContextApi";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
@@ -142,7 +142,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						<div
 							ref={myRef}
 							className="appointment-details"
-							id={replyPopup ? "blur" : ""}
+							id={replyPopup ? "appt-blur" : ""}
 						>
 							{/* header section start  */}
 							<div className="header">
@@ -302,7 +302,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 							<div className="reply-link">
 								{specificApp.reply?.length > 0 ? (
 									<h6 onClick={() => setReplyPopup(true)}>
-										View all <span>{specificApp.reply.length}</span> replies
+										View all <span>{specificApp.reply?.length}</span> replies
 									</h6>
 								) : (
 									<h6
@@ -328,7 +328,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 										onChange={(e) => setReplyText(e.target.value)}
 										minRows={2}
 										id="reply-box"
-										value={replyText}
+										value={!replyPopup && replyText}
 									/>
 									<button className="btn btn-success" onClick={submitHandler}>
 										Submit
@@ -340,7 +340,16 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					</div>
 				</div>
 
-				{replyPopup && <ReplyPopup setReplyPopup={setReplyPopup} />}
+				{replyPopup && (
+					<ReplyPopup
+						setReplyPopup={setReplyPopup}
+						currentUser={currentUser}
+						specificApp={specificApp}
+						replyText={replyText}
+						setReplyText={setReplyText}
+						submitHandler={submitHandler}
+					/>
+				)}
 			</div>
 		</>
 	);

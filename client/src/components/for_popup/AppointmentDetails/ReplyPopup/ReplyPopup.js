@@ -1,11 +1,19 @@
 // external components
 import { useEffect, useRef } from "react";
+import TextareaAutosize from "react-textarea-autosize";
+import TimeAgo from "timeago-react";
 
 // internal components
-import { d_message } from "./../../../../dummy_data";
 import "./ReplyPopup.css";
 
-const ReplyPopup = ({ setReplyPopup }) => {
+const ReplyPopup = ({
+	setReplyPopup,
+	specificApp,
+	currentUser,
+	replyText,
+	setReplyText,
+	submitHandler
+}) => {
 	// for outside click to close start
 	const myRef = useRef();
 
@@ -44,34 +52,63 @@ const ReplyPopup = ({ setReplyPopup }) => {
 			<div className="row wrapper" ref={modalRef}>
 				<div className="col-8">
 					<div ref={myRef} className="reply-popup">
-						{d_message &&
-							d_message.map((reply, index) => {
+						{specificApp.reply &&
+							specificApp.reply.map((reply, index) => {
 								return (
 									<div
 										className={
-											reply.user_id === "1"
+											currentUser.id === reply.id
 												? "reply-info own"
 												: "reply-info other"
 										}
 										key={index}
 									>
 										<img
-											src={reply.img}
+											src={`uploads/profile-img/${reply.profile_img}`}
 											alt="profile-img"
 											className="profile-img img-fluid"
 										/>
 
 										<div className="reply">
-											<div id="text">{reply.message}</div>
-											<div id="time">{reply.time}</div>
+											<div id="text">{reply.comment}</div>
+											<div id="time">{<TimeAgo datetime={reply.date} />}</div>
 										</div>
 									</div>
 								);
 							})}
 
+						{/* reply-box start  */}
+						<div className="reply-popup-container">
+							<TextareaAutosize
+								placeholder="Your reply..."
+								onChange={(e) => setReplyText(e.target.value)}
+								minRows={2}
+								id="reply-box"
+								value={replyText}
+								autoFocus
+							/>
+
+							<div className="reply-btn-container">
+								<button
+									type="button"
+									className="btn btn-danger"
+									onClick={() => setReplyPopup(false)}
+								>
+									Cancel
+								</button>
+
+								<button className="btn btn-success" onClick={submitHandler}>
+									Submit
+								</button>
+							</div>
+						</div>
+						{/* reply-box end  */}
+
+						{/* cancel icon start  */}
 						<span className="icon" onClick={() => setReplyPopup(false)}>
 							<i className="fa-solid fa-circle-xmark"></i>
 						</span>
+						{/* cancel icon end  */}
 					</div>
 				</div>
 			</div>

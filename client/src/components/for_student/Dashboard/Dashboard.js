@@ -8,6 +8,7 @@ import { GetContextApi } from "../../../ContextApi";
 import "./Dashboard.css";
 
 const Dashboard = ({ setSelected, setAppDisplay }) => {
+	// for updating dashboard
 	const { isSubmitted } = GetContextApi();
 
 	const [getAppointments, setAppointments] = useState("");
@@ -129,55 +130,57 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 									</thead>
 									<tbody>
 										{getAppointments &&
-											getAppointments.map((value, index) => {
-												return (
-													<tr
-														onClick={() => setAppDisplay(value._id)}
-														key={index}
-													>
-														<td id="id">
-															<span>{index + 1}</span>
-														</td>
-														<td>
-															<input readOnly value={value.subject} />
-														</td>
-														<td>
-															<input readOnly value={value.category} />
-														</td>
-														<td>
-															<input readOnly value={value.description} />
-														</td>
-														<td>
-															<input
-																readOnly
-																value={moment(value.createdAt).format(
-																	"MMMM DD, YYYY"
+											getAppointments
+												.map((value, index) => {
+													return (
+														<tr
+															onClick={() => setAppDisplay(value._id)}
+															key={index}
+														>
+															<td id="id">
+																<span>{index + 1}</span>
+															</td>
+															<td>
+																<input readOnly value={value.subject} />
+															</td>
+															<td>
+																<input readOnly value={value.category} />
+															</td>
+															<td>
+																<input readOnly value={value.description} />
+															</td>
+															<td>
+																<input
+																	readOnly
+																	value={moment(value.createdAt).format(
+																		"MMMM DD, YYYY"
+																	)}
+																/>
+															</td>
+
+															<td id="for-icon">
+																{value.status === "solved" && (
+																	<span className="icon" id="solved-icon">
+																		<i className="fa-solid fa-circle-check"></i>
+																	</span>
 																)}
-															/>
-														</td>
 
-														<td id="for-icon">
-															{value.status === "solved" && (
-																<span className="icon" id="solved-icon">
-																	<i className="fa-solid fa-circle-check"></i>
-																</span>
-															)}
+																{value.status === "pending" && (
+																	<span className="icon" id="pending-icon">
+																		<i className="fa-solid fa-hourglass-half"></i>
+																	</span>
+																)}
 
-															{value.status === "pending" && (
-																<span className="icon" id="pending-icon">
-																	<i className="fa-solid fa-hourglass-half"></i>
-																</span>
-															)}
-
-															{value.status === "rejected" && (
-																<span className="icon" id="rejected-icon">
-																	<i className="fa-solid fa-circle-xmark"></i>
-																</span>
-															)}
-														</td>
-													</tr>
-												);
-											})}
+																{value.status === "rejected" && (
+																	<span className="icon" id="rejected-icon">
+																		<i className="fa-solid fa-circle-xmark"></i>
+																	</span>
+																)}
+															</td>
+														</tr>
+													);
+												})
+												.reverse()}
 									</tbody>
 								</table>
 							</div>

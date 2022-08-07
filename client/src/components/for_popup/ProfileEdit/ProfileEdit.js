@@ -8,7 +8,7 @@ import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
 const ProfileEdit = ({ setProfileT, currentUser }) => {
-	// for updating dashboard
+	// for updating homepage
 	const { setIsSubmitted } = GetContextApi();
 
 	// for toggle edit option

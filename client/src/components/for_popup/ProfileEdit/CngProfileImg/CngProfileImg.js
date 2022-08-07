@@ -7,7 +7,7 @@ import { GetContextApi } from "../../../../ContextApi";
 import "./CngProfileImg.css";
 
 const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
-	// for updating dashboard
+	// for updating homepage
 	const { setIsSubmitted } = GetContextApi();
 
 	// for close when clicked outside start

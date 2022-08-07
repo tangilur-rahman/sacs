@@ -75,14 +75,19 @@ const replyUpdate = async (req, res) => {
 			}
 		);
 
-		appDoc.reply = [].concat({
-			profile_img: req.currentUser.profile_img,
-			comment: replyText
-		});
+		if (replyText) {
+			appDoc.reply.push({
+				id: req.currentUser.id,
+				profile_img: req.currentUser.profile_img,
+				comment: replyText,
+				date: Date.now()
+			});
 
-		await appDoc.save();
-
-		res.status(200).json({ message: "Submitted Successfully" });
+			await appDoc.save();
+			res.status(200).json({ message: "Submitted Successfully" });
+		} else {
+			res.status(200).json({ message: "Submitted Successfully" });
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

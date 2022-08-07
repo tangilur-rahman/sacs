@@ -20,6 +20,7 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 	position: relative;
+	width: 100%;
 }
 
 /* reply message-box style start  */
@@ -56,6 +57,7 @@
 
 .reply-popup .reply-info .reply {
 	border-radius: var(--card-border-radius);
+	padding: 5px;
 }
 
 .popup-container .reply-popup .own .reply {
@@ -71,6 +73,7 @@
 	font-weight: 400;
 	text-align: justify;
 	padding: 10px 10px 0 10px;
+	font-weight: 500;
 }
 
 .reply-popup .reply-info .reply #time {
@@ -87,15 +90,56 @@
 	border-radius: 50%;
 	background-color: #fff2e5;
 	color: #f3722c;
-	font-size: 28px;
+	font-size: 22px;
 	cursor: pointer;
 	align-self: center;
 	position: absolute;
-	top: 15px;
-	right: 20px;
+	top: 7px;
+	right: 4px;
 }
 
 .reply-popup .icon:hover {
 	transform: scale(0.97);
 }
-/* close icon style end  */ ;
+/* close icon style end  */
+
+/* reply-popup-container style start  */
+.reply-popup-container {
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.reply-popup-container #reply-box {
+	border: 1px solid #d3dfea;
+	padding: 15px 20px 15px 20px;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
+	overflow: auto;
+	border-radius: 10px;
+	flex-grow: 1;
+}
+
+.reply-popup-container #reply-box:focus {
+	outline: 4px solid #c2daff;
+}
+
+.reply-popup-container .reply-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	margin: 20px 0 0;
+}
+
+.reply-popup-container .reply-btn-container button {
+	margin-left: 20px;
+	padding: 7px 15px;
+	color: white;
+	font-weight: 500;
+}
+
+.reply-popup-container .reply-btn-container button:active {
+	transform: scale(0.97);
+}
+/* reply-popup-container style end  */

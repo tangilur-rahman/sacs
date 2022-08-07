@@ -38,12 +38,10 @@ const schema = mongoose.Schema(
 
 		reply: [
 			{
+				id: Number,
 				profile_img: String,
 				comment: String,
-				date: {
-					type: Date,
-					default: Date.now()
-				}
+				date: Date
 			}
 		],
 

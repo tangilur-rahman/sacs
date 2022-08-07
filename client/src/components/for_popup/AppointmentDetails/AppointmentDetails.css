@@ -19,9 +19,8 @@
 	position: relative;
 }
 
-.appointment-details #blur {
-	filter: blur(1.5px);
-	background-color: #e9ecef;
+.appointment-details#appt-blur {
+	filter: blur(1.7px);
 }
 
 /* header style start  */
