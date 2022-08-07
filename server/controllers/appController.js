@@ -1,13 +1,18 @@
 // internal modules
+const advisorModel = require("../models/advisorModel");
 const appModel = require("../models/appointmentModel");
 
 const submitAppointment = async (req, res) => {
 	try {
 		const { subject, category, description } = req.body;
+		const { department, semester, year } = req.currentUser;
+
+		const advisor = await advisorModel.findOne({ department, semester, year });
 
 		if (subject && category && description) {
 			const document = await appModel({
 				student: req.currentUser._id,
+				advisor: advisor._id,
 				subject,
 				category,
 				description
@@ -30,7 +35,9 @@ const submitAppointment = async (req, res) => {
 
 const getAllAppointments = async (req, res) => {
 	try {
-		const appDocuments = await appModel.find({ student: req.currentUser._id });
+		const appDocuments = await appModel.find({
+			$or: [{ student: req.currentUser._id }, { advisor: req.currentUser._id }]
+		});
 
 		res.status(200).json(appDocuments);
 	} catch (error) {
@@ -40,9 +47,11 @@ const getAllAppointments = async (req, res) => {
 
 const getSpecificApp = async (req, res) => {
 	try {
-		const specificApp = await appModel.findOne({
-			_id: req.params.appDisplay
-		});
+		const specificApp = await appModel
+			.findOne({
+				_id: req.params.appDisplay
+			})
+			.populate("student", "name id profile_img");
 
 		res.status(200).json(specificApp);
 	} catch (error) {
@@ -50,4 +59,38 @@ const getSpecificApp = async (req, res) => {
 	}
 };
 
-module.exports = { submitAppointment, getAllAppointments, getSpecificApp };
+const replyUpdate = async (req, res) => {
+	try {
+		const { _id, picDate, replyText, getStatus } = req.body;
+
+		const appDoc = await appModel.findOne({ _id });
+
+		await appModel.updateOne(
+			{ _id },
+			{
+				$set: [
+					{ appointment_date: picDate || appDoc.appointment_date },
+					{ status: getStatus || appDoc.status }
+				]
+			}
+		);
+
+		appDoc.reply = [].concat({
+			profile_img: req.currentUser.profile_img,
+			comment: replyText
+		});
+
+		await appDoc.save();
+
+		res.status(200).json({ message: "Submitted Successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = {
+	submitAppointment,
+	getAllAppointments,
+	getSpecificApp,
+	replyUpdate
+};

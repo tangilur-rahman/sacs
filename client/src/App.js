@@ -16,7 +16,7 @@ import Login from "./pages/Login/Login";
 
 const App = () => {
 	// for get selected value from left-sidebar
-	const [selected, setSelected] = useState("");
+	const [selected, setSelected] = useState("dashboard");
 
 	// for appointment-details popup toggle
 	const [appDisplay, setAppDisplay] = useState(false);

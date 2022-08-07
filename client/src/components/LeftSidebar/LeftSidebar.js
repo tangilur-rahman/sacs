@@ -1,25 +1,10 @@
 //external components
-import { useEffect } from "react";
 
 // internal components
 import "./LeftSidebar.css";
-import WhenAdministrator from "./WhenAdministrator/WhenAdministrator";
-import WhenInstructor from "./WhenInstructor/WhenInstructor";
-import WhenStudent from "./WhenStudent/WhenStudent";
+import TabContainer from "./TabContainer/TabContainer";
 
 const LeftSidebar = ({ currentUser, selected, setSelected }) => {
-	// for set initial-value
-	useEffect(() => {
-		if (currentUser.role === "administrator") {
-			setSelected("");
-		} else if (currentUser.role === "advisor") {
-			setSelected("");
-		} else if (currentUser.role === "student") {
-			setSelected("dashboard");
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentUser]);
-
 	return (
 		<>
 			<div className="current-user">
@@ -37,17 +22,11 @@ const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 			</div>
 
 			<div className="tab-container">
-				{currentUser.role === "administrator" && (
-					<WhenAdministrator selected={selected} setSelected={setSelected} />
-				)}
-
-				{currentUser.role === "instructor" && (
-					<WhenInstructor selected={selected} setSelected={setSelected} />
-				)}
-
-				{currentUser.role === "student" && (
-					<WhenStudent selected={selected} setSelected={setSelected} />
-				)}
+				<TabContainer
+					selected={selected}
+					setSelected={setSelected}
+					currentUser={currentUser}
+				/>
 			</div>
 		</>
 	);

@@ -192,6 +192,12 @@
 .appointment-details .details #status {
 	margin: 15px 0;
 }
+
+.appointment-details .details #status p {
+	font-weight: 500;
+	color: #006d77;
+	text-transform: capitalize;
+}
 /* details style end  */
 
 /* advisor-section style start  */

@@ -3,10 +3,16 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
 	{
-		student_id: {
+		student: {
 			type: mongoose.Types.ObjectId,
 			ref: "student"
 		},
+
+		advisor: {
+			type: mongoose.Types.ObjectId,
+			ref: "advisor"
+		},
+
 		subject: {
 			type: String,
 			required: true
@@ -22,6 +28,8 @@ const schema = mongoose.Schema(
 			required: true
 		},
 
+		appointment_date: Date,
+
 		attachments: [
 			{
 				type: String
@@ -30,7 +38,12 @@ const schema = mongoose.Schema(
 
 		reply: [
 			{
-				type: String
+				profile_img: String,
+				comment: String,
+				date: {
+					type: Date,
+					default: Date.now()
+				}
 			}
 		],
 

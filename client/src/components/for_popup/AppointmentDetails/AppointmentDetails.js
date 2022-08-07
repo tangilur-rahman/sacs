@@ -9,17 +9,24 @@ import { toast } from "react-toastify";
 import "./AppointmentDetails.css";
 import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
-const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
-	// for pick date-time
-	const [value, onChange] = useState();
-
-	// for get reply-text
-	const [replyText, setReplyText] = useState("");
-
+const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);
 
-	// for outside click to close
+	// for get single appointment
+	const [specificApp, setSpecificApp] = useState("");
+
+	// for pick date-time
+	const [picDate, onChange] = useState();
+
+	// for get reply-text & status
+	const [replyText, setReplyText] = useState("");
+	const [getStatus, setStatus] = useState();
+
+	// for value change fetching again
+	const [checked, setChecked] = useState("");
+
+	// for outside click to close start
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
@@ -32,11 +39,10 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [appDisplay]);
+	}, []);
+	// for outside click to close end
 
-	// for fetch appointment-details
-	const [specificApp, setSpecificApp] = useState("");
-
+	// for fetch single appointment-details start
 	const getSpecificApp = async () => {
 		try {
 			const response = await fetch(`/appointment/${appDisplay}`);
@@ -45,6 +51,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 
 			if (response.status === 200) {
 				setSpecificApp(result);
+				setStatus(result.status);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -64,7 +71,65 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 	useEffect(() => {
 		getSpecificApp();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [appDisplay]);
+	}, [appDisplay, checked]);
+	// for fetch single appointment-details end
+
+	// submit currentUser reply
+	const submitHandler = async () => {
+		if (!(picDate || replyText || getStatus !== specificApp.status)) {
+			toast("Nothing have to sumit", {
+				position: "top-right",
+				theme: "dark",
+				autoClose: 2000
+			});
+		} else {
+			try {
+				const response = await fetch("/appointment/update", {
+					method: "PUT",
+					body: JSON.stringify({
+						_id: specificApp._id,
+						picDate,
+						replyText,
+						getStatus
+					}),
+					headers: { "Content-Type": "application/json" }
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+					setChecked(Date.now());
+					setReplyText("");
+				} else if (response.status === 400) {
+					toast(result.message, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		}
+	};
+
+	console.log(getStatus);
+	console.log(specificApp.status);
 
 	return (
 		<>
@@ -78,27 +143,25 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 						>
 							{/* header section start  */}
 							<div className="header">
-								<div className="student-info">
-									<img
-										src="/assets/profile/tangil.png"
-										alt="profile-img"
-										className="profile-img img-fluid"
-									/>
+								{currentUser.role === "advisor" && (
+									<div className="student-info">
+										<img
+											src={`uploads/profile-img/${specificApp.student?.profile_img}`}
+											alt="profile-img"
+											className="profile-img img-fluid"
+										/>
 
-									<div className="info">
-										<h6>Tangilur Rahman</h6>
-										<h6>
-											Id : <span>12</span>
-										</h6>
+										<div className="info">
+											<h6>{specificApp.student?.name}</h6>
+											<h6>
+												Id : <span>{specificApp.student?.id}</span>
+											</h6>
+										</div>
 									</div>
-								</div>
+								)}
 
 								<div className="subject">
-									<h3>
-										{
-											"ijoijfgof gjfogjfog foghs fghsg ishg ohgfigh fighsigh isgfghighsigfhsgiuh gifgh"
-										}
-									</h3>
+									<h3>{specificApp.subject}</h3>
 								</div>
 
 								<span className="icon" onClick={() => setAppDisplay(false)}>
@@ -118,8 +181,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 									<div id="date">
 										<span>Date&nbsp;:</span>
 										<p>
-											{moment(specificApp.createAt).format(
-												"h:mm A - MMMM d, YYYY"
+											{moment(specificApp.createdAt).format(
+												"h:mm A - MMMM DD, YYYY"
 											)}
 										</p>
 									</div>
@@ -128,7 +191,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 								<div className="for-margin">
 									<span>Description &nbsp;:</span>
 									<div className="description">
-										<p>lorem500</p>
+										<p>{specificApp.description}</p>
 									</div>
 								</div>
 
@@ -152,56 +215,85 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 									</div>
 								</div>
 
-								{/* <div className="for-margin" id="status">
-									<span>Status&nbsp;:</span>
-									<p>{specificApp.category}</p>
-								</div> */}
+								{currentUser.role === "student" && (
+									<div className="for-margin" id="status">
+										<span>Status&nbsp;:</span>
+										<p>{specificApp.status}</p>
+									</div>
+								)}
 							</div>
 							{/* details section start  */}
 
 							{/* advisor-section start  */}
-							<div className="advisor-section">
-								<span>Appointment Date &nbsp;:</span>
-								<div className="wrapper">
-									<div className="app-date">
-										<DateTimePicker
-											onChange={onChange}
-											value={value}
-											className="date-picker"
-										/>
-									</div>
-
-									<div className="app-status">
-										<div id="solved">
-											<div>Solved Appt..</div>
-											<div className="icon-container">
-												<i className="fa-solid fa-circle-check"></i>
-											</div>
+							{currentUser.role === "advisor" && (
+								<div className="advisor-section">
+									<span>Appointment Date &nbsp;:</span>
+									<div className="wrapper">
+										<div className="app-date">
+											<DateTimePicker
+												onChange={onChange}
+												value={picDate}
+												className="date-picker"
+											/>
 										</div>
 
-										<div id="pending" className="active">
-											<div> Pending Appt..</div>
-											<div className="icon-container">
-												<i className="fa-solid fa-hourglass-half"></i>
+										<div className="app-status">
+											<div
+												id="solved"
+												className={getStatus === "solved" ? "active" : ""}
+												onClick={() => setStatus("solved")}
+											>
+												<div>Solved Appt..</div>
+												<div className="icon-container">
+													<i className="fa-solid fa-circle-check"></i>
+												</div>
 											</div>
-										</div>
 
-										<div id="rejected">
-											<div>Rejected Appt..</div>
-											<div className="icon-container">
-												<i className="fa-solid fa-circle-xmark"></i>
+											<div
+												id="pending"
+												className={getStatus === "pending" ? "active" : ""}
+												onClick={() => setStatus("pending")}
+											>
+												<div> Pending Appt..</div>
+												<div className="icon-container">
+													<i className="fa-solid fa-hourglass-half"></i>
+												</div>
+											</div>
+
+											<div
+												id="rejected"
+												className={getStatus === "rejected" ? "active" : ""}
+												onClick={() => setStatus("rejected")}
+											>
+												<div>Rejected Appt..</div>
+												<div className="icon-container">
+													<i className="fa-solid fa-circle-xmark"></i>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							)}
+
 							{/* advisor-section end  */}
 
 							{/* reply-link start  */}
 							<div className="reply-link">
-								<h6 onClick={() => setReplyPopup(true)}>
-									View all <span>3</span> replies
-								</h6>
+								{specificApp.reply?.length > 0 ? (
+									<h6 onClick={() => setReplyPopup(true)}>
+										View all <span>{specificApp.reply.length}</span> replies
+									</h6>
+								) : (
+									<h6
+										style={{
+											textDecoration: "none",
+											color: "#2a9d8f",
+											cursor: "default"
+										}}
+									>
+										No Reply
+									</h6>
+								)}
 							</div>
 							{/* reply-link end  */}
 
@@ -215,8 +307,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 										onChange={(e) => setReplyText(e.target.value)}
 										minRows={2}
 										id="reply-box"
+										value={replyText}
 									/>
-									<button className="btn btn-success">Submit</button>
+									<button className="btn btn-success" onClick={submitHandler}>
+										Submit
+									</button>
 								</div>
 							</div>
 							{/* reply-box end  */}

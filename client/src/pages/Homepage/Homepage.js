@@ -118,6 +118,7 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 					<AppointmentDetails
 						appDisplay={appDisplay}
 						setAppDisplay={setAppDisplay}
+						currentUser={currentUser}
 					/>
 				)}
 

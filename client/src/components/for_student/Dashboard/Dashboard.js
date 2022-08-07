@@ -147,8 +147,8 @@ const Dashboard = ({ setSelected, setAppDisplay, isSubmitted }) => {
 														<td>
 															<input
 																readOnly
-																value={moment(value.createAt).format(
-																	"MMMM d, YYYY"
+																value={moment(value.createdAt).format(
+																	"MMMM DD, YYYY"
 																)}
 															/>
 														</td>
