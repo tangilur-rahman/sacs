@@ -2,8 +2,9 @@
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
-	max-height: 88vh;
-	overflow: scroll;
+	max-height: 86vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .c-appointment-container h5 {
@@ -56,7 +57,7 @@
 	letter-spacing: 0.5px;
 	word-wrap: break-word;
 	word-spacing: 0.2rem;
-	overflow: auto;
+	overflow-y: auto;
 	border-radius: 10px;
 }
 
@@ -103,7 +104,7 @@
 
 .input-box .submit-btn button {
 	font-weight: 500;
-	margin: 0 30px 0 0;
+	margin: -5px 30px 15px 0;
 	padding: 7px 20px;
 	font-size: 18px;
 }

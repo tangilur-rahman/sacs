@@ -6,9 +6,7 @@ import { toast } from "react-toastify";
 import "./CngProfileImg.css";
 
 const CngProfileImg = ({
-	changeProfileT,
 	setChangeProfileT,
-	profileRef,
 	previewImg,
 	getFile,
 	setUpdated
@@ -27,8 +25,25 @@ const CngProfileImg = ({
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [changeProfileT]);
-	// for close when clicked outside start
+	}, []);
+	// for close when clicked outside end
+
+	// for inside clicked stop-propagation start
+	const modalRef = useRef();
+
+	useEffect(() => {
+		const stopPropagation = (e) => {
+			e.stopPropagation();
+		};
+
+		const { current: modalDom } = modalRef;
+		modalDom.addEventListener("mousedown", stopPropagation);
+
+		return () => {
+			modalDom.removeEventListener("mousedown", stopPropagation);
+		};
+	}, []);
+	// for inside clicked stop-propagation end
 
 	const submitHandler = async () => {
 		const formData = new FormData();
@@ -82,8 +97,8 @@ const CngProfileImg = ({
 
 	return (
 		<>
-			<div ref={profileRef} className="c-pro-img-container">
-				<div className="row m-0 c-pro-layout">
+			<div className="c-pro-img-container">
+				<div ref={modalRef} className="row m-0 c-pro-layout">
 					<div ref={myUseRef} className="col-5 p-0 wrapper">
 						<div id="left">
 							<img src={previewImg} alt="profile-img" />

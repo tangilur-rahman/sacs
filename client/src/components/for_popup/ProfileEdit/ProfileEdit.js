@@ -255,9 +255,7 @@ const ProfileEdit = ({ profileT, setProfileT, currentUser }) => {
 				/>
 				{changeProfileT && (
 					<CngProfileImg
-						changeProfileT={changeProfileT}
 						setChangeProfileT={setChangeProfileT}
-						profileRef={myRef}
 						previewImg={previewImg}
 						getFile={getFile}
 						setUpdated={setUpdated}

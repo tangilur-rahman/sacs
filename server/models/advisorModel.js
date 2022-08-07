@@ -74,15 +74,6 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		students: [
-			{
-				student: {
-					type: mongoose.Types.ObjectId,
-					ref: "student"
-				}
-			}
-		],
-
 		token: {
 			type: String,
 			default: ""

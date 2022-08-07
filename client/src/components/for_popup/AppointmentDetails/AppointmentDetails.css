@@ -12,10 +12,16 @@
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
-	height: 80vh;
+	height: 81vh;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	padding: 0 30px;
 	position: relative;
+}
+
+.appointment-details #blur {
+	filter: blur(1.5px);
+	background-color: #e9ecef;
 }
 
 /* header style start  */
@@ -162,11 +168,14 @@
 
 .appointment-details .details .description p {
 	border: 2px solid #dee2e6;
-	padding: 0 10px;
+	padding: 5px 10px;
 	border-radius: 10px;
-	min-height: fit-content;
-	max-height: 150px;
+	height: 150px;
 	overflow-y: scroll;
+	line-height: 180%;
+	letter-spacing: 0.5px;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
 }
 
 .appointment-details .details .attachments a {
@@ -203,6 +212,19 @@
 	align-items: center;
 }
 
+.advisor-section .wrapper .app-date .date-picker {
+	padding: 10px 15px;
+	background-color: white;
+	box-shadow: 0 0 20px 2px rgb(0 0 0 / 5%);
+	border-radius: 10px;
+	font-weight: 500;
+	border: 2px solid #dee2e6;
+}
+
+.react-datetime-picker__wrapper {
+	border: none;
+}
+
 .appointment-details .advisor-section .app-status {
 	display: flex;
 
@@ -218,10 +240,6 @@
 	border-radius: 10px;
 	font-weight: 500;
 	border: 2px solid #dee2e6;
-}
-
-.advisor-section .app-status .active {
-	outline: 4px solid #46ee65;
 }
 
 .advisor-section .app-status #solved:hover {
@@ -294,18 +312,28 @@
 	color: #f3722c;
 }
 
+.advisor-section .app-status .active {
+	outline: 4px solid #46ee65;
+}
+
 /* advisor-section style end  */
 
 /* reply-link section start  */
 
-.reply-link {
+.appointment-details .reply-link {
 	margin-top: 10px;
+}
+
+.appointment-details .reply-link h6 {
 	font-weight: 600;
 	text-decoration: underline;
 	color: #006d77;
 	cursor: pointer;
+	display: inline-block;
+	margin: 0;
 }
-.reply-link:hover {
+
+.appointment-details .reply-link h6:hover {
 	color: #0a9396;
 	transition: all 0.5s;
 }
@@ -313,7 +341,7 @@
 
 /* reply-box-container start  */
 .reply-box-container {
-	margin-top: 15px;
+	margin: 15px 0;
 	display: flex;
 }
 
@@ -355,13 +383,3 @@
 	outline: 4px solid #c2daff;
 }
 /* reply-box-container end  */
-
-/* for scrollbar style start */
-.appointment-details ::-webkit-scrollbar-thumb {
-	background-color: #7400b8;
-}
-
-.appointment-details::-webkit-scrollbar {
-	width: 4px;
-}
-/* for scrollbar style end */

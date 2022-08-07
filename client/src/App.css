@@ -54,7 +54,7 @@ body {
 
 /* Scrollbar Styling  start */
 ::-webkit-scrollbar {
-	width: 6px;
+	width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -66,7 +66,7 @@ body {
 ::-webkit-scrollbar-thumb {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	background: #cfd3da;
+	background: #7400b8;
 }
 /* Scrollbar Styling  end */
 

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 // internal components
 import "./AppointmentDetails.css";
+import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 	// for pick date-time
@@ -14,6 +15,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 
 	// for get reply-text
 	const [replyText, setReplyText] = useState("");
+
+	// for reply popup toggle
+	const [replyPopup, setReplyPopup] = useState(false);
 
 	// for outside click to close
 	const myRef = useRef();
@@ -67,7 +71,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 			<div className="appointment-details-container">
 				<div className="row m-0 layout-center">
 					<div className="col-9 p-0">
-						<div ref={myRef} className="appointment-details">
+						<div
+							ref={myRef}
+							className="appointment-details"
+							id={replyPopup ? "blur" : ""}
+						>
 							{/* header section start  */}
 							<div className="header">
 								<div className="student-info">
@@ -120,11 +128,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 								<div className="for-margin">
 									<span>Description &nbsp;:</span>
 									<div className="description">
-										<p>
-											{
-												"Three children and seven adults have died in a house fire in the US state of Pennsylvania, and a firefighter called to the scene was horrified to find the victims were his own familyPennsylvania State Police confirmed the names of six of the victims, but have yet to identify the youngest children, ages five, six and seven.A criminal investigation has been launched into the fire's cause.The blaze is thought to have begun on the porch early on Friday morning.Harold Baker, a Nescopeck Volunteer Fire Company  to find the victims were his own familyPennsylvania State Police confirmed the names of six of the victims, but have yet to identify the youngest children, ages five, six and seven.A criminal investigation has been launched into the fire's cause.The blaze is thought to have begun on the porch early on Friday morning.Harold Baker, a Nescopeck Volunteer Fire Company firefighter, told the Associated Press news agency that the dead"
-											}
-										</p>
+										<p>lorem500</p>
 									</div>
 								</div>
 
@@ -160,7 +164,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 								<span>Appointment Date &nbsp;:</span>
 								<div className="wrapper">
 									<div className="app-date">
-										<DateTimePicker onChange={onChange} value={value} />
+										<DateTimePicker
+											onChange={onChange}
+											value={value}
+											className="date-picker"
+										/>
 									</div>
 
 									<div className="app-status">
@@ -190,7 +198,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 							{/* advisor-section end  */}
 
 							{/* reply-link start  */}
-							<div className="reply-link">View all 3 replies</div>
+							<div className="reply-link">
+								<h6 onClick={() => setReplyPopup(true)}>
+									View all <span>3</span> replies
+								</h6>
+							</div>
 							{/* reply-link end  */}
 
 							{/* reply-box start  */}
@@ -211,6 +223,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 						</div>
 					</div>
 				</div>
+
+				{replyPopup && <ReplyPopup setReplyPopup={setReplyPopup} />}
 			</div>
 		</>
 	);

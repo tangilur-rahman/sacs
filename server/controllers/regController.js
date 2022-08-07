@@ -88,18 +88,6 @@ const createNewUser = async (req, res) => {
 									year
 								});
 
-								// get related students
-								const myStudentAry = await studentModel.find({
-									department,
-									semester,
-									year
-								});
-
-								// saved related students's _id
-								document.students = myStudentAry.map((value) => {
-									return [].concat({ student: value._id });
-								});
-
 								await document.save();
 
 								res
