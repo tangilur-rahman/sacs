@@ -18,58 +18,289 @@
 	position: relative;
 }
 
-.appointment-details h3 {
-	padding: 30px;
+/* header style start  */
+.appointment-details .header {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	height: max-content;
+}
+
+.appointment-details .header .student-info {
+	display: flex;
+	align-items: center;
+	flex-basis: 20%;
+}
+
+.header .student-info .profile-img {
+	width: 60px;
+	min-width: 60px;
+	height: 60px;
+	min-height: 60px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
+}
+
+.header .student-info .info {
+	display: flex;
+	flex-direction: column;
+	margin: 4px 0 0 7px;
+}
+
+.header .student-info .info h6 {
+	display: inline-block;
+	text-transform: capitalize;
+	font-weight: 500;
+	height: fit-content;
+	margin: 0;
+	font-size: 17px;
+}
+
+.header .student-info .info h6:last-child {
+	text-align: start;
+	margin-top: 5px;
+}
+
+.appointment-details .subject {
+	flex-grow: 1;
+	width: 300px;
+	padding: 0 20px;
+	margin-top: 7px;
+}
+
+.appointment-details .subject h3 {
 	text-align: center;
 	text-transform: capitalize;
 	color: #006d77;
 	font-weight: 600;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
 }
 
-.appointment-details > div {
-	display: flex;
-}
-
-.appointment-details > div span {
-	font-weight: 600;
-	flex-basis: 12%;
-}
-.appointment-details > div p {
-	text-align: justify;
-	flex-basis: 87%;
-}
-
-.appointment-details .for-margin {
-	margin-top: 7px;
-}
-
-.appointment-details a {
-	color: #006d77;
-	font-weight: 500;
-	margin-right: 20px;
-}
-
-.appointment-details .icon {
+.appointment-details .header .icon {
 	padding: 5px 11px;
 	border-radius: 50%;
 	background-color: #fff2e5;
 	color: #f3722c;
 	font-size: 28px;
-	position: absolute;
-	top: 10px;
-	right: 12px;
 	cursor: pointer;
+	align-self: center;
 }
 
-.appointment-details .icon:hover {
+.appointment-details .header .icon:hover {
 	transform: scale(0.97);
 }
+/* header style end  */
 
-/* for scrollbar style  */
-.appointment-details::-webkit-scrollbar-thumb {
+/* details style start  */
+.appointment-details .details {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0 0 0;
+}
+.appointment-details .details > div {
+	display: flex;
+}
+
+.appointment-details .details > div span {
+	font-weight: 600;
+	flex-basis: 12%;
+}
+.appointment-details .details > div p {
+	text-align: justify;
+	flex-basis: 87%;
+}
+
+.appointment-details .details .for-margin {
+	margin-top: 7px;
+}
+
+/* top row style start  */
+.appointment-details .details .top-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.appointment-details .details .top-row > div {
+	display: flex;
+	align-items: center;
+}
+
+.appointment-details .details .top-row > div p {
+	margin: 0;
+}
+
+.details .top-row #category {
+	flex-basis: 48%;
+}
+
+.details .top-row #category p {
+	margin-left: 8.5%;
+}
+
+.details .top-row #date {
+	padding-right: 15px;
+}
+
+.details .top-row #date p {
+	margin-left: 10px;
+}
+
+/* top row style end  */
+
+.appointment-details .details .description {
+	flex-basis: 87%;
+}
+
+.appointment-details .details .description p {
+	border: 2px solid #dee2e6;
+	padding: 0 10px;
+	border-radius: 10px;
+	min-height: fit-content;
+	max-height: 150px;
+	overflow-y: scroll;
+}
+
+.appointment-details .details .attachments a {
+	color: #006d77;
+	font-weight: 500;
+	margin-right: 20px;
+	text-decoration: none;
+}
+
+.appointment-details .details .attachments a:hover {
+	text-decoration: underline;
+}
+
+.appointment-details .details #status {
+	margin-top: 15px;
+}
+/* details style end  */
+
+/* advisor-section style start  */
+.appointment-details .advisor-section {
+	display: flex;
+	margin-top: 20px;
+}
+
+.appointment-details .advisor-section span {
+	flex-basis: 12%;
+	font-weight: 600;
+}
+
+.appointment-details .advisor-section .wrapper {
+	flex-basis: 87%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.appointment-details .advisor-section .app-status {
+	display: flex;
+
+	flex-grow: 1;
+	justify-content: flex-end;
+}
+
+.advisor-section .app-status #solved {
+	display: flex;
+	padding: 10px 15px;
+	background-color: white;
+	box-shadow: 0 0 20px 2px rgb(0 0 0 / 5%);
+	border-radius: 10px;
+	font-weight: 500;
+	border: 2px solid #dee2e6;
+}
+
+.advisor-section .app-status .active {
+	outline: 4px solid #46ee65;
+}
+
+.advisor-section .app-status #solved:hover {
+	background-color: #c1f7e6;
+	transition: background-color 0.5s;
+}
+
+.advisor-section .app-status #solved:active {
+	transform: scale(0.98);
+}
+
+.advisor-section .app-status #pending {
+	display: flex;
+	padding: 10px 15px;
+	background-color: white;
+	box-shadow: 0 0 20px 2px rgb(0 0 0 / 5%);
+	margin: 0 20px;
+	font-weight: 500;
+	border-radius: 10px;
+	border: 2px solid #dee2e6;
+}
+
+.advisor-section .app-status #pending:hover {
+	background-color: #e1dcec;
+	transition: background-color 0.5s;
+}
+
+.advisor-section .app-status #pending:active {
+	transform: scale(0.98);
+}
+
+.advisor-section .app-status #rejected {
+	display: flex;
+	padding: 10px 15px;
+	background-color: white;
+	font-weight: 500;
+	box-shadow: 0 0 20px 2px rgb(0 0 0 / 5%);
+	border-radius: 10px;
+	border: 2px solid #dee2e6;
+}
+
+.advisor-section .app-status #rejected:hover {
+	background-color: #fff2e5;
+	transition: background-color 0.5s;
+}
+
+.advisor-section .app-status #rejected:active {
+	transform: scale(0.98);
+}
+
+.advisor-section .app-status .icon-container {
+	padding: 2px 7px;
+	border-radius: 50%;
+	margin-left: 10px;
+	align-self: center;
+}
+
+.advisor-section #solved .icon-container {
+	background-color: #e6faf4;
+	color: #06d6a0;
+}
+
+.advisor-section #pending .icon-container {
+	background-color: #f2eff9;
+	color: #7209b7;
+}
+
+.advisor-section #rejected .icon-container {
+	background-color: #fff2e5;
+	color: #f3722c;
+}
+
+/* advisor-section style end  */
+
+/* for scrollbar style start */
+.appointment-details ::-webkit-scrollbar-thumb {
 	background-color: #7400b8;
 }
 
 .appointment-details::-webkit-scrollbar {
 	width: 4px;
 }
+/* for scrollbar style end */

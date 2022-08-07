@@ -1,12 +1,16 @@
 // external components
-import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
 import moment from "moment";
+import { useEffect, useRef, useState } from "react";
+import DateTimePicker from "react-datetime-picker";
+import { toast } from "react-toastify";
 
 // internal components
 import "./AppointmentDetails.css";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
+	// for pick date-time
+	const [value, onChange] = useState();
+
 	// for outside click to close
 	const myRef = useRef();
 
@@ -22,8 +26,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [appDisplay]);
 
-	// fetch appointment-details
-
+	// for fetch appointment-details
 	const [specificApp, setSpecificApp] = useState("");
 
 	const getSpecificApp = async () => {
@@ -59,39 +62,127 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay }) => {
 		<>
 			<div className="appointment-details-container">
 				<div className="row m-0 layout-center">
-					<div className="col-8 p-0">
+					<div className="col-9 p-0">
 						<div ref={myRef} className="appointment-details">
-							<h3>{specificApp.subject}</h3>
-							<div>
-								<span>Category&nbsp;:</span>
-								<p>{specificApp.category}</p>
-							</div>
-							<div className="for-margin">
-								<span>Description&nbsp;:</span>
-								<p>{specificApp.description}</p>
-							</div>
-							<div className="for-margin">
-								<span>Date&nbsp;:</span>
-								<p>
-									{moment(specificApp.createAt).format("h:mm A - MMMM d, YYYY")}
-								</p>
+							<div className="header">
+								<div className="student-info">
+									<img
+										src="/assets/profile/tangil.png"
+										alt="profile-img"
+										className="profile-img img-fluid"
+									/>
+
+									<div className="info">
+										<h6>Tangilur Rahman</h6>
+										<h6>
+											Id : <span>12</span>
+										</h6>
+									</div>
+								</div>
+
+								<div className="subject">
+									<h3>
+										{
+											"ijoijfgof gjfogjfog foghs fghsg ishg ohgfigh fighsigh isgfghighsigfhsgiuh gifgh"
+										}
+									</h3>
+								</div>
+
+								<span className="icon" onClick={() => setAppDisplay(false)}>
+									<i className="fa-solid fa-circle-xmark"></i>
+								</span>
 							</div>
 
-							<div className="for-margin">
-								<span>Attachment&nbsp;:</span>
-								{specificApp.attachments &&
-									specificApp.attachments.map((value, index) => {
-										return (
-											<a href={value} download key={index}>
-												{value}
-											</a>
-										);
-									})}
+							<div className="details">
+								<div className="top-row for-margin">
+									<div id="category">
+										<span>Category&nbsp;:</span>
+										<p>{specificApp.category}</p>
+									</div>
+
+									<div id="date">
+										<span>Date&nbsp;:</span>
+										<p>
+											{moment(specificApp.createAt).format(
+												"h:mm A - MMMM d, YYYY"
+											)}
+										</p>
+									</div>
+								</div>
+
+								<div className="for-margin">
+									<span>Description &nbsp;:</span>
+									<div className="description">
+										<p>
+											{
+												"Three children and seven adults have died in a house fire in the US state of Pennsylvania, and a firefighter called to the scene was horrified to find the victims were his own familyPennsylvania State Police confirmed the names of six of the victims, but have yet to identify the youngest children, ages five, six and seven.A criminal investigation has been launched into the fire's cause.The blaze is thought to have begun on the porch early on Friday morning.Harold Baker, a Nescopeck Volunteer Fire Company  to find the victims were his own familyPennsylvania State Police confirmed the names of six of the victims, but have yet to identify the youngest children, ages five, six and seven.A criminal investigation has been launched into the fire's cause.The blaze is thought to have begun on the porch early on Friday morning.Harold Baker, a Nescopeck Volunteer Fire Company firefighter, told the Associated Press news agency that the dead"
+											}
+										</p>
+									</div>
+								</div>
+
+								<div className="for-margin">
+									<span>Attachments &nbsp;:</span>
+									<div className="attachments">
+										{specificApp.attachments &&
+											specificApp.attachments.map((value, index) => {
+												return (
+													<a
+														href={`uploads/attachments/${value}`}
+														download
+														key={index}
+													>
+														{value.split(/[-]/).slice(0, 1, -1) +
+															"." +
+															value.split(".").splice(-1)}
+													</a>
+												);
+											})}
+									</div>
+								</div>
+
+								{/* <div className="for-margin" id="status">
+									<span>Status&nbsp;:</span>
+									<p>{specificApp.category}</p>
+								</div> */}
 							</div>
 
-							<span className="icon" onClick={() => setAppDisplay(false)}>
-								<i className="fa-solid fa-circle-xmark"></i>
-							</span>
+							<div className="advisor-section">
+								<span>Appointment Date &nbsp;:</span>
+								<div className="wrapper">
+									<div className="app-date">
+										<DateTimePicker onChange={onChange} value={value} />
+									</div>
+
+									<div className="app-status">
+										<div id="solved">
+											<div>Solved Appt..</div>
+											<div className="icon-container">
+												<i className="fa-solid fa-circle-check"></i>
+											</div>
+										</div>
+
+										<div id="pending" className="active">
+											<div> Pending Appt..</div>
+											<div className="icon-container">
+												<i className="fa-solid fa-hourglass-half"></i>
+											</div>
+										</div>
+
+										<div id="rejected">
+											<div>Rejected Appt..</div>
+											<div className="icon-container">
+												<i className="fa-solid fa-circle-xmark"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className="appointment-reply-container">
+								<span>Reply &nbsp;:</span>
+								<div className="reply-container"></div>
+							</div>
 						</div>
 					</div>
 				</div>
