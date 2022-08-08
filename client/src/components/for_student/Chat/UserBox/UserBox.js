@@ -1,10 +1,9 @@
 // external components
 
 // internal components
-import { d_user } from "../../../../dummy_data";
 import "./UserBox.css";
 
-const UserBox = () => {
+const UserBox = ({ getGroup }) => {
 	return (
 		<>
 			<div className="user-box">
@@ -18,28 +17,24 @@ const UserBox = () => {
 						placeholder="Search or start new chat"
 					/>
 				</div>
+				<div className="user">
+					<img
+						src={`/uploads/profile-img/${getGroup.chat_img}`}
+						alt="profile-img"
+						className="profile-img img-fluid"
+					/>
 
-				{d_user &&
-					d_user.map((value, index) => {
-						return (
-							<div className="user" key={index}>
-								<img
-									src={value.img}
-									alt="profile-img"
-									className="profile-img img-fluid"
-								/>
+					<section>
+						<div className="above">
+							<h6>{getGroup.room.split("-")[0]}</h6>
+							<span>{getGroup.messages.slice(-1)[0]?.time}</span>
+						</div>
 
-								<section>
-									<div className="above">
-										<h6>{value.name}</h6>
-										<span>{value.time}</span>
-									</div>
-
-									<div className="down">{value.last_message}</div>
-								</section>
-							</div>
-						);
-					})}
+						<div className="down">
+							{getGroup.messages.slice(-1)[0]?.message}
+						</div>
+					</section>
+				</div>
 			</div>
 		</>
 	);
