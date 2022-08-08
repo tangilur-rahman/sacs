@@ -82,7 +82,7 @@ const ReplyPopup = ({
 							<TextareaAutosize
 								placeholder="Your reply..."
 								onChange={(e) => setReplyText(e.target.value)}
-								minRows={2}
+								minRows={1}
 								id="reply-box"
 								value={replyText}
 								autoFocus

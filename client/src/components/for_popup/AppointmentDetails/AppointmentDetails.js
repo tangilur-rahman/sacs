@@ -30,6 +30,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for value change fetching again
 	const [checked, setChecked] = useState("");
 
+	// for checking read or unread
+	const [isRead, setIsRead] = useState(false);
+
 	// for outside click to close start
 	const myRef = useRef();
 
@@ -57,6 +60,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 				setSpecificApp(result);
 				setStatus(result.status);
 				setPicDate(result.appointment_date);
+				setIsRead(result.isRead);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -79,7 +83,47 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	}, [appDisplay, checked]);
 	// for fetch single appointment-details end
 
-	// submit currentUser reply
+	// for update unread start
+	useEffect(() => {
+		if (isRead === false && currentUser.role === "advisor") {
+			(async () => {
+				try {
+					const response = await fetch("/appointment/read", {
+						method: "PUT",
+						body: JSON.stringify({
+							_id: appDisplay
+						}),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setIsSubmitted(Date.now());
+						return;
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		} else {
+			return;
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for update unread end
+
+	// for submit currentUser reply start
 	const submitHandler = async () => {
 		if (!(picDate || replyText || getStatus !== specificApp.status)) {
 			toast("Nothing have to sumit", {
@@ -133,6 +177,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			}
 		}
 	};
+	// for submit currentUser reply end
 
 	return (
 		<>

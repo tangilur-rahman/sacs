@@ -9,8 +9,9 @@ import "./Dashboard.css";
 
 const Dashboard = ({ setSelected, setAppDisplay }) => {
 	// for updating dashboard
-	const { isSubmitted } = GetContextApi();
+	const { isSubmitted, currentUser } = GetContextApi();
 
+	// for get all related appointments
 	const [getAppointments, setAppointments] = useState("");
 
 	// get current-user's appointment
@@ -137,24 +138,69 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 															onClick={() => setAppDisplay(value._id)}
 															key={index}
 														>
-															<td id="id">
+															<td
+																id="id"
+																className={
+																	currentUser.role === "advisor" &&
+																	!value.isRead
+																		? "unread"
+																		: ""
+																}
+															>
 																<span>{index + 1}</span>
 															</td>
+
 															<td>
-																<input readOnly value={value.subject} />
+																<input
+																	readOnly
+																	value={value.subject}
+																	id={
+																		currentUser.role === "advisor" &&
+																		!value.isRead
+																			? "unread"
+																			: ""
+																	}
+																/>
 															</td>
+
 															<td>
-																<input readOnly value={value.category} />
+																<input
+																	readOnly
+																	value={value.category}
+																	id={
+																		currentUser.role === "advisor" &&
+																		!value.isRead
+																			? "unread"
+																			: ""
+																	}
+																/>
 															</td>
+
 															<td>
-																<input readOnly value={value.description} />
+																<input
+																	readOnly
+																	value={value.description}
+																	id={
+																		currentUser.role === "advisor" &&
+																		!value.isRead
+																			? "unread"
+																			: ""
+																	}
+																/>
 															</td>
+
 															<td>
 																<input
 																	readOnly
 																	value={moment(value.createdAt).format(
 																		"MMMM DD, YYYY"
 																	)}
+																	id={
+																		currentUser.role === "advisor" &&
+																		!value.isRead
+																			? "unread"
+																			: ""
+																	}
 																/>
 															</td>
 

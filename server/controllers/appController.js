@@ -93,9 +93,26 @@ const replyUpdate = async (req, res) => {
 	}
 };
 
+// for update isRead
+const isRead = async (req, res) => {
+	try {
+		await appModel.updateOne(
+			{ _id: req.body._id },
+			{
+				$set: { isRead: true }
+			}
+		);
+
+		res.status(200).json({ message: "update successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	submitAppointment,
 	getAllAppointments,
 	getSpecificApp,
-	replyUpdate
+	replyUpdate,
+	isRead
 };

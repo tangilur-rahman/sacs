@@ -13,6 +13,7 @@
 		"react-datetime-picker": "^3.5.0",
 		"react-dom": "^18.2.0",
 		"react-drag-drop-files": "^2.3.7",
+		"react-notification-badge": "^1.5.1",
 		"react-router-dom": "^6.3.0",
 		"react-scripts": "5.0.1",
 		"react-textarea-autosize": "^8.3.4",

@@ -48,6 +48,11 @@ const schema = mongoose.Schema(
 		status: {
 			type: String,
 			default: "pending"
+		},
+
+		isRead: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{ timestamps: true }

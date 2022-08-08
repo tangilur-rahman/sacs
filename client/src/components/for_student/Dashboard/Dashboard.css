@@ -140,6 +140,7 @@
 .table-container table tbody tr:hover {
 	cursor: pointer;
 }
+
 .table-container table tbody tr td input {
 	width: 100%;
 	border: none;
@@ -153,6 +154,16 @@
 	background-color: transparent;
 	cursor: pointer;
 	color: #4a4e69;
+}
+
+.table-container table tbody tr td input#unread {
+	color: #03045e;
+	font-weight: 700;
+}
+
+.table-container table tr #id.unread {
+	color: #03045e;
+	font-weight: 700;
 }
 
 .table-container table tr #id {
