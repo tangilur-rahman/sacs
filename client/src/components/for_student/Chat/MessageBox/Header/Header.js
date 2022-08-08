@@ -1,16 +1,16 @@
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ getMessages }) => {
 	return (
 		<>
 			<div className="header-container">
 				<div className="selected-user">
 					<img
-						src="/assets/profile/tangil.png"
+						src={`/uploads/profile-img/${getMessages.chat_img}`}
 						alt="profile-img"
 						className="img-fluid"
 					/>
-					<h6>Tangilur Rahman</h6>
+					<h6>{getMessages.chat_name}</h6>
 				</div>
 
 				<span>

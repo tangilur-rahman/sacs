@@ -27,7 +27,7 @@
 }
 
 .message-box .selected-user h6 {
-	margin: 0 0px 0 8px;
+	margin: 0 0px 0 12px;
 	font-weight: 600;
 	letter-spacing: 0.5px;
 	word-spacing: 4px;
@@ -37,6 +37,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: var(--selected-user-color);
+	text-transform: capitalize;
 }
 
 .message-box .header-container span i {

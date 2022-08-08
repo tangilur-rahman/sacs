@@ -3,7 +3,7 @@
 // internal components
 import "./UserBox.css";
 
-const UserBox = ({ getGroup }) => {
+const UserBox = ({ getGroup, setMessages }) => {
 	return (
 		<>
 			<div className="user-box">
@@ -17,7 +17,7 @@ const UserBox = ({ getGroup }) => {
 						placeholder="Search or start new chat"
 					/>
 				</div>
-				<div className="user">
+				<div className="user" onClick={() => setMessages(getGroup)}>
 					<img
 						src={`/uploads/profile-img/${getGroup.chat_img}`}
 						alt="profile-img"
@@ -26,12 +26,18 @@ const UserBox = ({ getGroup }) => {
 
 					<section>
 						<div className="above">
-							<h6>{getGroup.room.split("-")[0]}</h6>
-							<span>{getGroup.messages.slice(-1)[0]?.time}</span>
+							<h6>{getGroup.chat_name}</h6>
+							<span>
+								{getGroup.messages > 0
+									? getGroup.messages.slice(-1)[0].time
+									: ""}
+							</span>
 						</div>
 
 						<div className="down">
-							{getGroup.messages.slice(-1)[0]?.message}
+							{getGroup.messages > 0
+								? getGroup.messages.slice(-1)[0].message
+								: ""}
 						</div>
 					</section>
 				</div>

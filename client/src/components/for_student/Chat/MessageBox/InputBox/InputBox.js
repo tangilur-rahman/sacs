@@ -1,13 +1,17 @@
 // external components
 import Picker from "emoji-picker-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 // internal components
 import TextareaAutosize from "react-textarea-autosize";
 import "./InputBox.css";
 
-const InputBox = () => {
+const InputBox = ({ getMessages }) => {
+	// for get text-input
 	const [input, setInput] = useState("");
+
+	// for get attachment-file
 	const [attachmentT, setAttachmentT] = useState(false);
 
 	// eslint-disable-next-line no-unused-vars
@@ -29,16 +33,6 @@ const InputBox = () => {
 	}, []);
 	// for outside click detect end
 
-	// for input box
-	const onKeyDown = (event) => {
-		if (event.key === "Enter" && event.shiftKey) {
-			return;
-		} else if (event.key === "Enter") {
-			event.preventDefault();
-			setInput("");
-		}
-	};
-
 	// for emoji start
 	const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
@@ -46,6 +40,58 @@ const InputBox = () => {
 		setEmojiToggle(false);
 	};
 	// for emoji end
+
+	// for submit-handler start
+	const submitHandler = async (event) => {
+		event.preventDefault();
+		try {
+			const response = await fetch("/group-chat", {
+				method: "PUT",
+				body: JSON.stringify({
+					_id: getMessages._id,
+					message: input
+				}),
+				headers: { "Content-Type": "application/json" }
+			});
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setInput("");
+			} else if (response.status === 400) {
+				toast(result.message, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+
+	// for submit-handler end
+
+	// for when press enter start
+	const onKeyDown = (event) => {
+		if (event.key === "Enter" && event.shiftKey) {
+			return;
+		} else if (event.key === "Enter") {
+			event.preventDefault();
+			submitHandler();
+		}
+	};
+	// for when press enter end
 
 	return (
 		<>
@@ -124,6 +170,7 @@ const InputBox = () => {
 				</div>
 				<button
 					className={input ? "btn-active active" : "btn-active btn-inactive"}
+					onClick={submitHandler}
 				>
 					Send
 				</button>

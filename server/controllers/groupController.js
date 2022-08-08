@@ -18,6 +18,7 @@ const createOrGet = async (req, res) => {
 		} else {
 			// create that group
 			const createGroup = await groupModel({
+				chat_name: department,
 				room: `${department}-${semester}-${year}`
 			});
 
@@ -30,4 +31,26 @@ const createOrGet = async (req, res) => {
 	}
 };
 
-module.exports = { createOrGet };
+// for submit message
+const submitMessage = async (req, res) => {
+	try {
+		const { _id, message } = req.body;
+
+		const groupDoc = await groupModel.findOne({ _id });
+
+		groupDoc.messages.push({
+			id: req.currentUser.id,
+			name: req.currentUser.name,
+			profile_img: req.currentUser.profile_img,
+			message,
+			time: Date.now()
+		});
+
+		await groupDoc.save();
+		res.status(200).json({ message: "Submitted Successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { createOrGet, submitMessage };

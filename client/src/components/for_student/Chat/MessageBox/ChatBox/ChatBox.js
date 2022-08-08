@@ -1,35 +1,41 @@
+// external components
+import TimeAgo from "timeago-react";
+
 // internal components
-import { d_message } from "../../../../../dummy_data";
+import { GetContextApi } from "../../../../../ContextApi";
 import "./ChatBox.css";
 
-const ChatBox = () => {
+const ChatBox = ({ getMessages }) => {
+	const { currentUser } = GetContextApi();
+
 	return (
 		<>
 			<div className="chat-box-container">
-				{d_message &&
-					d_message.map((message, index) => {
-						return (
-							<div
-								className={
-									message.user_id === "1"
-										? "message-info own"
-										: "message-info other"
-								}
-								key={index}
-							>
-								<img
-									src={message.img}
-									alt="profile-img"
-									className="profile-img img-fluid"
-								/>
+				{getMessages.messages.map((message, index) => {
+					return (
+						<div
+							className={
+								currentUser.id === message.id
+									? "message-info own"
+									: "message-info other"
+							}
+							key={index}
+						>
+							<img
+								src={`uploads/profile-img/${message.profile_img}`}
+								alt="profile-img"
+								className="profile-img img-fluid"
+							/>
 
-								<div className="message">
-									<div id="text">{message.message}</div>
-									<div id="time">{message.time}</div>
+							<div className="message">
+								<div id="text">{message.message}</div>
+								<div id="time">
+									<TimeAgo datetime={message.time} />
 								</div>
 							</div>
-						);
-					})}
+						</div>
+					);
+				})}
 			</div>
 		</>
 	);

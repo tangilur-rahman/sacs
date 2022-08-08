@@ -4,13 +4,13 @@ import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
 import "./MessageBox.css";
 
-const MessageBox = () => {
+const MessageBox = ({ getMessages }) => {
 	return (
 		<>
 			<div className="message-box">
-				<Header />
-				<ChatBox />
-				<InputBox />
+				<Header getMessages={getMessages} />
+				<ChatBox getMessages={getMessages} />
+				<InputBox getMessages={getMessages} />
 			</div>
 		</>
 	);

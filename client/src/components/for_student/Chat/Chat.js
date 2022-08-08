@@ -11,6 +11,9 @@ import UserBox from "./UserBox/UserBox";
 const Chat = () => {
 	const { currentUser } = GetContextApi();
 
+	// for get messages for display in message-box
+	const [getMessages, setMessages] = useState("");
+
 	// for get or create group-chat start
 	const [getGroup, setGroup] = useState("");
 
@@ -53,7 +56,9 @@ const Chat = () => {
 	};
 
 	useEffect(() => {
-		getGroupChat();
+		if (currentUser) {
+			getGroupChat();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for get or create group-chat end
@@ -63,10 +68,12 @@ const Chat = () => {
 			<div className="group-chat-container">
 				<div className="row m-0">
 					<div className="col-5 p-0">
-						<UserBox getGroup={getGroup} />
+						{getGroup && (
+							<UserBox getGroup={getGroup} setMessages={setMessages} />
+						)}
 					</div>
 					<div className="col-7 p-0">
-						<MessageBox getGroup={getGroup} />
+						{getMessages && <MessageBox getMessages={getMessages} />}
 					</div>
 				</div>
 			</div>
