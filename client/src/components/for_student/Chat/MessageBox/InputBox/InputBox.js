@@ -83,12 +83,45 @@ const InputBox = ({ getMessages }) => {
 	// for submit-handler end
 
 	// for when press enter start
-	const onKeyDown = (event) => {
+	const onKeyDown = async (event) => {
 		if (event.key === "Enter" && event.shiftKey) {
 			return;
 		} else if (event.key === "Enter") {
 			event.preventDefault();
-			submitHandler();
+			try {
+				const response = await fetch("/group-chat", {
+					method: "PUT",
+					body: JSON.stringify({
+						_id: getMessages._id,
+						message: input
+					}),
+					headers: { "Content-Type": "application/json" }
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setInput("");
+				} else if (response.status === 400) {
+					toast(result.message, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
 		}
 	};
 	// for when press enter end
