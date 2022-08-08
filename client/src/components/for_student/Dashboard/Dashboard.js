@@ -9,7 +9,7 @@ import "./Dashboard.css";
 
 const Dashboard = ({ setSelected, setAppDisplay }) => {
 	// for updating dashboard
-	const { isSubmitted, currentUser } = GetContextApi();
+	const { isSubmitted, currentUser, setAppNotification } = GetContextApi();
 
 	// for get all related appointments
 	const [getAppointments, setAppointments] = useState("");
@@ -23,6 +23,9 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 
 			if (response.status === 200) {
 				setAppointments(result);
+				setAppNotification(
+					result.filter((value) => value.isRead === false)?.length
+				);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -41,6 +44,7 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 
 	useEffect(() => {
 		getAllAppointment();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSubmitted]);
 
 	return (

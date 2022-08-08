@@ -95,7 +95,7 @@
 	cursor: pointer;
 }
 
-.right .icon-style span i::after {
+.navbar-container .right .icon-style span i::after {
 	content: "";
 	width: 100%;
 	height: 100%;
@@ -119,13 +119,27 @@
 	z-index: -1;
 }
 
-.right .icon-style span i:hover::after {
+.navbar-container .right .icon-style span i:hover::after {
 	top: 0;
 }
-.right .icon-style span i:hover {
+
+.navbar-container .right .icon-style span i:hover {
 	transform: translateY(-5px);
 	color: #faf3dd;
 }
+
+/* for notification badge style start  */
+.navbar-container .right .icon-style span i div {
+	width: fit-content !important;
+	height: fit-content !important;
+}
+
+.right .icon-style span i .notification-layout {
+	top: -16px !important;
+	right: -11px !important;
+}
+
+/* for notification badge style start  */
 
 .navbar-container .right img {
 	cursor: pointer;

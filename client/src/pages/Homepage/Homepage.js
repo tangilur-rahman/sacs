@@ -79,7 +79,6 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				registerT={registerT}
 				setRegisterT={setRegisterT}
 				setTotalT={setTotalT}
-				profileT={profileT}
 				setProfileT={setProfileT}
 			/>
 

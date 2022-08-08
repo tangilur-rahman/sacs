@@ -72,7 +72,7 @@ const ListOfTotal = ({ totalT, setTotalT }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [totalT]);
+	}, []);
 	// for outside-click closed end
 
 	return (

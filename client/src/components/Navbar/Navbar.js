@@ -1,7 +1,9 @@
 // external components
 import { useEffect, useRef, useState } from "react";
+import NotificationBadge, { Effect } from "react-notification-badge";
 
 // internal components
+import { GetContextApi } from "../../ContextApi";
 import "./Navbar.css";
 
 const Navbar = ({
@@ -9,9 +11,12 @@ const Navbar = ({
 	registerT,
 	setRegisterT,
 	setTotalT,
-	profileT,
 	setProfileT
 }) => {
+	// for get appointment notification value
+	const { appNotification } = GetContextApi();
+
+	// for profile & log-out dropdown
 	const [dropdownT, setDropdownT] = useState(false);
 
 	// for close from outside-click start
@@ -27,7 +32,7 @@ const Navbar = ({
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dropdownT]);
+	}, []);
 	// for close from outside-click end
 
 	return (
@@ -79,7 +84,15 @@ const Navbar = ({
 								</span>
 
 								<span>
-									<i className="bi bi-bell-fill"></i>
+									<i className="bi bi-bell-fill">
+										{currentUser.role === "advisor" && (
+											<NotificationBadge
+												count={appNotification.toString()}
+												effect={Effect.SCALE}
+												className="notification-layout"
+											/>
+										)}
+									</i>
 								</span>
 							</div>
 

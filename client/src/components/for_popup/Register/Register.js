@@ -118,7 +118,7 @@ const Register = ({ registerT, setRegisterT }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [registerT]);
+	}, []);
 	// for outside-click close end
 
 	return (
