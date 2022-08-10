@@ -3,12 +3,6 @@ const express = require("express");
 const cookie = require("cookie-parser");
 require("dotenv").config();
 
-// express server
-const app = express();
-
-// connection with mongodb
-require("./Config/ConnectMongoDB");
-
 // internal modules
 const customErrorHandler = require("./middleware/errorHandler");
 const registerRouter = require("./router/registerRouter");
@@ -21,6 +15,12 @@ const profileRouter = require("./router/profileRouter");
 const myAdvisorRouter = require("./router/myAdvisorRouter");
 const appointmentRouter = require("./router/appointmentRouter");
 const groupChatRouter = require("./router/groupChatRouter");
+
+// express server
+const app = express();
+
+// connection with mongodb
+require("./Config/ConnectMongoDB");
 
 // application-level middleware
 app.use(express.json());
@@ -41,9 +41,34 @@ app.use("/group-chat", groupChatRouter);
 // error handler
 app.use(customErrorHandler);
 
+// socket section start
+const http = require("http");
+const httpServer = http.createServer(app);
+
+const { Server } = require("socket.io");
+
+const io = new Server(httpServer, {
+	cors: {
+		origin: "http://localhost:3000"
+	}
+});
+
+io.on("connection", (socket) => {
+	// for join room
+	socket.on("join_room", (data) => {
+		socket.join(data);
+	});
+
+	// for receive & send messages
+	socket.on("send_message", ({ messageObject, room }) => {
+		io.to(room).emit("receive_message", messageObject);
+	});
+});
+// socket section end
+
 // listening port
 const port = process.env.PORT || 4000;
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
 	console.log(`Server is running at http://localhost:${port}`);
 });
