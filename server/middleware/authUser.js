@@ -32,10 +32,12 @@ const authUser = async (req, res, next) => {
 				req.currentUser = advisor;
 
 				if (advisor === null) {
-					student = await studentModel.findOne({
-						_id: user.mongodb_id,
-						id: user.id
-					});
+					student = await studentModel
+						.findOne({
+							_id: user.mongodb_id,
+							id: user.id
+						})
+						.populate("advisor", "id");
 					req.currentUser = student;
 
 					if (student === null) {

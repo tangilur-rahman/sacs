@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // internal components
 import ChatBox from "./ChatBox/ChatBox";
@@ -7,9 +7,14 @@ import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
 import "./MessageBox.css";
 
-const MessageBox = ({ getMessages }) => {
+const MessageBox = ({ getMessages, setLatestGroup, setLatestPersonal }) => {
 	// for rending messages array
-	const [displayMessages, setDisplayMessages] = useState(getMessages.messages);
+	const [displayMessages, setDisplayMessages] = useState([]);
+
+	useEffect(() => {
+		setDisplayMessages(getMessages.messages);
+	}, [getMessages]);
+
 	return (
 		<>
 			<div className="message-box">
@@ -19,6 +24,8 @@ const MessageBox = ({ getMessages }) => {
 					getMessages={getMessages}
 					displayMessages={displayMessages}
 					setDisplayMessages={setDisplayMessages}
+					setLatestGroup={setLatestGroup}
+					setLatestPersonal={setLatestPersonal}
 				/>
 			</div>
 		</>

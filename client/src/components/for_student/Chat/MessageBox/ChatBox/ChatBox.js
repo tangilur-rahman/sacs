@@ -10,6 +10,8 @@ const ChatBox = ({ displayMessages }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
+	console.log(displayMessages);
+
 	return (
 		<>
 			<ScrollToBottom

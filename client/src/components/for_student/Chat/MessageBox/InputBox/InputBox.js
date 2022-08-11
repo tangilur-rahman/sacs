@@ -12,7 +12,13 @@ import "./InputBox.css";
 // establish connection with socket-server
 const socket = io.connect("http://localhost:4000");
 
-const InputBox = ({ getMessages, displayMessages, setDisplayMessages }) => {
+const InputBox = ({
+	getMessages,
+	displayMessages,
+	setDisplayMessages,
+	setLatestGroup,
+	setLatestPersonal
+}) => {
 	// for get current-user
 	const { currentUser } = GetContextApi();
 
@@ -58,11 +64,29 @@ const InputBox = ({ getMessages, displayMessages, setDisplayMessages }) => {
 		socket?.on("receive_message", (message) => {
 			setSocketMessage(message);
 		});
+
+		console.log(getMessages);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [getMessages]);
 
 	useEffect(() => {
-		socketMessage && setDisplayMessages([...displayMessages, socketMessage]);
+		console.log(socketMessage);
+
+		if (socketMessage) {
+			setDisplayMessages([...displayMessages, socketMessage]);
+			if (
+				getMessages.room ===
+				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+			) {
+				setLatestGroup(socketMessage);
+			} else {
+				setLatestPersonal(socketMessage);
+			}
+		} else {
+			return;
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [socketMessage]);
 	// socket event end
@@ -84,31 +108,63 @@ const InputBox = ({ getMessages, displayMessages, setDisplayMessages }) => {
 			// for send socket end
 
 			try {
-				const response = await fetch("/group-chat", {
-					method: "PUT",
-					body: JSON.stringify({
-						_id: getMessages._id,
-						message: inputText
-					}),
-					headers: { "Content-Type": "application/json" }
-				});
-
-				const result = await response.json();
-
-				if (response.status === 200) {
-					setInputText("");
-				} else if (response.status === 400) {
-					toast(result.message, {
-						position: "top-right",
-						theme: "dark",
-						autoClose: 3000
+				if (
+					getMessages.room ===
+					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				) {
+					const response = await fetch("/group-chat", {
+						method: "PUT",
+						body: JSON.stringify({
+							_id: getMessages._id,
+							message: inputText
+						}),
+						headers: { "Content-Type": "application/json" }
 					});
-				} else if (result.error) {
-					toast.error(result.error, {
-						position: "top-right",
-						theme: "colored",
-						autoClose: 3000
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setInputText("");
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} else {
+					const response = await fetch("/personal-chat", {
+						method: "PUT",
+						body: JSON.stringify({
+							_id: getMessages._id,
+							message: inputText
+						}),
+						headers: { "Content-Type": "application/json" }
 					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setInputText("");
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
 				}
 			} catch (error) {
 				toast.error(error.message, {
@@ -146,31 +202,63 @@ const InputBox = ({ getMessages, displayMessages, setDisplayMessages }) => {
 				// for send socket end
 
 				try {
-					const response = await fetch("/group-chat", {
-						method: "PUT",
-						body: JSON.stringify({
-							_id: getMessages._id,
-							message: inputText
-						}),
-						headers: { "Content-Type": "application/json" }
-					});
-
-					const result = await response.json();
-
-					if (response.status === 200) {
-						setInputText("");
-					} else if (response.status === 400) {
-						toast(result.message, {
-							position: "top-right",
-							theme: "dark",
-							autoClose: 3000
+					if (
+						getMessages.room ===
+						`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					) {
+						const response = await fetch("/group-chat", {
+							method: "PUT",
+							body: JSON.stringify({
+								_id: getMessages._id,
+								message: inputText
+							}),
+							headers: { "Content-Type": "application/json" }
 						});
-					} else if (result.error) {
-						toast.error(result.error, {
-							position: "top-right",
-							theme: "colored",
-							autoClose: 3000
+
+						const result = await response.json();
+
+						if (response.status === 200) {
+							setInputText("");
+						} else if (response.status === 400) {
+							toast(result.message, {
+								position: "top-right",
+								theme: "dark",
+								autoClose: 3000
+							});
+						} else if (result.error) {
+							toast.error(result.error, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 3000
+							});
+						}
+					} else {
+						const response = await fetch("/personal-chat", {
+							method: "PUT",
+							body: JSON.stringify({
+								_id: getMessages._id,
+								message: inputText
+							}),
+							headers: { "Content-Type": "application/json" }
 						});
+
+						const result = await response.json();
+
+						if (response.status === 200) {
+							setInputText("");
+						} else if (response.status === 400) {
+							toast(result.message, {
+								position: "top-right",
+								theme: "dark",
+								autoClose: 3000
+							});
+						} else if (result.error) {
+							toast.error(result.error, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 3000
+							});
+						}
 					}
 				} catch (error) {
 					toast.error(error.message, {

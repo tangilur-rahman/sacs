@@ -15,6 +15,7 @@ const profileRouter = require("./router/profileRouter");
 const myAdvisorRouter = require("./router/myAdvisorRouter");
 const appointmentRouter = require("./router/appointmentRouter");
 const groupChatRouter = require("./router/groupChatRouter");
+const personalChatRouter = require("./router/personalChatRouter");
 
 // express server
 const app = express();
@@ -37,6 +38,7 @@ app.use("/profile", profileRouter);
 app.use("/my-advisor", myAdvisorRouter);
 app.use("/appointment", appointmentRouter);
 app.use("/group-chat", groupChatRouter);
+app.use("/personal-chat", personalChatRouter);
 
 // error handler
 app.use(customErrorHandler);
