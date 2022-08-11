@@ -87,7 +87,7 @@ const Navbar = ({
 									<i className="bi bi-bell-fill">
 										{currentUser.role === "advisor" && (
 											<NotificationBadge
-												count={appNotification.toString()}
+												count={appNotification}
 												effect={Effect.SCALE}
 												className="notification-layout"
 											/>

@@ -1,5 +1,6 @@
 // external components
 import { useEffect, useRef } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
 import TextareaAutosize from "react-textarea-autosize";
 import TimeAgo from "timeago-react";
 
@@ -51,7 +52,11 @@ const ReplyPopup = ({
 		<div className="popup-container">
 			<div className="row wrapper" ref={modalRef}>
 				<div className="col-8">
-					<div ref={myRef} className="reply-popup">
+					<ScrollToBottom
+						scrollViewClassName="reply-popup"
+						initialScrollBehavior="auto"
+						ref={myRef}
+					>
 						{specificApp.reply &&
 							specificApp.reply.map((reply, index) => {
 								return (
@@ -109,7 +114,7 @@ const ReplyPopup = ({
 							<i className="fa-solid fa-circle-xmark"></i>
 						</span>
 						{/* cancel icon end  */}
-					</div>
+					</ScrollToBottom>
 				</div>
 			</div>
 		</div>

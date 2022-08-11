@@ -58,46 +58,47 @@ const Chat = () => {
 			});
 		}
 	};
-
 	// for get or create group-chat end
 
 	// for get or create personal-chat start
 	const [getPersonal, setPersonal] = useState("");
 
 	const getPersonalChat = async () => {
-		try {
-			const response = await fetch("/personal-chat", {
-				method: "POST",
-				body: JSON.stringify({
-					student_id: currentUser.id,
-					advisor_id: currentUser.advisor.id
-				}),
-				headers: { "Content-Type": "application/json" }
-			});
-
-			const result = await response.json();
-
-			if (response.status === 200) {
-				setPersonal(result);
-			} else if (response.status === 400) {
-				toast(result.message, {
-					position: "top-right",
-					theme: "dark",
-					autoClose: 3000
+		if (currentUser.role === "student") {
+			try {
+				const response = await fetch("/personal-chat", {
+					method: "POST",
+					body: JSON.stringify({
+						student_id: currentUser.id,
+						advisor_id: currentUser.advisor.id
+					}),
+					headers: { "Content-Type": "application/json" }
 				});
-			} else if (result.error) {
-				toast.error(result.error, {
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setPersonal(result);
+				} else if (response.status === 400) {
+					toast(result.message, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000
 				});
 			}
-		} catch (error) {
-			toast.error(error.message, {
-				position: "top-right",
-				theme: "colored",
-				autoClose: 3000
-			});
 		}
 	};
 

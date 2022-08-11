@@ -11,12 +11,23 @@ const createOrGet = async (req, res) => {
 		const { student_id, advisor_id } = req.body;
 
 		// check personal-chat exist or not
-		const getPersonal = await personalModel
-			.findOne({
-				room: `${advisor_id}-${student_id}`
-			})
-			.populate("student", "name profile_img")
-			.populate("advisor", "name profile_img");
+
+		let getPersonal = "";
+		if (req.currentUser.role === "advisor") {
+			getPersonal = await personalModel
+				.find({
+					advisor: req.currentUser._id
+				})
+				.populate("student", "name profile_img")
+				.populate("advisor", "name profile_img");
+		} else {
+			getPersonal = await personalModel
+				.findOne({
+					room: `${advisor_id}-${student_id}`
+				})
+				.populate("student", "name profile_img")
+				.populate("advisor", "name profile_img");
+		}
 
 		if (getPersonal) {
 			res.status(200).json(getPersonal);

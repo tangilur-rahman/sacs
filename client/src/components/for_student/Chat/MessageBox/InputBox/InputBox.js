@@ -65,14 +65,10 @@ const InputBox = ({
 			setSocketMessage(message);
 		});
 
-		console.log(getMessages);
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getMessages]);
 
 	useEffect(() => {
-		console.log(socketMessage);
-
 		if (socketMessage) {
 			setDisplayMessages([...displayMessages, socketMessage]);
 			if (

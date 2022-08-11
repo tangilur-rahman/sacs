@@ -28,16 +28,18 @@ const UserBox = ({
 	return (
 		<>
 			<div className="user-box">
-				<div className="search">
-					<i className="bi bi-search-heart"></i>
-					<input
-						type="search"
-						name="search"
-						id="search"
-						autoComplete="off"
-						placeholder="Search or start new chat"
-					/>
-				</div>
+				{currentUser.role !== "student" && (
+					<div className="search">
+						<i className="bi bi-search-heart"></i>
+						<input
+							type="search"
+							name="search"
+							id="search"
+							autoComplete="off"
+							placeholder="Search or start new chat"
+						/>
+					</div>
+				)}
 
 				{/* for group-chat start  */}
 				<div className="user" onClick={() => setMessages(getGroup)}>
