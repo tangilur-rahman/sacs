@@ -198,7 +198,7 @@ const Chat = () => {
 			setSearchUser("");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [search, selectedSearch]);
+	}, [search, getMessages]);
 	// for get or create personal-chat end
 
 	return (
@@ -217,6 +217,7 @@ const Chat = () => {
 								setLatestPersonal={setLatestPersonal}
 								search={search}
 								setSearch={setSearch}
+								setSearchUser={setSearchUser}
 								searchUser={searchUser}
 								setSelectedSearch={setSelectedSearch}
 							/>

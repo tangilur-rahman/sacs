@@ -1,5 +1,6 @@
 // external components
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import sortArray from "sort-array";
 import TimeAgo from "timeago-react";
 import { GetContextApi } from "../../../../ContextApi";
 
@@ -17,6 +18,7 @@ const UserBox = ({
 	search,
 	setSearch,
 	searchUser,
+	setSearchUser,
 	setSelectedSearch
 }) => {
 	// get current user
@@ -32,6 +34,23 @@ const UserBox = ({
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	// for close search-box start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setSearchUser("");
+			setSearch("");
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for close search-box end
 
 	return (
 		<>
@@ -99,15 +118,16 @@ const UserBox = ({
 
 				{/* when advisor start */}
 				{currentUser.role !== "student" &&
-					getPersonal &&
-					getPersonal.map((value, index) => {
+					sortArray(getPersonal, {
+						by: "updatedAt",
+						order: "desc"
+					})?.map((value, index) => {
 						return (
 							<div
 								className="user"
 								onClick={() => setMessages(value)}
 								key={index}
 							>
-								{setLatestPersonal(value?.messages.slice(-1)[0])}
 								<img
 									src={`/uploads/profile-img/${value.student?.profile_img}`}
 									alt="profile-img"
@@ -119,11 +139,13 @@ const UserBox = ({
 										<h6>{value.student?.name}</h6>
 
 										<span>
-											<TimeAgo datetime={latestPersonal?.time} />
+											<TimeAgo datetime={value?.messages.slice(-1)[0]?.time} />
 										</span>
 									</div>
 
-									<div className="down">{latestPersonal?.message}</div>
+									<div className="down">
+										{value?.messages.slice(-1)[0]?.message}
+									</div>
 								</section>
 							</div>
 						);
@@ -133,7 +155,7 @@ const UserBox = ({
 				{/* for personal-chat end  */}
 
 				{/* for search students start  */}
-				<div id="search-box">
+				<div id="search-box" ref={myRef}>
 					{searchUser &&
 						searchUser.map((value, index) => {
 							return (
