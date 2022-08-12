@@ -19,11 +19,49 @@ const Navbar = ({
 	// for profile & log-out dropdown
 	const [dropdownT, setDropdownT] = useState(false);
 
-	// for close from outside-click start
-	const myRef = useRef();
+	// for notification dropdown
+	const [appointmentT, setAppointmentT] = useState("");
+	const [messageT, setMessageT] = useState("");
+
+	// for close message dropdown from outside-click start
+	const messageRef = useRef();
+
+	const handleClickOutsideMessage = (e) => {
+		if (!messageRef.current?.contains(e.target)) {
+			setMessageT(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideMessage);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideMessage);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for close message dropdown from outside-click end
+
+	// for close appointment dropdown from outside-click start
+	const appointmentRef = useRef();
+
+	const handleClickOutsideAppt = (e) => {
+		if (!appointmentRef.current?.contains(e.target)) {
+			setAppointmentT(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideAppt);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideAppt);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for close appointment dropdown from outside-click end
+
+	// for close profile dropdown from outside-click start
+	const profileRef = useRef();
 
 	const handleClickOutside = (e) => {
-		if (!myRef.current?.contains(e.target)) {
+		if (!profileRef.current?.contains(e.target)) {
 			setDropdownT(false);
 		}
 	};
@@ -33,7 +71,7 @@ const Navbar = ({
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	// for close from outside-click end
+	// for close profile dropdown from outside-click end
 
 	return (
 		<>
@@ -80,19 +118,66 @@ const Navbar = ({
 								)}
 
 								<span>
-									<i className="bi bi-chat-heart"></i>
+									<i
+										className="bi bi-chat-heart"
+										onClick={() => setMessageT(!messageT)}
+									>
+										<NotificationBadge
+											count={appNotification}
+											effect={Effect.SCALE}
+											className="notification-count"
+										/>
+									</i>
+
+									{/* for message notification  */}
+									{messageT && (
+										<div ref={messageRef} className="notification-container">
+											<div className="notification-display">
+												<img
+													src="/assets/profile/tangil.png"
+													alt="img"
+													className="profile-img img-fluid"
+												/>
+
+												<div>
+													<h6>Tangilur Rahman</h6> send you a message.
+												</div>
+											</div>
+										</div>
+									)}
 								</span>
 
 								<span>
-									<i className="bi bi-bell-fill">
-										{currentUser.role === "advisor" && (
-											<NotificationBadge
-												count={appNotification}
-												effect={Effect.SCALE}
-												className="notification-layout"
-											/>
-										)}
+									<i
+										className="bi bi-bell-fill"
+										onClick={() => setAppointmentT(!appointmentT)}
+									>
+										<NotificationBadge
+											count={appNotification}
+											effect={Effect.SCALE}
+											className="notification-count"
+										/>
 									</i>
+
+									{/* for appointment notification  */}
+									{appointmentT && (
+										<div
+											ref={appointmentRef}
+											className="notification-container"
+										>
+											<div className="notification-display">
+												<img
+													src="/assets/profile/tangil.png"
+													alt="img"
+													className="profile-img img-fluid"
+												/>
+
+												<div>
+													<h6>Tangilur Rahman</h6> send you a appt...
+												</div>
+											</div>
+										</div>
+									)}
 								</span>
 							</div>
 
@@ -104,7 +189,7 @@ const Navbar = ({
 									onClick={() => setDropdownT(!dropdownT)}
 								/>
 								{dropdownT && (
-									<ul ref={myRef}>
+									<ul ref={profileRef}>
 										<li
 											onClick={() => {
 												setProfileT("profile");

@@ -79,6 +79,10 @@
 	flex-grow: 1;
 }
 
+.navbar-container .right .icon-style span {
+	position: relative;
+}
+
 .navbar-container .right .icon-style span i {
 	width: 50px;
 	height: 50px;
@@ -134,12 +138,62 @@
 	height: fit-content !important;
 }
 
-.right .icon-style span i .notification-layout {
+.right .icon-style span i .notification-count {
 	top: -16px !important;
 	right: -11px !important;
 }
 
-/* for notification badge style start  */
+.right .notification-container {
+	position: absolute;
+	top: 58px;
+	right: 0;
+	display: flex;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: var(--box-shadow);
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: -moz-fit-content;
+	height: fit-content;
+	max-height: 50vh;
+	width: 443px;
+	z-index: 999;
+	padding: 0;
+	margin: 0;
+}
+
+.right .notification-container .notification-display {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	padding: 7px 2px 7px 15px;
+	border-bottom: 1px solid #dad7cd;
+	width: 100%;
+}
+
+.right .notification-container .notification-display:hover {
+	background-color: var(--hover-bg-color);
+}
+
+.right .notification-container .notification-display > div {
+	display: flex;
+	padding: 15px 10px;
+}
+
+.notification-container .notification-display h6 {
+	margin: 0 10px 0 0;
+	align-self: center;
+	font-weight: 500;
+	letter-spacing: 0.5px;
+	word-spacing: 4px;
+	max-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-transform: capitalize;
+}
+
+/* for notification badge style end  */
 
 .navbar-container .right img {
 	cursor: pointer;

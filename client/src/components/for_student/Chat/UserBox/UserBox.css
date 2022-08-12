@@ -2,8 +2,6 @@
 	background-color: white;
 	border-radius: 10px 0 0 0;
 	box-shadow: var(--box-shadow);
-	overflow-y: scroll;
-	height: 88vh;
 	position: relative;
 }
 
@@ -31,6 +29,11 @@
 }
 /* search-bar style end  */
 
+.user-box .user-content {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 79vh;
+}
 .user-box .user {
 	display: flex;
 	align-items: center;

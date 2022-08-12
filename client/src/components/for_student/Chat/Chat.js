@@ -144,6 +144,7 @@ const Chat = () => {
 
 					if (response.status === 200) {
 						setPersonal([...getPersonal, result]);
+						setMessages(result);
 						setSearchUser("");
 						setSelectedSearch("");
 					} else if (result.error) {

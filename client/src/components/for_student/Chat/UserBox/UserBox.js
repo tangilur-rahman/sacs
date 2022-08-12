@@ -70,130 +70,134 @@ const UserBox = ({
 					</div>
 				)}
 
-				{/* for group-chat start  */}
-				<div className="user" onClick={() => setMessages(getGroup)}>
-					<img
-						src={`/uploads/profile-img/${getGroup?.chat_img}`}
-						alt="profile-img"
-						className="profile-img img-fluid"
-					/>
-
-					<section>
-						<div className="above">
-							<h6>
-								Department&nbsp;
-								<div
-									style={{
-										textTransform: "uppercase",
-										display: "inline-block"
-									}}
-								>
-									{getGroup?.chat_name}
-								</div>
-							</h6>
-							<span>
-								<TimeAgo datetime={latestGroup?.time} />
-							</span>
-						</div>
-
-						<div className="down">{latestGroup?.message}</div>
-					</section>
-				</div>
-				{/* for group-chat end  */}
-
-				{/* for personal-chat start  */}
-				{/* when student start  */}
-				{currentUser.role === "student" && (
-					<div className="user" onClick={() => setMessages(getPersonal)}>
+				<div className="user-content">
+					{/* for group-chat start  */}
+					<div className="user" onClick={() => setMessages(getGroup)}>
 						<img
-							src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
+							src={`/uploads/profile-img/${getGroup?.chat_img}`}
 							alt="profile-img"
 							className="profile-img img-fluid"
 						/>
 
 						<section>
 							<div className="above">
-								<h6>{getPersonal.advisor?.name}</h6>
-
+								<h6>
+									Department&nbsp;
+									<div
+										style={{
+											textTransform: "uppercase",
+											display: "inline-block"
+										}}
+									>
+										{getGroup?.chat_name}
+									</div>
+								</h6>
 								<span>
-									<TimeAgo datetime={latestPersonal?.time} />
+									<TimeAgo datetime={latestGroup?.time} />
 								</span>
 							</div>
 
-							<div className="down">{latestPersonal?.message}</div>
+							<div className="down">{latestGroup?.message}</div>
 						</section>
 					</div>
-				)}
-				{/* when student end  */}
+					{/* for group-chat end  */}
 
-				{/* when advisor start */}
-				{currentUser.role !== "student" &&
-					sortArray(getPersonal, {
-						by: "updatedAt",
-						order: "desc"
-					})?.map((value, index) => {
-						return (
-							<div
-								className="user"
-								onClick={() => setMessages(value)}
-								key={index}
-							>
-								<img
-									src={`/uploads/profile-img/${value.student?.profile_img}`}
-									alt="profile-img"
-									className="profile-img img-fluid"
-								/>
+					{/* for personal-chat start  */}
+					{/* when student start  */}
+					{currentUser.role === "student" && (
+						<div className="user" onClick={() => setMessages(getPersonal)}>
+							<img
+								src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
+								alt="profile-img"
+								className="profile-img img-fluid"
+							/>
 
-								<section>
-									<div className="above">
-										<h6>{value.student?.name}</h6>
+							<section>
+								<div className="above">
+									<h6>{getPersonal.advisor?.name}</h6>
 
-										<span>
-											<TimeAgo datetime={value?.messages.slice(-1)[0]?.time} />
-										</span>
-									</div>
+									<span>
+										<TimeAgo datetime={latestPersonal?.time} />
+									</span>
+								</div>
 
-									<div className="down">
-										{value?.messages.slice(-1)[0]?.message}
-									</div>
-								</section>
-							</div>
-						);
-					})}
+								<div className="down">{latestPersonal?.message}</div>
+							</section>
+						</div>
+					)}
+					{/* when student end  */}
 
-				{/* when advisor end */}
-				{/* for personal-chat end  */}
-
-				{/* for search students start  */}
-				<div id="search-box" ref={myRef}>
-					{searchUser &&
-						searchUser.map((value, index) => {
+					{/* when advisor start */}
+					{currentUser.role !== "student" &&
+						sortArray(getPersonal, {
+							by: "updatedAt",
+							order: "desc"
+						})?.map((value, index) => {
 							return (
 								<div
 									className="user"
+									onClick={() => setMessages(value)}
 									key={index}
-									onClick={() => {
-										setSelectedSearch(value);
-										setSearch("");
-									}}
 								>
 									<img
-										src={`/uploads/profile-img/${value?.profile_img}`}
+										src={`/uploads/profile-img/${value.student?.profile_img}`}
 										alt="profile-img"
 										className="profile-img img-fluid"
 									/>
 
 									<section>
 										<div className="above">
-											<h6>{value?.name}</h6>
+											<h6>{value.student?.name}</h6>
+
+											<span>
+												<TimeAgo
+													datetime={value?.messages.slice(-1)[0]?.time}
+												/>
+											</span>
+										</div>
+
+										<div className="down">
+											{value?.messages.slice(-1)[0]?.message}
 										</div>
 									</section>
 								</div>
 							);
 						})}
-				</div>
 
-				{/* for search students end  */}
+					{/* when advisor end */}
+					{/* for personal-chat end  */}
+
+					{/* for search students start  */}
+					<div id="search-box" ref={myRef}>
+						{searchUser &&
+							searchUser.map((value, index) => {
+								return (
+									<div
+										className="user"
+										key={index}
+										onClick={() => {
+											setSelectedSearch(value);
+											setSearch("");
+										}}
+									>
+										<img
+											src={`/uploads/profile-img/${value?.profile_img}`}
+											alt="profile-img"
+											className="profile-img img-fluid"
+										/>
+
+										<section>
+											<div className="above">
+												<h6>{value?.name}</h6>
+											</div>
+										</section>
+									</div>
+								);
+							})}
+					</div>
+
+					{/* for search students end  */}
+				</div>
 			</div>
 		</>
 	);
