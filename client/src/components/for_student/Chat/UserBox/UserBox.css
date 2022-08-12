@@ -34,6 +34,11 @@
 	overflow-y: auto;
 	height: 79vh;
 }
+
+.user-box .user-content#student {
+	height: 87vh;
+}
+
 .user-box .user {
 	display: flex;
 	align-items: center;

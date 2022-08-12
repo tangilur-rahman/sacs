@@ -70,7 +70,10 @@ const UserBox = ({
 					</div>
 				)}
 
-				<div className="user-content">
+				<div
+					className="user-content"
+					id={currentUser.role === "student" ? "student" : ""}
+				>
 					{/* for group-chat start  */}
 					<div className="user" onClick={() => setMessages(getGroup)}>
 						<img
@@ -93,7 +96,9 @@ const UserBox = ({
 									</div>
 								</h6>
 								<span>
-									<TimeAgo datetime={latestGroup?.time} />
+									{latestGroup?.time && (
+										<TimeAgo datetime={latestGroup?.time} />
+									)}
 								</span>
 							</div>
 
@@ -117,7 +122,9 @@ const UserBox = ({
 									<h6>{getPersonal.advisor?.name}</h6>
 
 									<span>
-										<TimeAgo datetime={latestPersonal?.time} />
+										{latestPersonal?.time && (
+											<TimeAgo datetime={latestPersonal?.time} />
+										)}
 									</span>
 								</div>
 
@@ -150,9 +157,11 @@ const UserBox = ({
 											<h6>{value.student?.name}</h6>
 
 											<span>
-												<TimeAgo
-													datetime={value?.messages.slice(-1)[0]?.time}
-												/>
+												{value?.messages.slice(-1)[0]?.time && (
+													<TimeAgo
+														datetime={value?.messages.slice(-1)[0]?.time}
+													/>
+												)}
 											</span>
 										</div>
 
