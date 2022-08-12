@@ -36,7 +36,17 @@ const Header = ({ getMessages }) => {
 					{/* header name start  */}
 					{getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
-						<h6>{getMessages.chat_name}</h6>
+						<h6>
+							Department&nbsp;
+							<div
+								style={{
+									textTransform: "uppercase",
+									display: "inline-block"
+								}}
+							>
+								{getMessages?.chat_name}
+							</div>
+						</h6>
 					) : currentUser.role === "advisor" ? (
 						<h6>{getMessages.student.name}</h6>
 					) : (

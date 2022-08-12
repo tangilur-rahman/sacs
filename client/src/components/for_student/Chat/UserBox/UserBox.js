@@ -80,7 +80,17 @@ const UserBox = ({
 
 					<section>
 						<div className="above">
-							<h6>{getGroup?.chat_name}</h6>
+							<h6>
+								Department&nbsp;
+								<div
+									style={{
+										textTransform: "uppercase",
+										display: "inline-block"
+									}}
+								>
+									{getGroup?.chat_name}
+								</div>
+							</h6>
 							<span>
 								<TimeAgo datetime={latestGroup?.time} />
 							</span>
