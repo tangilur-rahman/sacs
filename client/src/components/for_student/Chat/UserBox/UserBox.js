@@ -13,7 +13,11 @@ const UserBox = ({
 	latestGroup,
 	setLatestGroup,
 	latestPersonal,
-	setLatestPersonal
+	setLatestPersonal,
+	search,
+	setSearch,
+	searchUser,
+	setSelectedSearch
 }) => {
 	// get current user
 	const { currentUser } = GetContextApi();
@@ -21,7 +25,11 @@ const UserBox = ({
 	// insert initial latest message & time
 	useEffect(() => {
 		setLatestGroup(getGroup?.messages.slice(-1)[0]);
-		setLatestPersonal(getPersonal?.messages.slice(-1)[0]);
+
+		if (currentUser.role === "student") {
+			setLatestPersonal(getPersonal?.messages.slice(-1)[0]);
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -37,6 +45,8 @@ const UserBox = ({
 							id="search"
 							autoComplete="off"
 							placeholder="Search or start new chat"
+							onChange={(event) => setSearch(event.target.value)}
+							value={search}
 						/>
 					</div>
 				)}
@@ -63,40 +73,95 @@ const UserBox = ({
 				{/* for group-chat end  */}
 
 				{/* for personal-chat start  */}
-				<div className="user" onClick={() => setMessages(getPersonal)}>
-					{currentUser &&
-						(currentUser.role === "advisor" ? (
-							<img
-								src={`/uploads/profile-img/${getPersonal.student?.profile_img}`}
-								alt="profile-img"
-								className="profile-img img-fluid"
-							/>
-						) : (
-							<img
-								src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
-								alt="profile-img"
-								className="profile-img img-fluid"
-							/>
-						))}
+				{/* when student start  */}
+				{currentUser.role === "student" && (
+					<div className="user" onClick={() => setMessages(getPersonal)}>
+						<img
+							src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
+							alt="profile-img"
+							className="profile-img img-fluid"
+						/>
 
-					<section>
-						<div className="above">
-							{currentUser &&
-								(currentUser.role === "advisor" ? (
-									<h6>{getPersonal.student?.name}</h6>
-								) : (
-									<h6>{getPersonal.advisor?.name}</h6>
-								))}
+						<section>
+							<div className="above">
+								<h6>{getPersonal.advisor?.name}</h6>
 
-							<span>
-								<TimeAgo datetime={latestPersonal?.time} />
-							</span>
-						</div>
+								<span>
+									<TimeAgo datetime={latestPersonal?.time} />
+								</span>
+							</div>
 
-						<div className="down">{latestPersonal?.message}</div>
-					</section>
-				</div>
+							<div className="down">{latestPersonal?.message}</div>
+						</section>
+					</div>
+				)}
+				{/* when student end  */}
+
+				{/* when advisor start */}
+				{currentUser.role !== "student" &&
+					getPersonal &&
+					getPersonal.map((value, index) => {
+						return (
+							<div
+								className="user"
+								onClick={() => setMessages(value)}
+								key={index}
+							>
+								{setLatestPersonal(value?.messages.slice(-1)[0])}
+								<img
+									src={`/uploads/profile-img/${value.student?.profile_img}`}
+									alt="profile-img"
+									className="profile-img img-fluid"
+								/>
+
+								<section>
+									<div className="above">
+										<h6>{value.student?.name}</h6>
+
+										<span>
+											<TimeAgo datetime={latestPersonal?.time} />
+										</span>
+									</div>
+
+									<div className="down">{latestPersonal?.message}</div>
+								</section>
+							</div>
+						);
+					})}
+
+				{/* when advisor end */}
 				{/* for personal-chat end  */}
+
+				{/* for search students start  */}
+				<div id="search-box">
+					{searchUser &&
+						searchUser.map((value, index) => {
+							return (
+								<div
+									className="user"
+									key={index}
+									onClick={() => {
+										setSelectedSearch(value);
+										setSearch("");
+									}}
+								>
+									<img
+										src={`/uploads/profile-img/${value?.profile_img}`}
+										alt="profile-img"
+										className="profile-img img-fluid"
+									/>
+
+									<section>
+										<div className="above">
+											<h6>{value?.name}</h6>
+										</div>
+									</section>
+								</div>
+							);
+						})}
+				</div>
+
+				{/* for search students end  */}
 			</div>
 		</>
 	);

@@ -12,7 +12,7 @@ const schema = mongoose.Schema(
 		},
 
 		id: {
-			type: Number,
+			type: String,
 			required: true
 		},
 

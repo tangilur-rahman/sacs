@@ -5,29 +5,68 @@ const personalModel = require("../models/personalChatModel");
 const studentModel = require("./../models/studentModel");
 const advisorModel = require("./../models/advisorModel");
 
+// when advisor & when to get all students
+const getAllStudents = async (req, res) => {
+	try {
+		const studentsDoc = await personalModel
+			.find({
+				advisor: req.currentUser._id
+			})
+			.populate("student", "name profile_img")
+			.populate("advisor", "name profile_img");
+
+		res.status(200).json(studentsDoc);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+// for search students
+const searchStudents = async (req, res) => {
+	try {
+		const getStudents = await studentModel
+			.find({
+				advisor: req.currentUser._id,
+				$or: [
+					{
+						id: {
+							$regex: req.params.search,
+							$options: "i"
+						}
+					},
+					{
+						email: {
+							$regex: req.params.search,
+							$options: "i"
+						}
+					},
+					{
+						name: {
+							$regex: req.params.search,
+							$options: "i"
+						}
+					}
+				]
+			})
+			.populate("advisor", "id");
+
+		res.status(200).json(getStudents);
+	} catch (error) {
+		res.status(500).json({ error: "Not Found Students" });
+	}
+};
+
 // create or get personal-chat
 const createOrGet = async (req, res) => {
 	try {
 		const { student_id, advisor_id } = req.body;
 
-		// check personal-chat exist or not
-
-		let getPersonal = "";
-		if (req.currentUser.role === "advisor") {
-			getPersonal = await personalModel
-				.find({
-					advisor: req.currentUser._id
-				})
-				.populate("student", "name profile_img")
-				.populate("advisor", "name profile_img");
-		} else {
-			getPersonal = await personalModel
-				.findOne({
-					room: `${advisor_id}-${student_id}`
-				})
-				.populate("student", "name profile_img")
-				.populate("advisor", "name profile_img");
-		}
+		const getPersonal = await personalModel
+			.findOne({
+				room: `${advisor_id}-${student_id}`
+			})
+			.populate("student", "name profile_img")
+			.populate("advisor", "name profile_img");
 
 		if (getPersonal) {
 			res.status(200).json(getPersonal);
@@ -81,4 +120,4 @@ const submitMessage = async (req, res) => {
 	}
 };
 
-module.exports = { createOrGet, submitMessage };
+module.exports = { getAllStudents, searchStudents, createOrGet, submitMessage };

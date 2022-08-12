@@ -4,6 +4,7 @@
 	box-shadow: var(--box-shadow);
 	overflow-y: scroll;
 	height: 88vh;
+	position: relative;
 }
 
 /* search-bar style start  */
@@ -81,3 +82,19 @@
 	text-overflow: ellipsis;
 	font-size: 15px;
 }
+
+/* for search-box start  */
+.user-box #search-box {
+	position: absolute;
+	top: 115px;
+	height: -moz-fit-content;
+	height: fit-content;
+	width: 100%;
+	background: #edf6f9;
+}
+
+.user-box #search-box .user:hover {
+	background-color: white;
+}
+
+/* for search-box end  */

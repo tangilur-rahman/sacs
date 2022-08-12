@@ -15,7 +15,7 @@ const schema = mongoose.Schema(
 
 		messages: [
 			{
-				id: Number,
+				id: String,
 				name: {
 					type: String,
 					trim: true

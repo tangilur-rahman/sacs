@@ -9,14 +9,20 @@ import MessageBox from "./MessageBox/MessageBox";
 import UserBox from "./UserBox/UserBox";
 
 const Chat = () => {
+	// for get current user
 	const { currentUser } = GetContextApi();
 
-	// for get messages for display in message-box
+	// for get messages for display in chat-box
 	const [getMessages, setMessages] = useState("");
 
 	// get latest message & time
 	const [latestGroup, setLatestGroup] = useState("");
 	const [latestPersonal, setLatestPersonal] = useState("");
+
+	// for get search input field value & applied
+	const [search, setSearch] = useState("");
+	const [searchUser, setSearchUser] = useState("");
+	const [selectedSearch, setSelectedSearch] = useState("");
 
 	// for get or create group-chat start
 	const [getGroup, setGroup] = useState("");
@@ -37,12 +43,6 @@ const Chat = () => {
 
 			if (response.status === 200) {
 				setGroup(result);
-			} else if (response.status === 400) {
-				toast(result.message, {
-					position: "top-right",
-					theme: "dark",
-					autoClose: 3000
-				});
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -58,12 +58,20 @@ const Chat = () => {
 			});
 		}
 	};
+
+	useEffect(() => {
+		if (currentUser) {
+			getGroupChat();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	// for get or create group-chat end
 
 	// for get or create personal-chat start
 	const [getPersonal, setPersonal] = useState("");
 
 	const getPersonalChat = async () => {
+		// when student start
 		if (currentUser.role === "student") {
 			try {
 				const response = await fetch("/personal-chat", {
@@ -79,12 +87,6 @@ const Chat = () => {
 
 				if (response.status === 200) {
 					setPersonal(result);
-				} else if (response.status === 400) {
-					toast(result.message, {
-						position: "top-right",
-						theme: "dark",
-						autoClose: 3000
-					});
 				} else if (result.error) {
 					toast.error(result.error, {
 						position: "top-right",
@@ -99,18 +101,105 @@ const Chat = () => {
 					autoClose: 3000
 				});
 			}
+			// when student end
+
+			// when advisor start
+		} else if (currentUser.role === "advisor") {
+			if (search) {
+				// searching start
+				try {
+					const response = await fetch(`/personal-chat/${search}`);
+					const result = await response.json();
+					if (response.status === 200) {
+						setSearchUser(result);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					console.log(error.message);
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+				// searching end
+			} else if (selectedSearch) {
+				// for get or create using selected search result start
+
+				try {
+					const response = await fetch("/personal-chat", {
+						method: "POST",
+						body: JSON.stringify({
+							student_id: selectedSearch.id,
+							advisor_id: selectedSearch.advisor.id
+						}),
+						headers: { "Content-Type": "application/json" }
+					});
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setPersonal([...getPersonal, result]);
+						setSearchUser("");
+						setSelectedSearch("");
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			}
+			// for get or create using selected search result end
+			else {
+				// for get advisor's all student
+				try {
+					const response = await fetch("/personal-chat");
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setPersonal(result);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			}
 		}
 	};
 
 	useEffect(() => {
 		if (currentUser) {
-			getGroupChat();
 			getPersonalChat();
 		}
 
+		if (!search) {
+			setSearchUser("");
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	// for get or create group-chat end
+	}, [search, selectedSearch]);
+	// for get or create personal-chat end
 
 	return (
 		<>
@@ -126,6 +215,10 @@ const Chat = () => {
 								setLatestGroup={setLatestGroup}
 								latestPersonal={latestPersonal}
 								setLatestPersonal={setLatestPersonal}
+								search={search}
+								setSearch={setSearch}
+								searchUser={searchUser}
+								setSelectedSearch={setSelectedSearch}
 							/>
 						)}
 					</div>
