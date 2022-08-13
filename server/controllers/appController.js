@@ -18,9 +18,11 @@ const submitAppointment = async (req, res) => {
 				description
 			});
 
+			// for add attachments start
 			const filename = req.files.map((value) => value.filename);
 
 			document.attachments = [].concat(filename);
+			// for add attachments end
 
 			await document.save();
 
@@ -35,9 +37,14 @@ const submitAppointment = async (req, res) => {
 
 const getAllAppointments = async (req, res) => {
 	try {
-		const appDocuments = await appModel.find({
-			$or: [{ student: req.currentUser._id }, { advisor: req.currentUser._id }]
-		});
+		const appDocuments = await appModel
+			.find({
+				$or: [
+					{ student: req.currentUser._id },
+					{ advisor: req.currentUser._id }
+				]
+			})
+			.populate("student", "name profile_img");
 
 		res.status(200).json(appDocuments);
 	} catch (error) {
@@ -109,10 +116,27 @@ const isRead = async (req, res) => {
 	}
 };
 
+// for make-read all
+const makeRead = async (req, res) => {
+	try {
+		await appModel.updateMany(
+			{ advisor: req.body._id },
+			{
+				$set: { isRead: true }
+			}
+		);
+
+		res.status(200).json({ message: "update successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	submitAppointment,
 	getAllAppointments,
 	getSpecificApp,
 	replyUpdate,
-	isRead
+	isRead,
+	makeRead
 };

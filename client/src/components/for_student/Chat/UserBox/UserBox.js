@@ -85,7 +85,7 @@ const UserBox = ({
 						<section>
 							<div className="above">
 								<h6>
-									Department&nbsp;
+									Department Of&nbsp;
 									<div
 										style={{
 											textTransform: "uppercase",

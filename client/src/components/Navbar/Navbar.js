@@ -1,6 +1,9 @@
 // external components
 import { useEffect, useRef, useState } from "react";
 import NotificationBadge, { Effect } from "react-notification-badge";
+import { toast } from "react-toastify";
+import sortArray from "sort-array";
+import TimeAgo from "timeago-react";
 
 // internal components
 import { GetContextApi } from "../../ContextApi";
@@ -11,10 +14,11 @@ const Navbar = ({
 	registerT,
 	setRegisterT,
 	setTotalT,
-	setProfileT
+	setProfileT,
+	createNotification
 }) => {
-	// for get appointment notification value
-	const { appNotification } = GetContextApi();
+	// for get setIsSubmitted for reload
+	const { setIsSubmitted } = GetContextApi();
 
 	// for profile & log-out dropdown
 	const [dropdownT, setDropdownT] = useState(false);
@@ -73,6 +77,39 @@ const Navbar = ({
 	}, []);
 	// for close profile dropdown from outside-click end
 
+	// makeReadHandler start
+	const makeReadHandler = async () => {
+		try {
+			const response = await fetch("/appointment/make-read", {
+				method: "PUT",
+				body: JSON.stringify({
+					_id: currentUser._id
+				}),
+				headers: { "Content-Type": "application/json" }
+			});
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setIsSubmitted(Date.now());
+				return;
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+	// makeReadHandler end
+
 	return (
 		<>
 			<div className="container-fluid navbar-main-container">
@@ -123,7 +160,7 @@ const Navbar = ({
 										onClick={() => setMessageT(!messageT)}
 									>
 										<NotificationBadge
-											count={appNotification}
+											count={createNotification?.length}
 											effect={Effect.SCALE}
 											className="notification-count"
 										/>
@@ -142,6 +179,12 @@ const Navbar = ({
 												<div>
 													<h6>Tangilur Rahman</h6> send you a message.
 												</div>
+												<div className="notification-time">
+													<TimeAgo datetime={Date.now()} />
+												</div>
+											</div>
+											<div className="make-read">
+												<h6>Make as all read</h6>
 											</div>
 										</div>
 									)}
@@ -153,31 +196,58 @@ const Navbar = ({
 										onClick={() => setAppointmentT(!appointmentT)}
 									>
 										<NotificationBadge
-											count={appNotification}
+											count={
+												currentUser.role !== "student" &&
+												createNotification?.length
+											}
 											effect={Effect.SCALE}
 											className="notification-count"
 										/>
 									</i>
 
-									{/* for appointment notification  */}
-									{appointmentT && (
+									{/* for create appointment notification   start */}
+									{currentUser.role !== "student" &&
+									appointmentT &&
+									createNotification?.length > 0 ? (
 										<div
 											ref={appointmentRef}
 											className="notification-container"
 										>
-											<div className="notification-display">
-												<img
-													src="/assets/profile/tangil.png"
-													alt="img"
-													className="profile-img img-fluid"
-												/>
+											{createNotification &&
+												sortArray(createNotification, {
+													by: "createdAt",
+													order: "desc"
+												}).map((value, index) => {
+													return (
+														<div className="notification-display" key={index}>
+															<img
+																src={`uploads/profile-img/${value.student.profile_img}`}
+																alt="img"
+																className="profile-img img-fluid"
+															/>
 
-												<div>
-													<h6>Tangilur Rahman</h6> send you a appt...
-												</div>
+															<div>
+																<h6>{value.student.name}</h6> send you a appt...
+															</div>
+															<div className="notification-time">
+																<TimeAgo datetime={value.createdAt} />
+															</div>
+														</div>
+													);
+												})}
+
+											<div className="make-read" onClick={makeReadHandler}>
+												<h6>Make as all read</h6>
 											</div>
 										</div>
+									) : (
+										appointmentT && (
+											<div className="no-notification">
+												<h6>Empty Notification</h6>
+											</div>
+										)
 									)}
+									{/* for create appointment notification   end */}
 								</span>
 							</div>
 

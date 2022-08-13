@@ -11,7 +11,7 @@ import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 
 const Appointment = ({ setSelected }) => {
 	// for updating dashboard
-	const { setIsSubmitted } = GetContextApi();
+	const { setIsSubmitted, currentUser, mySocket } = GetContextApi();
 
 	// for get category values
 	const [getCateV, setCateV] = useState("");
@@ -62,6 +62,19 @@ const Appointment = ({ setSelected }) => {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 1500
+				});
+
+				mySocket.emit("send_appointment", {
+					objectData: {
+						student: currentUser._id,
+						advisor: currentUser.advisor._id,
+						subject,
+						category: getCateV,
+						description,
+						isRead: false,
+						status: "pending"
+					},
+					room: currentUser.advisor._id
 				});
 
 				setTimeout(() => {

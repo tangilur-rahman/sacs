@@ -19,9 +19,14 @@ import Logout from "../../components/Logout";
 import AppointmentDetails from "./../../components/for_popup/AppointmentDetails/AppointmentDetails";
 import Register from "./../../components/for_popup/Register/Register";
 
-const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
-	const { currentUser, setCurrentUser, setIsLoading, isSubmitted } =
-		GetContextApi();
+const Homepage = ({
+	selected,
+	setSelected,
+	appDisplay,
+	setAppDisplay,
+	createNotification
+}) => {
+	const { currentUser, setCurrentUser, isSubmitted } = GetContextApi();
 
 	// for redirect login-page
 	const Navigate = useNavigate();
@@ -42,7 +47,6 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				return Navigate("/login");
 			} else {
 				setCurrentUser(result);
-				setIsLoading(false);
 			}
 		} catch (error) {
 			toast.error(error.message, {
@@ -80,6 +84,7 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				setRegisterT={setRegisterT}
 				setTotalT={setTotalT}
 				setProfileT={setProfileT}
+				createNotification={createNotification}
 			/>
 
 			<div className="container-fluid p-0 homepage-main-container">

@@ -18,15 +18,19 @@ const MessageBox = ({ getMessages, setLatestGroup, setLatestPersonal }) => {
 	return (
 		<>
 			<div className="message-box">
-				<Header getMessages={getMessages} />
+				{getMessages && <Header getMessages={getMessages} />}
+
 				<ChatBox displayMessages={displayMessages} />
-				<InputBox
-					getMessages={getMessages}
-					displayMessages={displayMessages}
-					setDisplayMessages={setDisplayMessages}
-					setLatestGroup={setLatestGroup}
-					setLatestPersonal={setLatestPersonal}
-				/>
+
+				{getMessages && (
+					<InputBox
+						getMessages={getMessages}
+						displayMessages={displayMessages}
+						setDisplayMessages={setDisplayMessages}
+						setLatestGroup={setLatestGroup}
+						setLatestPersonal={setLatestPersonal}
+					/>
+				)}
 			</div>
 		</>
 	);

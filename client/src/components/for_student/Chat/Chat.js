@@ -225,13 +225,11 @@ const Chat = () => {
 						)}
 					</div>
 					<div className="col-7 p-0">
-						{getMessages && (
-							<MessageBox
-								getMessages={getMessages}
-								setLatestGroup={setLatestGroup}
-								setLatestPersonal={setLatestPersonal}
-							/>
-						)}
+						<MessageBox
+							getMessages={getMessages}
+							setLatestGroup={setLatestGroup}
+							setLatestPersonal={setLatestPersonal}
+						/>
 					</div>
 				</div>
 			</div>

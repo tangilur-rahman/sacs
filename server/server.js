@@ -56,7 +56,7 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-	// for join room
+	// for messages start
 	socket.on("join_room", (data) => {
 		socket.join(data);
 	});
@@ -65,6 +65,17 @@ io.on("connection", (socket) => {
 	socket.on("send_message", ({ messageObject, room }) => {
 		io.to(room).emit("receive_message", messageObject);
 	});
+	// for messages end
+
+	// for create-notification start
+	socket.on("join_room_appointment", (data) => {
+		socket.join(data);
+	});
+
+	socket.on("send_appointment", ({ objectData, room }) => {
+		io.to(room).emit("receive_appointment", objectData);
+	});
+	// for create-notification end
 });
 // socket section end
 

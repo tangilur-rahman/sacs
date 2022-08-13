@@ -37,7 +37,7 @@ const Header = ({ getMessages }) => {
 					{getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
 						<h6>
-							Department&nbsp;
+							Department Of&nbsp;
 							<div
 								style={{
 									textTransform: "uppercase",

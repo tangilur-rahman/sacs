@@ -3,14 +3,10 @@ import Picker from "emoji-picker-react";
 import { useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
-import io from "socket.io-client";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
 import "./InputBox.css";
-
-// establish connection with socket-server
-const socket = io.connect("http://localhost:4000");
 
 const InputBox = ({
 	getMessages,
@@ -20,7 +16,7 @@ const InputBox = ({
 	setLatestPersonal
 }) => {
 	// for get current-user
-	const { currentUser } = GetContextApi();
+	const { currentUser, mySocket } = GetContextApi();
 
 	// for get socket-message from server
 	const [socketMessage, setSocketMessage] = useState(null);
@@ -60,8 +56,8 @@ const InputBox = ({
 
 	// socket event start
 	useEffect(() => {
-		socket?.emit("join_room", getMessages.room);
-		socket?.on("receive_message", (message) => {
+		mySocket?.emit("join_room", getMessages.room);
+		mySocket?.on("receive_message", (message) => {
 			setSocketMessage(message);
 		});
 
@@ -100,7 +96,7 @@ const InputBox = ({
 
 			const room = getMessages.room;
 
-			socket?.emit("send_message", { messageObject, room });
+			mySocket?.emit("send_message", { messageObject, room });
 			// for send socket end
 
 			try {
@@ -194,7 +190,7 @@ const InputBox = ({
 
 				const room = getMessages.room;
 
-				socket?.emit("send_message", { messageObject, room });
+				mySocket?.emit("send_message", { messageObject, room });
 				// for send socket end
 
 				try {
