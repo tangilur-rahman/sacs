@@ -24,6 +24,9 @@ const Navbar = ({
 	const [messageN, setMessageN] = useState("");
 	const [appointmentN, setAppointmentN] = useState("");
 
+	// for update appointment notification count
+	const [apptCount, setApptCount] = useState(false);
+
 	// for get socket notification
 	const [socketN, setSocketN] = useState("");
 
@@ -130,7 +133,6 @@ const Navbar = ({
 	}, [socketN]);
 
 	// initialize notification start
-
 	useEffect(() => {
 		if (notifications) {
 			setMessageN(notifications?.filter((value) => value.kind === "message"));
@@ -193,6 +195,33 @@ const Navbar = ({
 		})();
 	}, [notifiUpdate]);
 	// for notification update end
+
+	// make all read handler start
+	const makeAllReadHandler = async () => {
+		try {
+			const response = await fetch("/notification/read");
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setApptCount(true);
+				return;
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+	// make all read handler end
 
 	return (
 		<>
@@ -291,13 +320,19 @@ const Navbar = ({
 								<span>
 									<i
 										className="bi bi-bell-fill"
-										onClick={() => setAppointmentN_T(!appointmentN_T)}
+										onClick={() => {
+											setAppointmentN_T(!appointmentN_T);
+											makeAllReadHandler();
+										}}
 									>
 										<NotificationBadge
 											count={
-												appointmentN &&
-												appointmentN.filter((value) => value.isRead === false)
-													?.length
+												!apptCount
+													? appointmentN &&
+													  appointmentN.filter(
+															(value) => value.isRead === false
+													  )?.length
+													: 0
 											}
 											effect={Effect.SCALE}
 											className="notification-count"
