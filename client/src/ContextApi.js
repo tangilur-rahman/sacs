@@ -18,6 +18,9 @@ const ContextHandler = ({ children }) => {
 	// for when submitted appointment, refetching data in dashboard
 	const [isSubmitted, setIsSubmitted] = useState("");
 
+	// for update notifications
+	const [notifiUpdate, setNotifiUpdate] = useState("");
+
 	return (
 		<>
 			<rootContext.Provider
@@ -26,7 +29,9 @@ const ContextHandler = ({ children }) => {
 					currentUser,
 					setCurrentUser,
 					isSubmitted,
-					setIsSubmitted
+					setIsSubmitted,
+					notifiUpdate,
+					setNotifiUpdate
 				}}
 			>
 				{children}

@@ -6,6 +6,7 @@ import sortArray from "sort-array";
 import TimeAgo from "timeago-react";
 
 // internal components
+import { GetContextApi } from "../../ContextApi";
 import "./Navbar.css";
 
 const Navbar = ({
@@ -15,10 +16,16 @@ const Navbar = ({
 	setTotalT,
 	setProfileT
 }) => {
+	// for get socket connection
+	const { mySocket, notifiUpdate } = GetContextApi();
+
 	// for get all notifications
 	const [notifications, setNotifications] = useState("");
 	const [messageN, setMessageN] = useState("");
 	const [appointmentN, setAppointmentN] = useState("");
+
+	// for get socket notification
+	const [socketN, setSocketN] = useState("");
 
 	// for profile & log-out dropdown
 	const [logoutT, setLogoutT] = useState(false);
@@ -86,8 +93,7 @@ const Navbar = ({
 				const result = await response.json();
 
 				if (response.status === 200) {
-					setNotifications(result);
-					return;
+					setNotifications(result ? result.notification : []);
 				} else if (result.error) {
 					toast.error(result.error, {
 						position: "top-right",
@@ -103,22 +109,43 @@ const Navbar = ({
 				});
 			}
 		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// get currentUser all notifications end
 
+	// for get notification through socket start
+	useEffect(() => {
+		mySocket?.emit("join_room_notification", currentUser._id);
+		mySocket?.on("receive_notification", (notification) => {
+			setSocketN(notification);
+		});
+	}, [mySocket, currentUser]);
+	// for get notification through socket end
+
+	useEffect(() => {
+		if (socketN) {
+			setNotifications([...notifications, socketN]);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [socketN]);
+
+	// initialize notification start
+
 	useEffect(() => {
 		if (notifications) {
-			setMessageN(notifications.filter((value) => value.kind === "message"));
+			setMessageN(notifications?.filter((value) => value.kind === "message"));
 
 			if (currentUser.role === "advisor") {
 				setAppointmentN(
-					notifications.filter(
-						(value) => value.kind === "create" || value.kind === "reply"
+					notifications?.filter(
+						(value) =>
+							(value.kind === "create" || value.kind === "reply") &&
+							value.isRead === false
 					)
 				);
 			} else if (currentUser.role === "student") {
 				setAppointmentN(
-					notifications.filter(
+					notifications?.filter(
 						(value) =>
 							value.kind === "ApptDate" ||
 							value.kind === "status" ||
@@ -128,7 +155,44 @@ const Navbar = ({
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [notifications, currentUser]);
+	// initialize notification end
+
+	// for notification update start
+	useEffect(() => {
+		(async () => {
+			if (typeof notifiUpdate === "object") {
+				try {
+					const response = await fetch("/notification", {
+						method: "PUT",
+						body: JSON.stringify(notifiUpdate),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						return;
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} else {
+				return;
+			}
+		})();
+	}, [notifiUpdate]);
+	// for notification update end
 
 	return (
 		<>
@@ -181,9 +245,9 @@ const Navbar = ({
 									>
 										<NotificationBadge
 											count={
-												// messageN?.filter((value) => value.isRead === false)
-												// 	?.length
-												1
+												messageN &&
+												messageN?.filter((value) => value.isRead === false)
+													?.length
 											}
 											effect={Effect.SCALE}
 											className="notification-count"
@@ -231,9 +295,9 @@ const Navbar = ({
 									>
 										<NotificationBadge
 											count={
-												// appointmentN?.filter((value) => value.isRead === false)
-												// 	?.length
-												1
+												appointmentN &&
+												appointmentN.filter((value) => value.isRead === false)
+													?.length
 											}
 											effect={Effect.SCALE}
 											className="notification-count"

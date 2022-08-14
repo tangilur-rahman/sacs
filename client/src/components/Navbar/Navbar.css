@@ -225,29 +225,6 @@
 	font-size: 14px;
 }
 
-.notification-container .make-read {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	padding: 10px;
-	width: 100%;
-	position: sticky;
-	bottom: -1px;
-	background-color: #007f5f;
-	color: white;
-}
-
-.notification-container .make-read:hover {
-	background-color: #137547;
-	transition: all 1s;
-}
-
-.navbar-main-container .make-read h6 {
-	margin: 0;
-	font-size: 18px;
-}
-
 /* for notification badge style end  */
 
 .navbar-container .right img {

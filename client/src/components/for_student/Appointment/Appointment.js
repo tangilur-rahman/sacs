@@ -11,7 +11,8 @@ import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 
 const Appointment = ({ setSelected }) => {
 	// for updating dashboard
-	const { setIsSubmitted, currentUser, mySocket } = GetContextApi();
+	const { setIsSubmitted, currentUser, mySocket, setNotifiUpdate } =
+		GetContextApi();
 
 	// for get category values
 	const [getCateV, setCateV] = useState("");
@@ -68,6 +69,23 @@ const Appointment = ({ setSelected }) => {
 					submitted: "true",
 					room: currentUser.advisor._id
 				});
+
+				const notificationObject = {
+					id: currentUser.advisor._id,
+					sender_name: currentUser.name,
+					sender_profile: currentUser.profile_img,
+					kind: "create",
+					text: "send you a appointment",
+					isRead: false,
+					time: Date.now()
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: currentUser.advisor._id
+				});
+
+				setNotifiUpdate(notificationObject);
 
 				setTimeout(() => {
 					setIsSubmitted(Date.now());

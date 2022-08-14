@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
 	});
 	// for messages end
 
-	// for create-notification start
+	// for create-appointment start
 	socket.on("join_room_appointment", (data) => {
 		socket.join(data);
 	});
@@ -77,7 +77,17 @@ io.on("connection", (socket) => {
 	socket.on("send_appointment", ({ submitted, room }) => {
 		io.to(room).emit("receive_appointment", submitted);
 	});
-	// for create-notification end
+	// for create-appointment end
+
+	// for notification start
+	socket.on("join_room_notification", (data) => {
+		socket.join(data);
+	});
+
+	socket.on("send_notification", ({ notificationObject, room }) => {
+		io.to(room).emit("receive_notification", notificationObject);
+	});
+	// for notification end
 });
 // socket section end
 
