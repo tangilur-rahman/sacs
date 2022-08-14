@@ -25,7 +25,7 @@ const Navbar = ({
 	const [appointmentN, setAppointmentN] = useState("");
 
 	// for update appointment notification count
-	const [apptCount, setApptCount] = useState(false);
+	const [checked, setChecked] = useState(false);
 
 	// for get socket notification
 	const [socketN, setSocketN] = useState("");
@@ -113,7 +113,7 @@ const Navbar = ({
 			}
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [checked]);
 	// get currentUser all notifications end
 
 	// for get notification through socket start
@@ -140,16 +140,14 @@ const Navbar = ({
 			if (currentUser.role === "advisor") {
 				setAppointmentN(
 					notifications?.filter(
-						(value) =>
-							(value.kind === "create" || value.kind === "reply") &&
-							value.isRead === false
+						(value) => value.kind === "create" || value.kind === "reply"
 					)
 				);
 			} else if (currentUser.role === "student") {
 				setAppointmentN(
 					notifications?.filter(
 						(value) =>
-							value.kind === "ApptDate" ||
+							value.kind === "apptDate" ||
 							value.kind === "status" ||
 							value.kind === "reply"
 					)
@@ -204,7 +202,7 @@ const Navbar = ({
 			const result = await response.json();
 
 			if (response.status === 200) {
-				setApptCount(true);
+				setChecked(Date.now());
 				return;
 			} else if (result.error) {
 				toast.error(result.error, {
@@ -327,12 +325,9 @@ const Navbar = ({
 									>
 										<NotificationBadge
 											count={
-												!apptCount
-													? appointmentN &&
-													  appointmentN.filter(
-															(value) => value.isRead === false
-													  )?.length
-													: 0
+												appointmentN &&
+												appointmentN.filter((value) => value.isRead === false)
+													?.length
 											}
 											effect={Effect.SCALE}
 											className="notification-count"

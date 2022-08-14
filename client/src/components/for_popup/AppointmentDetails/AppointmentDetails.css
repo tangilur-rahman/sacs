@@ -244,8 +244,22 @@
 	border: 2px solid #dee2e6;
 }
 
-.react-datetime-picker__wrapper {
-	border: none;
+.advisor-section .form-control {
+	padding: 0 !important;
+	border: none !important;
+	font-weight: 500;
+	visibility: visible !important;
+}
+
+.advisor-section .form-control:focus {
+	box-shadow: none !important;
+	border: none !important;
+}
+
+.advisor-section .rdtPicker {
+	min-width: 300px;
+	bottom: 56px;
+	left: 0;
 }
 
 .appointment-details .advisor-section .app-status {

@@ -58,7 +58,8 @@ const getSpecificApp = async (req, res) => {
 			.findOne({
 				_id: req.params.appDisplay
 			})
-			.populate("student", "name id profile_img");
+			.populate("student", "_id name id profile_img")
+			.populate("advisor", "_id name profile_img");
 
 		res.status(200).json(specificApp);
 	} catch (error) {

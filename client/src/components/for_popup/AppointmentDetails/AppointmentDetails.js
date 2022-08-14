@@ -1,7 +1,8 @@
 // external components
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
-import DateTimePicker from "react-datetime-picker";
+import Datetime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
@@ -12,7 +13,7 @@ import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
-	const { setIsSubmitted } = GetContextApi();
+	const { setIsSubmitted, mySocket, setNotifiUpdate } = GetContextApi();
 
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);
@@ -59,7 +60,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			if (response.status === 200) {
 				setSpecificApp(result);
 				setStatus(result.status);
-				setPicDate(result.appointment_date);
+				setPicDate(new Date(result.appointment_date));
 				setIsRead(result.isRead);
 			} else if (result.error) {
 				toast.error(result.error, {
@@ -132,6 +133,81 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 				autoClose: 2000
 			});
 		} else {
+			// for socket notification start
+			if (replyText) {
+				if (currentUser.role === "advisor") {
+					const notificationObject = {
+						id: specificApp.student._id,
+						sender_name: specificApp.advisor.name,
+						sender_profile: specificApp.advisor.profile_img,
+						kind: "reply",
+						text: "send appointment's reply",
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: specificApp.student._id
+					});
+					setNotifiUpdate(notificationObject);
+				} else if (currentUser.role === "student") {
+					const notificationObject = {
+						id: specificApp.advisor._id,
+						sender_name: specificApp.student.name,
+						sender_profile: specificApp.student.profile_img,
+						kind: "reply",
+						text: "send your appointment reply",
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: specificApp.advisor._id
+					});
+					setNotifiUpdate(notificationObject);
+				}
+			} else if (
+				currentUser.role === "advisor" &&
+				getStatus !== specificApp.status
+			) {
+				const notificationObject = {
+					id: specificApp.student._id,
+					sender_name: specificApp.advisor.name,
+					sender_profile: specificApp.advisor.profile_img,
+					kind: "status",
+					text: "change appointment status",
+					isRead: false,
+					time: Date.now()
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: specificApp.student._id
+				});
+				setNotifiUpdate(notificationObject);
+			} else if (
+				currentUser.role === "advisor" &&
+				picDate !== specificApp.appointment_date
+			) {
+				const notificationObject = {
+					id: specificApp.student._id,
+					sender_name: specificApp.advisor.name,
+					sender_profile: specificApp.advisor.profile_img,
+					kind: "apptDate",
+					text: "choose a appointment date",
+					isRead: false,
+					time: Date.now()
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: specificApp.student._id
+				});
+				setNotifiUpdate(notificationObject);
+			}
+			// for socket notification end
 			try {
 				const response = await fetch("/appointment/update", {
 					method: "PUT",
@@ -296,10 +372,10 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 									<span>Appointment Date &nbsp;:</span>
 									<div className="wrapper">
 										<div className="app-date">
-											<DateTimePicker
-												onChange={(date) => setPicDate(date)}
-												value={picDate}
+											<Datetime
 												className="date-picker"
+												value={picDate}
+												onChange={(date) => setPicDate(date)}
 											/>
 										</div>
 
