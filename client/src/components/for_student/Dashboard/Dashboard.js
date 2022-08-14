@@ -7,16 +7,13 @@ import { toast } from "react-toastify";
 import { GetContextApi } from "../../../ContextApi";
 import "./Dashboard.css";
 
-const Dashboard = ({ setSelected, setAppDisplay, setCreateNotification }) => {
+const Dashboard = ({ setSelected, setAppDisplay }) => {
 	// for updating dashboard
 	const { isSubmitted, currentUser, mySocket, setIsSubmitted } =
 		GetContextApi();
 
 	// for get all related appointments
 	const [getAppointments, setAppointments] = useState("");
-
-	// get notification
-	const [appointmentSoc, setAppointmentSoc] = useState("");
 
 	// get current-user's appointment
 	const getAllAppointment = async () => {
@@ -27,7 +24,6 @@ const Dashboard = ({ setSelected, setAppDisplay, setCreateNotification }) => {
 
 			if (response.status === 200) {
 				setAppointments(result);
-				setCreateNotification(result.filter((value) => value.isRead === false));
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -49,28 +45,17 @@ const Dashboard = ({ setSelected, setAppDisplay, setCreateNotification }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSubmitted]);
 
-	// for get notification through socket start
+	// for real-time display appointment through socket start
 	useEffect(() => {
 		if (currentUser.role === "advisor") {
 			mySocket?.emit("join_room_appointment", currentUser._id);
 			mySocket?.on("receive_appointment", (appointment) => {
-				setAppointmentSoc(appointment);
+				setIsSubmitted(Date.now());
 			});
 		}
-	}, [currentUser, mySocket]);
-
-	useEffect(() => {
-		if (appointmentSoc) {
-			setAppointments([...getAppointments, appointmentSoc]);
-
-			setCreateNotification(
-				getAppointments.filter((value) => value.isRead === false)
-			);
-			setIsSubmitted(Date.now());
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [appointmentSoc]);
-	// for get notification through socket end
+	}, [currentUser, mySocket]);
+	// for real-time display appointment through socket end
 
 	return (
 		<>

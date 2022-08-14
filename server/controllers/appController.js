@@ -116,27 +116,10 @@ const isRead = async (req, res) => {
 	}
 };
 
-// for make-read all
-const makeRead = async (req, res) => {
-	try {
-		await appModel.updateMany(
-			{ advisor: req.body._id },
-			{
-				$set: { isRead: true }
-			}
-		);
-
-		res.status(200).json({ message: "update successfully" });
-	} catch (error) {
-		res.status(500).json({ error: error.message });
-	}
-};
-
 module.exports = {
 	submitAppointment,
 	getAllAppointments,
 	getSpecificApp,
 	replyUpdate,
-	isRead,
-	makeRead
+	isRead
 };

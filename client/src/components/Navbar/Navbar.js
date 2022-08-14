@@ -6,7 +6,6 @@ import sortArray from "sort-array";
 import TimeAgo from "timeago-react";
 
 // internal components
-import { GetContextApi } from "../../ContextApi";
 import "./Navbar.css";
 
 const Navbar = ({
@@ -14,25 +13,26 @@ const Navbar = ({
 	registerT,
 	setRegisterT,
 	setTotalT,
-	setProfileT,
-	createNotification
+	setProfileT
 }) => {
-	// for get setIsSubmitted for reload
-	const { setIsSubmitted } = GetContextApi();
+	// for get all notifications
+	const [notifications, setNotifications] = useState("");
+	const [messageN, setMessageN] = useState("");
+	const [appointmentN, setAppointmentN] = useState("");
 
 	// for profile & log-out dropdown
-	const [dropdownT, setDropdownT] = useState(false);
+	const [logoutT, setLogoutT] = useState(false);
 
 	// for notification dropdown
-	const [appointmentT, setAppointmentT] = useState("");
-	const [messageT, setMessageT] = useState("");
+	const [appointmentN_T, setAppointmentN_T] = useState("");
+	const [messageN_T, setMessageN_T] = useState("");
 
 	// for close message dropdown from outside-click start
 	const messageRef = useRef();
 
 	const handleClickOutsideMessage = (e) => {
 		if (!messageRef.current?.contains(e.target)) {
-			setMessageT(false);
+			setMessageN_T(false);
 		}
 	};
 
@@ -49,7 +49,7 @@ const Navbar = ({
 
 	const handleClickOutsideAppt = (e) => {
 		if (!appointmentRef.current?.contains(e.target)) {
-			setAppointmentT(false);
+			setAppointmentN_T(false);
 		}
 	};
 
@@ -66,7 +66,7 @@ const Navbar = ({
 
 	const handleClickOutside = (e) => {
 		if (!profileRef.current?.contains(e.target)) {
-			setDropdownT(false);
+			setLogoutT(false);
 		}
 	};
 
@@ -77,38 +77,58 @@ const Navbar = ({
 	}, []);
 	// for close profile dropdown from outside-click end
 
-	// makeReadHandler start
-	const makeReadHandler = async () => {
-		try {
-			const response = await fetch("/appointment/make-read", {
-				method: "PUT",
-				body: JSON.stringify({
-					_id: currentUser._id
-				}),
-				headers: { "Content-Type": "application/json" }
-			});
+	// get currentUser all notifications start
+	useEffect(() => {
+		(async () => {
+			try {
+				const response = await fetch("/notification");
 
-			const result = await response.json();
+				const result = await response.json();
 
-			if (response.status === 200) {
-				setIsSubmitted(Date.now());
-				return;
-			} else if (result.error) {
-				toast.error(result.error, {
+				if (response.status === 200) {
+					setNotifications(result);
+					return;
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000
 				});
 			}
-		} catch (error) {
-			toast.error(error.message, {
-				position: "top-right",
-				theme: "colored",
-				autoClose: 3000
-			});
+		})();
+	}, []);
+	// get currentUser all notifications end
+
+	useEffect(() => {
+		if (notifications) {
+			setMessageN(notifications.filter((value) => value.kind === "message"));
+
+			if (currentUser.role === "advisor") {
+				setAppointmentN(
+					notifications.filter(
+						(value) => value.kind === "create" || value.kind === "reply"
+					)
+				);
+			} else if (currentUser.role === "student") {
+				setAppointmentN(
+					notifications.filter(
+						(value) =>
+							value.kind === "ApptDate" ||
+							value.kind === "status" ||
+							value.kind === "reply"
+					)
+				);
+			}
 		}
-	};
-	// makeReadHandler end
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<>
@@ -117,7 +137,7 @@ const Navbar = ({
 					<div className="col-2 p-0">
 						<div className="left">
 							<img
-								src="/assets/logo/university-logo.png"
+								src="/assets/logo/sacs-logo.png"
 								alt="logo"
 								className="img-fluid"
 							/>
@@ -157,97 +177,105 @@ const Navbar = ({
 								<span>
 									<i
 										className="bi bi-chat-heart"
-										onClick={() => setMessageT(!messageT)}
-									>
-										<NotificationBadge
-											count={createNotification?.length}
-											effect={Effect.SCALE}
-											className="notification-count"
-										/>
-									</i>
-
-									{/* for message notification  */}
-									{messageT && (
-										<div ref={messageRef} className="notification-container">
-											<div className="notification-display">
-												<img
-													src="/assets/profile/tangil.png"
-													alt="img"
-													className="profile-img img-fluid"
-												/>
-
-												<div>
-													<h6>Tangilur Rahman</h6> send you a message.
-												</div>
-												<div className="notification-time">
-													<TimeAgo datetime={Date.now()} />
-												</div>
-											</div>
-											<div className="make-read">
-												<h6>Make as all read</h6>
-											</div>
-										</div>
-									)}
-								</span>
-
-								<span>
-									<i
-										className="bi bi-bell-fill"
-										onClick={() => setAppointmentT(!appointmentT)}
+										onClick={() => setMessageN_T(!messageN_T)}
 									>
 										<NotificationBadge
 											count={
-												currentUser.role !== "student" &&
-												createNotification?.length
+												// messageN?.filter((value) => value.isRead === false)
+												// 	?.length
+												1
 											}
 											effect={Effect.SCALE}
 											className="notification-count"
 										/>
 									</i>
 
-									{/* for create appointment notification   start */}
-									{currentUser.role !== "student" &&
-									appointmentT &&
-									createNotification?.length > 0 ? (
+									{/* for message notification  */}
+									{messageN_T && messageN.length > 0 ? (
+										<div ref={messageRef} className="notification-container">
+											{sortArray(messageN, {
+												by: "time",
+												order: "desc"
+											})?.map((value, index) => {
+												return (
+													<div className="notification-display" key={index}>
+														<img
+															src={`uploads/profile-img/${value.sender_profile}`}
+															alt="img"
+															className="profile-img img-fluid"
+														/>
+
+														<div>
+															<h6>{messageN.last_message}</h6> {messageN.text}
+														</div>
+														<div className="notification-time">
+															<TimeAgo datetime={messageN.time} />
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									) : (
+										messageN_T && (
+											<div className="no-notification">
+												<h6>No Message</h6>
+											</div>
+										)
+									)}
+								</span>
+
+								<span>
+									<i
+										className="bi bi-bell-fill"
+										onClick={() => setAppointmentN_T(!appointmentN_T)}
+									>
+										<NotificationBadge
+											count={
+												// appointmentN?.filter((value) => value.isRead === false)
+												// 	?.length
+												1
+											}
+											effect={Effect.SCALE}
+											className="notification-count"
+										/>
+									</i>
+
+									{/* for appointment notification start */}
+									{appointmentN_T && appointmentN.length > 0 ? (
 										<div
 											ref={appointmentRef}
 											className="notification-container"
 										>
-											{createNotification &&
-												sortArray(createNotification, {
-													by: "createdAt",
-													order: "desc"
-												}).map((value, index) => {
-													return (
-														<div className="notification-display" key={index}>
-															<img
-																src={`uploads/profile-img/${value.student.profile_img}`}
-																alt="img"
-																className="profile-img img-fluid"
-															/>
+											{sortArray(appointmentN, {
+												by: "time",
+												order: "desc"
+											}).map((value, index) => {
+												return (
+													<div className="notification-display" key={index}>
+														<img
+															src={`uploads/profile-img/${value.sender_profile}`}
+															alt="img"
+															className="profile-img img-fluid"
+														/>
 
-															<div>
-																<h6>{value.student.name}</h6> send you a appt...
-															</div>
-															<div className="notification-time">
-																<TimeAgo datetime={value.createdAt} />
-															</div>
+														<div>
+															<h6>{value.sender_name}</h6> {value.text}
 														</div>
-													);
-												})}
-
-											<div className="make-read" onClick={makeReadHandler}>
-												<h6>Make as all read</h6>
-											</div>
+														<div className="notification-time">
+															<TimeAgo datetime={value.time} />
+														</div>
+													</div>
+												);
+											})}
 										</div>
 									) : (
-										appointmentT && (
+										appointmentN_T && (
 											<div className="no-notification">
 												<h6>Empty Notification</h6>
 											</div>
 										)
 									)}
-									{/* for create appointment notification   end */}
+									{/* for appointment notification end */}
 								</span>
 							</div>
 
@@ -256,14 +284,14 @@ const Navbar = ({
 									src={`uploads/profile-img/${currentUser.profile_img}`}
 									alt="profile img"
 									className="profile-img img-fluid"
-									onClick={() => setDropdownT(!dropdownT)}
+									onClick={() => setLogoutT(!logoutT)}
 								/>
-								{dropdownT && (
+								{logoutT && (
 									<ul ref={profileRef}>
 										<li
 											onClick={() => {
 												setProfileT("profile");
-												setDropdownT(false);
+												setLogoutT(false);
 											}}
 										>
 											<i className="bi bi-person-circle"></i>
@@ -272,7 +300,7 @@ const Navbar = ({
 										<li
 											onClick={() => {
 												setProfileT("logout");
-												setDropdownT(false);
+												setLogoutT(false);
 											}}
 										>
 											<i className="fa-solid fa-right-from-bracket"></i>

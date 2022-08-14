@@ -19,13 +19,7 @@ import Logout from "../../components/Logout";
 import AppointmentDetails from "./../../components/for_popup/AppointmentDetails/AppointmentDetails";
 import Register from "./../../components/for_popup/Register/Register";
 
-const Homepage = ({
-	selected,
-	setSelected,
-	appDisplay,
-	setAppDisplay,
-	createNotification
-}) => {
+const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 	const { currentUser, setCurrentUser, isSubmitted } = GetContextApi();
 
 	// for redirect login-page
@@ -84,7 +78,6 @@ const Homepage = ({
 				setRegisterT={setRegisterT}
 				setTotalT={setTotalT}
 				setProfileT={setProfileT}
-				createNotification={createNotification}
 			/>
 
 			<div className="container-fluid p-0 homepage-main-container">

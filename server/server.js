@@ -16,6 +16,7 @@ const myAdvisorRouter = require("./router/myAdvisorRouter");
 const appointmentRouter = require("./router/appointmentRouter");
 const groupChatRouter = require("./router/groupChatRouter");
 const personalChatRouter = require("./router/personalChatRouter");
+const notificationRouter = require("./router/notificationRouter");
 
 // express server
 const app = express();
@@ -39,6 +40,7 @@ app.use("/my-advisor", myAdvisorRouter);
 app.use("/appointment", appointmentRouter);
 app.use("/group-chat", groupChatRouter);
 app.use("/personal-chat", personalChatRouter);
+app.use("/notification", notificationRouter);
 
 // error handler
 app.use(customErrorHandler);
@@ -62,8 +64,8 @@ io.on("connection", (socket) => {
 	});
 
 	// for receive & send messages
-	socket.on("send_message", ({ messageObject, room }) => {
-		io.to(room).emit("receive_message", messageObject);
+	socket.on("send_message", ({ submitted, room }) => {
+		io.to(room).emit("receive_message", submitted);
 	});
 	// for messages end
 
@@ -72,8 +74,8 @@ io.on("connection", (socket) => {
 		socket.join(data);
 	});
 
-	socket.on("send_appointment", ({ objectData, room }) => {
-		io.to(room).emit("receive_appointment", objectData);
+	socket.on("send_appointment", ({ submitted, room }) => {
+		io.to(room).emit("receive_appointment", submitted);
 	});
 	// for create-notification end
 });

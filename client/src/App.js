@@ -21,12 +21,6 @@ const App = () => {
 	// for appointment-details popup toggle
 	const [appDisplay, setAppDisplay] = useState(false);
 
-	// for get app notification
-	const [createNotification, setCreateNotification] = useState("");
-
-	// for get app notification
-	// const [messageNotification, setMessageNotification] = useState("");
-
 	return (
 		<>
 			<BrowserRouter>
@@ -39,7 +33,6 @@ const App = () => {
 								setSelected={setSelected}
 								appDisplay={appDisplay}
 								setAppDisplay={setAppDisplay}
-								createNotification={createNotification}
 							/>
 						}
 					>
@@ -49,7 +42,6 @@ const App = () => {
 								<Dashboard
 									setSelected={setSelected}
 									setAppDisplay={setAppDisplay}
-									setCreateNotification={setCreateNotification}
 								/>
 							}
 						/>

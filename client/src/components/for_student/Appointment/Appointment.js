@@ -65,15 +65,7 @@ const Appointment = ({ setSelected }) => {
 				});
 
 				mySocket.emit("send_appointment", {
-					objectData: {
-						student: currentUser._id,
-						advisor: currentUser.advisor._id,
-						subject,
-						category: getCateV,
-						description,
-						isRead: false,
-						status: "pending"
-					},
+					submitted: "true",
 					room: currentUser.advisor._id
 				});
 
