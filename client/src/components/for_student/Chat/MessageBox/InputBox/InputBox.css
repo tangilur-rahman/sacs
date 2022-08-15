@@ -38,6 +38,7 @@
 
 .message-box .input-box-container .input-box i {
 	align-self: flex-end;
+	color: #fc470b;
 }
 
 .input-box .emoji-picker-react input.emoji-search {
@@ -226,3 +227,95 @@
 	cursor: text;
 }
 /* send btn style end  */
+
+/* file review style start  */
+.file-preview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: 5px 15px 10px 15px;
+	background-color: white;
+}
+
+.file-preview .file img {
+	margin-top: 10%;
+	width: 350px;
+	height: 350px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.file-preview h6 {
+	margin: 20px 0;
+	font-size: 21px;
+	color: #1d3557;
+}
+
+.file-preview .input-box {
+	background-color: var(--input-box-bg);
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 9px 15px;
+	border: 4px solid #c2daff;
+}
+
+.file-preview .input-box #text-area {
+	resize: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	font-weight: 500;
+}
+
+/* for emoji style start  */
+.file-preview .input-box span {
+	position: relative;
+}
+
+.file-preview .input-box i {
+	align-self: flex-end;
+	color: #fc470b;
+	font-size: 22px;
+	cursor: pointer;
+}
+
+.input-box .emoji-picker-react input.emoji-search {
+	display: none;
+}
+
+.input-box .emoji-picker-react img.emoji-img {
+	height: 30px;
+	width: 30px;
+	margin: 5px;
+}
+/* for emoji style end  */
+
+.file-preview .preview-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	margin-top: 25px;
+}
+
+.file-preview .preview-btn-container button {
+	padding: 8px 16px;
+	font-weight: 500;
+}
+
+.file-preview .preview-btn-container button:active {
+	transform: scale(0.97);
+}
+
+.file-preview .preview-btn-container button:first-child {
+	margin-right: 30px;
+}
+
+/* file review style end  */

@@ -29,6 +29,24 @@ const schema = mongoose.Schema(
 			}
 		],
 
+		attachments: [
+			{
+				id: String,
+				name: {
+					type: String,
+					trim: true
+				},
+				profile_img: String,
+
+				attachment: String,
+				message: {
+					type: String,
+					trim: true
+				},
+				time: Date
+			}
+		],
+
 		room: {
 			type: String,
 			trim: true
