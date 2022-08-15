@@ -24,6 +24,9 @@ const InputBox = ({
 	// for get input-text
 	const [inputText, setInputText] = useState("");
 
+	// for get attachment input-text
+	const [attachText, setAttachText] = useState("");
+
 	// for attachment-file toggle
 	const [attachmentT, setAttachmentT] = useState(false);
 
@@ -43,7 +46,7 @@ const InputBox = ({
 	};
 	// for get emoji end
 
-	// for outside click detect start
+	// for outside click detect for attachment toggle start
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
@@ -56,7 +59,23 @@ const InputBox = ({
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-	// for outside click detect end
+	// for outside click detect attachment toggle end
+
+	// for outside click detect for attachment-file start
+	const attachmentRef = useRef();
+
+	const handleClickOutsideFile = (e) => {
+		if (!attachmentRef.current?.contains(e.target)) {
+			setFile("");
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideFile);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideFile);
+	}, []);
+	// for outside click detect attachment-file end
 
 	// socket event start
 	useEffect(() => {
@@ -220,7 +239,6 @@ const InputBox = ({
 			return;
 		}
 	};
-
 	// for submit-handler end
 
 	// for when press enter start
@@ -483,7 +501,7 @@ const InputBox = ({
 					</button>
 				</div>
 			) : (
-				<div className="file-preview">
+				<div ref={attachmentRef} className="file-preview">
 					<div className="file">
 						<img src={previewFile} alt="preview" />
 					</div>
