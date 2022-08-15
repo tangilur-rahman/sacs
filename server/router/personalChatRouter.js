@@ -21,10 +21,10 @@ personal_chat.get("/", authUser, getAllStudents);
 // for get search result
 personal_chat.get("/:search", authUser, searchStudents);
 
-// for create or get group-chat
+// for create or get personal-chat
 personal_chat.post("/", authUser, createOrGet);
 
-// for update group messages
+// for update personal messages
 personal_chat.put("/", authUser, submitMessage);
 
 module.exports = personal_chat;

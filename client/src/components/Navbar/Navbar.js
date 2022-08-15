@@ -14,7 +14,8 @@ const Navbar = ({
 	registerT,
 	setRegisterT,
 	setTotalT,
-	setProfileT
+	setProfileT,
+	selected
 }) => {
 	// for get socket connection
 	const { mySocket, notifiUpdate } = GetContextApi();
@@ -120,8 +121,6 @@ const Navbar = ({
 	useEffect(() => {
 		mySocket?.emit("join_room_notification", currentUser._id);
 		mySocket?.on("receive_notification", (notification) => {
-			console.log(notification);
-
 			setSocketN(notification);
 		});
 	}, [mySocket, currentUser]);
@@ -221,6 +220,12 @@ const Navbar = ({
 			});
 		}
 	};
+
+	useEffect(() => {
+		if (selected === "chat") {
+			makeAllReadHandler();
+		}
+	}, [selected]);
 	// make all read handler end
 
 	return (
@@ -277,6 +282,7 @@ const Navbar = ({
 									>
 										<NotificationBadge
 											count={
+												selected !== "chat" &&
 												messageN &&
 												messageN.filter((value) => value.isRead === false)
 													?.length
