@@ -64,8 +64,8 @@ io.on("connection", (socket) => {
 	});
 
 	// for receive & send messages
-	socket.on("send_message", ({ submitted, room }) => {
-		io.to(room).emit("receive_message", submitted);
+	socket.on("send_message", ({ messageObject, room }) => {
+		io.to(room).emit("receive_message", messageObject);
 	});
 	// for messages end
 

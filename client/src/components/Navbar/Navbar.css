@@ -218,6 +218,12 @@
 	color: #228bc5;
 }
 
+.notification-display .last-message {
+	display: flex;
+	flex-direction: column;
+	padding: 5px 10px !important;
+}
+
 .notification-display .notification-time {
 	position: absolute;
 	top: -11px;

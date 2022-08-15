@@ -120,6 +120,8 @@ const Navbar = ({
 	useEffect(() => {
 		mySocket?.emit("join_room_notification", currentUser._id);
 		mySocket?.on("receive_notification", (notification) => {
+			console.log(notification);
+
 			setSocketN(notification);
 		});
 	}, [mySocket, currentUser]);
@@ -268,12 +270,15 @@ const Navbar = ({
 								<span>
 									<i
 										className="bi bi-chat-heart"
-										onClick={() => setMessageN_T(!messageN_T)}
+										onClick={() => {
+											setMessageN_T(!messageN_T);
+											makeAllReadHandler();
+										}}
 									>
 										<NotificationBadge
 											count={
 												messageN &&
-												messageN?.filter((value) => value.isRead === false)
+												messageN.filter((value) => value.isRead === false)
 													?.length
 											}
 											effect={Effect.SCALE}
@@ -287,7 +292,7 @@ const Navbar = ({
 											{sortArray(messageN, {
 												by: "time",
 												order: "desc"
-											})?.map((value, index) => {
+											}).map((value, index) => {
 												return (
 													<div className="notification-display" key={index}>
 														<img
@@ -296,11 +301,17 @@ const Navbar = ({
 															className="profile-img img-fluid"
 														/>
 
-														<div>
-															<h6>{messageN.last_message}</h6> {messageN.text}
+														<div className="last-message">
+															<span>{value.sender_name}</span>
+
+															<h6
+																style={{ wordSpacing: "0", textAlign: "start" }}
+															>
+																{value.last_message}
+															</h6>
 														</div>
 														<div className="notification-time">
-															<TimeAgo datetime={messageN.time} />
+															<TimeAgo datetime={value.time} />
 														</div>
 													</div>
 												);

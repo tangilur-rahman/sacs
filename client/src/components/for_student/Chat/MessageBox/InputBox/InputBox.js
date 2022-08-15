@@ -16,7 +16,7 @@ const InputBox = ({
 	setLatestPersonal
 }) => {
 	// for get current-user
-	const { currentUser, mySocket } = GetContextApi();
+	const { currentUser, mySocket, setNotifiUpdate } = GetContextApi();
 
 	// for get socket-message from server
 	const [socketMessage, setSocketMessage] = useState(null);
@@ -86,7 +86,7 @@ const InputBox = ({
 	// for submit-handler start
 	const submitHandler = async () => {
 		if (inputText) {
-			// for send socket start
+			// for send message socket start
 			const messageObject = {
 				id: currentUser?.id,
 				profile_img: currentUser?.profile_img,
@@ -97,7 +97,52 @@ const InputBox = ({
 			const room = getMessages.room;
 
 			mySocket?.emit("send_message", { messageObject, room });
-			// for send socket end
+			// for send message socket end
+
+			// for send notification socket start
+			if (
+				!(
+					getMessages.room ===
+					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				)
+			) {
+				if (currentUser.role === "advisor") {
+					const notificationObject = {
+						id: getMessages.student._id,
+						sender_name: getMessages.advisor.name,
+						sender_profile: getMessages.advisor.profile_img,
+						kind: "message",
+						last_message: socketMessage.message,
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: getMessages.student._id
+					});
+
+					setNotifiUpdate(notificationObject);
+				} else if (currentUser.role === "student") {
+					const notificationObject = {
+						id: getMessages.advisor._id,
+						sender_name: getMessages.student.name,
+						sender_profile: getMessages.student.profile_img,
+						kind: "message",
+						last_message: socketMessage.message,
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: getMessages.advisor._id
+					});
+
+					setNotifiUpdate(notificationObject);
+				}
+			}
+			// for send notification socket end
 
 			try {
 				if (
@@ -180,7 +225,7 @@ const InputBox = ({
 			event.preventDefault();
 
 			if (inputText) {
-				// for send socket start
+				// for send message socket start
 				const messageObject = {
 					id: currentUser?.id,
 					profile_img: currentUser?.profile_img,
@@ -191,7 +236,52 @@ const InputBox = ({
 				const room = getMessages.room;
 
 				mySocket?.emit("send_message", { messageObject, room });
-				// for send socket end
+				// for send message socket end
+
+				// for send notification socket start
+				if (
+					!(
+						getMessages.room ===
+						`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					)
+				) {
+					if (currentUser.role === "advisor") {
+						const notificationObject = {
+							id: getMessages.student._id,
+							sender_name: getMessages.advisor.name,
+							sender_profile: getMessages.advisor.profile_img,
+							kind: "message",
+							last_message: socketMessage.message,
+							isRead: false,
+							time: Date.now()
+						};
+
+						mySocket.emit("send_notification", {
+							notificationObject,
+							room: getMessages.student._id
+						});
+
+						setNotifiUpdate(notificationObject);
+					} else if (currentUser.role === "student") {
+						const notificationObject = {
+							id: getMessages.advisor._id,
+							sender_name: getMessages.student.name,
+							sender_profile: getMessages.student.profile_img,
+							kind: "message",
+							last_message: socketMessage.message,
+							isRead: false,
+							time: Date.now()
+						};
+
+						mySocket.emit("send_notification", {
+							notificationObject,
+							room: getMessages.advisor._id
+						});
+
+						setNotifiUpdate(notificationObject);
+					}
+				}
+				// for send notification socket end
 
 				try {
 					if (
