@@ -171,6 +171,9 @@ const InputBox = ({
 			// for send notification socket end
 
 			try {
+				setInputText("");
+				setAttachText("");
+
 				if (
 					getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
@@ -187,7 +190,7 @@ const InputBox = ({
 					const result = await response.json();
 
 					if (response.status === 200) {
-						setInputText("");
+						return;
 					} else if (response.status === 400) {
 						toast(result.message, {
 							position: "top-right",
@@ -309,6 +312,8 @@ const InputBox = ({
 				// for send notification socket end
 
 				try {
+					setInputText("");
+					setAttachText("");
 					if (
 						getMessages.room ===
 						`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
@@ -325,7 +330,7 @@ const InputBox = ({
 						const result = await response.json();
 
 						if (response.status === 200) {
-							setInputText("");
+							return;
 						} else if (response.status === 400) {
 							toast(result.message, {
 								position: "top-right",
@@ -487,9 +492,9 @@ const InputBox = ({
 				formData.append("message", attachText);
 				formData.append("file", getFile);
 
-				setFile("");
 				setAttachText("");
 				setInputText("");
+				setFile("");
 
 				if (
 					getMessages.room ===

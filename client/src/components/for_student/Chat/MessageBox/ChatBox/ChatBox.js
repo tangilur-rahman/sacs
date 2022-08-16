@@ -1,6 +1,7 @@
 // external components
 import ScrollToBottom from "react-scroll-to-bottom";
 import TimeAgo from "timeago-react";
+import sortArray from "sort-array";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
@@ -41,7 +42,10 @@ const ChatBox = ({ displayMessages }) => {
 					initialScrollBehavior="auto"
 				>
 					{displayMessages.length > 0 &&
-						displayMessages.map((message, index) => {
+						sortArray(displayMessages, {
+							by: "time",
+							order: "asc"
+						}).map((message, index) => {
 							return (
 								<div
 									className={
