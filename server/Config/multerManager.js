@@ -96,6 +96,9 @@ const multerForAttachment = (fileName) => {
 					file.mimetype === "audio/mpeg" ||
 					file.mimetype === "image/svg+xml" ||
 					file.mimetype === "application/msword" ||
+					file.mimetype === "application/pdf" ||
+					file.mimetype === "application/ppt" ||
+					file.mimetype === "application/pptx" ||
 					file.mimetype === "application/vnd.ms-powerpoint" ||
 					file.mimetype === "application/vnd.ms-excel"
 				) {

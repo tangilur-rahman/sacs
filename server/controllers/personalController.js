@@ -120,4 +120,33 @@ const submitMessage = async (req, res) => {
 	}
 };
 
-module.exports = { getAllStudents, searchStudents, createOrGet, submitMessage };
+// for submit file
+const submitFile = async (req, res) => {
+	try {
+		const { _id, message } = req.body;
+
+		const personalDoc = await personalModel.findOne({ _id });
+
+		personalDoc.attachments.push({
+			id: req.currentUser.id,
+			name: req.currentUser.name,
+			profile_img: req.currentUser.profile_img,
+			attachment: req.file.filename,
+			message,
+			time: Date.now()
+		});
+
+		await personalDoc.save();
+		res.status(200).json({ message: "Submitted Successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = {
+	getAllStudents,
+	searchStudents,
+	createOrGet,
+	submitMessage,
+	submitFile
+};

@@ -53,4 +53,29 @@ const submitMessage = async (req, res) => {
 	}
 };
 
-module.exports = { createOrGet, submitMessage };
+// for submit file
+const submitFile = async (req, res) => {
+	try {
+		const { _id, message } = req.body;
+
+		const groupDoc = await groupModel.findOne({ _id });
+
+		groupDoc.attachments.push({
+			id: req.currentUser.id,
+			name: req.currentUser.name,
+			profile_img: req.currentUser.profile_img,
+			attachment: req.file.filename,
+			message,
+			time: Date.now()
+		});
+
+		await groupDoc.save();
+		res.status(200).json({ message: "Submitted Successfully" });
+	} catch (error) {
+		console.log(error.message);
+
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { createOrGet, submitMessage, submitFile };

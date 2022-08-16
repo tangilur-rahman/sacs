@@ -416,6 +416,141 @@ const InputBox = ({
 	}, [getFile]);
 	// for file preview start
 
+	// for file submit handler start
+	const fileSubmitHandler = async () => {
+		if (getFile) {
+			// for send message socket start
+			const messageObject = {
+				id: currentUser?.id,
+				profile_img: currentUser?.profile_img,
+				attachment: getFile.name,
+				message: attachText,
+				time: Date.now()
+			};
+
+			const room = getMessages.room;
+
+			mySocket?.emit("send_message", { messageObject, room });
+			// for send message socket end
+
+			// for send notification socket start
+			if (
+				!(
+					getMessages.room ===
+					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				)
+			) {
+				if (currentUser.role === "advisor") {
+					const notificationObject = {
+						id: getMessages.student._id,
+						sender_name: getMessages.advisor.name,
+						sender_profile: getMessages.advisor.profile_img,
+						kind: "message",
+						last_message: socketMessage.message,
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: getMessages.student._id
+					});
+
+					setNotifiUpdate(notificationObject);
+				} else if (currentUser.role === "student") {
+					const notificationObject = {
+						id: getMessages.advisor._id,
+						sender_name: getMessages.student.name,
+						sender_profile: getMessages.student.profile_img,
+						kind: "message",
+						last_message: socketMessage.message,
+						isRead: false,
+						time: Date.now()
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: getMessages.advisor._id
+					});
+
+					setNotifiUpdate(notificationObject);
+				}
+			}
+			// for send notification socket end
+
+			try {
+				const formData = new FormData();
+
+				formData.append("_id", getMessages._id);
+				formData.append("message", attachText);
+				formData.append("file", getFile);
+
+				if (
+					getMessages.room ===
+					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				) {
+					const response = await fetch("/group-chat/file", {
+						method: "PUT",
+						body: formData
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setFile("");
+						setAttachText("");
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} else {
+					const response = await fetch("/personal-chat/file", {
+						method: "PUT",
+						body: formData
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setFile("");
+						setAttachText("");
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} else {
+			return;
+		}
+	};
+
+	// for file submit handler end
+
 	return (
 		<>
 			{!getFile ? (
@@ -513,9 +648,9 @@ const InputBox = ({
 							autoFocus
 							placeholder="Type a message..."
 							id="text-area"
-							onChange={(event) => setInputText(event.target.value)}
+							onChange={(event) => setAttachText(event.target.value)}
 							onFocus={() => setEmojiToggle(false)}
-							value={inputText}
+							value={attachText}
 							autoComplete="off"
 							onKeyDown={onKeyDown}
 						/>
@@ -543,7 +678,11 @@ const InputBox = ({
 						>
 							Cancel
 						</button>
-						<button type="button" className="btn btn-success">
+						<button
+							type="button"
+							className="btn btn-success"
+							onClick={fileSubmitHandler}
+						>
 							Submit
 						</button>
 					</div>
