@@ -12,7 +12,13 @@ const MessageBox = ({ getMessages, setLatestGroup, setLatestPersonal }) => {
 	const [displayMessages, setDisplayMessages] = useState([]);
 
 	useEffect(() => {
-		setDisplayMessages(getMessages.messages);
+		if (getMessages) {
+			const messageArray = getMessages.messages;
+
+			const attachmentArray = getMessages.attachments;
+
+			setDisplayMessages(messageArray.concat(attachmentArray));
+		}
 	}, [getMessages]);
 
 	return (

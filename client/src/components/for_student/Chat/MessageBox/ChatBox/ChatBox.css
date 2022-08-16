@@ -51,10 +51,11 @@
 	margin: 0 0 0 10px;
 }
 
-.chat-box-container .message-info .message #text {
+.chat-box-container .message-info .message .message-text {
 	font-weight: 400;
 	text-align: justify;
 	padding: 10px 10px 0 10px;
+	font-weight: 500;
 }
 
 .chat-box-container .message-info .message #time {
@@ -63,6 +64,57 @@
 	float: right;
 	clear: both;
 }
+
+/* attachment view style start  */
+.chat-box-container .message-info #attachment {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	height: fit-content;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.chat-box-container .message-info .attachment-img {
+	display: flex;
+	justify-content: center;
+}
+
+.chat-box-container .message-info #attachment img {
+	width: 150px;
+	height: 150px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
+	border-radius: 10px;
+	cursor: no-drop;
+}
+
+.chat-box-container .message-info #attachment a {
+	display: inline-block;
+	width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	color: black;
+	text-decoration: none;
+	font-weight: 500;
+	color: #006d77;
+}
+
+.chat-box-container .message-info #attachment a:hover {
+	text-decoration: underline;
+}
+
+.chat-box-container .message-info #attachment .message-text {
+	padding: 5px 10px 0 10px;
+	width: 150px;
+}
+
+/* attachment view style end  */
 
 /* welcome chat start  */
 .welcome-chat {

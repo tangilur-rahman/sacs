@@ -81,7 +81,7 @@ const multerForAttachment = (fileName) => {
 	var upload = multer({
 		storage: storage,
 		limits: {
-			fileSize: 10000000 // 10MB
+			fileSize: 50000000 // 50MB
 		},
 		fileFilter: (req, file, cb) => {
 			if (file.fieldname === fileName) {
@@ -95,15 +95,18 @@ const multerForAttachment = (fileName) => {
 					file.mimetype === "video/mp4" ||
 					file.mimetype === "audio/mpeg" ||
 					file.mimetype === "image/svg+xml" ||
-					file.mimetype === "application/msword" ||
+					file.mimetype ===
+						"application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
 					file.mimetype === "application/pdf" ||
 					file.mimetype === "application/ppt" ||
-					file.mimetype === "application/pptx" ||
+					file.mimetype === "application/octet-stream" ||
 					file.mimetype === "application/vnd.ms-powerpoint" ||
-					file.mimetype === "application/vnd.ms-excel"
+					file.mimetype ===
+						"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 				) {
 					cb(null, true);
 				} else {
+					console.log(file.mimetype);
 					cb(new Error("Invalid file-type!"));
 				}
 			} else {

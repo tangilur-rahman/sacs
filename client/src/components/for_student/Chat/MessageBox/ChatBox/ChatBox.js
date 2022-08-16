@@ -10,9 +10,32 @@ const ChatBox = ({ displayMessages }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
+	// for attachment img view start
+	const fileViewHandler = (file) => {
+		const fileName = file;
+		const extension = file.split(".").pop();
+
+		if (extension === "png" || extension === "jpg" || extension === "jpeg ") {
+			return `uploads/attachments/${fileName}`;
+		} else if (extension === "mp3") {
+			return "/assets/images/mp3.png";
+		} else if (extension === "mp4" || extension === "mkv") {
+			return "/assets/images/mp4.png";
+		} else if (extension === "pdf") {
+			return "/assets/images/pdf.png";
+		} else if (extension === "doc" || extension === "docx") {
+			return "/assets/images/doc.png";
+		} else if (extension === "xlsx" || extension === "xls") {
+			return "/assets/images/xls.png";
+		} else if (extension === "pptx" || extension === "ppt") {
+			return "/assets/images/ppt.png";
+		}
+	};
+	// for attachment img view end
+
 	return (
 		<>
-			{displayMessages ? (
+			{displayMessages.length > 0 ? (
 				<ScrollToBottom
 					scrollViewClassName="chat-box-container"
 					initialScrollBehavior="auto"
@@ -35,7 +58,30 @@ const ChatBox = ({ displayMessages }) => {
 									/>
 
 									<div className="message">
-										<div id="text">{message.message}</div>
+										{message.attachment ? (
+											<div id="attachment">
+												<div className="attachment-img">
+													<img
+														src={fileViewHandler(message.attachment)}
+														alt="attachment-img"
+														className="img-fluid"
+													/>
+												</div>
+
+												<a
+													href={`uploads/attachments/${message.attachment}`}
+													download
+												>
+													{message.attachment.split(/[-]/).slice(0, 1, -1) +
+														"." +
+														message.attachment.split(".").slice(-1)[0]}
+												</a>
+												<div className="message-text">{message.message}</div>
+											</div>
+										) : (
+											<div className="message-text">{message.message}</div>
+										)}
+
 										<div id="time">
 											<TimeAgo datetime={message.time} />
 										</div>

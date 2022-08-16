@@ -332,7 +332,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 													>
 														{value.split(/[-]/).slice(0, 1, -1) +
 															"." +
-															value.split(".").splice(-1)}
+															value.split(".").slice(-1)[0]}
 													</a>
 												);
 											})

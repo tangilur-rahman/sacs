@@ -42,6 +42,7 @@ const InputBox = ({
 	const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
 		setInputText(inputText + emojiObject.emoji);
+		setAttachText(attachText + emojiObject.emoji);
 		setEmojiToggle(false);
 	};
 	// for get emoji end
@@ -417,7 +418,8 @@ const InputBox = ({
 	// for file preview start
 
 	// for file submit handler start
-	const fileSubmitHandler = async () => {
+	const fileSubmitHandler = async (event) => {
+		event.preventDefault();
 		if (getFile) {
 			// for send message socket start
 			const messageObject = {
@@ -485,6 +487,10 @@ const InputBox = ({
 				formData.append("message", attachText);
 				formData.append("file", getFile);
 
+				setFile("");
+				setAttachText("");
+				setInputText("");
+
 				if (
 					getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
@@ -497,8 +503,7 @@ const InputBox = ({
 					const result = await response.json();
 
 					if (response.status === 200) {
-						setFile("");
-						setAttachText("");
+						return;
 					} else if (response.status === 400) {
 						toast(result.message, {
 							position: "top-right",
@@ -521,8 +526,7 @@ const InputBox = ({
 					const result = await response.json();
 
 					if (response.status === 200) {
-						setFile("");
-						setAttachText("");
+						return;
 					} else if (response.status === 400) {
 						toast(result.message, {
 							position: "top-right",
@@ -548,7 +552,6 @@ const InputBox = ({
 			return;
 		}
 	};
-
 	// for file submit handler end
 
 	return (
@@ -721,7 +724,7 @@ const InputBox = ({
 					type="file"
 					name="for-document"
 					id="for-document"
-					accept="application/pdf, application/vnd.ms-excel, application/*"
+					accept="application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation, application/*"
 					style={{ display: "none" }}
 					onChange={(file) => setFile(file.target.files[0])}
 				/>
