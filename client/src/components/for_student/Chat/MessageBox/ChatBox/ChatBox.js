@@ -17,19 +17,58 @@ const ChatBox = ({ displayMessages }) => {
 		const extension = file.split(".").pop();
 
 		if (extension === "png" || extension === "jpg" || extension === "jpeg ") {
-			return `uploads/attachments/${fileName}`;
+			return (
+				<img
+					src={`uploads/attachments/${fileName}`}
+					alt="reload for view"
+					className="img-fluid"
+				/>
+			);
 		} else if (extension === "mp3") {
-			return "/assets/images/mp3.png";
+			return (
+				<audio controls alt="reload for view">
+					<source src={`uploads/attachments/${fileName}`} type="audio/mp3" />
+				</audio>
+			);
 		} else if (extension === "mp4" || extension === "mkv") {
-			return "/assets/images/mp4.png";
+			return (
+				<video controls muted autoPlay alt="reload for view">
+					<source src={`uploads/attachments/${fileName}`} type="video/mp4" />
+					<source src={`uploads/attachments/${fileName}`} type="video/mkv" />
+				</video>
+			);
 		} else if (extension === "pdf") {
-			return "/assets/images/pdf.png";
+			return (
+				<img
+					src={`/assets/images/pdf.png`}
+					alt="reload for view"
+					className="img-fluid"
+				/>
+			);
 		} else if (extension === "doc" || extension === "docx") {
-			return "/assets/images/doc.png";
+			return (
+				<img
+					src={`/assets/images/doc.png`}
+					alt="reload for view"
+					className="img-fluid"
+				/>
+			);
 		} else if (extension === "xlsx" || extension === "xls") {
-			return "/assets/images/xls.png";
+			return (
+				<img
+					src={`/assets/images/xls.png`}
+					alt="reload for view"
+					className="img-fluid"
+				/>
+			);
 		} else if (extension === "pptx" || extension === "ppt") {
-			return "/assets/images/ppt.png";
+			return (
+				<img
+					src={`/assets/images/ppt.png`}
+					alt="reload for view"
+					className="img-fluid"
+				/>
+			);
 		}
 	};
 	// for attachment img view end
@@ -64,23 +103,37 @@ const ChatBox = ({ displayMessages }) => {
 									<div className="message">
 										{message.attachment ? (
 											<div id="attachment">
-												<div className="attachment-img">
-													<img
-														src={fileViewHandler(message.attachment)}
-														alt="reload for view"
-														className="img-fluid"
-													/>
+												<div className="attachment-file">
+													{fileViewHandler(message.attachment)}
 												</div>
 
 												<a
 													href={`uploads/attachments/${message.attachment}`}
 													download
+													id={
+														message.attachment.split(".").pop() === "mp3" ||
+														message.attachment.split(".").pop() === "mp4" ||
+														message.attachment.split(".").pop() === "mkv"
+															? "for-other"
+															: "for-image"
+													}
 												>
 													{message.attachment.split(/[-]/).slice(0, 1, -1) +
 														"." +
 														message.attachment.split(".").slice(-1)[0]}
 												</a>
-												<div className="message-text">{message.message}</div>
+												<div
+													className="message-text"
+													id={
+														message.attachment.split(".").pop() === "mp3" ||
+														message.attachment.split(".").pop() === "mp4" ||
+														message.attachment.split(".").pop() === "mkv"
+															? "for-other"
+															: "for-image"
+													}
+												>
+													{message.message}
+												</div>
 											</div>
 										) : (
 											<div className="message-text">{message.message}</div>

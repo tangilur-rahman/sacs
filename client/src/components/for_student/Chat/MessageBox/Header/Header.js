@@ -200,7 +200,7 @@ const Header = ({ getMessages, setReloadGroup }) => {
 					<img
 						src="/assets/images/wave.gif"
 						alt="audio wave"
-						type="gif"
+						type="image/gif"
 						className="img-fluid"
 					/>
 					<audio controls>
