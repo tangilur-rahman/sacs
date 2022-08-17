@@ -77,24 +77,15 @@ const UserBox = ({
 					{/* for group-chat start  */}
 					<div className="user" onClick={() => setMessages(getGroup)}>
 						<img
-							src={`/uploads/profile-img/${getGroup?.chat_img}`}
+							src={`/uploads/profile-img/${getGroup?.group_img}`}
 							alt="profile-img"
 							className="profile-img img-fluid"
 						/>
 
 						<section>
 							<div className="above">
-								<h6>
-									Department Of&nbsp;
-									<div
-										style={{
-											textTransform: "uppercase",
-											display: "inline-block"
-										}}
-									>
-										{getGroup?.chat_name}
-									</div>
-								</h6>
+								<h6>{getGroup?.group_name}</h6>
+
 								<span>
 									{latestGroup?.time && (
 										<TimeAgo datetime={latestGroup?.time} />

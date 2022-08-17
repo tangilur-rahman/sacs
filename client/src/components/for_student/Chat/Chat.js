@@ -27,6 +27,9 @@ const Chat = () => {
 	// for get or create group-chat start
 	const [getGroup, setGroup] = useState("");
 
+	// for refetching group again when group edit
+	const [reloadGroup, setReloadGroup] = useState("");
+
 	const getGroupChat = async () => {
 		try {
 			const response = await fetch("/group-chat", {
@@ -64,7 +67,7 @@ const Chat = () => {
 			getGroupChat();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [reloadGroup]);
 	// for get or create group-chat end
 
 	// for get or create personal-chat start
@@ -229,6 +232,7 @@ const Chat = () => {
 							getMessages={getMessages}
 							setLatestGroup={setLatestGroup}
 							setLatestPersonal={setLatestPersonal}
+							setReloadGroup={setReloadGroup}
 						/>
 					</div>
 				</div>

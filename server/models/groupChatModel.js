@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
 	{
-		chat_name: {
+		group_name: {
 			type: String,
 			trim: true
 		},
 
-		chat_img: {
+		group_img: {
 			type: String,
 			default: "group-default.png"
 		},

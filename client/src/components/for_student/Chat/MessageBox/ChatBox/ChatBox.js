@@ -36,7 +36,7 @@ const ChatBox = ({ displayMessages }) => {
 
 	return (
 		<>
-			{displayMessages.length > 0 ? (
+			{displayMessages ? (
 				<ScrollToBottom
 					scrollViewClassName="chat-box-container"
 					initialScrollBehavior="auto"

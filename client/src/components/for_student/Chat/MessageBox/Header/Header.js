@@ -1,9 +1,12 @@
+// external components
+import { toast } from "react-toastify";
+
 // internal components
 import { useEffect, useRef, useState } from "react";
 import { GetContextApi } from "../../../../../ContextApi";
 import "./Header.css";
 
-const Header = ({ getMessages }) => {
+const Header = ({ getMessages, setReloadGroup }) => {
 	// get current user
 	const { currentUser } = GetContextApi();
 
@@ -22,14 +25,14 @@ const Header = ({ getMessages }) => {
 	const [previewImg, setPreviewImg] = useState(
 		getMessages.room ===
 			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-			`/uploads/profile-img/${getMessages.chat_img}`
+			`/uploads/profile-img/${getMessages.group_img}`
 	);
 
 	// for get group-name
 	const [groupName, setGroupName] = useState(
 		getMessages.room ===
 			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-			getMessages.chat_name
+			getMessages.group_name
 	);
 
 	// for close header dropdown from outside-click start
@@ -80,10 +83,59 @@ const Header = ({ getMessages }) => {
 	// for preview group-chat image end
 
 	// for submit group-img or group-name start
-	const editGroupSumit = (event) => {
+	const editGroupSumit = async (event) => {
 		event.preventDefault();
 
 		if (getFile || groupName) {
+			const formData = new FormData();
+			formData.append("_id", getMessages._id);
+			formData.append("group_name", groupName);
+			formData.append("file", getFile);
+
+			try {
+				const response = await fetch("/group-chat/update", {
+					method: "PUT",
+					body: formData
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+					setTimeout(() => {
+						setReloadGroup(Date.now());
+						setGroupEdit(false);
+					}, 2000);
+				} else if (response.status === 400) {
+					toast(result.message, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				} else {
+					toast.error(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
 		}
 	};
 	// for submit group-img or group-name end
@@ -95,11 +147,7 @@ const Header = ({ getMessages }) => {
 					{/* header img start  */}
 					{getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
-						<img
-							src={`/uploads/profile-img/${getMessages.chat_img}`}
-							alt="profile-img"
-							className="img-fluid"
-						/>
+						<img src={previewImg} alt="profile-img" className="img-fluid" />
 					) : currentUser.role === "advisor" ? (
 						<img
 							src={`/uploads/profile-img/${getMessages.student.profile_img}`}
@@ -118,17 +166,7 @@ const Header = ({ getMessages }) => {
 					{/* header name start  */}
 					{getMessages.room ===
 					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
-						<h6>
-							Department Of&nbsp;
-							<div
-								style={{
-									textTransform: "uppercase",
-									display: "inline-block"
-								}}
-							>
-								{getMessages?.chat_name}
-							</div>
-						</h6>
+						<h6>{groupName}</h6>
 					) : currentUser.role === "advisor" ? (
 						<h6>{getMessages.student.name}</h6>
 					) : (
@@ -140,6 +178,7 @@ const Header = ({ getMessages }) => {
 				<span className="header-dropdown">
 					<i
 						className="fa-solid fa-ellipsis"
+						id="three-dot"
 						onClick={() => setDropdownT(!dropdownT)}
 					></i>
 
@@ -217,7 +256,7 @@ const Header = ({ getMessages }) => {
 														setPreviewImg(
 															getMessages.room ===
 																`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-																`/uploads/profile-img/${getMessages.chat_img}`
+																`/uploads/profile-img/${getMessages.group_img}`
 														);
 													}}
 												>

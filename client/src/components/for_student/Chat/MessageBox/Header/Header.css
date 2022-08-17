@@ -10,7 +10,7 @@
 	padding: 8px 15px;
 	display: flex;
 	align-items: center;
-	width: 50%;
+	flex-grow: 1;
 	overflow: hidden;
 }
 
@@ -41,8 +41,8 @@
 	text-transform: capitalize;
 }
 
-.message-box .header-container span {
-	margin-right: 20px;
+.message-box .header-container span #three-dot {
+	margin: 0 20px 0 60px;
 }
 
 .message-box .header-container span i {

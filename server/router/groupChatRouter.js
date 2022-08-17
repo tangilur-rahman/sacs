@@ -8,10 +8,16 @@ const group_chat = express.Router();
 const {
 	createOrGet,
 	submitMessage,
-	submitFile
+	submitFile,
+	changeGroupInfo
 } = require("./../controllers/groupController");
+
 const authUser = require("./../middleware/authUser");
-const { multerForAttachment } = require("./../Config/multerManager");
+
+const {
+	multerForImg,
+	multerForAttachment
+} = require("./../Config/multerManager");
 
 // for create or get group-chat
 group_chat.post("/", authUser, createOrGet);
@@ -23,5 +29,9 @@ group_chat.put("/", authUser, submitMessage);
 // for get multer
 const upload = multerForAttachment("file");
 group_chat.put("/file", authUser, upload.single("file"), submitFile);
+
+// for update group-img or group-name
+const uploadImg = multerForImg("file");
+group_chat.put("/update", authUser, uploadImg.single("file"), changeGroupInfo);
 
 module.exports = group_chat;

@@ -18,7 +18,7 @@ const createOrGet = async (req, res) => {
 		} else {
 			// create that group
 			const createGroup = await groupModel({
-				chat_name: department,
+				group_name: "Department Of" + " " + department,
 				room: `${department}-${semester}-${year}`
 			});
 
@@ -78,4 +78,33 @@ const submitFile = async (req, res) => {
 	}
 };
 
-module.exports = { createOrGet, submitMessage, submitFile };
+// for change group-img & group-name
+const changeGroupInfo = async (req, res) => {
+	try {
+		const { _id, group_name } = req.body;
+
+		if (group_name) {
+			await groupModel.updateOne(
+				{ _id },
+				{
+					$set: { group_name }
+				}
+			);
+		}
+
+		if (req.file?.filename) {
+			await groupModel.updateOne(
+				{ _id },
+				{
+					$set: { group_img: req.file.filename }
+				}
+			);
+		}
+
+		res.status(200).json({ message: "Group Update successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { createOrGet, submitMessage, submitFile, changeGroupInfo };

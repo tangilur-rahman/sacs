@@ -7,9 +7,14 @@ import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
 import "./MessageBox.css";
 
-const MessageBox = ({ getMessages, setLatestGroup, setLatestPersonal }) => {
+const MessageBox = ({
+	getMessages,
+	setLatestGroup,
+	setLatestPersonal,
+	setReloadGroup
+}) => {
 	// for rending messages array
-	const [displayMessages, setDisplayMessages] = useState([]);
+	const [displayMessages, setDisplayMessages] = useState("");
 
 	useEffect(() => {
 		if (getMessages) {
@@ -24,7 +29,9 @@ const MessageBox = ({ getMessages, setLatestGroup, setLatestPersonal }) => {
 	return (
 		<>
 			<div className="message-box">
-				{getMessages && <Header getMessages={getMessages} />}
+				{getMessages && (
+					<Header getMessages={getMessages} setReloadGroup={setReloadGroup} />
+				)}
 
 				<ChatBox displayMessages={displayMessages} />
 
