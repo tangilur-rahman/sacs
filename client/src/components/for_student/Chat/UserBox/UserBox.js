@@ -54,7 +54,7 @@ const UserBox = ({
 
 	return (
 		<>
-			<div className="user-box" data-aos="fade-up">
+			<div className="user-box" data-aos="fade-right" data-aos-delay="0">
 				{currentUser.role !== "student" && (
 					<div className="search">
 						<i className="bi bi-search-heart"></i>
@@ -179,6 +179,8 @@ const UserBox = ({
 											setSelectedSearch(value);
 											setSearch("");
 										}}
+										data-aos="fade-up"
+										data-aos-delay="0"
 									>
 										<img
 											src={`/uploads/profile-img/${value?.profile_img}`}

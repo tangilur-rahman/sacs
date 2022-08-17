@@ -49,7 +49,7 @@ const ReplyPopup = ({
 	// for inside clicked stop-propagation end
 
 	return (
-		<div className="popup-container">
+		<div className="popup-container" data-aos="fade-down" data-aos-delay="0">
 			<div className="row wrapper" ref={modalRef}>
 				<div className="col-8">
 					<ScrollToBottom

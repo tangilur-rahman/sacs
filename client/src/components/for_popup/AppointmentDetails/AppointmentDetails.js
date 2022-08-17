@@ -257,7 +257,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 	return (
 		<>
-			<div className="appointment-details-container" data-aos="fade-up">
+			<div
+				className="appointment-details-container"
+				data-aos="fade-up"
+				data-aos-delay="0"
+			>
 				<div className="row m-0 layout-center">
 					<div className="col-9 p-0">
 						<div

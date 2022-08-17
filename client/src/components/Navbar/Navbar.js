@@ -294,7 +294,12 @@ const Navbar = ({
 
 									{/* for message notification  */}
 									{messageN_T && messageN.length > 0 ? (
-										<div ref={messageRef} className="notification-container">
+										<div
+											ref={messageRef}
+											className="notification-container"
+											data-aos="fade-left"
+											data-aos-delay="0"
+										>
 											{sortArray(messageN, {
 												by: "time",
 												order: "desc"
@@ -356,6 +361,8 @@ const Navbar = ({
 										<div
 											ref={appointmentRef}
 											className="notification-container"
+											data-aos="fade-left"
+											data-aos-delay="0"
 										>
 											{sortArray(appointmentN, {
 												by: "time",

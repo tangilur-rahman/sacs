@@ -134,7 +134,7 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 							<div
 								className="table-container"
 								data-aos="fade-down"
-								data-aos-delay="700"
+								data-aos-delay="0"
 							>
 								<table className="table table-hover">
 									<thead>

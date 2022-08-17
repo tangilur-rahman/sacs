@@ -114,7 +114,11 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 
 	return (
 		<>
-			<div className="profile-edit-container">
+			<div
+				className="profile-edit-container"
+				data-aos="fade-up"
+				data-aos-delay="0"
+			>
 				<div className="row m-0 layout">
 					<div className="col-9 p-0">
 						<div
