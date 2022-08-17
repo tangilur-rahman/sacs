@@ -9,7 +9,8 @@ const {
 	createOrGet,
 	submitMessage,
 	submitFile,
-	changeGroupInfo
+	changeGroupInfo,
+	allGroupMembers
 } = require("./../controllers/groupController");
 
 const authUser = require("./../middleware/authUser");
@@ -33,5 +34,8 @@ group_chat.put("/file", authUser, upload.single("file"), submitFile);
 // for update group-img or group-name
 const uploadImg = multerForImg("file");
 group_chat.put("/update", authUser, uploadImg.single("file"), changeGroupInfo);
+
+// for get all groupMembers
+group_chat.put("/members", authUser, allGroupMembers);
 
 module.exports = group_chat;

@@ -2,6 +2,7 @@
 
 // internal modules
 const groupModel = require("../models/groupChatModel");
+const studentModel = require("../models/studentModel");
 
 // create or get group-chat
 const createOrGet = async (req, res) => {
@@ -107,4 +108,26 @@ const changeGroupInfo = async (req, res) => {
 	}
 };
 
-module.exports = { createOrGet, submitMessage, submitFile, changeGroupInfo };
+const allGroupMembers = async (req, res) => {
+	try {
+		const { department, semester, year } = req.body;
+
+		const getAllMembers = await studentModel.find({
+			department,
+			semester,
+			year
+		});
+
+		res.status(200).json(getAllMembers);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = {
+	createOrGet,
+	submitMessage,
+	submitFile,
+	changeGroupInfo,
+	allGroupMembers
+};

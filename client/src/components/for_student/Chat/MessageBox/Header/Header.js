@@ -1,5 +1,6 @@
 // external components
 import { toast } from "react-toastify";
+import sortArray from "sort-array";
 
 // internal components
 import { useEffect, useRef, useState } from "react";
@@ -34,6 +35,9 @@ const Header = ({ getMessages, setReloadGroup }) => {
 			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
 			getMessages.group_name
 	);
+
+	// for get all members
+	const [getAllMembers, setAllMembers] = useState("");
 
 	// for close header dropdown from outside-click start
 	const dropdownRef = useRef();
@@ -86,7 +90,7 @@ const Header = ({ getMessages, setReloadGroup }) => {
 	const editGroupSumit = async (event) => {
 		event.preventDefault();
 
-		if (getFile || groupName) {
+		if (getFile || (groupName !== getMessages.group_name && groupName)) {
 			const formData = new FormData();
 			formData.append("_id", getMessages._id);
 			formData.append("group_name", groupName);
@@ -110,20 +114,8 @@ const Header = ({ getMessages, setReloadGroup }) => {
 						setReloadGroup(Date.now());
 						setGroupEdit(false);
 					}, 2000);
-				} else if (response.status === 400) {
-					toast(result.message, {
-						position: "top-right",
-						theme: "dark",
-						autoClose: 3000
-					});
 				} else if (result.error) {
 					toast.error(result.error, {
-						position: "top-right",
-						theme: "colored",
-						autoClose: 3000
-					});
-				} else {
-					toast.error(result.message, {
 						position: "top-right",
 						theme: "colored",
 						autoClose: 3000
@@ -136,9 +128,58 @@ const Header = ({ getMessages, setReloadGroup }) => {
 					autoClose: 3000
 				});
 			}
+		} else {
+			toast("Nothing change for update", {
+				position: "top-right",
+				theme: "dark",
+				autoClose: 3000
+			});
 		}
 	};
 	// for submit group-img or group-name end
+
+	// get all group members start
+	useEffect(() => {
+		if (
+			getMessages.room ===
+			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+		) {
+			(async () => {
+				try {
+					const roomArray = getMessages.room.split("-");
+
+					const department = roomArray[0];
+					const semester = roomArray[1];
+					const year = roomArray[2];
+
+					const response = await fetch("/group-chat/members", {
+						method: "PUT",
+						body: JSON.stringify({ department, semester, year }),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setAllMembers(result);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		}
+	}, [currentUser, getMessages]);
+	// get all group members end
 
 	return (
 		<>
@@ -273,7 +314,23 @@ const Header = ({ getMessages, setReloadGroup }) => {
 									</span>
 								</div>
 
-								<div className="display-members"></div>
+								<div className="display-members">
+									{getAllMembers &&
+										sortArray(getAllMembers, {
+											by: "updatedAt",
+											order: "desc"
+										}).map((value, index) => {
+											return (
+												<div className="member" key={index}>
+													<img
+														src={`/uploads/profile-img/${value.profile_img}`}
+														alt="group-member"
+													/>
+													<h6>{value.name}</h6>
+												</div>
+											);
+										})}
+								</div>
 							</div>
 						)}
 						{/* view group end  */}
