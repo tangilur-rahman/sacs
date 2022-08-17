@@ -1,7 +1,7 @@
 // external components
 import ScrollToBottom from "react-scroll-to-bottom";
-import TimeAgo from "timeago-react";
 import sortArray from "sort-array";
+import TimeAgo from "timeago-react";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
@@ -67,7 +67,7 @@ const ChatBox = ({ displayMessages }) => {
 												<div className="attachment-img">
 													<img
 														src={fileViewHandler(message.attachment)}
-														alt="attachment-img"
+														alt="reload for view"
 														className="img-fluid"
 													/>
 												</div>

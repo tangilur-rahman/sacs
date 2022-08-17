@@ -131,7 +131,11 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 									Appointment
 								</button>
 							</div>
-							<div className="table-container">
+							<div
+								className="table-container"
+								data-aos="fade-down"
+								data-aos-delay="700"
+							>
 								<table className="table table-hover">
 									<thead>
 										<tr>
