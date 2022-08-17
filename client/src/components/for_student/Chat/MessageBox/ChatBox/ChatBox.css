@@ -137,11 +137,11 @@ audio:active {
 	padding: 5px 10px 0 10px;
 }
 
-.chat-box-container .message-info #attachment #for-image {
+.chat-box-container .message-info #attachment #when-image {
 	width: 200px;
 }
 
-.chat-box-container .message-info #attachment #for-other {
+.chat-box-container .message-info #attachment #when-other {
 	width: 350px;
 }
 

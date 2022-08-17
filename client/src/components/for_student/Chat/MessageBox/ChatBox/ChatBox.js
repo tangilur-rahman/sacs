@@ -114,8 +114,8 @@ const ChatBox = ({ displayMessages }) => {
 														message.attachment.split(".").pop() === "mp3" ||
 														message.attachment.split(".").pop() === "mp4" ||
 														message.attachment.split(".").pop() === "mkv"
-															? "for-other"
-															: "for-image"
+															? "when-other"
+															: "when-image"
 													}
 												>
 													{message.attachment.split(/[-]/).slice(0, 1, -1) +
@@ -128,8 +128,8 @@ const ChatBox = ({ displayMessages }) => {
 														message.attachment.split(".").pop() === "mp3" ||
 														message.attachment.split(".").pop() === "mp4" ||
 														message.attachment.split(".").pop() === "mkv"
-															? "for-other"
-															: "for-image"
+															? "when-other"
+															: "when-image"
 													}
 												>
 													{message.message}
