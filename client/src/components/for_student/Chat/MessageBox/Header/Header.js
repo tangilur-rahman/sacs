@@ -181,6 +181,76 @@ const Header = ({ getMessages, setReloadGroup }) => {
 	}, [currentUser, getMessages]);
 	// get all group members end
 
+	// for attachment img view start
+	const fileViewHandler = (file) => {
+		const fileName = file;
+		const extension = file.split(".").pop();
+
+		if (extension === "png" || extension === "jpg" || extension === "jpeg ") {
+			return (
+				<img
+					src={`uploads/attachments/${fileName}`}
+					alt="attachment-img"
+					className="img-fluid cover"
+				/>
+			);
+		} else if (extension === "mp3") {
+			return (
+				<div className="audio-container">
+					<img
+						src="/assets/images/wave.gif"
+						alt="audio wave"
+						type="gif"
+						className="img-fluid"
+					/>
+					<audio controls>
+						<source src={`uploads/attachments/${fileName}`} type="audio/mp3" />
+					</audio>
+				</div>
+			);
+		} else if (extension === "mp4" || extension === "mkv") {
+			return (
+				<video controls muted autoPlay>
+					<source src={`uploads/attachments/${fileName}`} type="video/mp4" />
+					<source src={`uploads/attachments/${fileName}`} type="video/mkv" />
+				</video>
+			);
+		} else if (extension === "pdf") {
+			return (
+				<img
+					src={`/assets/images/pdf.png`}
+					alt="attachment-img"
+					className="img-fluid"
+				/>
+			);
+		} else if (extension === "doc" || extension === "docx") {
+			return (
+				<img
+					src={`/assets/images/doc.png`}
+					alt="attachment-img"
+					className="img-fluid"
+				/>
+			);
+		} else if (extension === "xlsx" || extension === "xls") {
+			return (
+				<img
+					src={`/assets/images/xls.png`}
+					alt="attachment-img"
+					className="img-fluid"
+				/>
+			);
+		} else if (extension === "pptx" || extension === "ppt") {
+			return (
+				<img
+					src={`/assets/images/ppt.png`}
+					alt="attachment-img"
+					className="img-fluid"
+				/>
+			);
+		}
+	};
+	// for attachment img view end
+
 	return (
 		<>
 			<div className="header-container">
@@ -334,14 +404,40 @@ const Header = ({ getMessages, setReloadGroup }) => {
 							</div>
 						)}
 						{/* view group end  */}
+
 						{/* view attachment start  */}
 						{viewAttach && (
-							<div className="view-attachment-container">view attach</div>
+							<div className="view-attachment-container">
+								{getMessages.attachments &&
+									sortArray(getMessages.attachments, {
+										by: "time",
+										order: "desc"
+									}).map((value, index) => {
+										return (
+											<div className="attachment" key={index}>
+												{fileViewHandler(value.attachment)}
+
+												<a
+													href={`uploads/attachments/${value.attachment}`}
+													download
+												>
+													{value.attachment.split(/[-]/).slice(0, 1, -1) +
+														"." +
+														value.attachment.split(".").slice(-1)[0]}
+												</a>
+											</div>
+										);
+									})}
+							</div>
 						)}
 						{/* view attachment end  */}
+
 						{/* for close icon start  */}
 						<div className="icon">
-							<span onClick={() => setGroupEdit(!groupEdit)}>
+							<span
+								onClick={() => setGroupEdit(!groupEdit)}
+								id={viewAttach ? "not-display" : ""}
+							>
 								<i className="fa-solid fa-pen-to-square"></i>
 							</span>
 
