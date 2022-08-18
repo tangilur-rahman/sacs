@@ -10,7 +10,6 @@
 }
 
 .total-wrapper .total-container {
-	height: max-content;
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
@@ -18,7 +17,7 @@
 }
 
 .total-wrapper .total-container .icon {
-	padding: 5px 11px;
+	padding: 2px 9px;
 	border-radius: 50%;
 	background-color: #fff2e5;
 	color: #f3722c;
@@ -29,7 +28,12 @@
 	cursor: pointer;
 }
 
-.total-wrapper .total-container h2 {
+.total-container .header {
+	display: flex;
+	justify-content: center;
+}
+
+.total-container .header h2 {
 	color: var(--project-name-color);
 	margin: 0;
 	padding: 20px 0px;
@@ -40,23 +44,38 @@
 }
 
 /* table style start  */
-.total-wrapper .total-container table thead {
-	background-color: #470a77;
-	color: white;
+.total-wrapper .table-container {
+	min-height: fit-content;
+	max-height: 77vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 0 15px;
 }
 
-.total-container table thead tr th {
+.total-container .table-container table thead tr th {
 	border-right: 0.5px solid #dee2e6;
 	text-align: center;
 	cursor: pointer;
+	background-color: #470a77;
+	color: white;
+	opacity: 1;
+	font-weight: 500;
 }
 
-.total-container table thead tr th:hover {
+.total-container .table-container table thead tr th:first-child {
+	border-radius: 10px 0 0 10px;
+}
+
+.total-container .table-container table thead tr th:last-child {
+	border-radius: 0px 10px 10px 0px;
+}
+
+.total-container .table-container table thead tr th:hover {
 	background-color: var(--project-name-color);
 	transition: all 0.5s;
 }
 
-.total-container table tbody #profile-img {
+.total-container .table-container table tbody #profile-img {
 	width: 50px;
 	min-width: 50px;
 	height: 50px;
@@ -69,15 +88,14 @@
 }
 
 /* table's row style start  */
-.total-container table tbody tr {
+.total-container .table-container table tbody tr {
 	cursor: pointer;
 }
 
-.total-container table tbody input {
+.total-container .table-container table tbody input {
 	border: none;
 	outline: none;
 	font-weight: 500;
-	margin: 3px 0 0 0;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -87,44 +105,48 @@
 	cursor: pointer;
 }
 
-.total-container table #name {
+.total-container .table-container table #count {
+	text-align: center;
+	padding-top: 20px;
+	font-weight: 600;
+	color: #4a4e69;
+}
+
+.total-container .table-container table #name {
 	display: flex;
 	align-items: center;
 }
 
-.total-container table #name input {
-	margin: 0px 0px 0 6px;
+.total-container .table-container table #name input {
 	width: 160px;
+	text-transform: capitalize;
 }
 
-.total-container table #id input {
+.total-container .table-container table #id input {
 	width: 100px;
 }
 
-.total-container table #email input {
+.total-container .table-container table #email input {
 	width: initial;
 }
 
-.total-container table #department input {
+.total-container .table-container table #department input {
 	width: 101px;
+	text-transform: uppercase;
 }
 
-.total-container table #semester input {
-	width: 79px;
+.total-container .table-container table #semester input {
+	width: 75px;
 }
 
-.total-container table #year input {
-	width: 43px;
+.total-container .table-container table #year input {
+	width: 85px;
 }
 
-.total-container table #gender input {
-	width: 52px;
+.total-container .table-container table #gender input {
+	width: 60px;
 }
 
-.total-container table #join-date input {
-	width: 100px;
-}
-
-.total-container table #update-date input {
+.total-container .table-container table #update-date input {
 	width: 100px;
 }

@@ -99,7 +99,7 @@ const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
 			<div
 				className="c-pro-img-container"
 				data-aos="fade-down"
-				data-aos-delay="500"
+				data-aos-delay="1000"
 			>
 				<div ref={modalRef} className="row m-0 c-pro-layout">
 					<div ref={myUseRef} className="col-5 p-0 wrapper">

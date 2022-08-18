@@ -1,4 +1,5 @@
 // external components
+import moment from "moment";
 import { useEffect, useRef } from "react";
 
 // internal components
@@ -29,94 +30,112 @@ const ListOfTotal = ({ totalValue, setTotalValue }) => {
 				data-aos-delay="0"
 			>
 				<div className="row m-0 total-wrapper">
-					<div ref={myRef} className="col-10 p-0 total-container">
+					<div ref={myRef} className="col-11 p-0 total-container">
 						{/* table start  */}
-						<h2>{totalValue.title}</h2>
-						<table className="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Name</th>
-									<th scope="col">ID</th>
-									<th scope="col">Email</th>
-									<th scope="col">Gender</th>
-									<th scope="col">Department</th>
-									<th scope="col">Semester</th>
-									<th scope="col">Year</th>
-									<th scope="col">Join Date</th>
-									<th scope="col">Update Date</th>
-								</tr>
-							</thead>
-							<tbody>
-								{totalValue.list &&
-									totalValue.list.map((value, index) => {
-										return (
-											<>
-												<tr key={index}>
-													<td>{index + 1}</td>
-													<td id="name">
-														<img
-															src={value.profile_img}
-															alt="profile-img"
-															id="profile-img"
-															className="img-fluid"
-														/>
-														<input type="text" readOnly value={value.name} />
-													</td>
+						<div className="header">
+							<h2>{totalValue.title}</h2>
+						</div>
+						<div className="table-container">
+							<table className="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Name</th>
+										<th scope="col">ID</th>
+										<th scope="col">Email</th>
+										<th scope="col">Gender</th>
+										<th scope="col">Department</th>
+										<th scope="col">Semester</th>
+										<th scope="col">Aca... Year</th>
+										<th scope="col">Update Date</th>
+									</tr>
+								</thead>
 
-													<td id="id">
-														<input type="text" readOnly value={value.id} />
-													</td>
+								<tbody>
+									{totalValue.list &&
+										totalValue.list
+											.map((value, index) => {
+												return (
+													<>
+														<tr key={index}>
+															<td id="count">{index + 1}</td>
 
-													<td id="email">
-														<input type="text" readOnly value={value.email} />
-													</td>
+															<td id="name">
+																<img
+																	src={`uploads/profile-img/${value.profile_img}`}
+																	alt="profile-img"
+																	id="profile-img"
+																	className="img-fluid"
+																/>
+																<input
+																	type="text"
+																	readOnly
+																	value={value.name}
+																/>
+															</td>
 
-													<td id="gender">
-														<input type="text" readOnly value={value.gender} />
-													</td>
+															<td id="id">
+																<input type="text" readOnly value={value.id} />
+															</td>
 
-													<td id="department">
-														<input
-															type="text"
-															readOnly
-															value={value.department}
-														/>
-													</td>
+															<td id="email">
+																<input
+																	type="text"
+																	readOnly
+																	value={value.email}
+																/>
+															</td>
 
-													<td id="semester">
-														<input
-															type="text"
-															readOnly
-															value={value.semester}
-														/>
-													</td>
+															<td id="gender">
+																<input
+																	type="text"
+																	readOnly
+																	value={value.gender}
+																/>
+															</td>
 
-													<td id="year">
-														<input type="text" readOnly value={value.year} />
-													</td>
+															<td id="department">
+																<input
+																	type="text"
+																	readOnly
+																	value={value.department}
+																/>
+															</td>
 
-													<td id="join-date">
-														<input
-															type="text"
-															readOnly
-															value={value.createdAt}
-														/>
-													</td>
+															<td id="semester">
+																<input
+																	type="text"
+																	readOnly
+																	value={value.semester}
+																/>
+															</td>
 
-													<td id="update-date">
-														<input
-															type="text"
-															readOnly
-															value={value.updatedAt}
-														/>
-													</td>
-												</tr>
-											</>
-										);
-									})}
-							</tbody>
-						</table>
+															<td id="year">
+																<input
+																	type="text"
+																	readOnly
+																	value={value.year}
+																/>
+															</td>
+
+															<td id="update-date">
+																<input
+																	type="text"
+																	readOnly
+																	value={moment(value.updatedAt).format(
+																		"DD MMM YY"
+																	)}
+																/>
+															</td>
+														</tr>
+													</>
+												);
+											})
+											.reverse()}
+								</tbody>
+							</table>
+						</div>
+
 						{/* table end  */}
 						<span className="icon" onClick={() => setTotalValue(false)}>
 							<i className="fa-solid fa-circle-xmark"></i>

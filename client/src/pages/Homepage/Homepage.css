@@ -1,6 +1,7 @@
 .homepage-main-container {
 	margin: 20px 0 0 0;
 	position: relative;
+	overflow: hidden;
 }
 
 .homepage-main-container .homepage-container {
