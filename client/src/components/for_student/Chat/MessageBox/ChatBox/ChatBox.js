@@ -32,7 +32,7 @@ const ChatBox = ({ displayMessages }) => {
 			);
 		} else if (extension === "mp4" || extension === "mkv") {
 			return (
-				<video controls muted autoPlay alt="reload for view">
+				<video controls muted preload="meta" alt="reload for view">
 					<source src={`uploads/attachments/${fileName}`} type="video/mp4" />
 					<source src={`uploads/attachments/${fileName}`} type="video/mkv" />
 				</video>
