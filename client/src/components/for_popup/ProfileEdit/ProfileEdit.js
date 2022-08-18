@@ -1,4 +1,5 @@
 // external components
+import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -164,14 +165,18 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 										Gender : <input value={currentUser.gender} readOnly />
 									</span>
 
-									<span>
-										Department : &nbsp;
-										<input value={currentUser.department} readOnly />
-									</span>
+									{currentUser?.role !== "administrator" && (
+										<span>
+											Department : &nbsp;
+											<input value={currentUser.department} readOnly />
+										</span>
+									)}
 
-									<span>
-										Semester : <input value={currentUser.semester} readOnly />
-									</span>
+									{currentUser?.role !== "administrator" && (
+										<span>
+											Semester : <input value={currentUser.semester} readOnly />
+										</span>
+									)}
 
 									{editT && (
 										<span id="current-p">
@@ -183,6 +188,18 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 												id="currPassword"
 												autoFocus
 												onChange={(event) => setCpassword(event.target.value)}
+											/>
+										</span>
+									)}
+
+									{currentUser.role === "administrator" && (
+										<span>
+											Last Updated :&nbsp;
+											<input
+												value={moment(currentUser.updatedAt).format(
+													"h:mm A - MMMM DD, YYYY"
+												)}
+												readOnly
 											/>
 										</span>
 									)}
