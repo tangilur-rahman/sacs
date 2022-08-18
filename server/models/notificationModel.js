@@ -14,7 +14,9 @@ const schema = mongoose.Schema({
 				type: Boolean,
 				default: false
 			},
-			time: Date
+			time: Date,
+
+			from_where: String
 		}
 	]
 });

@@ -88,6 +88,7 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				setProfileT={setProfileT}
 				selected={selected}
 				created={created}
+				setAppDisplay={setAppDisplay}
 			/>
 
 			<div className="container-fluid p-0 homepage-main-container">

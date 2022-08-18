@@ -18,8 +18,16 @@ const getNotifications = async (req, res) => {
 };
 
 const createNotification = async (req, res) => {
-	const { id, sender_name, sender_profile, kind, text, last_message, time } =
-		req.body;
+	const {
+		id,
+		sender_name,
+		sender_profile,
+		kind,
+		text,
+		last_message,
+		time,
+		from_where
+	} = req.body;
 	try {
 		const document = await notificationModel.findOne({
 			id: id
@@ -32,7 +40,8 @@ const createNotification = async (req, res) => {
 				kind,
 				text,
 				last_message,
-				time
+				time,
+				from_where
 			});
 
 			await document.save();

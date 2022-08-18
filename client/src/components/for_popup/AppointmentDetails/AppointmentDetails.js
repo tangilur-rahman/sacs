@@ -152,7 +152,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						kind: "reply",
 						text: "send appointment's reply",
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: specificApp._id
 					};
 
 					mySocket.emit("send_notification", {
@@ -168,7 +169,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						kind: "reply",
 						text: "send your appointment reply",
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: specificApp._id
 					};
 
 					mySocket.emit("send_notification", {
@@ -188,7 +190,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					kind: "status",
 					text: "change appointment status",
 					isRead: false,
-					time: Date.now()
+					time: Date.now(),
+					from_where: specificApp._id
 				};
 
 				mySocket.emit("send_notification", {
@@ -207,7 +210,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					kind: "apptDate",
 					text: "choose a appointment date",
 					isRead: false,
-					time: Date.now()
+					time: Date.now(),
+					from_where: specificApp._id
 				};
 
 				mySocket.emit("send_notification", {

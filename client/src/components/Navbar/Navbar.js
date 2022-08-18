@@ -16,7 +16,8 @@ const Navbar = ({
 	setTotalValue,
 	setProfileT,
 	selected,
-	created
+	created,
+	setAppDisplay
 }) => {
 	// for get socket connection
 	const { mySocket, notifiUpdate } = GetContextApi();
@@ -465,7 +466,14 @@ const Navbar = ({
 												order: "desc"
 											}).map((value, index) => {
 												return (
-													<div className="notification-display" key={index}>
+													<div
+														className="notification-display"
+														key={index}
+														onClick={() => {
+															setAppDisplay(value.from_where);
+															setAppointmentN_T(false);
+														}}
+													>
 														<img
 															src={`uploads/profile-img/${value.sender_profile}`}
 															alt="img"
