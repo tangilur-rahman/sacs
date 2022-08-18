@@ -8,8 +8,8 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 	const [departDrop, setDepartDrop] = useState(false);
 
 	const displayDepartment = () => {
-		if (getDepart === "css") {
-			return "💻  CSS";
+		if (getDepart === "cse") {
+			return "💻  CSE";
 		} else if (getDepart === "eee") {
 			return "💡  EEE";
 		} else if (getDepart === "textile") {
@@ -41,7 +41,7 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 				/>
 				<div className="option">
 					<div onClick={() => setDepart("css")}>
-						<span>💻 &nbsp;CSS</span>
+						<span>💻 &nbsp;CSE</span>
 					</div>
 
 					<div onClick={() => setDepart("eee")}>

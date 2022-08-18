@@ -1,14 +1,18 @@
 // external components
-import YearPicker from "react-year-picker";
+import DatePicker from "react-date-picker";
 
 // internal components
 import "./YearDropdown.css";
 
-const YearDropdown = ({ setYear }) => {
+const YearDropdown = ({ year, setYear }) => {
 	return (
 		<>
 			<div className="year-container">
-				<YearPicker onChange={(date) => setYear(date)} />
+				<DatePicker
+					maxDetail="decade"
+					onChange={(date) => setYear(date)}
+					value={year}
+				/>
 			</div>
 		</>
 	);

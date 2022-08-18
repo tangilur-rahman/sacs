@@ -1,8 +1,7 @@
 // external components
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
-import Datetime from "react-datetime";
-import "react-datetime/css/react-datetime.css";
+import DateTimePicker from "react-datetime-picker";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
@@ -22,7 +21,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	const [specificApp, setSpecificApp] = useState("");
 
 	// for pick date-time
-	const [picDate, setPicDate] = useState("");
+	const [picDate, setPicDate] = useState(null);
 
 	// for get reply-text & status
 	const [replyText, setReplyText] = useState("");
@@ -60,7 +59,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			if (response.status === 200) {
 				setSpecificApp(result);
 				setStatus(result.status);
-				setPicDate(new Date(result.appointment_date));
+				setPicDate(
+					result.appointment_date ? new Date(result.appointment_date) : ""
+				);
 				setIsRead(result.isRead);
 			} else if (result.error) {
 				toast.error(result.error, {
@@ -126,7 +127,14 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 	// for submit currentUser reply start
 	const submitHandler = async () => {
-		if (!(picDate || replyText || getStatus !== specificApp.status)) {
+		if (
+			!(
+				picDate.getTime() !==
+					new Date(specificApp.appointment_date).getTime() ||
+				replyText ||
+				getStatus !== specificApp.status
+			)
+		) {
 			toast("Nothing have to sumit", {
 				position: "top-right",
 				theme: "dark",
@@ -376,10 +384,11 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 									<span>Appointment Date &nbsp;:</span>
 									<div className="wrapper">
 										<div className="app-date">
-											<Datetime
+											<DateTimePicker
 												className="date-picker"
-												value={picDate}
 												onChange={(date) => setPicDate(date)}
+												value={picDate}
+												format="dd-MM-y  h:mm a"
 											/>
 										</div>
 

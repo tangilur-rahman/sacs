@@ -55,7 +55,7 @@ const Register = ({ registerT, setRegisterT }) => {
 			role: getRole,
 			department: getDepart,
 			semester: getSemester,
-			year: year
+			year: year.getFullYear()
 		};
 
 		try {
@@ -236,7 +236,7 @@ const Register = ({ registerT, setRegisterT }) => {
 											{getRole !== "administrator" && getRole !== null && (
 												<div className="year">
 													<span>Academic Year :</span>
-													<YearDropdown setYear={setYear} />
+													<YearDropdown year={year} setYear={setYear} />
 												</div>
 											)}
 

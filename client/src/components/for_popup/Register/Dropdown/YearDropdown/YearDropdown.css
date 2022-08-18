@@ -1,7 +1,6 @@
 .signup-container .right .year-container {
 	display: inline-block;
 	position: relative;
-	margin: -5px 0 0 0;
 }
 
 .signup-container .right .year-container input {
@@ -10,45 +9,31 @@
 	border: none;
 	outline: none;
 	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
-	padding: 7px 14px;
 	border-radius: 5px;
 	font-weight: 600;
 	font-size: 18px;
-	width: 100%;
+	width: 100% !important;
+	padding: 4px 6px;
+	text-align: center;
 }
 
 .signup-container .right .year-container input:focus {
 	outline: 4px solid #c2daff;
 }
 
-/* year-picker modify start  */
-
-.year-container .picker-panel {
-	z-index: 10;
+/* date-picker modify start  */
+.year-container .react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+	padding: 1em 0.5em;
 }
 
-.year-container .year-wrapper:hover {
-	background-color: #ade8f4 !important;
-	border-radius: 10px;
+.year-container .react-date-picker__wrapper {
+	width: 100px;
+	border: none;
 }
 
-.year-container .year-wrapper a {
-	color: black;
-	text-decoration: none;
+.year-container .react-date-picker__button svg {
+	display: none;
 }
 
-.year-container .year-wrapper .selected-year {
-	width: 95%;
-	color: #fff;
-}
-
-.year-container .footer-today {
-	font-weight: 600;
-	color: #008000;
-	text-decoration: none;
-}
-
-.year-container .input-icon {
-	right: 7px;
-}
-/* year-picker modify end  */
+/* date-picker modify end  */
