@@ -12,7 +12,7 @@ import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
 import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 import "./Register.css";
 
-const Register = ({ registerT, setRegisterT }) => {
+const Register = ({ registerT, setRegisterT, setCreated }) => {
 	// get dropdown section values
 	const [getRole, setRole] = useState(null);
 	const [getDepart, setDepart] = useState("");
@@ -75,6 +75,7 @@ const Register = ({ registerT, setRegisterT }) => {
 					theme: "colored",
 					autoClose: 3000
 				});
+				setCreated(Date.now());
 
 				setUser({
 					name: "",

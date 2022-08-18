@@ -13,9 +13,10 @@ const Navbar = ({
 	currentUser,
 	registerT,
 	setRegisterT,
-	setTotalT,
+	setTotalValue,
 	setProfileT,
-	selected
+	selected,
+	created
 }) => {
 	// for get socket connection
 	const { mySocket, notifiUpdate } = GetContextApi();
@@ -37,6 +38,10 @@ const Navbar = ({
 	// for notification dropdown
 	const [appointmentN_T, setAppointmentN_T] = useState("");
 	const [messageN_T, setMessageN_T] = useState("");
+
+	// for total-counter
+	const [totalAdvisors, setTotalAdvisors] = useState("");
+	const [totalStudents, setTotalStudents] = useState("");
 
 	// for close message dropdown from outside-click start
 	const messageRef = useRef();
@@ -228,6 +233,97 @@ const Navbar = ({
 	}, [selected]);
 	// make all read handler end
 
+	// fetching all advisors & students from server start
+	const totalClickHandler = async (selected) => {
+		try {
+			if (selected === "List Of Advisors") {
+				const response = await fetch("/user/advisor-list");
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setTotalValue({ list: result, title: selected });
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} else if (selected === "List Of Students") {
+				const response = await fetch("/user/student-list");
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setTotalValue({ list: result, title: selected });
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+	//	fetching all advisors & students from server end
+
+	// for get total count of advisors & students start
+	useEffect(() => {
+		(async () => {
+			// for count of advisors
+			try {
+				const response = await fetch("/user/advisor-list");
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setTotalAdvisors(result?.length);
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+
+			// for count of students
+			try {
+				const response = await fetch("/user/student-list");
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setTotalStudents(result?.length);
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		})();
+	}, [created]);
+
+	// for get total count of advisors & students end
+
 	return (
 		<>
 			<div className="container-fluid navbar-main-container">
@@ -244,20 +340,20 @@ const Navbar = ({
 					</div>
 
 					<div className="col-7 p-0">
-						{currentUser.role === "Administrator" && (
+						{currentUser?.role === "administrator" && (
 							<div className="middle">
 								<div
 									className="total"
-									onClick={() => setTotalT("List Of Instructors")}
+									onClick={() => totalClickHandler("List Of Advisors")}
 								>
-									Total Instructors : &nbsp; <span>10</span>
+									Total Advisors : &nbsp; <span>{totalAdvisors}</span>
 								</div>
 
 								<div
 									className="total"
-									onClick={() => setTotalT("List Of Students")}
+									onClick={() => totalClickHandler("List Of Students")}
 								>
-									Total Students : &nbsp; <span>100</span>
+									Total Students : &nbsp; <span>{totalStudents}</span>
 								</div>
 							</div>
 						)}

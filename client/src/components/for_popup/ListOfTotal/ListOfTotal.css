@@ -83,10 +83,8 @@
 	text-overflow: ellipsis;
 	text-align: center;
 	padding: 10px 0;
-}
-
-.total-container table tbody input.bg-remove {
 	background-color: transparent;
+	cursor: pointer;
 }
 
 .total-container table #name {
@@ -119,7 +117,7 @@
 	width: 43px;
 }
 
-.total-container table #group input {
+.total-container table #gender input {
 	width: 52px;
 }
 
@@ -129,28 +127,4 @@
 
 .total-container table #update-date input {
 	width: 100px;
-}
-
-.total-container table .modify {
-	display: flex;
-	justify-content: space-between;
-	margin: 12px 0 0 0;
-}
-
-.total-container table .modify i {
-	font-size: 20px;
-	opacity: 0.9;
-	cursor: pointer;
-}
-
-.total-container table .modify i:active {
-	transform: scale(0.9);
-}
-.total-container table .modify span:first-child {
-	margin-right: 10px;
-	color: #0ead69;
-}
-
-.total-container table .modify span:last-child {
-	color: red;
 }

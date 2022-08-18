@@ -27,8 +27,11 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 
 	// for pop-up toggle
 	const [registerT, setRegisterT] = useState(false);
-	const [totalT, setTotalT] = useState(false);
+	const [totalValue, setTotalValue] = useState(false);
 	const [profileT, setProfileT] = useState(false);
+
+	// for refetching when any user created
+	const [created, setCreated] = useState("");
 
 	// for get current user
 	const getCurrentUser = async () => {
@@ -38,6 +41,11 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 			const result = await response.json();
 
 			if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
 				return Navigate("/login");
 			} else {
 				setCurrentUser(result);
@@ -76,16 +84,17 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				currentUser={currentUser}
 				registerT={registerT}
 				setRegisterT={setRegisterT}
-				setTotalT={setTotalT}
+				setTotalValue={setTotalValue}
 				setProfileT={setProfileT}
 				selected={selected}
+				created={created}
 			/>
 
 			<div className="container-fluid p-0 homepage-main-container">
 				<div
 					className="row m-0 homepage-container"
 					id={
-						registerT || totalT || appDisplay || profileT === "profile"
+						registerT || totalValue || appDisplay || profileT === "profile"
 							? "blur"
 							: ""
 					}
@@ -108,9 +117,15 @@ const Homepage = ({ selected, setSelected, appDisplay, setAppDisplay }) => {
 				</div>
 
 				{/* all popup declare here  */}
-				<Register registerT={registerT} setRegisterT={setRegisterT} />
+				<Register
+					registerT={registerT}
+					setRegisterT={setRegisterT}
+					setCreated={setCreated}
+				/>
 
-				<ListOfTotal totalT={totalT} setTotalT={setTotalT} />
+				{totalValue && (
+					<ListOfTotal totalValue={totalValue} setTotalValue={setTotalValue} />
+				)}
 
 				{appDisplay && (
 					<AppointmentDetails

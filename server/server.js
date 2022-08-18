@@ -7,8 +7,6 @@ require("dotenv").config();
 const customErrorHandler = require("./middleware/errorHandler");
 const registerRouter = require("./router/registerRouter");
 const userRouter = require("./router/userRouter");
-const instructorRouter = require("./router/instructorListRouter");
-const studentRouter = require("./router/studentListRouter");
 const loginRouter = require("./router/loginRouter");
 const logoutRouter = require("./router/logoutRouter");
 const profileRouter = require("./router/profileRouter");
@@ -31,8 +29,6 @@ app.use(cookie());
 // router
 app.use("/user", userRouter);
 app.use("/register", registerRouter);
-app.use("/instructor-list", instructorRouter);
-app.use("/student-list", studentRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/profile", profileRouter);
