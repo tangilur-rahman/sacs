@@ -122,14 +122,17 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 						<div className="appointment-list">
 							<div className="header">
 								<h5>Appointment Summary</h5>
-								<button
-									type="button"
-									className="btn"
-									onClick={() => setSelected("appointment")}
-								>
-									<i className="bi bi-plus-circle-dotted"></i> Create
-									Appointment
-								</button>
+
+								{currentUser?.role === "student" && (
+									<button
+										type="button"
+										className="btn"
+										onClick={() => setSelected("appointment")}
+									>
+										<i className="bi bi-plus-circle-dotted"></i> Create
+										Appointment
+									</button>
+								)}
 							</div>
 							<div
 								className="table-container"

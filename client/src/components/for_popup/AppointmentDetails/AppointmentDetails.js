@@ -129,8 +129,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	const submitHandler = async () => {
 		if (
 			!(
-				picDate.getTime() !==
-					new Date(specificApp.appointment_date).getTime() ||
+				(specificApp.appointment_date &&
+					picDate.getTime() !==
+						new Date(specificApp.appointment_date).getTime()) ||
 				replyText ||
 				getStatus !== specificApp.status
 			)
@@ -216,6 +217,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 				setNotifiUpdate(notificationObject);
 			}
 			// for socket notification end
+
 			try {
 				const response = await fetch("/appointment/update", {
 					method: "PUT",
@@ -279,8 +281,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						>
 							{/* header section start  */}
 							<div className="header">
-								{currentUser.role === "advisor" && (
-									<div className="student-info">
+								{currentUser.role !== "student" && (
+									<div className="user-info">
 										<img
 											src={`uploads/profile-img/${specificApp.student?.profile_img}`}
 											alt="profile-img"
@@ -300,9 +302,22 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 									<h3>{specificApp?.subject}</h3>
 								</div>
 
-								<span className="icon" onClick={() => setAppDisplay(false)}>
-									<i className="fa-solid fa-circle-xmark"></i>
-								</span>
+								{currentUser.role === "administrator" && (
+									<div className="user-info">
+										<img
+											src={`uploads/profile-img/${specificApp.advisor?.profile_img}`}
+											alt="profile-img"
+											className="profile-img img-fluid"
+										/>
+
+										<div className="info">
+											<h6>{specificApp.advisor?.name}</h6>
+											<h6>
+												Id&nbsp;: &nbsp;<span>{specificApp.advisor?.id}</span>
+											</h6>
+										</div>
+									</div>
+								)}
 							</div>
 							{/* header section end  */}
 
@@ -379,7 +394,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 							{/* details section start  */}
 
 							{/* advisor-section start  */}
-							{currentUser.role === "advisor" && (
+							{currentUser.role !== "student" && (
 								<div className="advisor-section">
 									<span>Appointment Date &nbsp;:</span>
 									<div className="wrapper">
@@ -453,23 +468,32 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 							{/* reply-link end  */}
 
 							{/* reply-box start  */}
-							<div className="reply-box-container">
-								<span>Reply &nbsp;:</span>
+							{currentUser.role !== "administrator" && (
+								<div className="reply-box-container">
+									<span>Reply &nbsp;:</span>
 
-								<div className="reply-box">
-									<TextareaAutosize
-										placeholder="Your reply..."
-										onChange={(e) => setReplyText(e.target.value)}
-										minRows={2}
-										id="reply-box"
-										value={!replyPopup && replyText}
-									/>
-									<button className="btn btn-success" onClick={submitHandler}>
-										Submit
-									</button>
+									<div className="reply-box">
+										<TextareaAutosize
+											placeholder="Your reply..."
+											onChange={(e) => setReplyText(e.target.value)}
+											minRows={2}
+											id="reply-box"
+											value={!replyPopup && replyText}
+										/>
+										<button className="btn btn-success" onClick={submitHandler}>
+											Submit
+										</button>
+									</div>
 								</div>
-							</div>
+							)}
+
 							{/* reply-box end  */}
+
+							{/* for close icon start */}
+							<span className="icon" onClick={() => setAppDisplay(false)}>
+								<i className="fa-solid fa-circle-xmark"></i>
+							</span>
+							{/* for close icon end */}
 						</div>
 					</div>
 				</div>

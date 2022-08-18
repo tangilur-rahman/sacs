@@ -2,6 +2,7 @@
 const advisorModel = require("../models/advisorModel");
 const appModel = require("../models/appointmentModel");
 
+// create appointment
 const submitAppointment = async (req, res) => {
 	try {
 		const { subject, category, description } = req.body;
@@ -35,6 +36,7 @@ const submitAppointment = async (req, res) => {
 	}
 };
 
+// get all appointment
 const getAllAppointments = async (req, res) => {
 	try {
 		if (req.currentUser.role === "administrator") {
@@ -58,6 +60,7 @@ const getAllAppointments = async (req, res) => {
 	}
 };
 
+// get specific document
 const getSpecificApp = async (req, res) => {
 	try {
 		const specificApp = await appModel
@@ -65,7 +68,7 @@ const getSpecificApp = async (req, res) => {
 				_id: req.params.appDisplay
 			})
 			.populate("student", "_id name id profile_img")
-			.populate("advisor", "_id name profile_img");
+			.populate("advisor", "_id name id profile_img");
 
 		res.status(200).json(specificApp);
 	} catch (error) {
@@ -73,6 +76,7 @@ const getSpecificApp = async (req, res) => {
 	}
 };
 
+// submit reply
 const replyUpdate = async (req, res) => {
 	try {
 		const { _id, picDate, replyText, getStatus } = req.body;

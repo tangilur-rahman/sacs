@@ -12,11 +12,13 @@
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
-	height: 81vh;
+	min-height: fit-content;
+	max-height: 81vh;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 0 30px;
 	position: relative;
+	padding-bottom: 15px;
 }
 
 .appointment-details#appt-blur {
@@ -31,13 +33,18 @@
 	height: max-content;
 }
 
-.appointment-details .header .student-info {
+.appointment-details .header .user-info {
 	display: flex;
-	align-items: center;
-	flex-basis: 20%;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: fit-content;
 }
 
-.header .student-info .profile-img {
+.appointment-details .header .user-info:last-child {
+	margin-right: 30px;
+}
+
+.header .user-info .profile-img {
 	width: 60px;
 	min-width: 60px;
 	height: 60px;
@@ -49,13 +56,14 @@
 	object-position: center;
 }
 
-.header .student-info .info {
+.header .user-info .info {
 	display: flex;
+	align-self: center;
 	flex-direction: column;
 	margin: 4px 0 0 7px;
 }
 
-.header .student-info .info h6 {
+.header .user-info .info h6 {
 	display: inline-block;
 	text-transform: capitalize;
 	font-weight: 600;
@@ -63,9 +71,13 @@
 	margin: 0;
 	font-size: 17px;
 	color: #006d77;
+	max-width: 180px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.header .student-info .info h6:last-child {
+.header .user-info .info h6:last-child {
 	text-align: start;
 	margin-top: 5px;
 	font-weight: 500;
@@ -73,7 +85,8 @@
 
 .appointment-details .subject {
 	flex-grow: 1;
-	width: 300px;
+	width: fit-content;
+	height: fit-content;
 	padding: 0 20px;
 	margin-top: 7px;
 }
@@ -84,24 +97,7 @@
 	color: #006d77;
 	font-weight: 600;
 	margin: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 100%;
-}
-
-.appointment-details .header .icon {
-	padding: 2px 9px;
-	border-radius: 50%;
-	background-color: #fff2e5;
-	color: #f3722c;
-	font-size: 28px;
-	cursor: pointer;
-	align-self: center;
-}
-
-.appointment-details .header .icon:hover {
-	transform: scale(0.97);
+	font-size: 21px;
 }
 /* header style end  */
 
@@ -393,7 +389,7 @@
 
 .reply-box-container #reply-box {
 	border: 1px solid #d3dfea;
-	padding: 15px 20px 15px 20px;
+	padding: 15px 20px 0px 20px;
 	line-height: 200%;
 	letter-spacing: 0.5px;
 	word-wrap: break-word;
@@ -418,3 +414,26 @@
 	outline: 4px solid #c2daff;
 }
 /* reply-box-container end  */
+
+/* for close button style start  */
+.appointment-details .icon {
+	padding: 2px 9px;
+	border-radius: 50%;
+	background-color: #fff2e5;
+	color: #f3722c;
+	font-size: 28px;
+	cursor: pointer;
+	align-self: center;
+	position: absolute;
+	top: 6px;
+	right: 3px;
+}
+
+.appointment-details .icon:hover {
+	transform: scale(0.97);
+}
+
+.appointment-details .icon:active {
+	transform: scale(0.9);
+}
+/* for close button style end  */
