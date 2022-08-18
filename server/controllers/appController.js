@@ -37,16 +37,22 @@ const submitAppointment = async (req, res) => {
 
 const getAllAppointments = async (req, res) => {
 	try {
-		const appDocuments = await appModel
-			.find({
-				$or: [
-					{ student: req.currentUser._id },
-					{ advisor: req.currentUser._id }
-				]
-			})
-			.populate("student", "name profile_img");
+		if (req.currentUser.role === "administrator") {
+			const appDocuments = await appModel.find({});
 
-		res.status(200).json(appDocuments);
+			res.status(200).json(appDocuments);
+		} else {
+			const appDocuments = await appModel
+				.find({
+					$or: [
+						{ student: req.currentUser._id },
+						{ advisor: req.currentUser._id }
+					]
+				})
+				.populate("student", "name profile_img");
+
+			res.status(200).json(appDocuments);
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
