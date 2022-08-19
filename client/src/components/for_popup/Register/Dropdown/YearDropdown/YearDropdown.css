@@ -12,7 +12,7 @@
 	border-radius: 5px;
 	font-weight: 600;
 	font-size: 18px;
-	width: 100% !important;
+	width: 100%;
 	padding: 4px 6px;
 	text-align: center;
 }
@@ -22,17 +22,21 @@
 }
 
 /* date-picker modify start  */
-.year-container .react-calendar__decade-view .react-calendar__tile,
+.right .year-container .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
 	padding: 1em 0.5em;
 }
 
-.year-container .react-date-picker__wrapper {
+.right .year-container .react-date-picker__calendar {
+	inset: auto auto 130% -130% !important;
+}
+
+.right .year-container .react-date-picker__wrapper {
 	width: 100px;
 	border: none;
 }
 
-.year-container .react-date-picker__button svg {
+.right .year-container .react-date-picker__button svg {
 	display: none;
 }
 

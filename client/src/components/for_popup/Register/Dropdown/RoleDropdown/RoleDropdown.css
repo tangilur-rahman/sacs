@@ -5,7 +5,7 @@
 	margin: -5px 0 0 0;
 }
 
-.role-container::before {
+.signup-container .right .role-container::before {
 	content: "";
 	position: absolute;
 	right: 12px;
@@ -20,7 +20,8 @@
 	transition: 0.5s;
 	pointer-events: none;
 }
-.role-container.active::before {
+
+.signup-container .right .role-container.active::before {
 	top: 20px;
 	transform: rotate(-225deg);
 }
@@ -47,7 +48,7 @@
 	outline: 4px solid #c2daff;
 }
 
-.role-container .option {
+.signup-container .right .role-container .option {
 	position: absolute;
 	top: 54px;
 	width: 100%;
@@ -60,21 +61,21 @@
 	font-weight: 500;
 }
 
-.role-container.active .option {
+.signup-container .right .role-container.active .option {
 	display: block;
 }
 
-.role-container .option div {
+.signup-container .right .role-container .option div {
 	padding: 7px 10px;
 	cursor: pointer;
 }
 
-.role-container .option div:hover {
+.signup-container .right .role-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.role-container .option div i {
+.signup-container .right .role-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

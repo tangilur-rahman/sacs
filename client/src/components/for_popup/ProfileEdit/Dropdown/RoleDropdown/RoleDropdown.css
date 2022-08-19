@@ -1,15 +1,13 @@
-.signup-container .right .role-container {
+.curr-user-info .role-container {
 	position: relative;
-	max-width: 48%;
-	min-width: 208px;
-	margin: -5px 0 0 0;
+	width: 100%;
 }
 
-.role-container::before {
+.curr-user-info .role-container::before {
 	content: "";
 	position: absolute;
-	right: 12px;
-	top: 15px;
+	right: 22px;
+	top: 8px;
 	z-index: 1;
 	width: 8px;
 	height: 8px;
@@ -20,61 +18,57 @@
 	transition: 0.5s;
 	pointer-events: none;
 }
-.role-container.active::before {
-	top: 20px;
+
+.curr-user-info .role-container.active::before {
+	top: 13px;
 	transform: rotate(-225deg);
 }
-.signup-container .right .role-container input {
+
+.curr-user-info .role-container input {
 	cursor: pointer;
 	background-color: #fff;
 	border: none;
 	outline: none;
-	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
-	padding: 7px 14px;
 	border-radius: 5px;
 	font-weight: 600;
 	font-size: 18px;
 	width: 100%;
 }
 
-.signup-container .right .role-container input::placeholder {
+.curr-user-info .role-container input::placeholder {
 	padding-left: 10px;
 	color: #757575;
 	font-weight: 500;
 }
 
-.signup-container .right .role-container input:focus {
-	outline: 4px solid #c2daff;
-}
-
-.role-container .option {
+.curr-user-info .role-container .option {
 	position: absolute;
-	top: 54px;
+	bottom: 54px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 10;
+	z-index: 100;
 	font-weight: 500;
 }
 
-.role-container.active .option {
+.curr-user-info .role-container.active .option {
 	display: block;
 }
 
-.role-container .option div {
+.curr-user-info .role-container .option div {
 	padding: 7px 10px;
 	cursor: pointer;
 }
 
-.role-container .option div:hover {
+.curr-user-info .role-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.role-container .option div i {
+.curr-user-info .role-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

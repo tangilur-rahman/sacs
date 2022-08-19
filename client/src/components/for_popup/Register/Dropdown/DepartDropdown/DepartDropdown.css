@@ -4,7 +4,7 @@
 	margin: -5px 0 0 0;
 }
 
-.depart-container::before {
+.signup-container .right .depart-container::before {
 	content: "";
 	position: absolute;
 	right: 12px;
@@ -19,10 +19,12 @@
 	transition: 0.5s;
 	pointer-events: none;
 }
-.depart-container.active::before {
+
+.signup-container .right .depart-container.active::before {
 	top: 20px;
 	transform: rotate(-225deg);
 }
+
 .signup-container .right .depart-container input {
 	cursor: pointer;
 	background-color: #fff;
@@ -45,7 +47,7 @@
 	outline: 4px solid #c2daff;
 }
 
-.depart-container .option {
+.signup-container .right .depart-container .option {
 	position: absolute;
 	bottom: 54px;
 	width: 100%;
@@ -58,21 +60,21 @@
 	font-weight: 500;
 }
 
-.depart-container.active .option {
+.signup-container .right .depart-container.active .option {
 	display: block;
 }
 
-.depart-container .option div {
+.signup-container .right .depart-container .option div {
 	padding: 7px 10px;
 	cursor: pointer;
 }
 
-.depart-container .option div:hover {
+.signup-container .right .depart-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.depart-container .option div i {
+.signup-container .right .depart-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

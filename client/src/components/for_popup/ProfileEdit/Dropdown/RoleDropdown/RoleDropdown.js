@@ -8,9 +8,7 @@ const RoleDropdown = ({ getRole, setRole }) => {
 	const [roleDrop, setRoleDrop] = useState(false);
 
 	const displayRole = () => {
-		if (getRole === "administrator") {
-			return "🏫  Administrator";
-		} else if (getRole === "advisor") {
+		if (getRole === "advisor") {
 			return "🤵  Advisor";
 		} else if (getRole === "student") {
 			return "👨‍🎓  Student";
@@ -31,14 +29,11 @@ const RoleDropdown = ({ getRole, setRole }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setRole("administrator")}>
-						<span>🏫 &nbsp;Administrator</span>
-					</div>
 					<div onClick={() => setRole("advisor")}>
-						<span>🤵 &nbsp;Advisor</span>
+						<div>🤵 &nbsp;Advisor</div>
 					</div>
 					<div onClick={() => setRole("student")}>
-						<span>👨‍🎓 &nbsp;Student</span>
+						<div>👨‍🎓 &nbsp;Student</div>
 					</div>
 				</div>
 			</div>

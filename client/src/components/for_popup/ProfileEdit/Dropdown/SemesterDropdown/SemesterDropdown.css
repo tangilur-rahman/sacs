@@ -58,8 +58,8 @@
 	display: block;
 }
 
-.curr-user-info .semester-container .option > div {
-	padding: 3.5px 10px;
+.curr-user-info .semester-container .option div {
+	padding: 1.6px 10px;
 	cursor: pointer;
 }
 
@@ -68,7 +68,7 @@
 	color: #fff;
 }
 
-.curr-user-info .semester-container .option > div > div {
+.curr-user-info .semester-container .option div div {
 	display: flex;
 	justify-content: center;
 }

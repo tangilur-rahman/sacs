@@ -4,7 +4,7 @@
 	margin: -5px 0 0 0;
 }
 
-.gender-container::before {
+.signup-container .right .gender-container::before {
 	content: "";
 	position: absolute;
 	right: 12px;
@@ -20,7 +20,7 @@
 	pointer-events: none;
 }
 
-.gender-container.active::before {
+.signup-container .right .gender-container.active::before {
 	top: 20px;
 	transform: rotate(-225deg);
 }
@@ -48,7 +48,7 @@
 	outline: 4px solid #c2daff;
 }
 
-.gender-container .option {
+.signup-container .right .gender-container .option {
 	position: absolute;
 	top: 54px;
 	width: 100%;
@@ -57,25 +57,25 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 1;
+	z-index: 100;
 	font-weight: 500;
 }
 
-.gender-container.active .option {
+.signup-container .right .gender-container.active .option {
 	display: block;
 }
 
-.gender-container .option div {
+.signup-container .right .gender-container .option div {
 	padding: 7px 10px;
 	cursor: pointer;
 }
 
-.gender-container .option div:hover {
+.signup-container .right .gender-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.gender-container .option div i {
+.signup-container .right .gender-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

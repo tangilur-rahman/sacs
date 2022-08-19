@@ -252,11 +252,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 
 									{userEdit && (
 										<span>
-											Role :&nbsp;
-											<input
-												value={userEdit.role}
-												readOnly={userEdit && editT ? false : true}
-											/>
+											<RoleDropdown getRole={getRole} setRole={setRole} />
 										</span>
 									)}
 

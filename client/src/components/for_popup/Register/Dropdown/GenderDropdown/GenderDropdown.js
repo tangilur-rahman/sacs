@@ -9,9 +9,9 @@ const GenderDropdown = ({ getGender, setGender }) => {
 
 	const displayGender = () => {
 		if (getGender === "male") {
-			return "👨‍🦰 Male";
+			return "👨‍🦰  Male";
 		} else if (getGender === "female") {
-			return "👩‍🦰 Female";
+			return "👩‍🦰  Female";
 		} else if (getGender === "other") {
 			return "⚨  Other";
 		}
