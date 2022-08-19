@@ -68,6 +68,20 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 					<div ref={myRef} className="col-11 p-0 total-container">
 						{/* table start  */}
 						<div className="header">
+							<div className="user-search">
+								<i className="bi bi-search-heart"></i>
+								<input
+									type="search"
+									name="search"
+									id="search"
+									autoComplete="on"
+									placeholder={
+										totalValue.title === "List Of Advisors"
+											? "Search advisors"
+											: "Search students"
+									}
+								/>
+							</div>
 							<h2>{totalValue.title}</h2>
 						</div>
 						<div className="table-container">
