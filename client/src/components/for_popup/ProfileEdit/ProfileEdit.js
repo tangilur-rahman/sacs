@@ -205,7 +205,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									</span>
 
 									{userEdit ? (
-										<span>
+										<span id={userEdit ? "gender" : ""}>
 											<GenderDropdown
 												getGender={getGender}
 												setGender={setGender}

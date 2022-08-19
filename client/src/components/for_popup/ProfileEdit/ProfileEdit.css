@@ -130,6 +130,11 @@
 	margin: 15px 20px;
 	font-weight: 500;
 	flex-basis: 40%;
+	position: relative;
+}
+
+.profile-edit-container .curr-user-info span:focus {
+	outline: 4px solid #c2daff;
 }
 
 .profile-edit-container .curr-user-info span label {
@@ -156,6 +161,15 @@
 	width: 85%;
 	text-transform: none;
 }
+
+.profile-edit-container .curr-user-info #gender {
+	padding: 10px 0;
+}
+
+.profile-edit-container .curr-user-info #gender input {
+	padding: 0 20px;
+}
+
 .profile-edit-container .curr-user-info #year input {
 	width: max-content;
 }
