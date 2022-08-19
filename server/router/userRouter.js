@@ -10,7 +10,9 @@ const {
 	currentUser,
 	getAllAdvisors,
 	getAllStudents,
-	getSpecificUser
+	getSpecificUser,
+	updateAdvisor,
+	updateStudent
 } = require("./../controllers/userController");
 
 user.get("/", authUser, currentUser);
@@ -22,5 +24,11 @@ user.get("/advisor-list", authUser, getAllAdvisors);
 user.get("/student-list", authUser, getAllStudents);
 
 user.get("/specific-user/:_id", authUser, getSpecificUser);
+
+// for update advisor by admin
+user.put("/advisor-update", authUser, updateAdvisor);
+
+// for update student by admin
+user.put("/student-update", authUser, updateStudent);
 
 module.exports = user;

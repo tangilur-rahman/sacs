@@ -28,7 +28,6 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 	const [getId, setId] = useState(userEdit.id);
 	const [getEmail, setEmail] = useState(userEdit.email);
 	const [getGender, setGender] = useState(userEdit.gender);
-	const [password, setPassword] = useState("");
 	const [getRole, setRole] = useState(userEdit.role);
 	const [getDepart, setDepart] = useState(userEdit.department);
 	const [getSemester, setSemester] = useState(userEdit.semester);
@@ -137,6 +136,112 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 	};
 	// for displaying phone-number end
 
+	// for admin submit handler start
+	const submitHandlerAdmin = async () => {
+		if (
+			!(
+				(getName === userEdit.name ? "" : getName) ||
+				(getId === userEdit.id ? "" : getId) ||
+				(getDepart === userEdit.department ? "" : getDepart) ||
+				(getEmail === userEdit.email ? "" : getEmail) ||
+				(getGender === userEdit.gender ? "" : getGender) ||
+				(getRole === userEdit.role ? "" : getRole) ||
+				(getYear === userEdit.year ? "" : getYear) ||
+				(getSemester === userEdit.semester ? "" : getSemester) ||
+				newPassword
+			)
+		) {
+			toast("Noting have to submit", {
+				position: "top-right",
+				theme: "dark",
+				autoClose: 3000
+			});
+			return;
+		} else {
+			try {
+				const userDocument = {
+					_id: userEdit._id,
+					getName: getName === userEdit.name ? "" : getName,
+					getId: getId === userEdit.id ? "" : getId,
+					getDepart: getDepart === userEdit.department ? "" : getDepart,
+					getEmail: getEmail === userEdit.email ? "" : getEmail,
+					getGender: getGender === userEdit.gender ? "" : getGender,
+					getRole: getRole === userEdit.role ? "" : getRole,
+					getYear: getYear === userEdit.year ? "" : getYear,
+					getSemester: getSemester === userEdit.semester ? "" : getSemester,
+					newPassword
+				};
+
+				if (userEdit.role === "advisor") {
+					const response = await fetch("/user/advisor-update", {
+						method: "PUT",
+						body: JSON.stringify({
+							userDocument
+						}),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						toast.success(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} else if (userEdit.role === "student") {
+					const response = await fetch("/user/student-update", {
+						method: "PUT",
+						body: JSON.stringify({ userDocument }),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						toast.success(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		}
+	};
+	// for admin submit handler end
+
 	return (
 		<>
 			<div
@@ -189,6 +294,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									<span>
 										ID :&nbsp;
 										<input
+											type="number"
 											value={userEdit ? getId : currentUser.id}
 											readOnly={userEdit && editT ? false : true}
 											onChange={(event) => setId(event.target.value)}
@@ -198,6 +304,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									<span id="email">
 										Email :&nbsp;
 										<input
+											type="email"
 											value={userEdit ? getEmail : currentUser.email}
 											readOnly={userEdit && editT ? false : true}
 											onChange={(event) => setEmail(event.target.value)}
@@ -338,12 +445,21 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 												/>
 											</span>
 											<div className="profile-btn">
-												<button
-													className="btn btn-success"
-													onClick={submitHandler}
-												>
-													Submit
-												</button>
+												{userEdit ? (
+													<button
+														className="btn btn-success"
+														onClick={submitHandlerAdmin}
+													>
+														Submit
+													</button>
+												) : (
+													<button
+														className="btn btn-success"
+														onClick={submitHandler}
+													>
+														Submit
+													</button>
+												)}
 											</div>
 										</div>
 									)}
