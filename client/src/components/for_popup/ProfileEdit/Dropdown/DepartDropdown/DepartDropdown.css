@@ -3,7 +3,7 @@
 	width: 100%;
 }
 
-.depart-container::before {
+.curr-user-info .depart-container::before {
 	content: "";
 	position: absolute;
 	right: 22px;
@@ -18,10 +18,12 @@
 	transition: 0.5s;
 	pointer-events: none;
 }
-.depart-container.active::before {
-	top: 15px;
+
+.curr-user-info .depart-container.active::before {
+	top: 13px;
 	transform: rotate(-225deg);
 }
+
 .curr-user-info .depart-container input {
 	cursor: pointer;
 	background-color: #fff;
@@ -48,7 +50,7 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 10000;
+	z-index: 100;
 	font-weight: 500;
 }
 

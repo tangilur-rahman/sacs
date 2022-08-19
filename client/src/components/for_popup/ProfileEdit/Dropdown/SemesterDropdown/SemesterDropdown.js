@@ -23,50 +23,50 @@ const SemesterDropDown = ({ getSemester, setSemester }) => {
 				/>
 				<div className="option">
 					<div onClick={() => setSemester("1st")}>
-						<span>1st</span>
+						<div>1st</div>
 					</div>
 					<div onClick={() => setSemester("2nd")}>
-						<span>2nd</span>
+						<div>2nd</div>
 					</div>
 
 					<div onClick={() => setSemester("3rd")}>
-						<span>3rd</span>
+						<div>3rd</div>
 					</div>
 
 					<div onClick={() => setSemester("4rd")}>
-						<span>4rd</span>
+						<div>4rd</div>
 					</div>
 
 					<div onClick={() => setSemester("5rd")}>
-						<span>5rd</span>
+						<div>5rd</div>
 					</div>
 
 					<div onClick={() => setSemester("6rd")}>
-						<span>6rd</span>
+						<div>6rd</div>
 					</div>
 
 					<div onClick={() => setSemester("7rd")}>
-						<span>7rd</span>
+						<div>7rd</div>
 					</div>
 
 					<div onClick={() => setSemester("8rd")}>
-						<span>8rd</span>
+						<div>8rd</div>
 					</div>
 
 					<div onClick={() => setSemester("9rd")}>
-						<span>9rd</span>
+						<div>9rd</div>
 					</div>
 
 					<div onClick={() => setSemester("10rd")}>
-						<span>10rd</span>
+						<div>10rd</div>
 					</div>
 
 					<div onClick={() => setSemester("11rd")}>
-						<span>11rd</span>
+						<div>11rd</div>
 					</div>
 
 					<div onClick={() => setSemester("12rd")}>
-						<span>12rd</span>
+						<div>12rd</div>
 					</div>
 				</div>
 			</div>

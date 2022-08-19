@@ -205,7 +205,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									</span>
 
 									{userEdit ? (
-										<span id={userEdit ? "gender" : ""}>
+										<span className={userEdit ? "remove-pd" : ""}>
 											<GenderDropdown
 												getGender={getGender}
 												setGender={setGender}
@@ -219,7 +219,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									)}
 
 									{userEdit ? (
-										<span>
+										<span className={userEdit ? "remove-pd" : ""}>
 											<DepartDropdown
 												getDepart={getDepart}
 												setDepart={setDepart}
@@ -235,11 +235,10 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									)}
 
 									{userEdit ? (
-										<span>
-											Semester :&nbsp;
-											<input
-												value={userEdit.semester}
-												readOnly={userEdit && editT ? false : true}
+										<span className={userEdit ? "remove-pd" : ""}>
+											<SemesterDropDown
+												getSemester={getSemester}
+												setSemester={setSemester}
 											/>
 										</span>
 									) : (

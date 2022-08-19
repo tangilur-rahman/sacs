@@ -162,12 +162,12 @@
 	text-transform: none;
 }
 
-.profile-edit-container .curr-user-info #gender {
-	padding: 10px 0;
+.profile-edit-container .curr-user-info .remove-pd {
+	padding: 10px 0 !important;
 }
 
-.profile-edit-container .curr-user-info #gender input {
-	padding: 0 20px;
+.profile-edit-container .curr-user-info .remove-pd input {
+	padding: 0 20px !important;
 }
 
 .profile-edit-container .curr-user-info #year input {

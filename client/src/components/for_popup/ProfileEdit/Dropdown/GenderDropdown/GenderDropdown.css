@@ -20,7 +20,7 @@
 }
 
 .curr-user-info .gender-container.active::before {
-	top: 15px;
+	top: 13px;
 	transform: rotate(-225deg);
 }
 
@@ -50,7 +50,7 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 1;
+	z-index: 100;
 	font-weight: 500;
 }
 
