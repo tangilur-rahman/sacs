@@ -23,18 +23,10 @@ const Header = ({ getMessages, setReloadGroup }) => {
 
 	// for group-image get & preview
 	const [getFile, setFile] = useState("");
-	const [previewImg, setPreviewImg] = useState(
-		getMessages.room ===
-			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-			`/uploads/profile-img/${getMessages.group_img}`
-	);
+	const [previewImg, setPreviewImg] = useState("");
 
 	// for get group-name
-	const [groupName, setGroupName] = useState(
-		getMessages.room ===
-			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-			getMessages.group_name
-	);
+	const [groupName, setGroupName] = useState("");
 
 	// for get all members
 	const [getAllMembers, setAllMembers] = useState("");
@@ -140,6 +132,20 @@ const Header = ({ getMessages, setReloadGroup }) => {
 
 	// get all group members start
 	useEffect(() => {
+		// get group name & image
+		setGroupName(
+			getMessages.room ===
+				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
+				getMessages.group_name
+		);
+
+		setPreviewImg(
+			getMessages.room ===
+				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
+				`/uploads/profile-img/${getMessages?.group_img}`
+		);
+
+		// get all group members
 		if (
 			getMessages.room ===
 			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`

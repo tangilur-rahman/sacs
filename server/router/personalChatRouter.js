@@ -10,6 +10,7 @@ const {
 	submitMessage,
 	getAllStudents,
 	searchStudents,
+	searchDocument,
 	submitFile
 } = require("./../controllers/personalController");
 const authUser = require("./../middleware/authUser");
@@ -20,6 +21,9 @@ personal_chat.get("/", authUser, getAllStudents);
 
 // for get search result
 personal_chat.get("/:search", authUser, searchStudents);
+
+// for get search result from notification
+personal_chat.get("/notification/:_id", authUser, searchDocument);
 
 // for create or get personal-chat
 personal_chat.post("/", authUser, createOrGet);

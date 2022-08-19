@@ -21,6 +21,9 @@ const App = () => {
 	// for appointment-details popup toggle
 	const [appDisplay, setAppDisplay] = useState(false);
 
+	// for get message id from notification
+	const [messageId, setMessageId] = useState("");
+
 	return (
 		<>
 			<BrowserRouter>
@@ -33,6 +36,7 @@ const App = () => {
 								setSelected={setSelected}
 								appDisplay={appDisplay}
 								setAppDisplay={setAppDisplay}
+								setMessageId={setMessageId}
 							/>
 						}
 					>
@@ -45,7 +49,7 @@ const App = () => {
 								/>
 							}
 						/>
-						<Route path="chat" element={<Chat />} />
+						<Route path="chat" element={<Chat messageId={messageId} />} />
 						<Route
 							path="create-appointment"
 							element={<Appointment setSelected={setSelected} />}

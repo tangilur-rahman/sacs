@@ -138,12 +138,13 @@ const InputBox = ({
 						sender_name: getMessages.advisor.name,
 						sender_profile: getMessages.advisor.profile_img,
 						kind: "message",
-						last_message: socketMessage.message,
+						last_message: inputText,
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: getMessages._id
 					};
 
-					mySocket.emit("send_notification", {
+					mySocket?.emit("send_notification", {
 						notificationObject,
 						room: getMessages.student._id
 					});
@@ -155,12 +156,13 @@ const InputBox = ({
 						sender_name: getMessages.student.name,
 						sender_profile: getMessages.student.profile_img,
 						kind: "message",
-						last_message: socketMessage.message,
+						last_message: inputText,
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: getMessages._id
 					};
 
-					mySocket.emit("send_notification", {
+					mySocket?.emit("send_notification", {
 						notificationObject,
 						room: getMessages.advisor._id
 					});
@@ -279,12 +281,13 @@ const InputBox = ({
 							sender_name: getMessages.advisor.name,
 							sender_profile: getMessages.advisor.profile_img,
 							kind: "message",
-							last_message: socketMessage.message,
+							last_message: inputText,
 							isRead: false,
-							time: Date.now()
+							time: Date.now(),
+							from_where: getMessages._id
 						};
 
-						mySocket.emit("send_notification", {
+						mySocket?.emit("send_notification", {
 							notificationObject,
 							room: getMessages.student._id
 						});
@@ -296,12 +299,13 @@ const InputBox = ({
 							sender_name: getMessages.student.name,
 							sender_profile: getMessages.student.profile_img,
 							kind: "message",
-							last_message: socketMessage.message,
+							last_message: inputText,
 							isRead: false,
-							time: Date.now()
+							time: Date.now(),
+							from_where: getMessages._id
 						};
 
-						mySocket.emit("send_notification", {
+						mySocket?.emit("send_notification", {
 							notificationObject,
 							room: getMessages.advisor._id
 						});
@@ -453,9 +457,10 @@ const InputBox = ({
 						sender_name: getMessages.advisor.name,
 						sender_profile: getMessages.advisor.profile_img,
 						kind: "message",
-						last_message: socketMessage.message,
+						last_message: attachText ? attachText : "send a attachment.",
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: getMessages._id
 					};
 
 					mySocket.emit("send_notification", {
@@ -470,9 +475,10 @@ const InputBox = ({
 						sender_name: getMessages.student.name,
 						sender_profile: getMessages.student.profile_img,
 						kind: "message",
-						last_message: socketMessage.message,
+						last_message: attachText ? attachText : "send a attachment.",
 						isRead: false,
-						time: Date.now()
+						time: Date.now(),
+						from_where: getMessages._id
 					};
 
 					mySocket.emit("send_notification", {
@@ -486,15 +492,15 @@ const InputBox = ({
 			// for send notification socket end
 
 			try {
+				setFile(false);
+				setAttachText("");
+				setInputText("");
+
 				const formData = new FormData();
 
 				formData.append("_id", getMessages._id);
 				formData.append("message", attachText);
 				formData.append("file", getFile);
-
-				setAttachText("");
-				setInputText("");
-				setFile("");
 
 				if (
 					getMessages.room ===

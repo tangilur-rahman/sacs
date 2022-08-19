@@ -8,7 +8,7 @@ import "./Chat.css";
 import MessageBox from "./MessageBox/MessageBox";
 import UserBox from "./UserBox/UserBox";
 
-const Chat = () => {
+const Chat = ({ messageId }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
@@ -230,9 +230,11 @@ const Chat = () => {
 					<div className="col-7 p-0">
 						<MessageBox
 							getMessages={getMessages}
+							setMessages={setMessages}
 							setLatestGroup={setLatestGroup}
 							setLatestPersonal={setLatestPersonal}
 							setReloadGroup={setReloadGroup}
+							messageId={messageId}
 						/>
 					</div>
 				</div>

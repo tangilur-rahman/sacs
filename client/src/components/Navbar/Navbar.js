@@ -17,7 +17,9 @@ const Navbar = ({
 	setProfileT,
 	selected,
 	created,
-	setAppDisplay
+	setAppDisplay,
+	setMessageId,
+	setSelected
 }) => {
 	// for get socket connection
 	const { mySocket, notifiUpdate } = GetContextApi();
@@ -204,12 +206,12 @@ const Navbar = ({
 	// make all read handler start
 	const makeAllReadHandler = async () => {
 		try {
+			setChecked(Date.now());
 			const response = await fetch("/notification/read");
 
 			const result = await response.json();
 
 			if (response.status === 200) {
-				setChecked(Date.now());
 				return;
 			} else if (result.error) {
 				toast.error(result.error, {
@@ -228,9 +230,10 @@ const Navbar = ({
 	};
 
 	useEffect(() => {
-		if (selected === "chat") {
+		if (selected === "chat" && notifications) {
 			makeAllReadHandler();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected]);
 	// make all read handler end
 
@@ -374,7 +377,7 @@ const Navbar = ({
 										className="bi bi-chat-heart"
 										onClick={() => {
 											setMessageN_T(!messageN_T);
-											makeAllReadHandler();
+											notifications && makeAllReadHandler();
 										}}
 									>
 										<NotificationBadge
@@ -402,7 +405,15 @@ const Navbar = ({
 												order: "desc"
 											}).map((value, index) => {
 												return (
-													<div className="notification-display" key={index}>
+													<div
+														className="notification-display"
+														key={index}
+														onClick={() => {
+															setMessageId(value.from_where);
+															setMessageN_T(false);
+															setSelected("chat");
+														}}
+													>
 														<img
 															src={`uploads/profile-img/${value.sender_profile}`}
 															alt="img"
@@ -439,7 +450,7 @@ const Navbar = ({
 										className="bi bi-bell-fill"
 										onClick={() => {
 											setAppointmentN_T(!appointmentN_T);
-											makeAllReadHandler();
+											notifications && makeAllReadHandler();
 										}}
 									>
 										<NotificationBadge

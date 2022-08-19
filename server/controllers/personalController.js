@@ -5,7 +5,7 @@ const personalModel = require("../models/personalChatModel");
 const studentModel = require("./../models/studentModel");
 const advisorModel = require("./../models/advisorModel");
 
-// when advisor & when to get all students
+// when advisor & he/she want to get all students
 const getAllStudents = async (req, res) => {
 	try {
 		const studentsDoc = await personalModel
@@ -51,6 +51,20 @@ const searchStudents = async (req, res) => {
 			.populate("advisor", "id");
 
 		res.status(200).json(getStudents);
+	} catch (error) {
+		res.status(500).json({ error: "Not Found Students" });
+	}
+};
+
+// for search document which come from notification
+const searchDocument = async (req, res) => {
+	try {
+		const document = await personalModel
+			.findOne({ _id: req.params._id })
+			.populate("student", "name profile_img")
+			.populate("advisor", "name profile_img");
+
+		res.status(200).json(document);
 	} catch (error) {
 		res.status(500).json({ error: "Not Found Students" });
 	}
@@ -146,6 +160,7 @@ const submitFile = async (req, res) => {
 module.exports = {
 	getAllStudents,
 	searchStudents,
+	searchDocument,
 	createOrGet,
 	submitMessage,
 	submitFile
