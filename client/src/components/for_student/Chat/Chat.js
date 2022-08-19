@@ -123,7 +123,6 @@ const Chat = ({ messageId }) => {
 						});
 					}
 				} catch (error) {
-					console.log(error.message);
 					toast.error(error.message, {
 						position: "top-right",
 						theme: "colored",

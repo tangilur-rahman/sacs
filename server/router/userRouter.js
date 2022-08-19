@@ -16,7 +16,9 @@ const {
 	advisorProfileImg,
 	studentProfileImg,
 	deleteAdvisor,
-	deleteStudent
+	deleteStudent,
+	searchAdvisors,
+	searchStudents
 } = require("./../controllers/userController");
 const { multerForImg } = require("../Config/multerManager");
 
@@ -60,5 +62,11 @@ user.get("/advisor/delete/:_id", authUser, deleteAdvisor);
 
 // for delete student by admin
 user.get("/student/delete/:_id", authUser, deleteStudent);
+
+// for search advisors by admin
+user.get("/advisor/search/:search", authUser, searchAdvisors);
+
+// for search students by admin
+user.get("/student/search/:search", authUser, searchStudents);
 
 module.exports = user;

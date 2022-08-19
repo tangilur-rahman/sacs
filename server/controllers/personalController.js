@@ -66,7 +66,7 @@ const searchDocument = async (req, res) => {
 
 		res.status(200).json(document);
 	} catch (error) {
-		res.status(500).json({ error: "Not Found Students" });
+		res.status(500).json({ error: "Not Found Any Students" });
 	}
 };
 

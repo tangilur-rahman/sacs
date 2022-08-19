@@ -7,7 +7,15 @@ import { toast } from "react-toastify";
 import "./ListOfTotal.css";
 
 const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
+	// for get specific-user for display in details
 	const [specificUser, setSpecificUser] = useState("");
+
+	// for get search-field values
+	const [searchText, setSearchText] = useState("");
+	const [searchResult, setSearchResult] = useState("");
+
+	// for displaying users
+	const [displayingUser, setDisplayingUser] = useState(totalValue.list);
 
 	// for outside-click closed start
 	const myRef = useRef();
@@ -15,6 +23,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
 			setTotalValue(false);
+			setSearchText("");
 		}
 	};
 
@@ -54,8 +63,69 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 			})();
 		}
 	}, [specificUser]);
-
 	// for fetching specific user end
+
+	// search user handler start
+	useEffect(() => {
+		if (searchText) {
+			(async () => {
+				if (totalValue.title === "List Of Advisors") {
+					try {
+						const response = await fetch(`/user/advisor/search/${searchText}`);
+						const result = await response.json();
+						if (response.status === 200) {
+							setSearchResult(result);
+						} else if (result.error) {
+							toast.error(result.error, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 3000
+							});
+						}
+					} catch (error) {
+						toast.error(error.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} else {
+					try {
+						const response = await fetch(`/user/student/search/${searchText}`);
+						const result = await response.json();
+						if (response.status === 200) {
+							setSearchResult(result);
+						} else if (result.error) {
+							toast.error(result.error, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 3000
+							});
+						}
+					} catch (error) {
+						toast.error(error.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				}
+			})();
+		}
+	}, [searchText, totalValue]);
+	// search user handler end
+
+	// for initialize search-result start
+	useEffect(() => {
+		if (searchResult) {
+			setDisplayingUser(searchResult);
+		}
+
+		if (!searchText) {
+			setDisplayingUser(totalValue.list);
+		}
+	}, [searchResult, searchText]);
+	// for initialize search-result end
 
 	return (
 		<>
@@ -72,9 +142,9 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 								<i className="bi bi-search-heart"></i>
 								<input
 									type="search"
-									name="search"
-									id="search"
 									autoComplete="on"
+									onChange={(e) => setSearchText(e.target.value)}
+									value={searchText}
 									placeholder={
 										totalValue.title === "List Of Advisors"
 											? "Search advisors"
@@ -101,8 +171,8 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 								</thead>
 
 								<tbody>
-									{totalValue.list &&
-										totalValue.list
+									{displayingUser &&
+										displayingUser
 											.map((value, index) => {
 												return (
 													<tr

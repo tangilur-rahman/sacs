@@ -280,6 +280,70 @@ const deleteStudent = async (req, res) => {
 	}
 };
 
+// for search advisors by admin
+const searchAdvisors = async (req, res) => {
+	try {
+		const getAdvisors = await advisorModel.find({
+			$or: [
+				{
+					id: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				},
+				{
+					email: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				},
+				{
+					name: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				}
+			]
+		});
+
+		res.status(200).json(getAdvisors);
+	} catch (error) {
+		res.status(500).json({ error: "Not Found Any Advisors" });
+	}
+};
+
+// for search students by admin
+const searchStudents = async (req, res) => {
+	try {
+		const getStudents = await studentModel.find({
+			$or: [
+				{
+					id: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				},
+				{
+					email: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				},
+				{
+					name: {
+						$regex: req.params.search,
+						$options: "i"
+					}
+				}
+			]
+		});
+
+		res.status(200).json(getStudents);
+	} catch (error) {
+		res.status(500).json({ error: "Not Found Any Students" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getAllAdvisors,
@@ -290,5 +354,7 @@ module.exports = {
 	advisorProfileImg,
 	studentProfileImg,
 	deleteAdvisor,
-	deleteStudent
+	deleteStudent,
+	searchAdvisors,
+	searchStudents
 };
