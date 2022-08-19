@@ -166,6 +166,10 @@
 	padding: 10px 0 !important;
 }
 
+.profile-edit-container .curr-user-info #for-year span {
+	padding: 0 !important;
+}
+
 .profile-edit-container .curr-user-info .remove-pd input {
 	padding: 0 20px !important;
 }

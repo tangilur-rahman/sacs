@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./GenderDropdown.css";
 
-const GenderDropdown = ({ getGender, setGender }) => {
+const GenderDropdown = ({ getGender, setGender, editT }) => {
 	const [genderDrop, setGenderDrop] = useState(false);
 
 	const displayGender = () => {
@@ -19,30 +19,40 @@ const GenderDropdown = ({ getGender, setGender }) => {
 
 	return (
 		<>
-			<div
-				className={genderDrop ? "gender-container active" : "gender-container"}
-				onClick={() => setGenderDrop(!genderDrop)}
-			>
+			{!editT ? (
 				<input
-					type="text"
-					placeholder="Select Gender"
-					readOnly
 					value={displayGender()}
-					required
+					style={{ textAlign: "start" }}
+					readOnly
 				/>
-				<div className="option">
-					<div onClick={() => setGender("male")}>
-						<div>👨‍🦰 &nbsp; Male</div>
-					</div>
-					<div onClick={() => setGender("female")}>
-						<div>👩‍🦰 &nbsp; Female</div>
-					</div>
+			) : (
+				<div
+					className={
+						genderDrop ? "gender-container active" : "gender-container"
+					}
+					onClick={() => setGenderDrop(!genderDrop)}
+				>
+					<input
+						type="text"
+						placeholder="Select Gender"
+						readOnly
+						value={displayGender()}
+						required
+					/>
+					<div className="option">
+						<div onClick={() => setGender("male")}>
+							<div>👨‍🦰 &nbsp; Male</div>
+						</div>
+						<div onClick={() => setGender("female")}>
+							<div>👩‍🦰 &nbsp; Female</div>
+						</div>
 
-					<div onClick={() => setGender("other")}>
-						<div>&nbsp; ⚨ &nbsp; Other</div>
+						<div onClick={() => setGender("other")}>
+							<div>&nbsp; ⚨ &nbsp; Other</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };

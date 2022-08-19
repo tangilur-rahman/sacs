@@ -4,15 +4,19 @@ import DatePicker from "react-date-picker";
 // internal components
 import "./YearDropdown.css";
 
-const YearDropdown = ({ year, setYear }) => {
+const YearDropdown = ({ getYear, setYear, editT }) => {
 	return (
 		<>
 			<div className="year-container">
-				<DatePicker
-					maxDetail="decade"
-					onChange={(date) => setYear(date)}
-					value={year}
-				/>
+				{!editT ? (
+					<input value={getYear} style={{ textAlign: "start" }} readOnly />
+				) : (
+					<DatePicker
+						maxDetail="decade"
+						onChange={(date) => setYear(date)}
+						value={getYear}
+					/>
+				)}
 			</div>
 		</>
 	);

@@ -209,6 +209,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 											<GenderDropdown
 												getGender={getGender}
 												setGender={setGender}
+												editT={editT}
 											/>
 										</span>
 									) : (
@@ -223,6 +224,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 											<DepartDropdown
 												getDepart={getDepart}
 												setDepart={setDepart}
+												editT={editT}
 											/>
 										</span>
 									) : (
@@ -239,6 +241,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 											<SemesterDropDown
 												getSemester={getSemester}
 												setSemester={setSemester}
+												editT={editT}
 											/>
 										</span>
 									) : (
@@ -251,8 +254,12 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									)}
 
 									{userEdit && (
-										<span>
-											<RoleDropdown getRole={getRole} setRole={setRole} />
+										<span className={userEdit ? "remove-pd" : ""}>
+											<RoleDropdown
+												getRole={getRole}
+												setRole={setRole}
+												editT={editT}
+											/>
 										</span>
 									)}
 
@@ -282,7 +289,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 										</span>
 									)}
 
-									{userEdit.role === "advisor" ? (
+									{!userEdit && currentUser.role === "advisor" && (
 										<span id={editT ? "phone-number" : ""}>
 											<label htmlFor="phone">
 												Phone : &nbsp; {editT && <h6>+880</h6>}
@@ -292,36 +299,19 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 												type={editT ? "number" : "text"}
 												name="phone"
 												id="phone"
-												value={displayValue(userEdit)}
-												readOnly={userEdit && editT ? false : true}
+												value={displayValue(currentUser)}
+												readOnly={editT ? false : true}
 												onChange={(event) => setPhone(event.target.value)}
 											/>
 										</span>
-									) : (
-										currentUser.role === "advisor" && (
-											<span id={editT ? "phone-number" : ""}>
-												<label htmlFor="phone">
-													Phone : &nbsp; {editT && <h6>+880</h6>}
-												</label>
-
-												<input
-													type={editT ? "number" : "text"}
-													name="phone"
-													id="phone"
-													value={displayValue(currentUser)}
-													readOnly={editT ? false : true}
-													onChange={(event) => setPhone(event.target.value)}
-												/>
-											</span>
-										)
 									)}
 
-									{userEdit.role === "student" ? (
-										<span id="year">
-											Academic Year :&nbsp;
-											<input
-												value={userEdit.year}
-												readOnly={userEdit && editT ? false : true}
+									{userEdit && userEdit.role !== "administrator" ? (
+										<span className={userEdit ? "remove-pd" : ""} id="for-year">
+											<YearDropdown
+												getYear={getYear}
+												setYear={setYear}
+												editT={editT}
 											/>
 										</span>
 									) : (

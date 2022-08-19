@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./RoleDropdown.css";
 
-const RoleDropdown = ({ getRole, setRole }) => {
+const RoleDropdown = ({ getRole, setRole, editT }) => {
 	const [roleDrop, setRoleDrop] = useState(false);
 
 	const displayRole = () => {
@@ -17,26 +17,30 @@ const RoleDropdown = ({ getRole, setRole }) => {
 
 	return (
 		<>
-			<div
-				className={roleDrop ? "role-container active" : "role-container"}
-				onClick={() => setRoleDrop(!roleDrop)}
-			>
-				<input
-					type="text"
-					placeholder="Select Role"
-					readOnly
-					value={displayRole()}
-					required
-				/>
-				<div className="option">
-					<div onClick={() => setRole("advisor")}>
-						<div>🤵 &nbsp;Advisor</div>
-					</div>
-					<div onClick={() => setRole("student")}>
-						<div>👨‍🎓 &nbsp;Student</div>
+			{!editT ? (
+				<input value={getRole} style={{ textAlign: "start" }} readOnly />
+			) : (
+				<div
+					className={roleDrop ? "role-container active" : "role-container"}
+					onClick={() => setRoleDrop(!roleDrop)}
+				>
+					<input
+						type="text"
+						placeholder="Select Role"
+						readOnly
+						value={displayRole()}
+						required
+					/>
+					<div className="option">
+						<div onClick={() => setRole("advisor")}>
+							<div>🤵 &nbsp;Advisor</div>
+						</div>
+						<div onClick={() => setRole("student")}>
+							<div>👨‍🎓 &nbsp;Student</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };
