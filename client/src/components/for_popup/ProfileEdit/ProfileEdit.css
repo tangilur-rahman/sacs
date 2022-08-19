@@ -36,13 +36,29 @@
 
 .profile-edit-container .wrapper .icon span:first-child {
 	border-radius: 50%;
+	padding: 5px 12px;
+	color: red;
+	background-color: #fff2e5;
+	margin-right: 20px;
+}
+
+.profile-edit-container .wrapper .icon span:first-child i {
+	margin-left: 4px;
+}
+
+.profile-edit-container .wrapper .icon span#when-not-admin {
+	display: none;
+}
+
+.profile-edit-container .wrapper .icon span:nth-child(2) {
+	border-radius: 50%;
 	padding: 5px 7px;
 	color: #228bc5;
 	background-color: #eaefff;
 	margin-right: 20px;
 }
 
-.profile-edit-container .wrapper .icon span:first-child i {
+.profile-edit-container .wrapper .icon span:nth-child(2) i {
 	margin-left: 4px;
 }
 
@@ -237,3 +253,34 @@
 }
 
 /* input field style end  */
+
+/* for delete conform popup style start  */
+.profile-edit-container .layout .wrapper .conformation-popup {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 5px 5px red;
+	padding: 35px 35px 10px 35px;
+	position: absolute;
+	left: 33%;
+	top: 28%;
+}
+
+.profile-edit-container
+	.layout
+	.wrapper
+	.conformation-popup
+	.delete-controller {
+	margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.profile-edit-container
+	.layout
+	.wrapper
+	.conformation-popup
+	.delete-controller
+	button:first-child {
+	margin-right: 30px;
+}
+/* for delete conform popup style end  */

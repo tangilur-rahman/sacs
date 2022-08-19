@@ -161,6 +161,7 @@ const Homepage = ({
 						currentUser={currentUser}
 						userEdit={userEdit}
 						setUserEdit={setUserEdit}
+						setCreated={setCreated}
 					/>
 				)}
 

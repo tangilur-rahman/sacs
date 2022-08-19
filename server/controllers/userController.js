@@ -258,6 +258,28 @@ const studentProfileImg = async (req, res) => {
 	}
 };
 
+// for delete advisor by admin
+const deleteAdvisor = async (req, res) => {
+	try {
+		await advisorModel.deleteOne({ _id: req.params._id });
+
+		res.status(200).json({ message: "Advisor deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+// for delete student by admin
+const deleteStudent = async (req, res) => {
+	try {
+		await studentModel.deleteOne({ _id: req.params._id });
+
+		res.status(200).json({ message: "Student deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getAllAdvisors,
@@ -266,5 +288,7 @@ module.exports = {
 	updateAdvisor,
 	updateStudent,
 	advisorProfileImg,
-	studentProfileImg
+	studentProfileImg,
+	deleteAdvisor,
+	deleteStudent
 };

@@ -15,7 +15,13 @@ import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
 import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
 import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 
-const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
+const ProfileEdit = ({
+	setProfileT,
+	currentUser,
+	userEdit,
+	setUserEdit,
+	setCreated
+}) => {
 	// for updating homepage
 	const { setIsSubmitted } = GetContextApi();
 
@@ -45,6 +51,9 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 	const [cpassword, setCpassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [getPhone, setPhone] = useState("");
+
+	// conform popup for delete
+	const [conformPopup, setConformPopup] = useState("");
 
 	// for close when clicked outside start
 	const myRef = useRef();
@@ -243,6 +252,75 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 		}
 	};
 	// for admin submit handler end
+
+	// user delete handler start
+	const userDeleteHandler = async () => {
+		if (userEdit.role === "advisor") {
+			try {
+				const response = await fetch(`/user/advisor/delete/${userEdit._id}`);
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setCreated(Date.now());
+					setConformPopup(false);
+
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+					setTimeout(() => {
+						setUserEdit(false);
+					}, 2500);
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} else if (userEdit.role === "student") {
+			try {
+				const response = await fetch(`/user/student/delete/${userEdit._id}`);
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setCreated(Date.now());
+					setConformPopup(false);
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+					setTimeout(() => {
+						setUserEdit(false);
+					}, 2500);
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		}
+	};
+	// user delete handler end
 
 	return (
 		<>
@@ -469,6 +547,13 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 							</div>
 
 							<div className="icon">
+								<span
+									onClick={() => setConformPopup(!conformPopup)}
+									id={userEdit ? "" : "when-not-admin"}
+								>
+									<i className="fa-solid fa-trash-can"></i>
+								</span>
+
 								<span onClick={() => setEditT(!editT)}>
 									<i className="fa-solid fa-user-pen"></i>
 								</span>
@@ -482,6 +567,35 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									<i className="fa-solid fa-circle-xmark"></i>
 								</span>
 							</div>
+
+							{/* for popup model section start  */}
+							{conformPopup && (
+								<div
+									className="conformation-popup"
+									data-aos="fade-down"
+									data-aos-delay="0"
+								>
+									<h5>Do you want to delete that appointment?</h5>
+									<div className="delete-controller">
+										<button
+											className="btn btn-dark"
+											onClick={() => {
+												setConformPopup(!conformPopup);
+											}}
+										>
+											Cancel
+										</button>
+
+										<button
+											className="btn btn-danger"
+											onClick={userDeleteHandler}
+										>
+											Submit
+										</button>
+									</div>
+								</div>
+							)}
+							{/* for popup model section end  */}
 						</div>
 					</div>
 				</div>

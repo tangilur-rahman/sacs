@@ -14,7 +14,9 @@ const {
 	updateAdvisor,
 	updateStudent,
 	advisorProfileImg,
-	studentProfileImg
+	studentProfileImg,
+	deleteAdvisor,
+	deleteStudent
 } = require("./../controllers/userController");
 const { multerForImg } = require("../Config/multerManager");
 
@@ -52,5 +54,11 @@ user.put(
 	upload.single("file"),
 	studentProfileImg
 );
+
+// for delete advisor by admin
+user.get("/advisor/delete/:_id", authUser, deleteAdvisor);
+
+// for delete student by admin
+user.get("/student/delete/:_id", authUser, deleteStudent);
 
 module.exports = user;
