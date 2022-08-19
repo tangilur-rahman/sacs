@@ -184,6 +184,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 					const result = await response.json();
 
 					if (response.status === 200) {
+						setEditT(false);
 						toast.success(result.message, {
 							position: "top-right",
 							theme: "colored",
@@ -212,6 +213,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 					const result = await response.json();
 
 					if (response.status === 200) {
+						setEditT(false);
 						toast.success(result.message, {
 							position: "top-right",
 							theme: "colored",
@@ -496,6 +498,8 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 						setChangeProfileT={setChangeProfileT}
 						previewImg={previewImg}
 						getFile={getFile}
+						userEdit={userEdit}
+						setUserEdit={setUserEdit}
 					/>
 				)}
 			</div>

@@ -224,11 +224,47 @@ const updateStudent = async (req, res) => {
 	}
 };
 
+// for change advisor profile-img by admin
+const advisorProfileImg = async (req, res) => {
+	try {
+		await advisorModel.updateOne(
+			{ _id: req.body._id },
+			{
+				$set: { profile_img: req.file.filename }
+			}
+		);
+		res
+			.status(200)
+			.json({ message: "Advisor's profile-img updated successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+// for change student profile-img by admin
+const studentProfileImg = async (req, res) => {
+	try {
+		await studentModel.updateOne(
+			{ _id: req.body._id },
+			{
+				$set: { profile_img: req.file.filename }
+			}
+		);
+		res
+			.status(200)
+			.json({ message: "Student's profile-img updated successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getAllAdvisors,
 	getAllStudents,
 	getSpecificUser,
 	updateAdvisor,
-	updateStudent
+	updateStudent,
+	advisorProfileImg,
+	studentProfileImg
 };

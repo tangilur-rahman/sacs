@@ -6,7 +6,13 @@ import { toast } from "react-toastify";
 import { GetContextApi } from "../../../../ContextApi";
 import "./CngProfileImg.css";
 
-const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
+const CngProfileImg = ({
+	setChangeProfileT,
+	previewImg,
+	getFile,
+	userEdit,
+	setUserEdit
+}) => {
 	// for updating homepage
 	const { setIsSubmitted } = GetContextApi();
 
@@ -44,6 +50,7 @@ const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
 	}, []);
 	// for inside clicked stop-propagation end
 
+	// submit handler for other-user start
 	const submitHandler = async () => {
 		if (getFile) {
 			const formData = new FormData();
@@ -101,6 +108,105 @@ const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
 			});
 		}
 	};
+	// submit handler for other-user end
+
+	// submit handler for admin start
+	const submitHandlerAdmin = async () => {
+		if (getFile) {
+			try {
+				const formData = new FormData();
+				formData.append("file", getFile);
+				formData.append("_id", userEdit._id);
+
+				if (userEdit.role === "advisor") {
+					const response = await fetch("/user/advisor/profile-img", {
+						method: "PUT",
+						body: formData
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						toast.success(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 1500
+						});
+						setTimeout(() => {
+							setUserEdit(false);
+						}, 2500);
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					} else {
+						toast.error(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} else if (userEdit.role === "student") {
+					const response = await fetch("/user/student/profile-img", {
+						method: "PUT",
+						body: formData
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						toast.success(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 1500
+						});
+						setTimeout(() => {
+							setUserEdit(false);
+						}, 2500);
+					} else if (response.status === 400) {
+						toast(result.message, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					} else {
+						toast.error(result.message, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} else {
+			toast("Already used that profile image", {
+				position: "top-right",
+				theme: "dark",
+				autoClose: 3000
+			});
+		}
+	};
+	// submit handler for admin end
 
 	return (
 		<>
@@ -124,9 +230,18 @@ const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
 								>
 									Cancel
 								</button>
-								<button className="btn btn-success" onClick={submitHandler}>
-									Submit
-								</button>
+								{userEdit ? (
+									<button
+										className="btn btn-success"
+										onClick={submitHandlerAdmin}
+									>
+										Submit
+									</button>
+								) : (
+									<button className="btn btn-success" onClick={submitHandler}>
+										Submit
+									</button>
+								)}
 							</div>
 						</div>
 					</div>

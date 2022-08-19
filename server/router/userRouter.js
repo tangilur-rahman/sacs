@@ -12,8 +12,11 @@ const {
 	getAllStudents,
 	getSpecificUser,
 	updateAdvisor,
-	updateStudent
+	updateStudent,
+	advisorProfileImg,
+	studentProfileImg
 } = require("./../controllers/userController");
+const { multerForImg } = require("../Config/multerManager");
 
 user.get("/", authUser, currentUser);
 
@@ -30,5 +33,24 @@ user.put("/advisor-update", authUser, updateAdvisor);
 
 // for update student by admin
 user.put("/student-update", authUser, updateStudent);
+
+// for upload profile-img in local-storage
+const upload = multerForImg("file");
+
+// for change advisor profile-img by admin
+user.put(
+	"/advisor/profile-img",
+	authUser,
+	upload.single("file"),
+	advisorProfileImg
+);
+
+// for change student profile-img by admin
+user.put(
+	"/student/profile-img",
+	authUser,
+	upload.single("file"),
+	studentProfileImg
+);
 
 module.exports = user;

@@ -91,82 +91,68 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 										totalValue.list
 											.map((value, index) => {
 												return (
-													<>
-														<tr
-															key={index}
-															onClick={() => setSpecificUser(value._id)}
-														>
-															<td id="count">{index + 1}</td>
+													<tr
+														key={index}
+														onClick={() => setSpecificUser(value._id)}
+													>
+														<td id="count">{index + 1}</td>
 
-															<td id="name">
-																<img
-																	src={`uploads/profile-img/${value.profile_img}`}
-																	alt="profile-img"
-																	id="profile-img"
-																	className="img-fluid"
-																/>
-																<input
-																	type="text"
-																	readOnly
-																	value={value.name}
-																/>
-															</td>
+														<td id="name">
+															<img
+																src={`uploads/profile-img/${value.profile_img}`}
+																alt="profile-img"
+																id="profile-img"
+																className="img-fluid"
+															/>
+															<input type="text" readOnly value={value.name} />
+														</td>
 
-															<td id="id">
-																<input type="text" readOnly value={value.id} />
-															</td>
+														<td id="id">
+															<input type="text" readOnly value={value.id} />
+														</td>
 
-															<td id="email">
-																<input
-																	type="text"
-																	readOnly
-																	value={value.email}
-																/>
-															</td>
+														<td id="email">
+															<input type="text" readOnly value={value.email} />
+														</td>
 
-															<td id="gender">
-																<input
-																	type="text"
-																	readOnly
-																	value={value.gender}
-																/>
-															</td>
+														<td id="gender">
+															<input
+																type="text"
+																readOnly
+																value={value.gender}
+															/>
+														</td>
 
-															<td id="department">
-																<input
-																	type="text"
-																	readOnly
-																	value={value.department}
-																/>
-															</td>
+														<td id="department">
+															<input
+																type="text"
+																readOnly
+																value={value.department}
+															/>
+														</td>
 
-															<td id="semester">
-																<input
-																	type="text"
-																	readOnly
-																	value={value.semester}
-																/>
-															</td>
+														<td id="semester">
+															<input
+																type="text"
+																readOnly
+																value={value.semester}
+															/>
+														</td>
 
-															<td id="year">
-																<input
-																	type="text"
-																	readOnly
-																	value={value.year}
-																/>
-															</td>
+														<td id="year">
+															<input type="text" readOnly value={value.year} />
+														</td>
 
-															<td id="update-date">
-																<input
-																	type="text"
-																	readOnly
-																	value={moment(value.updatedAt).format(
-																		"DD MMM YY"
-																	)}
-																/>
-															</td>
-														</tr>
-													</>
+														<td id="update-date">
+															<input
+																type="text"
+																readOnly
+																value={moment(value.updatedAt).format(
+																	"DD MMM YY"
+																)}
+															/>
+														</td>
+													</tr>
 												);
 											})
 											.reverse()}
