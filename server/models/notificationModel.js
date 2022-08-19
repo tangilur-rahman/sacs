@@ -14,6 +14,10 @@ const schema = mongoose.Schema({
 				type: Boolean,
 				default: false
 			},
+			adminIsRead: {
+				type: Boolean,
+				default: false
+			},
 			time: Date,
 
 			from_where: String

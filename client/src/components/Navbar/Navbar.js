@@ -279,52 +279,54 @@ const Navbar = ({
 
 	// for get total count of advisors & students start
 	useEffect(() => {
-		(async () => {
-			// for count of advisors
-			try {
-				const response = await fetch("/user/advisor-list");
-				const result = await response.json();
+		if (currentUser?.role === "administrator") {
+			(async () => {
+				// for count of advisors
+				try {
+					const response = await fetch("/user/advisor-list");
+					const result = await response.json();
 
-				if (response.status === 200) {
-					setTotalAdvisors(result?.length);
-				} else if (result.error) {
-					toast.error(result.error, {
+					if (response.status === 200) {
+						setTotalAdvisors(result?.length);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
 						position: "top-right",
 						theme: "colored",
 						autoClose: 3000
 					});
 				}
-			} catch (error) {
-				toast.error(error.message, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 3000
-				});
-			}
 
-			// for count of students
-			try {
-				const response = await fetch("/user/student-list");
-				const result = await response.json();
+				// for count of students
+				try {
+					const response = await fetch("/user/student-list");
+					const result = await response.json();
 
-				if (response.status === 200) {
-					setTotalStudents(result?.length);
-				} else if (result.error) {
-					toast.error(result.error, {
+					if (response.status === 200) {
+						setTotalStudents(result?.length);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
 						position: "top-right",
 						theme: "colored",
 						autoClose: 3000
 					});
 				}
-			} catch (error) {
-				toast.error(error.message, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 3000
-				});
-			}
-		})();
-	}, [created]);
+			})();
+		}
+	}, [created, currentUser]);
 
 	// for get total count of advisors & students end
 
