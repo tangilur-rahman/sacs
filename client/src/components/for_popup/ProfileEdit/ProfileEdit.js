@@ -30,7 +30,7 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 	const [getGender, setGender] = useState(userEdit.gender);
 	const [password, setPassword] = useState("");
 	const [getRole, setRole] = useState(userEdit.role);
-	const [getDepartment, setDepartment] = useState(userEdit.department);
+	const [getDepart, setDepart] = useState(userEdit.department);
 	const [getSemester, setSemester] = useState(userEdit.semester);
 	const [getYear, setYear] = useState(userEdit.year);
 
@@ -219,7 +219,12 @@ const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 									)}
 
 									{userEdit ? (
-										<span></span>
+										<span>
+											<DepartDropdown
+												getDepart={getDepart}
+												setDepart={setDepart}
+											/>
+										</span>
 									) : (
 										currentUser?.role !== "administrator" && (
 											<span>

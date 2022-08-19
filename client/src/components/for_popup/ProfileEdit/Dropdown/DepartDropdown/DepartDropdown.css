@@ -1,14 +1,13 @@
-.signup-container .right .depart-container {
+.curr-user-info .depart-container {
 	position: relative;
-	width: 48%;
-	margin: -5px 0 0 0;
+	width: 100%;
 }
 
 .depart-container::before {
 	content: "";
 	position: absolute;
-	right: 12px;
-	top: 15px;
+	right: 22px;
+	top: 8px;
 	z-index: 1;
 	width: 8px;
 	height: 8px;
@@ -20,32 +19,27 @@
 	pointer-events: none;
 }
 .depart-container.active::before {
-	top: 20px;
+	top: 15px;
 	transform: rotate(-225deg);
 }
-.signup-container .right .depart-container input {
+.curr-user-info .depart-container input {
 	cursor: pointer;
 	background-color: #fff;
 	border: none;
 	outline: none;
-	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
-	padding: 7px 14px;
 	border-radius: 5px;
 	font-weight: 600;
 	font-size: 18px;
 	width: 100%;
 }
 
-.signup-container .right .depart-container input::placeholder {
+.curr-user-info .depart-container input::placeholder {
+	padding-left: 10px;
 	color: #757575;
 	font-weight: 500;
 }
 
-.signup-container .right .depart-container input:focus {
-	outline: 4px solid #c2daff;
-}
-
-.depart-container .option {
+.curr-user-info .depart-container .option {
 	position: absolute;
 	bottom: 54px;
 	width: 100%;
@@ -54,25 +48,25 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: none;
-	z-index: 1;
+	z-index: 10000;
 	font-weight: 500;
 }
 
-.depart-container.active .option {
+.curr-user-info .depart-container.active .option {
 	display: block;
 }
 
-.depart-container .option div {
-	padding: 7px 10px;
+.curr-user-info .depart-container .option div {
+	padding: 5px 10px;
 	cursor: pointer;
 }
 
-.depart-container .option div:hover {
+.curr-user-info .depart-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 }
 
-.depart-container .option div i {
+.curr-user-info .depart-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;

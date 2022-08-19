@@ -20,7 +20,7 @@
 }
 
 .curr-user-info .gender-container.active::before {
-	top: 20px;
+	top: 15px;
 	transform: rotate(-225deg);
 }
 

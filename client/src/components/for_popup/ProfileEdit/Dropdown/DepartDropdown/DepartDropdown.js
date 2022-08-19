@@ -41,35 +41,35 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 				/>
 				<div className="option">
 					<div onClick={() => setDepart("css")}>
-						<span>💻 &nbsp;CSE</span>
+						<div>💻 &nbsp;CSE</div>
 					</div>
 
 					<div onClick={() => setDepart("eee")}>
-						<span>💡 &nbsp;EEE</span>
+						<div>💡 &nbsp;EEE</div>
 					</div>
 
 					<div onClick={() => setDepart("textile")}>
-						<span>🕸️ &nbsp;TEXTILE</span>
+						<div>🕸️ &nbsp;TEXTILE</div>
 					</div>
 
 					<div onClick={() => setDepart("pharmacy")}>
-						<span>💊 &nbsp; B.PHARMACY</span>
+						<div>💊 &nbsp; B.PHARMACY</div>
 					</div>
 
 					<div onClick={() => setDepart("bba")}>
-						<span>📈 &nbsp; BBA</span>
+						<div>📈 &nbsp; BBA</div>
 					</div>
 
 					<div onClick={() => setDepart("llb")}>
-						<span>⚖️&nbsp; LLB</span>
+						<div>⚖️&nbsp; LLB</div>
 					</div>
 
 					<div onClick={() => setDepart("english")}>
-						<span>🔤 &nbsp; English</span>
+						<div>🔤 &nbsp; English</div>
 					</div>
 
 					<div onClick={() => setDepart("bangla")}>
-						<span>অ &nbsp; Bangla</span>
+						<div>অ &nbsp; Bangla</div>
 					</div>
 				</div>
 			</div>
