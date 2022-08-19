@@ -127,10 +127,22 @@ const isRead = async (req, res) => {
 	}
 };
 
+// delete a appointment
+const deleteAppointment = async (req, res) => {
+	try {
+		await appModel.deleteOne({ _id: req.params._id });
+
+		res.status(200).json({ message: "Appointment deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	submitAppointment,
 	getAllAppointments,
 	getSpecificApp,
 	replyUpdate,
-	isRead
+	isRead,
+	deleteAppointment
 };

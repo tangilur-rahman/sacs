@@ -11,7 +11,8 @@ const {
 	getAllAppointments,
 	getSpecificApp,
 	replyUpdate,
-	isRead
+	isRead,
+	deleteAppointment
 } = require("./../controllers/appController");
 const { multerForAttachment } = require("./../Config/multerManager");
 
@@ -30,5 +31,8 @@ appointment.put("/update", authUser, replyUpdate);
 
 // for update isRead
 appointment.put("/read", isRead);
+
+// for delete a appointment
+appointment.get("/delete/:_id", deleteAppointment);
 
 module.exports = appointment;

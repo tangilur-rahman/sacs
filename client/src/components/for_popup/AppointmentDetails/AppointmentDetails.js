@@ -12,7 +12,8 @@ import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
-	const { setIsSubmitted, mySocket, setNotifiUpdate } = GetContextApi();
+	const { setIsSubmitted, mySocket, setNotifiUpdate, setSelected } =
+		GetContextApi();
 
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);
@@ -32,6 +33,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 	// for checking read or unread
 	const [isRead, setIsRead] = useState(false);
+
+	// for conform want to delete or not
+	const [conformPopup, setConformPopup] = useState(false);
 
 	// for outside click to close start
 	const myRef = useRef();
@@ -269,6 +273,42 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	};
 	// for submit currentUser reply end
 
+	// appointment delete handler start
+	const appointmentDeleteHandler = async () => {
+		if (specificApp) {
+			try {
+				const response = await fetch(`/appointment/delete/${specificApp._id}`);
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+					setTimeout(() => {
+						setAppDisplay(false);
+						setIsSubmitted(Date.now());
+					}, 2500);
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		}
+	};
+	// appointment delete handler end
+
 	return (
 		<>
 			<div
@@ -492,6 +532,56 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 							)}
 
 							{/* reply-box end  */}
+
+							{/* delete control section start  */}
+							{currentUser.role === "administrator" && (
+								<div className="delete-controller">
+									<button
+										className="btn btn-danger"
+										onClick={() => setConformPopup(!conformPopup)}
+									>
+										Delete
+									</button>
+
+									<button
+										className="btn btn-dark"
+										onClick={() => setAppDisplay(false)}
+									>
+										Cancel
+									</button>
+								</div>
+							)}
+
+							{/* for popup model section start  */}
+							{conformPopup && (
+								<div
+									className="conformation-popup"
+									data-aos="fade-down"
+									data-aos-delay="0"
+								>
+									<h5>Do you want to delete that appointment?</h5>
+									<div className="delete-controller">
+										<button
+											className="btn btn-dark"
+											onClick={() => {
+												setConformPopup(!conformPopup);
+											}}
+										>
+											Cancel
+										</button>
+
+										<button
+											className="btn btn-danger"
+											onClick={appointmentDeleteHandler}
+										>
+											Submit
+										</button>
+									</div>
+								</div>
+							)}
+							{/* for popup model section end  */}
+
+							{/* delete control section end  */}
 
 							{/* for close icon start */}
 							<span className="icon" onClick={() => setAppDisplay(false)}>

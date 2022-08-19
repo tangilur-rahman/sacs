@@ -415,6 +415,48 @@
 }
 /* reply-box-container end  */
 
+/* delete controller style start  */
+.appointment-details .delete-controller {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+}
+
+.appointment-details .delete-controller button {
+	padding: 7px 20px;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.appointment-details .delete-controller button:hover {
+	transform: scale(0.98);
+}
+
+.appointment-details .delete-controller button:active {
+	transform: scale(0.95);
+}
+
+.appointment-details .delete-controller button:first-child {
+	margin-right: 30px;
+	color: white;
+}
+
+.appointment-details .conformation-popup {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 5px 5px red;
+	padding: 35px 35px 10px 35px;
+	position: absolute;
+	left: 33%;
+	top: 28%;
+}
+
+.appointment-details .conformation-popup .delete-controller {
+	margin-top: 20px;
+}
+
+/* delete controller style end  */
+
 /* for close button style start  */
 .appointment-details .icon {
 	padding: 2px 9px;

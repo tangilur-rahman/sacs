@@ -46,6 +46,10 @@
 	transform: scale(0.98);
 }
 
+.wrapper #right .c-pro-btn button:active {
+	transform: scale(0.95);
+}
+
 .wrapper #right .c-pro-btn button:first-child {
 	margin-right: 30px;
 }
