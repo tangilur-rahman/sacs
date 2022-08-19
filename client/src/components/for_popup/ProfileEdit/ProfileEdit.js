@@ -8,7 +8,14 @@ import { GetContextApi } from "../../../ContextApi";
 import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
-const ProfileEdit = ({ setProfileT, currentUser }) => {
+// dropdown components
+import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
+import GenderDropdown from "./Dropdown/GenderDropdown/GenderDropdown";
+import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
+import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
+import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
+
+const ProfileEdit = ({ setProfileT, currentUser, userEdit, setUserEdit }) => {
 	// for updating homepage
 	const { setIsSubmitted } = GetContextApi();
 
@@ -16,10 +23,23 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 	const [editT, setEditT] = useState(false);
 	const [changeProfileT, setChangeProfileT] = useState(false);
 
+	// get all input field values & change
+	const [getName, setName] = useState(userEdit.name);
+	const [getId, setId] = useState(userEdit.id);
+	const [getEmail, setEmail] = useState(userEdit.email);
+	const [getGender, setGender] = useState(userEdit.gender);
+	const [password, setPassword] = useState("");
+	const [getRole, setRole] = useState(userEdit.role);
+	const [getDepartment, setDepartment] = useState(userEdit.department);
+	const [getSemester, setSemester] = useState(userEdit.semester);
+	const [getYear, setYear] = useState(userEdit.year);
+
 	// for file handle
 	const [getFile, setFile] = useState("");
 	const [previewImg, setPreviewImg] = useState(
-		`uploads/profile-img/${currentUser.profile_img}`
+		userEdit
+			? `uploads/profile-img/${userEdit.profile_img}`
+			: `uploads/profile-img/${currentUser.profile_img}`
 	);
 
 	// for get input-field's value
@@ -32,6 +52,7 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
+			setUserEdit(false);
 			setProfileT(false);
 		}
 	};
@@ -56,7 +77,7 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 		reader.readAsDataURL(event.target.files[0]);
 	};
 
-	// submit handler
+	// submit handler start
 	const submitHandler = async () => {
 		try {
 			const response = await fetch("/profile/update", {
@@ -102,16 +123,19 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 			});
 		}
 	};
+	// submit handler end
 
-	const displayValue = () => {
+	// for displaying phone-number start
+	const displayValue = (user) => {
 		if (editT) {
 			return getPhone;
-		} else if (currentUser.phone) {
-			return "+88 " + currentUser.phone;
+		} else if (user.phone) {
+			return "+88 " + user.phone;
 		} else {
 			return "null";
 		}
 	};
+	// for displaying phone-number end
 
 	return (
 		<>
@@ -130,7 +154,11 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 							<div className="curr-user-profile">
 								<span className="img-wrapper">
 									<img
-										src={`uploads/profile-img/${currentUser.profile_img}`}
+										src={
+											userEdit
+												? `uploads/profile-img/${userEdit.profile_img}`
+												: `uploads/profile-img/${currentUser.profile_img}`
+										}
 										alt="profile-img"
 										className={editT ? "img-fluid" : "img-fluid animation"}
 									/>
@@ -150,35 +178,85 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 							<div className="curr-user-info">
 								<div className="row info">
 									<span id="name">
-										Name : <input value={currentUser.name} readOnly />
+										Name :&nbsp;
+										<input
+											value={userEdit ? getName : currentUser.name}
+											readOnly={userEdit && editT ? false : true}
+											onChange={(event) => setName(event.target.value)}
+										/>
 									</span>
 
 									<span>
-										ID : <input value={currentUser.id} readOnly />
+										ID :&nbsp;
+										<input
+											value={userEdit ? getId : currentUser.id}
+											readOnly={userEdit && editT ? false : true}
+											onChange={(event) => setId(event.target.value)}
+										/>
 									</span>
 
 									<span id="email">
-										Email : <input value={currentUser.email} readOnly />
+										Email :&nbsp;
+										<input
+											value={userEdit ? getEmail : currentUser.email}
+											readOnly={userEdit && editT ? false : true}
+											onChange={(event) => setEmail(event.target.value)}
+										/>
 									</span>
 
-									<span>
-										Gender : <input value={currentUser.gender} readOnly />
-									</span>
-
-									{currentUser?.role !== "administrator" && (
+									{userEdit ? (
 										<span>
-											Department : &nbsp;
-											<input value={currentUser.department} readOnly />
+											<GenderDropdown
+												getGender={getGender}
+												setGender={setGender}
+											/>
+										</span>
+									) : (
+										<span>
+											Gender :&nbsp;
+											<input value={currentUser.gender} readOnly />
 										</span>
 									)}
 
-									{currentUser?.role !== "administrator" && (
+									{userEdit ? (
+										<span></span>
+									) : (
+										currentUser?.role !== "administrator" && (
+											<span>
+												Department : &nbsp;
+												<input value={currentUser.department} readOnly />
+											</span>
+										)
+									)}
+
+									{userEdit ? (
 										<span>
-											Semester : <input value={currentUser.semester} readOnly />
+											Semester :&nbsp;
+											<input
+												value={userEdit.semester}
+												readOnly={userEdit && editT ? false : true}
+											/>
+										</span>
+									) : (
+										currentUser?.role !== "administrator" && (
+											<span>
+												Semester :&nbsp;
+												<input value={currentUser.semester} readOnly />
+											</span>
+										)
+									)}
+
+									{userEdit && (
+										<span>
+											Role :&nbsp;
+											<input
+												value={userEdit.role}
+												readOnly={userEdit && editT ? false : true}
+											/>
 										</span>
 									)}
 
-									{editT && (
+									{!userEdit && editT && (
 										<span id="current-p">
 											<label htmlFor="currPassword">Current Password :</label>
 
@@ -192,7 +270,7 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 										</span>
 									)}
 
-									{currentUser.role === "administrator" && (
+									{!userEdit && currentUser.role === "administrator" && (
 										<span>
 											Last Updated :&nbsp;
 											<input
@@ -204,7 +282,7 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 										</span>
 									)}
 
-									{currentUser.role === "advisor" && (
+									{userEdit.role === "advisor" ? (
 										<span id={editT ? "phone-number" : ""}>
 											<label htmlFor="phone">
 												Phone : &nbsp; {editT && <h6>+880</h6>}
@@ -214,18 +292,45 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 												type={editT ? "number" : "text"}
 												name="phone"
 												id="phone"
-												value={displayValue()}
-												readOnly={editT ? false : true}
+												value={displayValue(userEdit)}
+												readOnly={userEdit && editT ? false : true}
 												onChange={(event) => setPhone(event.target.value)}
 											/>
 										</span>
+									) : (
+										currentUser.role === "advisor" && (
+											<span id={editT ? "phone-number" : ""}>
+												<label htmlFor="phone">
+													Phone : &nbsp; {editT && <h6>+880</h6>}
+												</label>
+
+												<input
+													type={editT ? "number" : "text"}
+													name="phone"
+													id="phone"
+													value={displayValue(currentUser)}
+													readOnly={editT ? false : true}
+													onChange={(event) => setPhone(event.target.value)}
+												/>
+											</span>
+										)
 									)}
 
-									{currentUser.role === "student" && (
+									{userEdit.role === "student" ? (
 										<span id="year">
 											Academic Year :&nbsp;
-											<input value={currentUser.year} readOnly />
+											<input
+												value={userEdit.year}
+												readOnly={userEdit && editT ? false : true}
+											/>
 										</span>
+									) : (
+										currentUser.role === "student" && (
+											<span id="year">
+												Academic Year :&nbsp;
+												<input value={currentUser.year} readOnly />
+											</span>
+										)
 									)}
 
 									{editT && (
@@ -260,7 +365,12 @@ const ProfileEdit = ({ setProfileT, currentUser }) => {
 									<i className="fa-solid fa-user-pen"></i>
 								</span>
 
-								<span onClick={() => setProfileT(false)}>
+								<span
+									onClick={() => {
+										setProfileT(false);
+										setUserEdit(false);
+									}}
+								>
 									<i className="fa-solid fa-circle-xmark"></i>
 								</span>
 							</div>

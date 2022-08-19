@@ -6,37 +6,21 @@ const user = express.Router();
 
 // internal modules
 const authUser = require("../middleware/authUser");
-const advisorModel = require("./../models/advisorModel");
-const studentModel = require("./../models/studentModel");
+const {
+	currentUser,
+	getAllAdvisors,
+	getAllStudents,
+	getSpecificUser
+} = require("./../controllers/userController");
 
-user.get("/", authUser, (req, res) => {
-	try {
-		res.status(200).json(req.currentUser);
-	} catch (error) {
-		res.status(500).json({ error: "Invalid User!" });
-	}
-});
+user.get("/", authUser, currentUser);
 
-// for get all advisors
-user.get("/advisor-list", async (req, res) => {
-	try {
-		const advisorDocs = await advisorModel.find({});
+// for get all advisors when admin
+user.get("/advisor-list", authUser, getAllAdvisors);
 
-		res.status(200).json(advisorDocs);
-	} catch (error) {
-		res.status(500).json({ error: "Something was wrong, Try again!" });
-	}
-});
+// for get all students when admin
+user.get("/student-list", authUser, getAllStudents);
 
-// for get all students
-user.get("/student-list", async (req, res) => {
-	try {
-		const studentDocs = await studentModel.find({});
-
-		res.status(200).json(studentDocs);
-	} catch (error) {
-		res.status(500).json({ error: "Something was wrong, Try again!" });
-	}
-});
+user.get("/specific-user/:_id", authUser, getSpecificUser);
 
 module.exports = user;

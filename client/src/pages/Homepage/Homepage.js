@@ -36,6 +36,9 @@ const Homepage = ({
 	const [totalValue, setTotalValue] = useState(false);
 	const [profileT, setProfileT] = useState(false);
 
+	// for edit user by administrator
+	const [userEdit, setUserEdit] = useState(false);
+
 	// for refetching when any user created
 	const [created, setCreated] = useState("");
 
@@ -84,6 +87,8 @@ const Homepage = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected]);
 
+	console.log(userEdit);
+
 	return (
 		<>
 			<Navbar
@@ -103,7 +108,11 @@ const Homepage = ({
 				<div
 					className="row m-0 homepage-container"
 					id={
-						registerT || totalValue || appDisplay || profileT === "profile"
+						userEdit ||
+						registerT ||
+						totalValue ||
+						appDisplay ||
+						profileT === "profile"
 							? "blur"
 							: ""
 					}
@@ -133,7 +142,11 @@ const Homepage = ({
 				/>
 
 				{totalValue && (
-					<ListOfTotal totalValue={totalValue} setTotalValue={setTotalValue} />
+					<ListOfTotal
+						totalValue={totalValue}
+						setTotalValue={setTotalValue}
+						setUserEdit={setUserEdit}
+					/>
 				)}
 
 				{appDisplay && (
@@ -144,8 +157,13 @@ const Homepage = ({
 					/>
 				)}
 
-				{profileT === "profile" && (
-					<ProfileEdit setProfileT={setProfileT} currentUser={currentUser} />
+				{(userEdit || profileT === "profile") && (
+					<ProfileEdit
+						setProfileT={setProfileT}
+						currentUser={currentUser}
+						userEdit={userEdit}
+						setUserEdit={setUserEdit}
+					/>
 				)}
 
 				{profileT === "logout" && <Logout />}

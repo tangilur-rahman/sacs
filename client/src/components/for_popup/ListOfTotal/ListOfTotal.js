@@ -1,11 +1,14 @@
 // external components
 import moment from "moment";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 // internal components
 import "./ListOfTotal.css";
 
-const ListOfTotal = ({ totalValue, setTotalValue }) => {
+const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
+	const [specificUser, setSpecificUser] = useState("");
+
 	// for outside-click closed start
 	const myRef = useRef();
 
@@ -21,6 +24,38 @@ const ListOfTotal = ({ totalValue, setTotalValue }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for outside-click closed end
+
+	// for fetching specific user start
+	useEffect(() => {
+		if (specificUser) {
+			(async () => {
+				try {
+					const response = await fetch(`/user/specific-user/${specificUser}`);
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setUserEdit(result);
+						setTotalValue(false);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		}
+	}, [specificUser]);
+
+	// for fetching specific user end
 
 	return (
 		<>
@@ -57,7 +92,10 @@ const ListOfTotal = ({ totalValue, setTotalValue }) => {
 											.map((value, index) => {
 												return (
 													<>
-														<tr key={index}>
+														<tr
+															key={index}
+															onClick={() => setSpecificUser(value._id)}
+														>
 															<td id="count">{index + 1}</td>
 
 															<td id="name">

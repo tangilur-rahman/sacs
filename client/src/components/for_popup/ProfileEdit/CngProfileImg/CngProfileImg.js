@@ -45,50 +45,58 @@ const CngProfileImg = ({ setChangeProfileT, previewImg, getFile }) => {
 	// for inside clicked stop-propagation end
 
 	const submitHandler = async () => {
-		const formData = new FormData();
-		formData.append("file", getFile);
+		if (getFile) {
+			const formData = new FormData();
+			formData.append("file", getFile);
 
-		try {
-			const response = await fetch("/profile/upload", {
-				method: "PUT",
-				body: formData
-			});
+			try {
+				const response = await fetch("/profile/upload", {
+					method: "PUT",
+					body: formData
+				});
 
-			const result = await response.json();
+				const result = await response.json();
 
-			if (response.status === 200) {
-				toast.success(result.message, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 1500
-				});
-				setTimeout(() => {
-					setIsSubmitted(Date.now());
-					setChangeProfileT(false);
-				}, 2500);
-			} else if (response.status === 400) {
-				toast(result.message, {
-					position: "top-right",
-					theme: "dark",
-					autoClose: 3000
-				});
-			} else if (result.error) {
-				toast.error(result.error, {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 3000
-				});
-			} else {
-				toast.error(result.message, {
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+					setTimeout(() => {
+						setIsSubmitted(Date.now());
+						setChangeProfileT(false);
+					}, 2500);
+				} else if (response.status === 400) {
+					toast(result.message, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				} else if (result.error) {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				} else {
+					toast.error(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000
 				});
 			}
-		} catch (error) {
-			toast.error(error.message, {
+		} else {
+			toast("Already used that profile image", {
 				position: "top-right",
-				theme: "colored",
+				theme: "dark",
 				autoClose: 3000
 			});
 		}
