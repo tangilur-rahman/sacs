@@ -334,18 +334,18 @@ const Navbar = ({
 		<>
 			<div className="container-fluid navbar-main-container">
 				<div className="row col-11 navbar-container">
-					<div className="col-2 p-0">
+					<div className="col-3 p-0">
 						<div className="left">
 							<img
 								src="/assets/logo/sacs-logo.png"
 								alt="logo"
 								className="img-fluid"
 							/>
-							<h2>SACS</h2>
+							<h2>NUB-SACS</h2>
 						</div>
 					</div>
 
-					<div className="col-7 p-0">
+					<div className="col-6 p-0">
 						{currentUser?.role === "administrator" && (
 							<div className="middle">
 								<div

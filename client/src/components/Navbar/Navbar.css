@@ -18,14 +18,14 @@
 }
 
 .navbar-container .left img {
-	width: 60px;
+	width: 65px;
 	min-width: 60px;
 	height: 60px;
 	min-height: 60px;
 	aspect-ratio: 1/1;
 	border-radius: 50%;
 	overflow: hidden;
-	object-fit: cover;
+	object-fit: 100%;
 	object-position: center;
 	cursor: pointer;
 }

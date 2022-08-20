@@ -55,7 +55,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 			role: getRole,
 			department: getDepart,
 			semester: getSemester,
-			year: year.getFullYear()
+			year: year ? year.getFullYear() : ""
 		};
 
 		try {
@@ -125,7 +125,11 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 	return (
 		<>
 			{registerT && (
-				<div className="container-fluid  p-0 signup-main-container">
+				<div
+					className="container-fluid  p-0 signup-main-container"
+					data-aos="fade-up"
+					data-aos-delay="0"
+				>
 					<div className="row m-0 signup-wrapper">
 						<div className="col-9 p-0 ">
 							<div ref={myRef} className="row m-0 signup-container">

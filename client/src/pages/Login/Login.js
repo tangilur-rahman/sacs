@@ -89,15 +89,13 @@ const Login = () => {
 				<div className="row m-0 login-container">
 					<div className="col-9 p-0 form-container">
 						<div className="row m-0">
-							<div className="col-6">
+							<div className="col-6"></div>
+							<div className="col-6 right">
 								<img
-									src="/assets/images/login-img.png"
-									alt="cover-img"
+									src="/assets/images/login-logo.png"
+									alt="university-logo"
 									className="img-fluid"
 								/>
-							</div>
-							<div className="col-6 right">
-								<h2>Login</h2>
 								<form>
 									<div className="form-floating mb-4">
 										<input
@@ -129,7 +127,7 @@ const Login = () => {
 										className="btn btn-success mt-4"
 										onClick={submitHandler}
 									>
-										Submit
+										Log In
 									</button>
 								</form>
 							</div>

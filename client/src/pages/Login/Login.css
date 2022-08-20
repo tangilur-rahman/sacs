@@ -2,44 +2,56 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url("./../../../public/assets/images/login-cover.png");
 	width: 100vw;
 	height: 100vh;
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	background-position: bottom center;
+	background: rgb(238, 174, 202);
+	background: radial-gradient(
+		circle,
+		rgba(238, 174, 202, 1) 0%,
+		rgba(148, 187, 233, 1) 100%
+	);
 }
 
 .login-container .form-container {
+	background-image: url("./login-img.png");
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
-	height: max-content;
 	/* From https://css.glass */
-	background: rgba(255, 255, 255, 0.23);
 	border-radius: 16px;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	backdrop-filter: blur(5px);
 	-webkit-backdrop-filter: blur(5px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 60vh;
+	opacity: 0.9;
 }
 
-.login-container .form-container .right h2 {
-	color: var(--project-name-color);
-	margin: 35px 0 0 0;
-	padding: 15px 0px 10px 0;
-	text-align: center;
-	font-weight: 600;
-	letter-spacing: 1px;
-	word-spacing: 10px;
+.login-container .form-container .right {
+	display: flex;
+	flex-direction: column;
+}
+
+.login-container .form-container .right img {
+	width: 330px;
+	height: 88px;
+	padding: 25px 0 10px;
+	box-sizing: content-box;
+	align-self: center;
+	margin-right: 20px;
+	border: 1px solid red;
 }
 
 .login-container .form-container .right form {
 	padding: 20px 25px 0 0;
+	background-color: #fbf7fb;
 }
 
 .login-container .form-container .right form input {
 	font-weight: 500;
-	background-color: transparent;
+	background-color: transparent !important;
 }
 
 .login-container .form-container .right form input:focus {
