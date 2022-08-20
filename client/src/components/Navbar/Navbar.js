@@ -440,7 +440,11 @@ const Navbar = ({
 										</div>
 									) : (
 										messageN_T && (
-											<div className="no-notification">
+											<div
+												className="no-notification"
+												data-aos="fade-left"
+												data-aos-delay="0"
+											>
 												<h6>No Message</h6>
 											</div>
 										)
@@ -505,7 +509,11 @@ const Navbar = ({
 										</div>
 									) : (
 										appointmentN_T && (
-											<div className="no-notification">
+											<div
+												className="no-notification"
+												data-aos="fade-left"
+												data-aos-delay="0"
+											>
 												<h6>Empty Notification</h6>
 											</div>
 										)

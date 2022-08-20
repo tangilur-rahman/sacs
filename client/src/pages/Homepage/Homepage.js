@@ -33,7 +33,7 @@ const Homepage = ({
 
 	// for pop-up toggle
 	const [registerT, setRegisterT] = useState(false);
-	const [totalValue, setTotalValue] = useState(false);
+	const [totalValue, setTotalValue] = useState("");
 	const [profileT, setProfileT] = useState(false);
 
 	// for edit user by administrator
@@ -108,7 +108,7 @@ const Homepage = ({
 					id={
 						userEdit ||
 						registerT ||
-						totalValue ||
+						totalValue.list?.length > 0 ||
 						appDisplay ||
 						profileT === "profile"
 							? "blur"
