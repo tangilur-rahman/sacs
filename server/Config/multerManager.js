@@ -2,6 +2,7 @@
 const multer = require("multer");
 const path = require("path");
 
+// for only single-image
 const multerForImg = (filename) => {
 	// File upload folder
 	const UPLOADS_FOLDER = path.resolve("../client/public/uploads/profile-img");
@@ -52,6 +53,7 @@ const multerForImg = (filename) => {
 	return upload;
 };
 
+// for all type of files
 const multerForAttachment = (fileName) => {
 	// File upload folder
 	const UPLOADS_FOLDER = path.resolve("../client/public/uploads/attachments");

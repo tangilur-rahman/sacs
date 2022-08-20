@@ -1,6 +1,7 @@
 // external modules
 const express = require("express");
 const cookie = require("cookie-parser");
+const path = require("path");
 require("dotenv").config();
 
 // internal modules
@@ -37,9 +38,6 @@ app.use("/appointment", appointmentRouter);
 app.use("/group-chat", groupChatRouter);
 app.use("/personal-chat", personalChatRouter);
 app.use("/notification", notificationRouter);
-
-// error handler
-app.use(customErrorHandler);
 
 // socket section start
 const http = require("http");
@@ -86,6 +84,23 @@ io.on("connection", (socket) => {
 	// for notification end
 });
 // socket section end
+
+// submit on remote server start
+if (process.env.NODE_ENV == "production") {
+	app.use(express.static("build"));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname + "/build/index.html"));
+	});
+} else {
+	app.get("/", (req, res) => {
+		res.send("client disconnected");
+	});
+}
+// submit on remote server end
+
+// error handler
+app.use(customErrorHandler);
 
 // listening port
 const port = process.env.PORT || 4000;
