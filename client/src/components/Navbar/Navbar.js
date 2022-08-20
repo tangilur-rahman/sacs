@@ -350,14 +350,18 @@ const Navbar = ({
 							<div className="middle">
 								<div
 									className="total"
-									onClick={() => totalClickHandler("List Of Advisors")}
+									onClick={() =>
+										totalAdvisors && totalClickHandler("List Of Advisors")
+									}
 								>
 									Total Advisors : &nbsp; <span>{totalAdvisors}</span>
 								</div>
 
 								<div
 									className="total"
-									onClick={() => totalClickHandler("List Of Students")}
+									onClick={() =>
+										totalStudents && totalClickHandler("List Of Students")
+									}
 								>
 									Total Students : &nbsp; <span>{totalStudents}</span>
 								</div>
