@@ -13,6 +13,9 @@ const Login = () => {
 	// For redirect "/dashboard"
 	const Navigate = useNavigate();
 
+	// for toggle password type
+	const [typeT, setTypeT] = useState(false);
+
 	const [user, setUser] = useState({
 		id_or_email: "",
 		password: ""
@@ -109,9 +112,9 @@ const Login = () => {
 										/>
 										<label htmlFor="email">Email or ID :</label>
 									</div>
-									<div className="form-floating">
+									<div className="form-floating" id="password-field">
 										<input
-											type="password"
+											type={typeT ? "text" : "password"}
 											className="form-control"
 											id="password"
 											name="password"
@@ -120,6 +123,21 @@ const Login = () => {
 											onChange={onChangeHandler}
 										/>
 										<label htmlFor="password">Password :</label>
+
+										<span id="eye">
+											{typeT ? (
+												<i
+													className="fa-solid fa-eye"
+													onClick={() => setTypeT(!typeT)}
+													style={{ color: "#6930c3" }}
+												></i>
+											) : (
+												<i
+													className="fa-solid fa-eye-slash"
+													onClick={() => setTypeT(!typeT)}
+												></i>
+											)}
+										</span>
 									</div>
 
 									<button

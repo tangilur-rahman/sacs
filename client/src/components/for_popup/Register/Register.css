@@ -93,3 +93,20 @@
 .signup-container .option::-webkit-scrollbar-thumb {
 	background-color: #7400b8;
 }
+
+/* password toggle eye style start  */
+.signup-container .password-field {
+	position: relative;
+}
+
+.signup-container .password-field #eye {
+	position: absolute;
+	top: 30%;
+	right: 20px;
+}
+
+.signup-container .password-field #eye i {
+	opacity: 0.7;
+}
+
+/* password toggle eye style end  */

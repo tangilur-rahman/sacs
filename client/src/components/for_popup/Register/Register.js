@@ -13,6 +13,9 @@ import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 import "./Register.css";
 
 const Register = ({ registerT, setRegisterT, setCreated }) => {
+	// for toggle password type
+	const [typeT, setTypeT] = useState(false);
+
 	// get dropdown section values
 	const [getRole, setRole] = useState(null);
 	const [getDepart, setDepart] = useState("");
@@ -185,9 +188,9 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 											<label htmlFor="email">Email : </label>
 										</div>
 
-										<div className="form-floating mb-3">
+										<div className="form-floating mb-3 password-field">
 											<input
-												type="password"
+												type={typeT ? "text" : "password"}
 												className="form-control"
 												id="password"
 												name="password"
@@ -197,11 +200,28 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="password">Password : </label>
+
+											{/* for type toggle start  */}
+											<span id="eye">
+												{typeT ? (
+													<i
+														className="fa-solid fa-eye"
+														onClick={() => setTypeT(!typeT)}
+														style={{ color: "#6930c3" }}
+													></i>
+												) : (
+													<i
+														className="fa-solid fa-eye-slash"
+														onClick={() => setTypeT(!typeT)}
+													></i>
+												)}
+											</span>
+											{/* for type toggle end  */}
 										</div>
 
-										<div className="form-floating mb-3">
+										<div className="form-floating mb-3 password-field">
 											<input
-												type="password"
+												type={typeT ? "text" : "password"}
 												className="form-control"
 												id="c_password"
 												name="c_password"
@@ -211,6 +231,23 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 												onChange={onChangeHandler}
 											/>
 											<label htmlFor="c_password">Conform Password : </label>
+
+											{/* for type toggle start  */}
+											<span id="eye">
+												{typeT ? (
+													<i
+														className="fa-solid fa-eye"
+														onClick={() => setTypeT(!typeT)}
+														style={{ color: "#6930c3" }}
+													></i>
+												) : (
+													<i
+														className="fa-solid fa-eye-slash"
+														onClick={() => setTypeT(!typeT)}
+													></i>
+												)}
+											</span>
+											{/* for type toggle end  */}
 										</div>
 
 										{/* dropdown start  */}

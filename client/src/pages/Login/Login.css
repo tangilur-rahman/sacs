@@ -63,3 +63,21 @@
 	font-size: 17px;
 	font-weight: 500;
 }
+
+/* password eye style start  */
+
+.form-container .right #password-field {
+	position: relative;
+}
+
+.form-container .right #password-field #eye {
+	position: absolute;
+	top: 30%;
+	right: 20px;
+}
+
+.form-container .right #password-field #eye i {
+	opacity: 0.7;
+}
+
+/* password eye style end  */

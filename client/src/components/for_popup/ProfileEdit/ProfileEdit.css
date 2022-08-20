@@ -284,3 +284,20 @@
 	margin-right: 30px;
 }
 /* for delete conform popup style end  */
+
+/* password toggle eye style start  */
+.curr-user-info .password-field {
+	position: relative;
+}
+
+.curr-user-info .password-field #eye {
+	position: absolute;
+	top: 25%;
+	right: 20px;
+}
+
+.curr-user-info .password-field #eye i {
+	opacity: 0.7;
+}
+
+/* password toggle eye style end  */
