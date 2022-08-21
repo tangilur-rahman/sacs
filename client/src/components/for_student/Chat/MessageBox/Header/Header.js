@@ -141,8 +141,9 @@ const Header = ({ getMessages, setReloadGroup }) => {
 
 		setPreviewImg(
 			getMessages.room ===
-				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-				`/uploads/profile-img/${getMessages?.group_img}`
+				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				? `/uploads/profile-img/${getMessages?.group_img}`
+				: ""
 		);
 
 		// get all group members
