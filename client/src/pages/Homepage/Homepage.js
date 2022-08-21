@@ -31,6 +31,9 @@ const Homepage = ({
 	// for redirect login-page
 	const Navigate = useNavigate();
 
+	// check fetching complete or not from server
+	const [isLoading, setIsLoading] = useState(true);
+
 	// for pop-up toggle
 	const [registerT, setRegisterT] = useState(false);
 	const [totalValue, setTotalValue] = useState("");
@@ -58,6 +61,7 @@ const Homepage = ({
 				return Navigate("/login");
 			} else {
 				setCurrentUser(result);
+				setIsLoading(false);
 			}
 		} catch (error) {
 			toast.error(error.message, {
@@ -89,86 +93,98 @@ const Homepage = ({
 
 	return (
 		<>
-			<Navbar
-				currentUser={currentUser}
-				registerT={registerT}
-				setRegisterT={setRegisterT}
-				setTotalValue={setTotalValue}
-				setProfileT={setProfileT}
-				created={created}
-				setAppDisplay={setAppDisplay}
-				setMessageId={setMessageId}
-				selected={selected}
-				setSelected={setSelected}
-			/>
+			{isLoading ? (
+				<div className="loading-container">
+					<img
+						src="/assets/images/loading.gif"
+						alt="loading-gif"
+						className="img-fluid"
+					/>
+				</div>
+			) : (
+				<>
+					<Navbar
+						currentUser={currentUser}
+						registerT={registerT}
+						setRegisterT={setRegisterT}
+						setTotalValue={setTotalValue}
+						setProfileT={setProfileT}
+						created={created}
+						setAppDisplay={setAppDisplay}
+						setMessageId={setMessageId}
+						selected={selected}
+						setSelected={setSelected}
+					/>
 
-			<div className="container-fluid p-0 homepage-main-container">
-				<div
-					className="row m-0 homepage-container"
-					id={
-						userEdit ||
-						registerT ||
-						totalValue.list?.length > 0 ||
-						appDisplay ||
-						profileT === "profile"
-							? "blur"
-							: ""
-					}
-				>
-					<div className="col-11 p-0 ">
-						<div className="row m-0 ">
-							<div className="col-3 p-0 left">
-								<LeftSidebar
-									currentUser={currentUser}
-									selected={selected}
-									setSelected={setSelected}
-								/>
-							</div>
+					<div className="container-fluid p-0 homepage-main-container">
+						<div
+							className="row m-0 homepage-container"
+							id={
+								userEdit ||
+								registerT ||
+								totalValue.list?.length > 0 ||
+								appDisplay ||
+								profileT === "profile"
+									? "blur"
+									: ""
+							}
+						>
+							<div className="col-11 p-0 ">
+								<div className="row m-0 ">
+									<div className="col-3 p-0 left">
+										<LeftSidebar
+											currentUser={currentUser}
+											selected={selected}
+											setSelected={setSelected}
+										/>
+									</div>
 
-							<div className="col-8 right">
-								<Outlet />
+									<div className="col-8 right">
+										<Outlet />
+									</div>
+								</div>
 							</div>
 						</div>
+
+						{/* all popup declare here  */}
+						<Register
+							registerT={registerT}
+							setRegisterT={setRegisterT}
+							setCreated={setCreated}
+						/>
+
+						{totalValue && (
+							<ListOfTotal
+								totalValue={totalValue}
+								setTotalValue={setTotalValue}
+								setUserEdit={setUserEdit}
+							/>
+						)}
+
+						{appDisplay && (
+							<AppointmentDetails
+								appDisplay={appDisplay}
+								setAppDisplay={setAppDisplay}
+								currentUser={currentUser}
+							/>
+						)}
+
+						{(userEdit || profileT === "profile") && (
+							<ProfileEdit
+								setProfileT={setProfileT}
+								currentUser={currentUser}
+								userEdit={userEdit}
+								setUserEdit={setUserEdit}
+								setCreated={setCreated}
+							/>
+						)}
+
+						{profileT === "logout" && <Logout />}
+
+						<ToastContainer />
 					</div>
-				</div>
-
-				{/* all popup declare here  */}
-				<Register
-					registerT={registerT}
-					setRegisterT={setRegisterT}
-					setCreated={setCreated}
-				/>
-
-				{totalValue && (
-					<ListOfTotal
-						totalValue={totalValue}
-						setTotalValue={setTotalValue}
-						setUserEdit={setUserEdit}
-					/>
-				)}
-
-				{appDisplay && (
-					<AppointmentDetails
-						appDisplay={appDisplay}
-						setAppDisplay={setAppDisplay}
-						currentUser={currentUser}
-					/>
-				)}
-
-				{(userEdit || profileT === "profile") && (
-					<ProfileEdit
-						setProfileT={setProfileT}
-						currentUser={currentUser}
-						userEdit={userEdit}
-						setUserEdit={setUserEdit}
-						setCreated={setCreated}
-					/>
-				)}
-
-				{profileT === "logout" && <Logout />}
-
-				<ToastContainer />
-			</div>
+				</>
+			)}
 		</>
 	);
 };
