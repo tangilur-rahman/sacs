@@ -1,15 +1,20 @@
 // external components
+import { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import sortArray from "sort-array";
 import TimeAgo from "timeago-react";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
+import MessageSkeleton from "../../../../Skeleton/MessageSkeleton/MessageSkeleton";
 import "./ChatBox.css";
 
 const ChatBox = ({ displayMessages }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
+
+	// check fetching complete or not from server
+	const [isLoading, setIsLoading] = useState(true);
 
 	// for attachment img view start
 	const fileViewHandler = (file) => {
@@ -73,80 +78,95 @@ const ChatBox = ({ displayMessages }) => {
 	};
 	// for attachment img view end
 
+	// for loading toggle start
+	useEffect(() => {
+		setIsLoading(true);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 500);
+	}, [displayMessages]);
+	// for loading toggle end
+
 	return (
 		<>
-			{displayMessages && (
-				<ScrollToBottom
-					scrollViewClassName="chat-box-container"
-					initialScrollBehavior="auto"
-				>
-					{displayMessages.length > 0 &&
-						sortArray(displayMessages, {
-							by: "time",
-							order: "asc"
-						}).map((message, index) => {
-							return (
-								<div
-									className={
-										currentUser.id === message.id
-											? "message-info own"
-											: "message-info other"
-									}
-									key={index}
-								>
-									<img
-										src={`uploads/profile-img/${message.profile_img}`}
-										alt="profile-img"
-										className="profile-img img-fluid"
-									/>
+			{isLoading ? (
+				<MessageSkeleton />
+			) : (
+				<>
+					{displayMessages && (
+						<ScrollToBottom
+							scrollViewClassName="chat-box-container"
+							initialScrollBehavior="auto"
+						>
+							{displayMessages.length > 0 &&
+								sortArray(displayMessages, {
+									by: "time",
+									order: "asc"
+								}).map((message, index) => {
+									return (
+										<div
+											className={
+												currentUser.id === message.id
+													? "message-info own"
+													: "message-info other"
+											}
+											key={index}
+										>
+											<img
+												src={`uploads/profile-img/${message.profile_img}`}
+												alt="profile-img"
+												className="profile-img img-fluid"
+											/>
 
-									<div className="message">
-										{message.attachment ? (
-											<div id="attachment">
-												<div className="attachment-file">
-													{fileViewHandler(message.attachment)}
-												</div>
+											<div className="message">
+												{message.attachment ? (
+													<div id="attachment">
+														<div className="attachment-file">
+															{fileViewHandler(message.attachment)}
+														</div>
 
-												<a
-													href={`uploads/attachments/${message.attachment}`}
-													download
-													id={
-														message.attachment.split(".").pop() === "mp3" ||
-														message.attachment.split(".").pop() === "mp4" ||
-														message.attachment.split(".").pop() === "mkv"
-															? "when-other"
-															: "when-image"
-													}
-												>
-													{message.attachment.split(/[-]/).slice(0, 1, -1) +
-														"." +
-														message.attachment.split(".").slice(-1)[0]}
-												</a>
-												<div
-													className="message-text"
-													id={
-														message.attachment.split(".").pop() === "mp3" ||
-														message.attachment.split(".").pop() === "mp4" ||
-														message.attachment.split(".").pop() === "mkv"
-															? "when-other"
-															: "when-image"
-													}
-												>
-													{message.message}
+														<a
+															href={`uploads/attachments/${message.attachment}`}
+															download
+															id={
+																message.attachment.split(".").pop() === "mp3" ||
+																message.attachment.split(".").pop() === "mp4" ||
+																message.attachment.split(".").pop() === "mkv"
+																	? "when-other"
+																	: "when-image"
+															}
+														>
+															{message.attachment.split(/[-]/).slice(0, 1, -1) +
+																"." +
+																message.attachment.split(".").slice(-1)[0]}
+														</a>
+														<div
+															className="message-text"
+															id={
+																message.attachment.split(".").pop() === "mp3" ||
+																message.attachment.split(".").pop() === "mp4" ||
+																message.attachment.split(".").pop() === "mkv"
+																	? "when-other"
+																	: "when-image"
+															}
+														>
+															{message.message}
+														</div>
+													</div>
+												) : (
+													<div className="message-text">{message.message}</div>
+												)}
+
+												<div id="time">
+													<TimeAgo datetime={message.time} />
 												</div>
 											</div>
-										) : (
-											<div className="message-text">{message.message}</div>
-										)}
-
-										<div id="time">
-											<TimeAgo datetime={message.time} />
 										</div>
-									</div>
-								</div>
-							);
-						})}
-				</ScrollToBottom>
+									);
+								})}
+						</ScrollToBottom>
+					)}
+				</>
 			)}
 		</>
 	);

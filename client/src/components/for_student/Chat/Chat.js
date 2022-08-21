@@ -13,7 +13,7 @@ const Chat = ({ messageId }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
-	// check fetching complete or not for user-box
+	// check fetching complete or not from server
 	const [isLoading, setIsLoading] = useState(true);
 
 	// for get messages for display in chat-box
@@ -217,22 +217,20 @@ const Chat = ({ messageId }) => {
 						{isLoading || !(getGroup && getPersonal) ? (
 							<ChatBoxSkeleton />
 						) : (
-							<>
-								<UserBox
-									getGroup={getGroup}
-									getPersonal={getPersonal}
-									setMessages={setMessages}
-									latestGroup={latestGroup}
-									setLatestGroup={setLatestGroup}
-									latestPersonal={latestPersonal}
-									setLatestPersonal={setLatestPersonal}
-									search={search}
-									setSearch={setSearch}
-									setSearchUser={setSearchUser}
-									searchUser={searchUser}
-									setSelectedSearch={setSelectedSearch}
-								/>
-							</>
+							<UserBox
+								getGroup={getGroup}
+								getPersonal={getPersonal}
+								setMessages={setMessages}
+								latestGroup={latestGroup}
+								setLatestGroup={setLatestGroup}
+								latestPersonal={latestPersonal}
+								setLatestPersonal={setLatestPersonal}
+								search={search}
+								setSearch={setSearch}
+								setSearchUser={setSearchUser}
+								searchUser={searchUser}
+								setSelectedSearch={setSelectedSearch}
+							/>
 						)}
 					</div>
 					<div className="col-7 p-0">
