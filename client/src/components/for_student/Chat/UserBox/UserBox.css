@@ -55,7 +55,7 @@
 
 .user-box .user section {
 	flex-grow: 1;
-	padding: 20px 10px;
+	padding: 15px 10px;
 	border-bottom: 1px solid #dad7cd;
 	cursor: pointer;
 	overflow: hidden;
