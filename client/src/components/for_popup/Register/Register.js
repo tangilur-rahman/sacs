@@ -34,10 +34,12 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 		department: "",
 		group: "",
 		semester: "",
+		min: "",
+		max: "",
 		year: ""
 	});
 
-	const { name, id, email, password, c_password } = user;
+	const { name, id, email, password, c_password, min, max } = user;
 
 	// for get input field value
 	const onChangeHandler = (event) => {
@@ -58,6 +60,8 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 			role: getRole,
 			department: getDepart,
 			semester: getSemester,
+			min,
+			max,
 			year: year ? year.getFullYear() : ""
 		};
 
@@ -134,7 +138,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 					data-aos-delay="0"
 				>
 					<div className="row m-0 signup-wrapper">
-						<div className="col-9 p-0 ">
+						<div className="col-10 p-0 ">
 							<div ref={myRef} className="row m-0 signup-container">
 								<div className="col-6 p-0 left">
 									<img
@@ -271,16 +275,46 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 													getDepart={getDepart}
 													setDepart={setDepart}
 												/>
+												{getRole === "student" && (
+													<SemesterDropDown
+														getSemester={getSemester}
+														setSemester={setSemester}
+													/>
+												)}
 
-												<SemesterDropDown
-													getSemester={getSemester}
-													setSemester={setSemester}
-												/>
+												{/* student id range for student start */}
+												{getRole === "advisor" && (
+													<div
+														className="range-container"
+														title="Student Id Range"
+													>
+														<h6>Range :</h6>
+														<div className="range-fields">
+															<input
+																type="number"
+																name="min"
+																placeholder="id"
+																value={min}
+																onChange={onChangeHandler}
+															/>{" "}
+															-
+															<input
+																type="number"
+																name="max"
+																placeholder="id"
+																value={max}
+																onChange={onChangeHandler}
+															/>
+														</div>
+													</div>
+												)}
+
+												{/* student id range for student end */}
 											</div>
 										)}
 
 										<div className="signup-footer">
-											{getRole !== "administrator" && getRole !== null && (
+											{getRole === "student" && getRole !== null && (
 												<div className="year">
 													<span>Academic Year :</span>
 													<YearDropdown year={year} setYear={setYear} />
@@ -290,7 +324,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 											<div
 												className="btn-container"
 												id={
-													getRole === "administrator" || getRole === null
+													getRole !== "student" || getRole === null
 														? "increase-width"
 														: ""
 												}

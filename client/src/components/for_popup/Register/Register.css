@@ -110,3 +110,40 @@
 }
 
 /* password toggle eye style end  */
+
+/* range container style start  */
+.signup-container .right .range-container {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	background-color: #fff;
+	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
+	padding: 7px 17px;
+	border-radius: 5px;
+	font-weight: 600;
+	font-size: 18px;
+	width: 48%;
+	margin-top: -5px;
+	overflow: hidden;
+}
+
+.signup-container .right .range-container h6 {
+	margin: 0;
+	width: fit-content;
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.signup-container .right .range-container .range-fields {
+	flex-grow: 1;
+	display: flex;
+	justify-content: space-between;
+}
+
+.signup-container .right .range-container input {
+	border: none;
+	outline: none;
+	width: 90px;
+	text-align: center;
+}
+/* range container style end  */
