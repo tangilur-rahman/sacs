@@ -94,12 +94,15 @@ const Homepage = ({
 	return (
 		<>
 			{isLoading ? (
-				<div className="loading-container">
-					<img
-						src="/assets/images/loading.gif"
-						alt="loading-gif"
-						className="img-fluid"
-					/>
+				<div className="loading-animation">
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
+					<div className="obj"></div>
 				</div>
 			) : (
 				<>
