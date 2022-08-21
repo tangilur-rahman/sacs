@@ -18,6 +18,8 @@ const createNewUser = async (req, res) => {
 		role,
 		department,
 		semester,
+		min,
+		max,
 		year
 	} = req.body;
 
@@ -26,13 +28,13 @@ const createNewUser = async (req, res) => {
 			if (password !== c_password) {
 				res.status(400).json({ message: "Password doesn't match!" });
 			} else if (password < 8) {
-				res.status(400).json({ message: "Password must be minimum 8 length " });
+				res.status(400).json({ message: "Password must be minimum length 8" });
 			} else {
 				// hash password
 				const hashPassword = await bcrypt.hash(password, 10);
 
 				if (role === "administrator") {
-					// check id exists or not
+					// check that id exists or not
 					const checkIdAdmin = await adminModel.findOne({ id });
 					const checkIdAdvisor = await advisorModel.findOne({ id });
 					const checkIdStudent = await studentModel.findOne({ id });
@@ -40,7 +42,7 @@ const createNewUser = async (req, res) => {
 					if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 						res.status(400).json({ message: "That Id already used" });
 					} else {
-						// check email exists or not
+						// check that email exists or not
 						const checkEmailAdmin = await adminModel.findOne({ email });
 						const checkEmailAdvisor = await advisorModel.findOne({ email });
 						const checkEmailStudent = await studentModel.findOne({ email });
@@ -65,10 +67,10 @@ const createNewUser = async (req, res) => {
 						}
 					}
 				} else if (role === "advisor") {
-					if (!(department && semester && year)) {
+					if (!(department && min && max)) {
 						res.status(400).json({ message: "Fill-up all fields!" });
 					} else {
-						// check id exists or not
+						// check that id exists or not
 						const checkIdAdmin = await adminModel.findOne({ id });
 						const checkIdAdvisor = await advisorModel.findOne({ id });
 						const checkIdStudent = await studentModel.findOne({ id });
@@ -76,7 +78,7 @@ const createNewUser = async (req, res) => {
 						if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 							res.status(400).json({ message: "That Id already used" });
 						} else {
-							// check email exists or not
+							// check  that email exists or not
 							const checkEmailAdmin = await adminModel.findOne({ email });
 							const checkEmailAdvisor = await advisorModel.findOne({ email });
 							const checkEmailStudent = await studentModel.findOne({ email });
@@ -91,8 +93,8 @@ const createNewUser = async (req, res) => {
 									gender,
 									password: hashPassword,
 									role,
-									department,
-									semester,
+									minRange: min,
+									maxRange: max,
 									year
 								});
 
@@ -108,7 +110,7 @@ const createNewUser = async (req, res) => {
 					if (!(department && semester && year)) {
 						res.status(400).json({ message: "Fill-up all fields!" });
 					} else {
-						// check id exists or not
+						// check that id exists or not
 						const checkIdAdmin = await adminModel.findOne({ id });
 						const checkIdAdvisor = await advisorModel.findOne({ id });
 						const checkIdStudent = await studentModel.findOne({ id });
@@ -116,7 +118,7 @@ const createNewUser = async (req, res) => {
 						if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 							res.status(400).json({ message: "That Id already used" });
 						} else {
-							// check email exists or not
+							// check that email exists or not
 							const checkEmailAdmin = await adminModel.findOne({ email });
 							const checkEmailAdvisor = await advisorModel.findOne({ email });
 							const checkEmailStudent = await studentModel.findOne({ email });
@@ -125,11 +127,11 @@ const createNewUser = async (req, res) => {
 								res.status(400).json({ message: "That email already used" });
 							} else {
 								// get my advisor
-								const myAdvisor = await advisorModel.findOne({
-									department,
-									semester,
-									year
-								});
+								const allAdvisor = await advisorModel.find({});
+
+								const myAdvisor = await allAdvisor.filter(
+									(value) => id >= value.minRange && id <= value.maxRange
+								);
 
 								const document = await studentModel({
 									name,
@@ -141,7 +143,7 @@ const createNewUser = async (req, res) => {
 									department,
 									semester,
 									year,
-									advisor: myAdvisor._id
+									advisor: myAdvisor[0]._id
 								});
 
 								await document.save();
@@ -155,6 +157,8 @@ const createNewUser = async (req, res) => {
 				}
 			}
 		} catch (error) {
+			console.log(error.message);
+
 			res.status(500).json({ error: "Invalid inputted values!" });
 		}
 	} else {

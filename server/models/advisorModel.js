@@ -64,15 +64,8 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
-		semester: {
-			type: String,
-			trim: true
-		},
-
-		year: {
-			type: String,
-			trim: true
-		},
+		minRange: Number,
+		maxRange: Number,
 
 		token: {
 			type: String,

@@ -65,7 +65,8 @@ const schema = mongoose.Schema(
 
 		advisor: {
 			type: mongoose.Types.ObjectId,
-			ref: "advisor"
+			ref: "advisor",
+			required: true
 		},
 
 		token: {
