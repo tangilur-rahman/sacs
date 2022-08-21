@@ -93,6 +93,7 @@ const createNewUser = async (req, res) => {
 									gender,
 									password: hashPassword,
 									role,
+									department,
 									minRange: min,
 									maxRange: max,
 									year
@@ -126,8 +127,8 @@ const createNewUser = async (req, res) => {
 							if (checkEmailAdmin || checkEmailAdvisor || checkEmailStudent) {
 								res.status(400).json({ message: "That email already used" });
 							} else {
-								// get my advisor
-								const allAdvisor = await advisorModel.find({});
+								// find my advisor
+								const allAdvisor = await advisorModel.find({ department });
 
 								const myAdvisor = await allAdvisor.filter(
 									(value) => id >= value.minRange && id <= value.maxRange
@@ -157,8 +158,6 @@ const createNewUser = async (req, res) => {
 				}
 			}
 		} catch (error) {
-			console.log(error.message);
-
 			res.status(500).json({ error: "Invalid inputted values!" });
 		}
 	} else {
