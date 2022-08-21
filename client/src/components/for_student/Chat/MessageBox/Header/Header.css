@@ -357,6 +357,22 @@
 	border-radius: 10px;
 }
 
+.view-attachment-container .empty-attachment {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	transform: translate(55%);
+}
+
+.view-attachment-container .empty-attachment p {
+	font-weight: 600;
+	font-size: 16px;
+	color: red;
+}
+
 /* view-attachment-container end  */
 
 /* view-container end  */

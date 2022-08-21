@@ -392,7 +392,7 @@ const Header = ({ getMessages, setReloadGroup }) => {
 								</div>
 
 								<div className="display-members">
-									{getAllMembers &&
+									{getAllMembers?.length > 0 ? (
 										sortArray(getAllMembers, {
 											by: "updatedAt",
 											order: "desc"
@@ -406,7 +406,10 @@ const Header = ({ getMessages, setReloadGroup }) => {
 													<h6>{value.name}</h6>
 												</div>
 											);
-										})}
+										})
+									) : (
+										<h6 style={{ color: "red" }}>Empty Member.</h6>
+									)}
 								</div>
 							</div>
 						)}
@@ -415,7 +418,7 @@ const Header = ({ getMessages, setReloadGroup }) => {
 						{/* view attachment start  */}
 						{viewAttach && (
 							<div className="view-attachment-container">
-								{getMessages.attachments &&
+								{getMessages.attachments.length > 0 ? (
 									sortArray(getMessages.attachments, {
 										by: "time",
 										order: "desc"
@@ -434,7 +437,17 @@ const Header = ({ getMessages, setReloadGroup }) => {
 												</a>
 											</div>
 										);
-									})}
+									})
+								) : (
+									<div className="empty-attachment">
+										<img
+											src="/assets/images/no-attachment.png"
+											alt="empty-attach-img"
+											className="img-fluid"
+										/>
+										<p>No Attachment.</p>
+									</div>
+								)}
 							</div>
 						)}
 						{/* view attachment end  */}
