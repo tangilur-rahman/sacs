@@ -87,14 +87,14 @@ input[type="number"] {
 
 /* skeleton style start  */
 .width-skeleton {
-	padding: 22px;
+	padding: 18px;
 	margin: 9px 0;
 	min-width: 60%;
 	max-width: 100%;
 }
 
 .circle-skeleton {
-	padding: 22px;
+	padding: 18px;
 	margin: 9px 0;
 	width: 60px !important;
 	height: 60px !important;
