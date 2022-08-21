@@ -124,20 +124,24 @@ const Login = () => {
 										/>
 										<label htmlFor="password">Password :</label>
 
-										<span id="eye">
-											{typeT ? (
-												<i
-													className="fa-solid fa-eye"
-													onClick={() => setTypeT(!typeT)}
-													style={{ color: "#6930c3" }}
-												></i>
-											) : (
-												<i
-													className="fa-solid fa-eye-slash"
-													onClick={() => setTypeT(!typeT)}
-												></i>
-											)}
-										</span>
+										{/* password field eye toggle start  */}
+										{password && (
+											<span id="eye">
+												{typeT ? (
+													<i
+														className="fa-solid fa-eye"
+														onClick={() => setTypeT(!typeT)}
+														style={{ color: "#6930c3" }}
+													></i>
+												) : (
+													<i
+														className="fa-solid fa-eye-slash"
+														onClick={() => setTypeT(!typeT)}
+													></i>
+												)}
+											</span>
+										)}
+										{/* password field eye toggle end  */}
 									</div>
 
 									<button

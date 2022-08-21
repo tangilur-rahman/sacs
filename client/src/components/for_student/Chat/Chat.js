@@ -12,6 +12,9 @@ const Chat = ({ messageId }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
+	// check fetching complete or not for user-box
+	const [isLoading, setIsLoading] = useState(true);
+
 	// for get messages for display in chat-box
 	const [getMessages, setMessages] = useState("");
 
@@ -195,6 +198,9 @@ const Chat = ({ messageId }) => {
 	useEffect(() => {
 		if (currentUser) {
 			getPersonalChat();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 		}
 
 		if (!search) {
@@ -223,6 +229,7 @@ const Chat = ({ messageId }) => {
 								setSearchUser={setSearchUser}
 								searchUser={searchUser}
 								setSelectedSearch={setSelectedSearch}
+								isLoading={isLoading}
 							/>
 						)}
 					</div>

@@ -40,7 +40,7 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 					required
 				/>
 				<div className="option">
-					<div onClick={() => setDepart("css")}>
+					<div onClick={() => setDepart("cse")}>
 						<span>💻 &nbsp;CSE</span>
 					</div>
 

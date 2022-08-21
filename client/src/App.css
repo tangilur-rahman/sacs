@@ -84,3 +84,43 @@ input[type="number"] {
 	-moz-appearance: textfield;
 }
 /* input - number remove arrow end */
+
+/* skeleton style start  */
+.width-skeleton {
+	padding: 22px;
+	margin: 9px 0;
+	min-width: 60%;
+	max-width: 100%;
+}
+
+.circle-skeleton {
+	padding: 22px;
+	margin: 9px 0;
+	width: 60px !important;
+	height: 60px !important;
+	border-radius: 50% !important;
+	margin-left: 20px;
+}
+
+#whenIsLoadingOverFlow {
+	overflow: hidden;
+}
+
+/* chat-box skeleton start  */
+.chat-box-skeleton {
+	padding: 10px 0;
+	height: 79vh;
+}
+
+.chat-box-skeleton div {
+	display: flex;
+	padding: 0 10px;
+}
+
+.chat-box-skeleton div .width-skeleton {
+	width: 300px;
+	margin-left: 10px;
+}
+/* chat-box skeleton end  */
+
+/* skeleton style end  */

@@ -56,7 +56,9 @@ const ProfileEdit = ({
 	const [conformPopup, setConformPopup] = useState("");
 
 	// for toggle password type
-	const [typeT, setTypeT] = useState(false);
+	const [typeC_P_T, setTypeC_P_T] = useState(false);
+	// for toggle password type
+	const [typeN_P_T, setTypeN_P_T] = useState(false);
 
 	// for close when clicked outside start
 	const myRef = useRef();
@@ -454,16 +456,37 @@ const ProfileEdit = ({
 									)}
 
 									{!userEdit && editT && (
-										<span id="current-p">
+										<span id="current-p" className="password-field">
 											<label htmlFor="currPassword">Current Password :</label>
 
 											<input
-												type="password"
+												type={typeC_P_T ? "text" : "password"}
 												name="current_p"
 												id="currPassword"
+												value={cpassword}
 												autoFocus
 												onChange={(event) => setCpassword(event.target.value)}
 											/>
+
+											{/* for type toggle start  */}
+											{cpassword && (
+												<div id="eye">
+													{typeC_P_T ? (
+														<i
+															className="fa-solid fa-eye"
+															onClick={() => setTypeC_P_T(!typeC_P_T)}
+															style={{ color: "#6930c3" }}
+														></i>
+													) : (
+														<i
+															className="fa-solid fa-eye-slash"
+															onClick={() => setTypeC_P_T(!typeC_P_T)}
+														></i>
+													)}
+												</div>
+											)}
+
+											{/* for type toggle end  */}
 										</span>
 									)}
 
@@ -519,29 +542,33 @@ const ProfileEdit = ({
 												<label htmlFor="newPassword">New Password :</label>
 
 												<input
-													type={typeT ? "text" : "password"}
+													type={typeN_P_T ? "text" : "password"}
 													name="new_p"
 													id="newPassword"
 													onChange={(event) =>
 														setNewPassword(event.target.value)
 													}
+													value={newPassword}
 												/>
 
 												{/* for type toggle start  */}
-												<div id="eye">
-													{typeT ? (
-														<i
-															className="fa-solid fa-eye"
-															onClick={() => setTypeT(!typeT)}
-															style={{ color: "#6930c3" }}
-														></i>
-													) : (
-														<i
-															className="fa-solid fa-eye-slash"
-															onClick={() => setTypeT(!typeT)}
-														></i>
-													)}
-												</div>
+												{newPassword && (
+													<div id="eye">
+														{typeN_P_T ? (
+															<i
+																className="fa-solid fa-eye"
+																onClick={() => setTypeN_P_T(!typeN_P_T)}
+																style={{ color: "#6930c3" }}
+															></i>
+														) : (
+															<i
+																className="fa-solid fa-eye-slash"
+																onClick={() => setTypeN_P_T(!typeN_P_T)}
+															></i>
+														)}
+													</div>
+												)}
+
 												{/* for type toggle end  */}
 											</span>
 											<div className="profile-btn">

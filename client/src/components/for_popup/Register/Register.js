@@ -202,20 +202,22 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 											<label htmlFor="password">Password : </label>
 
 											{/* for type toggle start  */}
-											<span id="eye">
-												{typeT ? (
-													<i
-														className="fa-solid fa-eye"
-														onClick={() => setTypeT(!typeT)}
-														style={{ color: "#6930c3" }}
-													></i>
-												) : (
-													<i
-														className="fa-solid fa-eye-slash"
-														onClick={() => setTypeT(!typeT)}
-													></i>
-												)}
-											</span>
+											{user.password && (
+												<span id="eye">
+													{typeT ? (
+														<i
+															className="fa-solid fa-eye"
+															onClick={() => setTypeT(!typeT)}
+															style={{ color: "#6930c3" }}
+														></i>
+													) : (
+														<i
+															className="fa-solid fa-eye-slash"
+															onClick={() => setTypeT(!typeT)}
+														></i>
+													)}
+												</span>
+											)}
 											{/* for type toggle end  */}
 										</div>
 
@@ -233,20 +235,23 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 											<label htmlFor="c_password">Conform Password : </label>
 
 											{/* for type toggle start  */}
-											<span id="eye">
-												{typeT ? (
-													<i
-														className="fa-solid fa-eye"
-														onClick={() => setTypeT(!typeT)}
-														style={{ color: "#6930c3" }}
-													></i>
-												) : (
-													<i
-														className="fa-solid fa-eye-slash"
-														onClick={() => setTypeT(!typeT)}
-													></i>
-												)}
-											</span>
+
+											{user.c_password && (
+												<span id="eye">
+													{typeT ? (
+														<i
+															className="fa-solid fa-eye"
+															onClick={() => setTypeT(!typeT)}
+															style={{ color: "#6930c3" }}
+														></i>
+													) : (
+														<i
+															className="fa-solid fa-eye-slash"
+															onClick={() => setTypeT(!typeT)}
+														></i>
+													)}
+												</span>
+											)}
 											{/* for type toggle end  */}
 										</div>
 
