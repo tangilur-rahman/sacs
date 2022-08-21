@@ -28,6 +28,14 @@
 	cursor: pointer;
 }
 
+.total-wrapper .total-container .icon:hover {
+	transform: scale(0.98);
+}
+
+.total-wrapper .total-container .icon:active {
+	transform: scale(0.95);
+}
+
 .total-container .header {
 	display: flex;
 	justify-content: center;
