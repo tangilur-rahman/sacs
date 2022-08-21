@@ -5,12 +5,16 @@ import { toast } from "react-toastify";
 
 // internal components
 import { GetContextApi } from "../../../ContextApi";
+import DashboardSkeleton from "../../Skeleton/DashboardSkeleton/DashboardSkeleton";
 import "./Dashboard.css";
 
 const Dashboard = ({ setSelected, setAppDisplay }) => {
 	// for updating dashboard
 	const { isSubmitted, currentUser, mySocket, setIsSubmitted } =
 		GetContextApi();
+
+	// check fetching complete or not from server
+	const [isLoading, setIsLoading] = useState(true);
 
 	// for get all related appointments
 	const [getAppointments, setAppointments] = useState("");
@@ -24,6 +28,7 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 
 			if (response.status === 200) {
 				setAppointments(result);
+				setIsLoading(false);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -134,123 +139,127 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 									</button>
 								)}
 							</div>
-							<div
-								className="table-container"
-								data-aos="fade-down"
-								data-aos-delay="0"
-							>
-								<table className="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Appt.. Subject</th>
-											<th scope="col">Appt.. Category</th>
-											<th scope="col">Appt.. Description</th>
-											<th scope="col">Submitted Date</th>
-											<th scope="col">Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										{getAppointments &&
-											getAppointments
-												.map((value, index) => {
-													return (
-														<tr
-															onClick={() => setAppDisplay(value._id)}
-															key={index}
-														>
-															<td
-																id="id"
-																className={
-																	currentUser.role === "advisor" &&
-																	!value.isRead
-																		? "unread"
-																		: ""
-																}
+							{isLoading ? (
+								<DashboardSkeleton />
+							) : (
+								<div
+									className="table-container"
+									data-aos="fade-up"
+									data-aos-delay="0"
+								>
+									<table className="table table-hover">
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">Appt.. Subject</th>
+												<th scope="col">Appt.. Category</th>
+												<th scope="col">Appt.. Description</th>
+												<th scope="col">Submitted Date</th>
+												<th scope="col">Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											{getAppointments &&
+												getAppointments
+													.map((value, index) => {
+														return (
+															<tr
+																onClick={() => setAppDisplay(value._id)}
+																key={index}
 															>
-																<span>{index + 1}</span>
-															</td>
-
-															<td>
-																<input
-																	readOnly
-																	value={value.subject}
-																	id={
+																<td
+																	id="id"
+																	className={
 																		currentUser.role === "advisor" &&
 																		!value.isRead
 																			? "unread"
 																			: ""
 																	}
-																/>
-															</td>
+																>
+																	<span>{index + 1}</span>
+																</td>
 
-															<td>
-																<input
-																	readOnly
-																	value={value.category}
-																	id={
-																		currentUser.role === "advisor" &&
-																		!value.isRead
-																			? "unread"
-																			: ""
-																	}
-																/>
-															</td>
+																<td>
+																	<input
+																		readOnly
+																		value={value.subject}
+																		id={
+																			currentUser.role === "advisor" &&
+																			!value.isRead
+																				? "unread"
+																				: ""
+																		}
+																	/>
+																</td>
 
-															<td>
-																<input
-																	readOnly
-																	value={value.description}
-																	id={
-																		currentUser.role === "advisor" &&
-																		!value.isRead
-																			? "unread"
-																			: ""
-																	}
-																/>
-															</td>
+																<td>
+																	<input
+																		readOnly
+																		value={value.category}
+																		id={
+																			currentUser.role === "advisor" &&
+																			!value.isRead
+																				? "unread"
+																				: ""
+																		}
+																	/>
+																</td>
 
-															<td>
-																<input
-																	readOnly
-																	value={moment(value.createdAt).format(
-																		"MMMM DD, YYYY"
+																<td>
+																	<input
+																		readOnly
+																		value={value.description}
+																		id={
+																			currentUser.role === "advisor" &&
+																			!value.isRead
+																				? "unread"
+																				: ""
+																		}
+																	/>
+																</td>
+
+																<td>
+																	<input
+																		readOnly
+																		value={moment(value.createdAt).format(
+																			"MMMM DD, YYYY"
+																		)}
+																		id={
+																			currentUser.role === "advisor" &&
+																			!value.isRead
+																				? "unread"
+																				: ""
+																		}
+																	/>
+																</td>
+
+																<td id="for-icon">
+																	{value.status === "solved" && (
+																		<span className="icon" id="solved-icon">
+																			<i className="fa-solid fa-circle-check"></i>
+																		</span>
 																	)}
-																	id={
-																		currentUser.role === "advisor" &&
-																		!value.isRead
-																			? "unread"
-																			: ""
-																	}
-																/>
-															</td>
 
-															<td id="for-icon">
-																{value.status === "solved" && (
-																	<span className="icon" id="solved-icon">
-																		<i className="fa-solid fa-circle-check"></i>
-																	</span>
-																)}
+																	{value.status === "pending" && (
+																		<span className="icon" id="pending-icon">
+																			<i className="fa-solid fa-hourglass-half"></i>
+																		</span>
+																	)}
 
-																{value.status === "pending" && (
-																	<span className="icon" id="pending-icon">
-																		<i className="fa-solid fa-hourglass-half"></i>
-																	</span>
-																)}
-
-																{value.status === "rejected" && (
-																	<span className="icon" id="rejected-icon">
-																		<i className="fa-solid fa-circle-xmark"></i>
-																	</span>
-																)}
-															</td>
-														</tr>
-													);
-												})
-												.reverse()}
-									</tbody>
-								</table>
-							</div>
+																	{value.status === "rejected" && (
+																		<span className="icon" id="rejected-icon">
+																			<i className="fa-solid fa-circle-xmark"></i>
+																		</span>
+																	)}
+																</td>
+															</tr>
+														);
+													})
+													.reverse()}
+										</tbody>
+									</table>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
