@@ -75,7 +75,7 @@ const ChatBox = ({ displayMessages }) => {
 
 	return (
 		<>
-			{displayMessages ? (
+			{displayMessages && (
 				<ScrollToBottom
 					scrollViewClassName="chat-box-container"
 					initialScrollBehavior="auto"
@@ -147,18 +147,6 @@ const ChatBox = ({ displayMessages }) => {
 							);
 						})}
 				</ScrollToBottom>
-			) : (
-				<div className="welcome-chat">
-					{currentUser?.role !== "administrator" && (
-						<h3>
-							Select &nbsp;
-							<span>
-								{currentUser?.role === "student" ? "Advisor" : "Student"}
-							</span>
-						</h3>
-					)}
-					<h2>Start Conversation 😊</h2>
-				</div>
 			)}
 		</>
 	);

@@ -72,6 +72,7 @@
 .signup-container .right .depart-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
+	transition: all 0.3s;
 }
 
 .signup-container .right .depart-container .option div i {

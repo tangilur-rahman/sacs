@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../../ContextApi";
 import ChatBox from "./ChatBox/ChatBox";
 import Header from "./Header/Header";
 import InputBox from "./InputBox/InputBox";
@@ -16,6 +17,9 @@ const MessageBox = ({
 	setReloadGroup,
 	messageId
 }) => {
+	// for get current-user
+	const { currentUser } = GetContextApi();
+
 	// for rending messages array
 	const [displayMessages, setDisplayMessages] = useState("");
 
@@ -100,23 +104,37 @@ const MessageBox = ({
 
 	return (
 		<>
-			<div className="message-box">
-				{getMessages && (
-					<Header getMessages={getMessages} setReloadGroup={setReloadGroup} />
-				)}
+			{getMessages ? (
+				<div className="message-box">
+					{getMessages && (
+						<Header getMessages={getMessages} setReloadGroup={setReloadGroup} />
+					)}
 
-				<ChatBox displayMessages={displayMessages} />
+					<ChatBox displayMessages={displayMessages} />
 
-				{getMessages && (
-					<InputBox
-						getMessages={getMessages}
-						displayMessages={displayMessages}
-						setDisplayMessages={setDisplayMessages}
-						setLatestGroup={setLatestGroup}
-						setLatestPersonal={setLatestPersonal}
-					/>
-				)}
-			</div>
+					{getMessages && (
+						<InputBox
+							getMessages={getMessages}
+							displayMessages={displayMessages}
+							setDisplayMessages={setDisplayMessages}
+							setLatestGroup={setLatestGroup}
+							setLatestPersonal={setLatestPersonal}
+						/>
+					)}
+				</div>
+			) : (
+				<div className="welcome-chat">
+					{currentUser?.role !== "administrator" && (
+						<h3>
+							Select &nbsp;
+							<span>
+								{currentUser?.role === "student" ? "Advisor" : "Student"}
+							</span>
+						</h3>
+					)}
+					<h2>Start Conversation 😊</h2>
+				</div>
+			)}
 		</>
 	);
 };

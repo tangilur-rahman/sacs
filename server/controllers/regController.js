@@ -33,15 +33,19 @@ const createNewUser = async (req, res) => {
 
 				if (role === "administrator") {
 					// check id exists or not
-					const checkId = await adminModel.findOne({ id });
+					const checkIdAdmin = await adminModel.findOne({ id });
+					const checkIdAdvisor = await advisorModel.findOne({ id });
+					const checkIdStudent = await studentModel.findOne({ id });
 
-					if (checkId) {
+					if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 						res.status(400).json({ message: "That Id already used" });
 					} else {
 						// check email exists or not
-						const checkEmail = await adminModel.findOne({ email });
+						const checkEmailAdmin = await adminModel.findOne({ email });
+						const checkEmailAdvisor = await advisorModel.findOne({ email });
+						const checkEmailStudent = await studentModel.findOne({ email });
 
-						if (checkEmail) {
+						if (checkEmailAdmin || checkEmailAdvisor || checkEmailStudent) {
 							res.status(400).json({ message: "That email already used" });
 						} else {
 							const document = await adminModel({
@@ -65,15 +69,19 @@ const createNewUser = async (req, res) => {
 						res.status(400).json({ message: "Fill-up all fields!" });
 					} else {
 						// check id exists or not
-						const checkId = await advisorModel.findOne({ id });
+						const checkIdAdmin = await adminModel.findOne({ id });
+						const checkIdAdvisor = await advisorModel.findOne({ id });
+						const checkIdStudent = await studentModel.findOne({ id });
 
-						if (checkId) {
+						if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 							res.status(400).json({ message: "That Id already used" });
 						} else {
 							// check email exists or not
-							const checkEmail = await advisorModel.findOne({ email });
+							const checkEmailAdmin = await adminModel.findOne({ email });
+							const checkEmailAdvisor = await advisorModel.findOne({ email });
+							const checkEmailStudent = await studentModel.findOne({ email });
 
-							if (checkEmail) {
+							if (checkEmailAdmin || checkEmailAdvisor || checkEmailStudent) {
 								res.status(400).json({ message: "That email already used" });
 							} else {
 								const document = await advisorModel({
@@ -101,15 +109,19 @@ const createNewUser = async (req, res) => {
 						res.status(400).json({ message: "Fill-up all fields!" });
 					} else {
 						// check id exists or not
-						const checkId = await studentModel.findOne({ id });
+						const checkIdAdmin = await adminModel.findOne({ id });
+						const checkIdAdvisor = await advisorModel.findOne({ id });
+						const checkIdStudent = await studentModel.findOne({ id });
 
-						if (checkId) {
+						if (checkIdAdmin || checkIdAdvisor || checkIdStudent) {
 							res.status(400).json({ message: "That Id already used" });
 						} else {
 							// check email exists or not
-							const checkEmail = await studentModel.findOne({ email });
+							const checkEmailAdmin = await adminModel.findOne({ email });
+							const checkEmailAdvisor = await advisorModel.findOne({ email });
+							const checkEmailStudent = await studentModel.findOne({ email });
 
-							if (checkEmail) {
+							if (checkEmailAdmin || checkEmailAdvisor || checkEmailStudent) {
 								res.status(400).json({ message: "That email already used" });
 							} else {
 								// get my advisor

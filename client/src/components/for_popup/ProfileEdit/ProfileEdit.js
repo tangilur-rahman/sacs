@@ -637,7 +637,7 @@ const ProfileEdit = ({
 											className="btn btn-danger"
 											onClick={userDeleteHandler}
 										>
-											Submit
+											Delete
 										</button>
 									</div>
 								</div>

@@ -94,15 +94,23 @@
 /* for search-box start  */
 .user-box #search-box {
 	position: absolute;
-	top: 136px;
+	top: 61px;
+	left: 8%;
 	height: -moz-fit-content;
 	height: fit-content;
-	width: 100%;
-	background: #edf6f9;
+	width: 90%;
+	background: #94d2bd;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: var(--box-shadow);
+	overflow: hidden;
+	border-bottom: 1px solid #dad7cd;
 }
 
 .user-box #search-box .user:hover {
-	background-color: white;
+	background-color: #62baea;
+	color: white;
+	transition: all 0.5s;
 }
 
 /* for search-box end  */

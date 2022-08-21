@@ -146,29 +146,3 @@ audio:active {
 }
 
 /* attachment view style end  */
-
-/* welcome chat start  */
-.welcome-chat {
-	height: 88vh;
-	background-image: url("./welcome-chat.jpg");
-	background-position: center top;
-	background-repeat: no-repeat;
-	background-size: contain;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
-	background-color: white;
-	filter: brightness(98%);
-}
-
-.welcome-chat h3 {
-	color: #058c42;
-}
-.welcome-chat h2 {
-	padding-bottom: 60px;
-	font-weight: 600;
-	color: #007f5f;
-}
-
-/* welcome chat end  */
