@@ -13,20 +13,32 @@
 }
 
 .login-container .form-container {
-	background-image: url("./login-img.png");
+	display: flex;
+	align-items: center;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
+	width: 100%;
 	/* From https://css.glass */
+	background: rgba(255, 255, 255, 0.2);
 	border-radius: 16px;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	backdrop-filter: blur(5px);
 	-webkit-backdrop-filter: blur(5px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	background-position: center;
-	height: 60vh;
-	opacity: 0.9;
+	height: 57vh;
+}
+
+.login-container .form-container .left {
+	display: flex;
+	height: 100%;
+	width: 50%;
+	border-radius: 10px 0 0 10px;
+	overflow: hidden;
+}
+
+.login-container .form-container .left img {
+	object-fit: 100%;
+	object-position: center;
 }
 
 .login-container .form-container .right {
@@ -37,20 +49,20 @@
 .login-container .form-container .right img {
 	width: 330px;
 	height: 88px;
-	padding: 25px 0 10px;
 	box-sizing: content-box;
 	align-self: center;
-	margin-right: 30px;
+	margin: 0 30px 30px 0;
 }
 
 .login-container .form-container .right form {
-	padding: 20px 25px 0 0;
-	background-color: #fbf7fb;
+	padding: 10px 40px 20px;
 }
 
 .login-container .form-container .right form input {
 	font-weight: 500;
 	background-color: transparent !important;
+	border-width: 3px;
+	border-radius: 10px;
 }
 
 .login-container .form-container .right form input:focus {
@@ -62,6 +74,14 @@
 	padding: 7px 20px;
 	font-size: 17px;
 	font-weight: 500;
+}
+
+.form-container .right form button:hover {
+	transform: scale(1.05);
+}
+
+.form-container .right form button:active {
+	transform: scale(0.98);
 }
 
 /* password eye style start  */
@@ -79,5 +99,4 @@
 .form-container .right #password-field #eye i {
 	opacity: 0.7;
 }
-
 /* password eye style end  */
