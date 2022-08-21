@@ -106,21 +106,4 @@ input[type="number"] {
 	overflow: hidden;
 }
 
-/* chat-box skeleton start  */
-.chat-box-skeleton {
-	padding: 10px 0;
-	height: 79vh;
-}
-
-.chat-box-skeleton div {
-	display: flex;
-	padding: 0 10px;
-}
-
-.chat-box-skeleton div .width-skeleton {
-	width: 300px;
-	margin-left: 10px;
-}
-/* chat-box skeleton end  */
-
 /* skeleton style end  */

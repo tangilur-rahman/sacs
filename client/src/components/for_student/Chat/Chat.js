@@ -1,9 +1,10 @@
 // external components
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { GetContextApi } from "../../../ContextApi";
 
 // internal components
+import { GetContextApi } from "../../../ContextApi";
+import ChatBoxSkeleton from "../../Skeleton/ChatBoxSkeleton/ChatBoxSkeleton";
 import "./Chat.css";
 import MessageBox from "./MessageBox/MessageBox";
 import UserBox from "./UserBox/UserBox";
@@ -198,9 +199,7 @@ const Chat = ({ messageId }) => {
 	useEffect(() => {
 		if (currentUser) {
 			getPersonalChat();
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 1000);
+			setIsLoading(false);
 		}
 
 		if (!search) {
@@ -215,22 +214,25 @@ const Chat = ({ messageId }) => {
 			<div className="group-chat-container">
 				<div className="row m-0">
 					<div className="col-5 p-0">
-						{getGroup && getPersonal && (
-							<UserBox
-								getGroup={getGroup}
-								getPersonal={getPersonal}
-								setMessages={setMessages}
-								latestGroup={latestGroup}
-								setLatestGroup={setLatestGroup}
-								latestPersonal={latestPersonal}
-								setLatestPersonal={setLatestPersonal}
-								search={search}
-								setSearch={setSearch}
-								setSearchUser={setSearchUser}
-								searchUser={searchUser}
-								setSelectedSearch={setSelectedSearch}
-								isLoading={isLoading}
-							/>
+						{isLoading || !(getGroup && getPersonal) ? (
+							<ChatBoxSkeleton />
+						) : (
+							<>
+								<UserBox
+									getGroup={getGroup}
+									getPersonal={getPersonal}
+									setMessages={setMessages}
+									latestGroup={latestGroup}
+									setLatestGroup={setLatestGroup}
+									latestPersonal={latestPersonal}
+									setLatestPersonal={setLatestPersonal}
+									search={search}
+									setSearch={setSearch}
+									setSearchUser={setSearchUser}
+									searchUser={searchUser}
+									setSelectedSearch={setSelectedSearch}
+								/>
+							</>
 						)}
 					</div>
 					<div className="col-7 p-0">

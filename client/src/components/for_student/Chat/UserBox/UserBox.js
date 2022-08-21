@@ -1,7 +1,5 @@
 // external components
 import { useEffect, useRef } from "react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import sortArray from "sort-array";
 import TimeAgo from "timeago-react";
 
@@ -21,8 +19,7 @@ const UserBox = ({
 	setSearch,
 	searchUser,
 	setSearchUser,
-	setSelectedSearch,
-	isLoading
+	setSelectedSearch
 }) => {
 	// get current user
 	const { currentUser } = GetContextApi();
@@ -57,193 +54,153 @@ const UserBox = ({
 
 	return (
 		<>
-			{isLoading ? (
-				<>
-					<div
-						className="chat-box-skeleton"
-						data-aos="fade-right"
-						data-aos-delay="0"
-						id="whenIsLoadingOverFlow"
-					>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
-						<div>
-							<Skeleton className="circle-skeleton" />
-							<Skeleton className="width-skeleton" />
-						</div>
+			<div className="user-box" data-aos="fade-right" data-aos-delay="0">
+				{currentUser.role !== "student" && (
+					<div className="search">
+						<i className="bi bi-search-heart"></i>
+						<input
+							type="search"
+							name="search"
+							id="search"
+							autoComplete="off"
+							placeholder="Search or start new chat"
+							onChange={(event) => setSearch(event.target.value)}
+							value={search}
+						/>
 					</div>
-				</>
-			) : (
-				<div className="user-box" data-aos="fade-right" data-aos-delay="0">
-					{currentUser.role !== "student" && (
-						<div className="search">
-							<i className="bi bi-search-heart"></i>
-							<input
-								type="search"
-								name="search"
-								id="search"
-								autoComplete="off"
-								placeholder="Search or start new chat"
-								onChange={(event) => setSearch(event.target.value)}
-								value={search}
-							/>
-						</div>
-					)}
+				)}
 
-					<div
-						className="user-content"
-						id={currentUser.role === "student" ? "student" : ""}
-					>
-						{/* for group-chat start  */}
-						<div className="user" onClick={() => setMessages(getGroup)}>
+				<div
+					className="user-content"
+					id={currentUser.role === "student" ? "student" : ""}
+				>
+					{/* for group-chat start  */}
+					<div className="user" onClick={() => setMessages(getGroup)}>
+						<img
+							src={`/uploads/profile-img/${getGroup?.group_img}`}
+							alt="profile-img"
+							className="profile-img img-fluid"
+						/>
+
+						<section>
+							<div className="above">
+								<h6>{getGroup?.group_name}</h6>
+
+								<span>
+									{latestGroup?.time && (
+										<TimeAgo datetime={latestGroup?.time} />
+									)}
+								</span>
+							</div>
+
+							<div className="down">{latestGroup?.message}</div>
+						</section>
+					</div>
+					{/* for group-chat end  */}
+
+					{/* for personal-chat start  */}
+					{/* when student start  */}
+					{currentUser.role === "student" && (
+						<div className="user" onClick={() => setMessages(getPersonal)}>
 							<img
-								src={`/uploads/profile-img/${getGroup?.group_img}`}
+								src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
 								alt="profile-img"
 								className="profile-img img-fluid"
 							/>
 
 							<section>
 								<div className="above">
-									<h6>{getGroup?.group_name}</h6>
+									<h6>{getPersonal.advisor?.name}</h6>
 
 									<span>
-										{latestGroup?.time && (
-											<TimeAgo datetime={latestGroup?.time} />
+										{latestPersonal?.time && (
+											<TimeAgo datetime={latestPersonal?.time} />
 										)}
 									</span>
 								</div>
 
-								<div className="down">{latestGroup?.message}</div>
+								<div className="down">{latestPersonal?.message}</div>
 							</section>
 						</div>
-						{/* for group-chat end  */}
+					)}
+					{/* when student end  */}
 
-						{/* for personal-chat start  */}
-						{/* when student start  */}
-						{currentUser.role === "student" && (
-							<div className="user" onClick={() => setMessages(getPersonal)}>
-								<img
-									src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
-									alt="profile-img"
-									className="profile-img img-fluid"
-								/>
+					{/* when advisor start */}
+					{currentUser.role !== "student" &&
+						sortArray(getPersonal, {
+							by: "updatedAt",
+							order: "desc"
+						})?.map((value, index) => {
+							return (
+								<div
+									className="user"
+									onClick={() => setMessages(value)}
+									key={index}
+								>
+									<img
+										src={`/uploads/profile-img/${value.student?.profile_img}`}
+										alt="profile-img"
+										className="profile-img img-fluid"
+									/>
 
-								<section>
-									<div className="above">
-										<h6>{getPersonal.advisor?.name}</h6>
+									<section>
+										<div className="above">
+											<h6>{value.student?.name}</h6>
 
-										<span>
-											{latestPersonal?.time && (
-												<TimeAgo datetime={latestPersonal?.time} />
-											)}
-										</span>
-									</div>
+											<span>
+												{value?.messages.slice(-1)[0]?.time && (
+													<TimeAgo
+														datetime={value?.messages.slice(-1)[0]?.time}
+													/>
+												)}
+											</span>
+										</div>
 
-									<div className="down">{latestPersonal?.message}</div>
-								</section>
-							</div>
-						)}
-						{/* when student end  */}
+										<div className="down">
+											{value?.messages.slice(-1)[0]?.message}
+										</div>
+									</section>
+								</div>
+							);
+						})}
 
-						{/* when advisor start */}
-						{currentUser.role !== "student" &&
-							sortArray(getPersonal, {
-								by: "updatedAt",
-								order: "desc"
-							})?.map((value, index) => {
+					{/* when advisor end */}
+					{/* for personal-chat end  */}
+
+					{/* for search students start  */}
+					<div id="search-box" ref={myRef}>
+						{searchUser &&
+							searchUser.map((value, index) => {
 								return (
 									<div
 										className="user"
-										onClick={() => setMessages(value)}
 										key={index}
+										onClick={() => {
+											setSelectedSearch(value);
+											setSearch("");
+										}}
+										data-aos="fade-up"
+										data-aos-delay="0"
 									>
 										<img
-											src={`/uploads/profile-img/${value.student?.profile_img}`}
+											src={`/uploads/profile-img/${value?.profile_img}`}
 											alt="profile-img"
 											className="profile-img img-fluid"
 										/>
 
 										<section>
 											<div className="above">
-												<h6>{value.student?.name}</h6>
-
-												<span>
-													{value?.messages.slice(-1)[0]?.time && (
-														<TimeAgo
-															datetime={value?.messages.slice(-1)[0]?.time}
-														/>
-													)}
-												</span>
-											</div>
-
-											<div className="down">
-												{value?.messages.slice(-1)[0]?.message}
+												<h6>{value?.name}</h6>
 											</div>
 										</section>
 									</div>
 								);
 							})}
-
-						{/* when advisor end */}
-						{/* for personal-chat end  */}
-
-						{/* for search students start  */}
-						<div id="search-box" ref={myRef}>
-							{searchUser &&
-								searchUser.map((value, index) => {
-									return (
-										<div
-											className="user"
-											key={index}
-											onClick={() => {
-												setSelectedSearch(value);
-												setSearch("");
-											}}
-											data-aos="fade-up"
-											data-aos-delay="0"
-										>
-											<img
-												src={`/uploads/profile-img/${value?.profile_img}`}
-												alt="profile-img"
-												className="profile-img img-fluid"
-											/>
-
-											<section>
-												<div className="above">
-													<h6>{value?.name}</h6>
-												</div>
-											</section>
-										</div>
-									);
-								})}
-						</div>
-
-						{/* for search students end  */}
 					</div>
+
+					{/* for search students end  */}
 				</div>
-			)}
+			</div>
 		</>
 	);
 };
