@@ -28,7 +28,7 @@ const UserBox = ({
 	useEffect(() => {
 		setLatestGroup(getGroup?.messages.slice(-1)[0]);
 
-		if (currentUser.role === "student") {
+		if (currentUser?.role === "student") {
 			setLatestPersonal(getPersonal?.messages.slice(-1)[0]);
 		}
 
@@ -55,7 +55,7 @@ const UserBox = ({
 	return (
 		<>
 			<div className="user-box" data-aos="fade-right" data-aos-delay="0">
-				{currentUser.role !== "student" && (
+				{currentUser?.role !== "student" && (
 					<div className="search">
 						<i className="bi bi-search-heart"></i>
 						<input
@@ -72,7 +72,7 @@ const UserBox = ({
 
 				<div
 					className="user-content"
-					id={currentUser.role === "student" ? "student" : ""}
+					id={currentUser?.role === "student" ? "student" : ""}
 				>
 					{/* for group-chat start  */}
 					<div className="user" onClick={() => setMessages(getGroup)}>
@@ -100,7 +100,7 @@ const UserBox = ({
 
 					{/* for personal-chat start  */}
 					{/* when student start  */}
-					{currentUser.role === "student" && (
+					{currentUser?.role === "student" && (
 						<div className="user" onClick={() => setMessages(getPersonal)}>
 							<img
 								src={`/uploads/profile-img/${getPersonal.advisor?.profile_img}`}
@@ -126,7 +126,7 @@ const UserBox = ({
 					{/* when student end  */}
 
 					{/* when advisor start */}
-					{currentUser.role !== "student" &&
+					{currentUser?.role !== "student" &&
 						sortArray(getPersonal, {
 							by: "updatedAt",
 							order: "desc"
@@ -168,36 +168,37 @@ const UserBox = ({
 					{/* for personal-chat end  */}
 
 					{/* for search students start  */}
-					<div id="search-box" ref={myRef}>
-						{searchUser &&
-							searchUser.map((value, index) => {
-								return (
-									<div
-										className="user"
-										key={index}
-										onClick={() => {
-											setSelectedSearch(value);
-											setSearch("");
-										}}
-										data-aos="fade-up"
-										data-aos-delay="0"
-									>
-										<img
-											src={`/uploads/profile-img/${value?.profile_img}`}
-											alt="profile-img"
-											className="profile-img img-fluid"
-										/>
+					{currentUser?.role !== "student" && (
+						<div id="search-box" ref={myRef}>
+							{searchUser &&
+								searchUser.map((value, index) => {
+									return (
+										<div
+											className="user"
+											key={index}
+											onClick={() => {
+												setSelectedSearch(value);
+												setSearch("");
+											}}
+											data-aos="fade-up"
+											data-aos-delay="0"
+										>
+											<img
+												src={`/uploads/profile-img/${value?.profile_img}`}
+												alt="profile-img"
+												className="profile-img img-fluid"
+											/>
 
-										<section>
-											<div className="above">
-												<h6>{value?.name}</h6>
-											</div>
-										</section>
-									</div>
-								);
-							})}
-					</div>
-
+											<section>
+												<div className="above">
+													<h6>{value?.name}</h6>
+												</div>
+											</section>
+										</div>
+									);
+								})}
+						</div>
+					)}
 					{/* for search students end  */}
 				</div>
 			</div>

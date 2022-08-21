@@ -61,6 +61,14 @@
 	overflow: hidden;
 }
 
+.user-box .user section {
+	flex-grow: 1;
+	padding: 15px 10px;
+	border-bottom: 1px solid #dad7cd;
+	cursor: pointer;
+	overflow: hidden;
+}
+
 .user-box .user .above {
 	display: flex;
 	justify-content: space-between;
