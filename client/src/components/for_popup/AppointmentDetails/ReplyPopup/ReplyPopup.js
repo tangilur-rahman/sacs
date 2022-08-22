@@ -53,7 +53,11 @@ const ReplyPopup = ({
 			<div className="row wrapper" ref={modalRef}>
 				<div className="col-8 reply-popup-container">
 					<ScrollToBottom
-						scrollViewClassName="reply-popup"
+						scrollViewClassName={
+							currentUser.role === "administrator"
+								? "reply-popup increase-height"
+								: "reply-popup"
+						}
 						initialScrollBehavior="auto"
 						ref={myRef}
 					>

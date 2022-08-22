@@ -26,6 +26,10 @@
 	flex-direction: column;
 }
 
+.popup-container .wrapper .reply-popup.increase-height {
+	height: 76vh;
+}
+
 /* reply message-box style start  */
 .popup-container .reply-popup .reply-info {
 	display: flex;
