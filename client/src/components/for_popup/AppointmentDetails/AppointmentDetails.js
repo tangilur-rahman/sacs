@@ -12,7 +12,8 @@ import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
-	const { setIsSubmitted, mySocket, setNotifiUpdate } = GetContextApi();
+	const { setIsSubmitted, mySocket, setNotifiUpdate, setNotifiUpdateAdmin } =
+		GetContextApi();
 
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState(true);
@@ -134,14 +135,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 	// for submit currentUser reply start
 	const submitHandler = async () => {
-		if (
-			!(
-				picDate.getTime() !==
-					new Date(specificApp.appointment_date)?.getTime() ||
-				replyText ||
-				getStatus !== specificApp?.status
-			)
-		) {
+		if (!(picDate || replyText || getStatus !== specificApp?.status)) {
 			toast("Nothing have to sumit", {
 				position: "top-right",
 				theme: "dark",
@@ -151,12 +145,15 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			// for socket notification start
 			if (replyText) {
 				if (currentUser.role === "advisor") {
-					const notificationObject = {
+					// for student notification start
+					let notificationObject;
+
+					notificationObject = {
 						id: specificApp.student._id,
 						sender_name: specificApp.advisor.name,
 						sender_profile: specificApp.advisor.profile_img,
 						kind: "reply",
-						text: "send appointment's reply",
+						text: "send your appt..'s reply.",
 						isRead: false,
 						time: Date.now(),
 						from_where: specificApp._id
@@ -167,13 +164,36 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						room: specificApp.student._id
 					});
 					setNotifiUpdate(notificationObject);
+					// for student notification end
+
+					// for admin notification start
+					notificationObject = {
+						id: "administrator",
+						sender_name: specificApp.advisor.name,
+						sender_profile: specificApp.advisor.profile_img,
+						kind: "reply",
+						text: `send appt..'s reply to ${specificApp.student.name}.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: specificApp._id
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: "administrator"
+					});
+					setNotifiUpdateAdmin(notificationObject);
+					// for admin notification end
 				} else if (currentUser.role === "student") {
-					const notificationObject = {
+					// for advisor notification start
+					let notificationObject;
+
+					notificationObject = {
 						id: specificApp.advisor._id,
 						sender_name: specificApp.student.name,
 						sender_profile: specificApp.student.profile_img,
 						kind: "reply",
-						text: "send your appointment reply",
+						text: "send appt..'s reply.",
 						isRead: false,
 						time: Date.now(),
 						from_where: specificApp._id
@@ -184,17 +204,40 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 						room: specificApp.advisor._id
 					});
 					setNotifiUpdate(notificationObject);
+					// for advisor notification end
+
+					// for admin notification start
+					notificationObject = {
+						id: "administrator",
+						sender_name: specificApp.student.name,
+						sender_profile: specificApp.student.profile_img,
+						kind: "reply",
+						text: `send appt..'s reply to ${specificApp.advisor.name}.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: specificApp._id
+					};
+
+					mySocket.emit("send_notification", {
+						notificationObject,
+						room: "administrator"
+					});
+					setNotifiUpdateAdmin(notificationObject);
+					// for admin notification end
 				}
 			} else if (
 				currentUser.role === "advisor" &&
 				getStatus !== specificApp.status
 			) {
-				const notificationObject = {
+				// student notification start
+				let notificationObject;
+
+				notificationObject = {
 					id: specificApp.student._id,
 					sender_name: specificApp.advisor.name,
 					sender_profile: specificApp.advisor.profile_img,
 					kind: "status",
-					text: "change appointment status",
+					text: "change your appt.. status.",
 					isRead: false,
 					time: Date.now(),
 					from_where: specificApp._id
@@ -205,16 +248,38 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					room: specificApp.student._id
 				});
 				setNotifiUpdate(notificationObject);
+				// student notification end
+
+				// admin notification start
+				notificationObject = {
+					id: "administrator",
+					sender_name: specificApp.advisor.name,
+					sender_profile: specificApp.advisor.profile_img,
+					kind: "status",
+					text: `change ${specificApp.student.name}'s appt.. status.`,
+					isRead: false,
+					time: Date.now(),
+					from_where: specificApp._id
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: "administrator"
+				});
+				setNotifiUpdateAdmin(notificationObject);
+				// admin notification end
 			} else if (
 				currentUser.role === "advisor" &&
 				picDate !== specificApp.appointment_date
 			) {
-				const notificationObject = {
+				// student notification start
+				let notificationObject;
+				notificationObject = {
 					id: specificApp.student._id,
 					sender_name: specificApp.advisor.name,
 					sender_profile: specificApp.advisor.profile_img,
 					kind: "apptDate",
-					text: "choose a appointment date",
+					text: "choose appointment date.",
 					isRead: false,
 					time: Date.now(),
 					from_where: specificApp._id
@@ -225,6 +290,26 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					room: specificApp.student._id
 				});
 				setNotifiUpdate(notificationObject);
+				// student notification end
+
+				// admin notification start
+				notificationObject = {
+					id: "administrator",
+					sender_name: specificApp.advisor.name,
+					sender_profile: specificApp.advisor.profile_img,
+					kind: "apptDate",
+					text: `change ${specificApp.student.name}'s appt.. date.`,
+					isRead: false,
+					time: Date.now(),
+					from_where: specificApp._id
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: "administrator"
+				});
+				setNotifiUpdateAdmin(notificationObject);
+				// admin notification end
 			}
 			// for socket notification end
 
@@ -275,7 +360,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	};
 	// for submit currentUser reply end
 
-	// appointment delete handler start
+	// appointment delete handler only admin start
 	const appointmentDeleteHandler = async () => {
 		if (specificApp) {
 			try {
@@ -309,7 +394,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 			}
 		}
 	};
-	// appointment delete handler end
+	// appointment delete handler admin end
 
 	return (
 		<>

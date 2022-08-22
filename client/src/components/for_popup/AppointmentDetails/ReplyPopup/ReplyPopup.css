@@ -32,11 +32,12 @@
 	padding: 10px 17px;
 }
 
-.popup-container .reply-popup .reply-info.own {
+.popup-container .reply-popup .reply-info.other {
 	align-self: flex-start;
+	border: 1px solid red;
 }
 
-.popup-container .reply-popup .reply-info.other {
+.popup-container .reply-popup .reply-info.own {
 	display: flex;
 	flex-direction: row-reverse;
 	align-self: flex-end;
