@@ -89,7 +89,9 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 					id: "",
 					email: "",
 					password: "",
-					c_password: ""
+					c_password: "",
+					min: "",
+					max: ""
 				});
 			} else if (response.status === 400) {
 				toast(result.message, {

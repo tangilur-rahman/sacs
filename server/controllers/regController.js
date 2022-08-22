@@ -86,24 +86,35 @@ const createNewUser = async (req, res) => {
 							if (checkEmailAdmin || checkEmailAdvisor || checkEmailStudent) {
 								res.status(400).json({ message: "That email already used" });
 							} else {
-								const document = await advisorModel({
-									name,
-									id,
-									email,
-									gender,
-									password: hashPassword,
-									role,
-									department,
-									minRange: min,
-									maxRange: max,
-									year
-								});
+								// for check advisor range already exists or not
+								const getAllAdvisor = await advisorModel.find({ department });
 
-								await document.save();
+								const checkRange = getAllAdvisor.filter(
+									(value) => min >= value.minRange && max <= value.maxRange
+								);
 
-								res
-									.status(200)
-									.json({ message: "New advisor add successfully" });
+								if (checkRange.length) {
+									res.status(400).json({ message: "That range already given" });
+								} else {
+									const document = await advisorModel({
+										name,
+										id,
+										email,
+										gender,
+										password: hashPassword,
+										role,
+										department,
+										minRange: min,
+										maxRange: max,
+										year
+									});
+
+									await document.save();
+
+									res
+										.status(200)
+										.json({ message: "New advisor add successfully" });
+								}
 							}
 						}
 					}
@@ -158,7 +169,7 @@ const createNewUser = async (req, res) => {
 				}
 			}
 		} catch (error) {
-			res.status(500).json({ error: "Invalid inputted values!" });
+			res.status(500).json({ error: error.message });
 		}
 	} else {
 		res.status(400).json({ message: "Fill-up all fields!" });
