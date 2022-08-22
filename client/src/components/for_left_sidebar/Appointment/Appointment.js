@@ -65,9 +65,16 @@ const Appointment = ({ setSelected }) => {
 					autoClose: 1500
 				});
 
+				// for advisor
 				mySocket.emit("send_appointment", {
 					submitted: "true",
 					room: currentUser.advisor._id
+				});
+
+				// for administrator
+				mySocket.emit("send_appointment", {
+					submitted: "true",
+					room: "administrator"
 				});
 
 				const notificationObject = {
@@ -75,7 +82,7 @@ const Appointment = ({ setSelected }) => {
 					sender_name: currentUser.name,
 					sender_profile: currentUser.profile_img,
 					kind: "create",
-					text: "send you a appointment",
+					text: "send you a appointment.",
 					isRead: false,
 					time: Date.now()
 				};

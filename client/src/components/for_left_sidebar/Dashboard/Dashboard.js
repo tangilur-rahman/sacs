@@ -57,6 +57,11 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 			mySocket?.on("receive_appointment", (appointment) => {
 				setIsSubmitted(Date.now());
 			});
+		} else if (currentUser.role === "administrator") {
+			mySocket?.emit("join_room_appointment", "administrator");
+			mySocket?.on("receive_appointment", (appointment) => {
+				setIsSubmitted(Date.now());
+			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentUser, mySocket]);
