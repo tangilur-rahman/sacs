@@ -136,11 +136,10 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	const submitHandler = async () => {
 		if (
 			!(
-				(specificApp.appointment_date &&
-					picDate.getTime() !==
-						new Date(specificApp.appointment_date).getTime()) ||
+				picDate.getTime() !==
+					new Date(specificApp.appointment_date)?.getTime() ||
 				replyText ||
-				getStatus !== specificApp.status
+				getStatus !== specificApp?.status
 			)
 		) {
 			toast("Nothing have to sumit", {
