@@ -6,9 +6,18 @@ const advisorModel = require("./../models/advisorModel");
 const studentModel = require("./../models/studentModel");
 
 // get currentUser
-const currentUser = (req, res) => {
+const currentUser = async (req, res) => {
 	try {
-		res.status(200).json(req.currentUser);
+		if (req.currentUser.role === "administrator") {
+			res.status(200).json(req.currentUser);
+		} else if (req.currentUser.role === "advisor") {
+			res.status(200).json(req.currentUser);
+		} else if (req.currentUser.role === "student") {
+			const currentUser = await studentModel
+				.findOne({ _id: req.currentUser._id })
+				.populate("advisor", "id name profile_img");
+			res.status(200).json(currentUser);
+		}
 	} catch (error) {
 		res.status(500).json({ error: "Invalid User!" });
 	}

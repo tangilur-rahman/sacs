@@ -5,12 +5,18 @@ const notificationModel = require("./../models/notificationModel");
 
 const getNotifications = async (req, res) => {
 	try {
-		const document = await notificationModel.findOne({
-			id: req.currentUser._id
-		});
+		if (req.currentUser.role === "administrator") {
+			const notifications = await notificationModel.findOne({
+				id: "administrator"
+			});
 
-		if (document) {
-			res.status(200).json(document);
+			res.status(200).json(notifications);
+		} else {
+			const notifications = await notificationModel.findOne({
+				id: req.currentUser._id
+			});
+
+			res.status(200).json(notifications);
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -28,6 +34,7 @@ const createNotification = async (req, res) => {
 		time,
 		from_where
 	} = req.body;
+
 	try {
 		const document = await notificationModel.findOne({
 			id: id
@@ -69,14 +76,23 @@ const createNotification = async (req, res) => {
 
 const makeAllRead = async (req, res) => {
 	try {
-		const document = await notificationModel.findOne({
-			id: req.currentUser._id
-		});
+		if (req.currentUser.role === "administrator") {
+			const document = await notificationModel.findOne({
+				id: "administrator"
+			});
+			document.notification.map((value) => (value.isRead = true));
 
-		document.notification.map((value) => (value.isRead = true));
+			document.save();
+			res.status(200).json({ message: "successfully update" });
+		} else {
+			const document = await notificationModel.findOne({
+				id: req.currentUser._id
+			});
+			document.notification.map((value) => (value.isRead = true));
 
-		document.save();
-		res.status(200).json({ message: "successfully update" });
+			document.save();
+			res.status(200).json({ message: "successfully update" });
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

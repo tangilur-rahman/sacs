@@ -22,7 +22,7 @@ const Navbar = ({
 	setSelected
 }) => {
 	// for get socket connection
-	const { mySocket, notifiUpdate } = GetContextApi();
+	const { mySocket, notifiUpdate, notifiUpdateAdmin } = GetContextApi();
 
 	// for get all notifications
 	const [notifications, setNotifications] = useState("");
@@ -105,7 +105,7 @@ const Navbar = ({
 				const result = await response.json();
 
 				if (response.status === 200) {
-					setNotifications(result ? result.notification : []);
+					setNotifications(result ? result.notification : "");
 				} else if (result.error) {
 					toast.error(result.error, {
 						position: "top-right",
@@ -127,10 +127,17 @@ const Navbar = ({
 
 	// for get notification through socket start
 	useEffect(() => {
-		mySocket?.emit("join_room_notification", currentUser._id);
-		mySocket?.on("receive_notification", (notification) => {
-			setSocketN(notification);
-		});
+		if (currentUser.role === "administrator") {
+			mySocket?.emit("join_room_notification", "administrator");
+			mySocket?.on("receive_notification", (notification) => {
+				setSocketN(notification);
+			});
+		} else {
+			mySocket?.emit("join_room_notification", currentUser._id);
+			mySocket?.on("receive_notification", (notification) => {
+				setSocketN(notification);
+			});
+		}
 	}, [mySocket, currentUser]);
 	// for get notification through socket end
 
@@ -146,7 +153,17 @@ const Navbar = ({
 		if (notifications) {
 			setMessageN(notifications?.filter((value) => value.kind === "message"));
 
-			if (currentUser.role === "advisor") {
+			if (currentUser.role === "administrator") {
+				setAppointmentN(
+					notifications?.filter(
+						(value) =>
+							value.kind === "create" ||
+							value.kind === "reply" ||
+							value.kind === "apptDate" ||
+							value.kind === "status"
+					)
+				);
+			} else if (currentUser.role === "advisor") {
 				setAppointmentN(
 					notifications?.filter(
 						(value) => value.kind === "create" || value.kind === "reply"
@@ -167,7 +184,43 @@ const Navbar = ({
 	}, [notifications, currentUser]);
 	// initialize notification end
 
-	// for notification update start
+	// for notification update when admin start
+	useEffect(() => {
+		(async () => {
+			if (typeof notifiUpdateAdmin === "object") {
+				try {
+					const response = await fetch("/notification", {
+						method: "PUT",
+						body: JSON.stringify(notifiUpdateAdmin),
+						headers: { "Content-Type": "application/json" }
+					});
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						return;
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			} else {
+				return;
+			}
+		})();
+	}, [notifiUpdateAdmin]);
+	// for notification update admin  end
+
+	// for notification update when advisor & student start
 	useEffect(() => {
 		(async () => {
 			if (typeof notifiUpdate === "object") {
@@ -201,7 +254,7 @@ const Navbar = ({
 			}
 		})();
 	}, [notifiUpdate]);
-	// for notification update end
+	// for notification update advisor & student  end
 
 	// make all read handler start
 	const makeAllReadHandler = async () => {
@@ -432,7 +485,7 @@ const Navbar = ({
 															<h6
 																style={{ wordSpacing: "0", textAlign: "start" }}
 															>
-																{value.last_message}
+																<span>{value.last_message}</span>
 															</h6>
 														</div>
 														<div className="notification-time">
@@ -502,7 +555,8 @@ const Navbar = ({
 														/>
 
 														<div>
-															<h6>{value.sender_name}</h6> {value.text}
+															<h6>{value.sender_name}</h6>
+															<span>{value.text}</span>
 														</div>
 														<div className="notification-time">
 															<TimeAgo datetime={value.time} />

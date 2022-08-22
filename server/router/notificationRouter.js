@@ -12,7 +12,7 @@ const {
 	makeAllRead
 } = require("../controllers/notificationController");
 
-// for send all notifications
+// for get all notifications
 notification.get("/", authUser, getNotifications);
 
 // for create or update notifications

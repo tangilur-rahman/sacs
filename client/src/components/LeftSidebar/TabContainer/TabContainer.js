@@ -29,7 +29,7 @@ const WhenStudent = ({ selected, setSelected, currentUser }) => {
 					onClick={() => setSelected("appointment")}
 					className={selected === "appointment" ? "appointment-active" : ""}
 				>
-					<i className="fa-solid fa-user-tie"></i>
+					<i className="bi bi-calendar2-check"></i>
 					<h5>Appointment</h5>
 				</span>
 			)}
@@ -42,7 +42,8 @@ const WhenStudent = ({ selected, setSelected, currentUser }) => {
 					onClick={() => setSelected("advisor")}
 					className={selected === "advisor" ? "advisor-active" : ""}
 				>
-					<i className="bi bi-calendar2-check"></i>
+					<i className="fa-solid fa-user-tie"></i>
+
 					<h5>My Advisor</h5>
 				</span>
 			)}

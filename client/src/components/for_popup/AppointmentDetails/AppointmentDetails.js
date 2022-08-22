@@ -12,8 +12,7 @@ import ReplyPopup from "./ReplyPopup/ReplyPopup";
 
 const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
-	const { setIsSubmitted, mySocket, setNotifiUpdate, setSelected } =
-		GetContextApi();
+	const { setIsSubmitted, mySocket, setNotifiUpdate } = GetContextApi();
 
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);

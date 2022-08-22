@@ -18,8 +18,11 @@ const ContextHandler = ({ children }) => {
 	// for when submitted appointment, refetching data in dashboard
 	const [isSubmitted, setIsSubmitted] = useState("");
 
-	// for update notifications
+	// for update notifications for advisor & student
 	const [notifiUpdate, setNotifiUpdate] = useState("");
+
+	// for update notifications for admin
+	const [notifiUpdateAdmin, setNotifiUpdateAdmin] = useState("");
 
 	return (
 		<>
@@ -31,7 +34,9 @@ const ContextHandler = ({ children }) => {
 					isSubmitted,
 					setIsSubmitted,
 					notifiUpdate,
-					setNotifiUpdate
+					setNotifiUpdate,
+					notifiUpdateAdmin,
+					setNotifiUpdateAdmin
 				}}
 			>
 				{children}

@@ -11,8 +11,13 @@ import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 
 const Appointment = ({ setSelected }) => {
 	// for updating dashboard
-	const { setIsSubmitted, currentUser, mySocket, setNotifiUpdate } =
-		GetContextApi();
+	const {
+		setIsSubmitted,
+		currentUser,
+		mySocket,
+		setNotifiUpdate,
+		setNotifiUpdateAdmin
+	} = GetContextApi();
 
 	// for get category values
 	const [getCateV, setCateV] = useState("");
@@ -65,19 +70,22 @@ const Appointment = ({ setSelected }) => {
 					autoClose: 1500
 				});
 
-				// for advisor
+				// for advisor displaying appointment real-time
 				mySocket.emit("send_appointment", {
 					submitted: "true",
 					room: currentUser.advisor._id
 				});
 
-				// for administrator
+				// for administrator displaying appointment real-time
 				mySocket.emit("send_appointment", {
 					submitted: "true",
 					room: "administrator"
 				});
 
-				const notificationObject = {
+				// for advisor appointment notification start
+				let notificationObject;
+
+				notificationObject = {
 					id: currentUser.advisor._id,
 					sender_name: currentUser.name,
 					sender_profile: currentUser.profile_img,
@@ -93,6 +101,26 @@ const Appointment = ({ setSelected }) => {
 				});
 
 				setNotifiUpdate(notificationObject);
+				// for advisor appointment notification end
+
+				// for admin appointment notification start
+				notificationObject = {
+					id: "administrator",
+					sender_name: currentUser.name,
+					sender_profile: currentUser.profile_img,
+					kind: "create",
+					text: `send appt. to ${currentUser.advisor.name}.`,
+					isRead: false,
+					time: Date.now()
+				};
+
+				mySocket.emit("send_notification", {
+					notificationObject,
+					room: "administrator"
+				});
+
+				setNotifiUpdateAdmin(notificationObject);
+				// for admin appointment notification end
 
 				setTimeout(() => {
 					setIsSubmitted(Date.now());
