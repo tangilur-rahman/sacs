@@ -62,7 +62,7 @@ const ReplyPopup = ({
 								return (
 									<div
 										className={
-											currentUser.id === reply.id
+											parseInt(currentUser.id) === reply.id
 												? "reply-info own"
 												: "reply-info other"
 										}

@@ -34,7 +34,6 @@
 
 .popup-container .reply-popup .reply-info.other {
 	align-self: flex-start;
-	border: 1px solid red;
 }
 
 .popup-container .reply-popup .reply-info.own {
@@ -62,12 +61,12 @@
 }
 
 .popup-container .reply-popup .own .reply {
-	background-color: #edf2f4;
-	margin: 0 0 0 10px;
+	background-color: #d9fdd3;
+	margin: 0 10px 0 0px;
 }
 .popup-container .reply-popup .other .reply {
-	background-color: #d9fdd3;
-	margin: 0 10px 0 0;
+	background-color: #edf2f4;
+	margin: 0 0px 0 10px;
 }
 
 .reply-popup .reply-info .reply #text {
