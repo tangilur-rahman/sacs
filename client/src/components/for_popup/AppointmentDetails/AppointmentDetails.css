@@ -406,6 +406,10 @@
 	font-weight: 500;
 }
 
+.reply-box-container .reply-box button:hover {
+	transform: scale(1.04);
+}
+
 .reply-box-container .reply-box button:active {
 	transform: scale(0.97);
 }
@@ -429,11 +433,11 @@
 }
 
 .appointment-details .delete-controller button:hover {
-	transform: scale(0.98);
+	transform: scale(1.04);
 }
 
 .appointment-details .delete-controller button:active {
-	transform: scale(0.95);
+	transform: scale(0.97);
 }
 
 .appointment-details .delete-controller button:first-child {
@@ -472,10 +476,10 @@
 }
 
 .appointment-details .icon:hover {
-	transform: scale(0.97);
+	transform: scale(1.09);
 }
 
 .appointment-details .icon:active {
-	transform: scale(0.9);
+	transform: scale(0.97);
 }
 /* for close button style end  */

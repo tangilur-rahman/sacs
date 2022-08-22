@@ -51,7 +51,7 @@ const ReplyPopup = ({
 	return (
 		<div className="popup-container" data-aos="fade-down" data-aos-delay="0">
 			<div className="row wrapper" ref={modalRef}>
-				<div className="col-8">
+				<div className="col-8 reply-popup-container">
 					<ScrollToBottom
 						scrollViewClassName="reply-popup"
 						initialScrollBehavior="auto"
@@ -81,43 +81,43 @@ const ReplyPopup = ({
 									</div>
 								);
 							})}
-
-						{/* reply-box start  */}
-						{currentUser.role !== "administrator" && (
-							<div className="reply-popup-container">
-								<TextareaAutosize
-									placeholder="Your reply..."
-									onChange={(e) => setReplyText(e.target.value)}
-									minRows={1}
-									id="reply-box"
-									value={replyText}
-									autoFocus
-								/>
-
-								<div className="reply-btn-container">
-									<button
-										type="button"
-										className="btn btn-danger"
-										onClick={() => setReplyPopup(false)}
-									>
-										Cancel
-									</button>
-
-									<button className="btn btn-success" onClick={submitHandler}>
-										Submit
-									</button>
-								</div>
-							</div>
-						)}
-
-						{/* reply-box end  */}
-
-						{/* cancel icon start  */}
-						<span className="icon" onClick={() => setReplyPopup(false)}>
-							<i className="fa-solid fa-circle-xmark"></i>
-						</span>
-						{/* cancel icon end  */}
 					</ScrollToBottom>
+
+					{/* reply-input-container start  */}
+					{currentUser.role !== "administrator" && (
+						<div className="reply-input-container">
+							<TextareaAutosize
+								placeholder="Your reply..."
+								onChange={(e) => setReplyText(e.target.value)}
+								minRows={1}
+								id="reply-box"
+								value={replyText}
+								autoFocus
+							/>
+
+							<div className="reply-btn-container">
+								<button
+									type="button"
+									className="btn btn-danger"
+									onClick={() => setReplyPopup(false)}
+								>
+									Cancel
+								</button>
+
+								<button className="btn btn-success" onClick={submitHandler}>
+									Submit
+								</button>
+							</div>
+						</div>
+					)}
+
+					{/* reply-input-container end  */}
+
+					{/* cancel icon start  */}
+					<span className="icon" onClick={() => setReplyPopup(false)}>
+						<i className="fa-solid fa-circle-xmark"></i>
+					</span>
+					{/* cancel icon end  */}
 				</div>
 			</div>
 		</div>

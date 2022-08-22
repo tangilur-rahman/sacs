@@ -9,18 +9,21 @@
 	justify-content: center;
 }
 
-.popup-container .wrapper .reply-popup {
+.appointment-details-container .popup-container .reply-popup-container {
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: var(--box-shadow);
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	max-height: 76vh;
+	padding: 20px 0;
+	position: relative;
+	height: 80vh;
+}
+
+.popup-container .wrapper .reply-popup {
 	overflow-y: scroll;
 	overflow-x: hidden;
-	position: relative;
-	width: 100%;
+	height: 56vh;
+	display: flex;
+	flex-direction: column;
 }
 
 /* reply message-box style start  */
@@ -85,7 +88,7 @@
 /* reply message-box style end  */
 
 /* close icon style start  */
-.popup-container .reply-popup .icon {
+.reply-popup-container .icon {
 	padding: 5px 11px;
 	border-radius: 50%;
 	background-color: #fff2e5;
@@ -94,23 +97,31 @@
 	cursor: pointer;
 	align-self: center;
 	position: absolute;
-	top: 7px;
-	right: 4px;
+	top: 0;
+	right: 0;
 }
 
-.popup-container .reply-popup .icon:hover {
+.reply-popup-container .icon:hover {
+	transform: scale(1.09);
+}
+
+.reply-popup-container .icon:active {
 	transform: scale(0.97);
 }
 /* close icon style end  */
 
-/* reply-popup-container style start  */
-.reply-popup-container {
+/* reply-input-container style start  */
+.reply-input-container {
 	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	padding: 0 20px;
 }
 
-.reply-popup-container #reply-box {
+.reply-input-container #reply-box {
 	border: 1px solid #d3dfea;
 	padding: 15px 20px 15px 20px;
 	line-height: 200%;
@@ -122,24 +133,28 @@
 	flex-grow: 1;
 }
 
-.reply-popup-container #reply-box:focus {
+.reply-input-container #reply-box:focus {
 	outline: 4px solid #c2daff;
 }
 
-.reply-popup-container .reply-btn-container {
+.reply-input-container .reply-btn-container {
 	display: flex;
 	justify-content: flex-end;
 	margin: 20px 0 0;
 }
 
-.reply-popup-container .reply-btn-container button {
+.reply-input-container .reply-btn-container button {
 	margin-left: 20px;
 	padding: 7px 15px;
 	color: white;
 	font-weight: 500;
 }
 
-.reply-popup-container .reply-btn-container button:active {
+.reply-input-container .reply-btn-container button:hover {
+	transform: scale(1.09);
+}
+
+.reply-input-container .reply-btn-container button:active {
 	transform: scale(0.97);
 }
-/* reply-popup-container style end  */
+/* reply-input-container style end  */
