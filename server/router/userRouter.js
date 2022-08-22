@@ -18,11 +18,15 @@ const {
 	deleteAdvisor,
 	deleteStudent,
 	searchAdvisors,
-	searchStudents
+	searchStudents,
+	getTotalStudents
 } = require("./../controllers/userController");
 const { multerForImg } = require("../Config/multerManager");
 
 user.get("/", authUser, currentUser);
+
+// for get total students when advisor
+user.get("/advisor/students", authUser, getTotalStudents);
 
 // for get all advisors when admin
 user.get("/advisor-list", authUser, getAllAdvisors);

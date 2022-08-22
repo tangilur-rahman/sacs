@@ -39,6 +39,9 @@ const ProfileEdit = ({
 	const [getSemester, setSemester] = useState(userEdit.semester);
 	const [getYear, setYear] = useState(userEdit.year);
 
+	// for get total students from advisors
+	const [getTotalS, setTotalS] = useState("");
+
 	// for file handle
 	const [getFile, setFile] = useState("");
 	const [previewImg, setPreviewImg] = useState(
@@ -137,6 +140,36 @@ const ProfileEdit = ({
 		}
 	};
 	// submit handler end
+
+	// get total students for advisor start
+	useEffect(() => {
+		if (currentUser.role === "advisor") {
+			(async () => {
+				try {
+					const response = await fetch("user/advisor/students");
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setTotalS(result);
+					} else if (result.error) {
+						toast(result.error, {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		}
+	}, [currentUser]);
+	// get total students for advisor end
 
 	// for displaying phone-number start
 	const displayValue = (user) => {
@@ -398,6 +431,7 @@ const ProfileEdit = ({
 
 									{userEdit ? (
 										<span className={userEdit ? "remove-pd" : ""}>
+											Gender :
 											<GenderDropdown
 												getGender={getGender}
 												setGender={setGender}
@@ -423,9 +457,27 @@ const ProfileEdit = ({
 										currentUser?.role !== "administrator" && (
 											<span>
 												Department : &nbsp;
-												<input value={currentUser.department} readOnly />
+												<input
+													value={currentUser.department.toUpperCase()}
+													readOnly
+												/>
 											</span>
 										)
+									)}
+
+									{currentUser.role === "advisor" && (
+										<span>
+											Total &nbsp;
+											{getTotalS && getTotalS.length > 1
+												? "students"
+												: "student"}
+											&nbsp;:&nbsp;
+											<input
+												value={getTotalS ? getTotalS : "Null"}
+												readOnly
+												style={{ width: "fit-content" }}
+											/>
+										</span>
 									)}
 
 									{userEdit ? (
@@ -437,7 +489,7 @@ const ProfileEdit = ({
 											/>
 										</span>
 									) : (
-										currentUser?.role !== "administrator" && (
+										currentUser?.role === "student" && (
 											<span>
 												Semester :&nbsp;
 												<input value={currentUser.semester} readOnly />

@@ -23,6 +23,21 @@ const currentUser = async (req, res) => {
 	}
 };
 
+// for get total students when advisor
+const getTotalStudents = async (req, res) => {
+	try {
+		const totalStudents = await studentModel.find({
+			advisor: req.currentUser._id
+		});
+
+		if (totalStudents) {
+			res.status(200).json(totalStudents.length);
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Something was wrong, Try again!" });
+	}
+};
+
 // for get all advisor when admin
 const getAllAdvisors = async (req, res) => {
 	try {
@@ -365,5 +380,6 @@ module.exports = {
 	deleteAdvisor,
 	deleteStudent,
 	searchAdvisors,
-	searchStudents
+	searchStudents,
+	getTotalStudents
 };

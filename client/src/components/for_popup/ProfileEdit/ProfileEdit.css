@@ -199,6 +199,10 @@
 	margin-left: 5px;
 }
 
+.profile-edit-container .curr-user-info #current-p input:focus {
+	background-color: transparent;
+}
+
 .profile-edit-container .curr-user-info #phone-number input {
 	width: 60%;
 	margin-left: 5px;
