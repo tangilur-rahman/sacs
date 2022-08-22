@@ -110,4 +110,9 @@
 	text-transform: uppercase;
 }
 
+.advisor-info-container .advisor-info .null {
+	font-weight: 600;
+	color: #006d77;
+}
+
 /* input field style end  */

@@ -3,9 +3,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "./../../../ContextApi";
 import "./AdvisorInfo.css";
 
 const AdvisorInfo = () => {
+	// for get currentUser
+	const { currentUser } = GetContextApi();
+
+	// get my advisor
 	const [getAdvisor, setAdvisor] = useState("");
 
 	const getMyAdvisor = async () => {
@@ -39,8 +44,12 @@ const AdvisorInfo = () => {
 	};
 
 	useEffect(() => {
-		getMyAdvisor();
-	}, []);
+		if (currentUser.role === "student") {
+			getMyAdvisor();
+		}
+	}, [currentUser]);
+
+	console.log(getAdvisor);
 
 	return (
 		<>
@@ -51,7 +60,7 @@ const AdvisorInfo = () => {
 							<div className="advisor-profile">
 								<span className="img-wrapper">
 									<img
-										src={`uploads/${getAdvisor?.profile_img}`}
+										src={`uploads/profile-img/${getAdvisor?.profile_img}`}
 										alt="profile-img"
 										className="img-fluid animation"
 									/>
@@ -69,8 +78,23 @@ const AdvisorInfo = () => {
 										Email : <input value={getAdvisor?.email} readOnly />
 									</span>
 									<span id="phone-number">
-										Phone : &nbsp; <h6>+880</h6>
-										<input readOnly value={getAdvisor?.phone} />
+										Phone : &nbsp;
+										{getAdvisor.phone ? (
+											<div style={{ display: "inline-block" }}>
+												<h6>+880</h6>
+												<input readOnly value={getAdvisor?.phone} />
+											</div>
+										) : (
+											<div
+												style={{
+													fontWeight: "600",
+													color: " #006d77",
+													display: "inline-block"
+												}}
+											>
+												Null
+											</div>
+										)}
 									</span>
 									<span>
 										Gender : <input value={getAdvisor?.gender} readOnly />
