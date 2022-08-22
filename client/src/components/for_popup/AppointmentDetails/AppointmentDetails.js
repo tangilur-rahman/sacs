@@ -14,6 +14,9 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 	// for updating dashboard
 	const { setIsSubmitted, mySocket, setNotifiUpdate } = GetContextApi();
 
+	// for loading until fetching not complete
+	const [isLoading, setIsLoading] = useState(true);
+
 	// for reply popup toggle
 	const [replyPopup, setReplyPopup] = useState(false);
 
@@ -66,6 +69,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 					result.appointment_date ? new Date(result.appointment_date) : ""
 				);
 				setIsRead(result.isRead);
+				setIsLoading(false);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -310,298 +314,319 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 	return (
 		<>
-			<div
-				className="appointment-details-container"
-				data-aos="fade-up"
-				data-aos-delay="0"
-			>
-				<div className="row m-0 layout-center">
-					<div className="col-9 p-0">
-						<div
-							ref={myRef}
-							className="appointment-details"
-							id={replyPopup ? "appt-blur" : ""}
-						>
-							{/* header section start  */}
-							<div className="header">
-								{currentUser.role !== "student" && (
-									<div className="user-info">
-										<img
-											src={`uploads/profile-img/${specificApp.student?.profile_img}`}
-											alt="profile-img"
-											className="profile-img img-fluid"
-										/>
-
-										<div className="info">
-											<h6>{specificApp.student?.name}</h6>
-											<h6>
-												Id&nbsp;: &nbsp;<span>{specificApp.student?.id}</span>
-											</h6>
-										</div>
-									</div>
-								)}
-
-								<div className="subject">
-									<h3>{specificApp?.subject}</h3>
-								</div>
-
-								{currentUser.role === "administrator" && (
-									<div className="user-info">
-										<img
-											src={`uploads/profile-img/${specificApp.advisor?.profile_img}`}
-											alt="profile-img"
-											className="profile-img img-fluid"
-										/>
-
-										<div className="info">
-											<h6>{specificApp.advisor?.name}</h6>
-											<h6>
-												Id&nbsp;: &nbsp;<span>{specificApp.advisor?.id}</span>
-											</h6>
-										</div>
-									</div>
-								)}
-							</div>
-							{/* header section end  */}
-
-							{/* details section start  */}
-							<div className="details">
-								<div className="top-row for-margin">
-									<div id="category">
-										<span>Category&nbsp;:</span>
-										<p>{specificApp?.category}</p>
-									</div>
-
-									<div id="date">
-										<span>Date&nbsp;:</span>
-										<p>
-											{moment(specificApp?.createdAt).format(
-												"h:mm A - MMMM DD, YYYY"
-											)}
-										</p>
-									</div>
-								</div>
-
-								<div className="for-margin">
-									<span>Description &nbsp;:</span>
-									<div className="description">
-										<p>{specificApp?.description}</p>
-									</div>
-								</div>
-
-								<div className="for-margin">
-									<span>Attachments &nbsp;:</span>
-									<div className="attachments">
-										{specificApp.attachments?.length > 0 ? (
-											specificApp.attachments.map((value, index) => {
-												return (
-													<a
-														href={`uploads/attachments/${value}`}
-														download
-														key={index}
-													>
-														{value.split(/[-]/).slice(0, 1, -1) +
-															"." +
-															value.split(".").slice(-1)[0]}
-													</a>
-												);
-											})
-										) : (
-											<h6>Null</h6>
-										)}
-									</div>
-								</div>
-
-								{currentUser.role === "student" && (
-									<div className="for-margin" id="status">
-										<span>Curr.. &nbsp;Status&nbsp;:</span>
-										<p>{specificApp?.status}</p>
-									</div>
-								)}
-
-								{currentUser.role === "student" && (
-									<div className="for-margin" id="appointment-date">
-										<span>Appt.. &nbsp;Date&nbsp;:</span>
-										{specificApp?.appointment_date ? (
-											<p>
-												{moment(specificApp?.appointment_date).format(
-													"h:mm A - MMMM DD, YYYY"
-												)}
-											</p>
-										) : (
-											<p>Null</p>
-										)}
-									</div>
-								)}
-							</div>
-							{/* details section start  */}
-
-							{/* advisor-section start  */}
-							{currentUser.role !== "student" && (
-								<div className="advisor-section">
-									<span>Appointment Date &nbsp;:</span>
-									<div className="wrapper">
-										<div className="app-date">
-											<DateTimePicker
-												className="date-picker"
-												onChange={(date) => setPicDate(date)}
-												value={picDate}
-												format="dd-MM-y  h:mm a"
-											/>
-										</div>
-
-										<div className="app-status">
-											<div
-												id="solved"
-												className={getStatus === "solved" ? "active" : ""}
-												onClick={() => setStatus("solved")}
-											>
-												<div>Solved Appt..</div>
-												<div className="icon-container">
-													<i className="fa-solid fa-circle-check"></i>
-												</div>
-											</div>
-
-											<div
-												id="pending"
-												className={getStatus === "pending" ? "active" : ""}
-												onClick={() => setStatus("pending")}
-											>
-												<div> Pending Appt..</div>
-												<div className="icon-container">
-													<i className="fa-solid fa-hourglass-half"></i>
-												</div>
-											</div>
-
-											<div
-												id="rejected"
-												className={getStatus === "rejected" ? "active" : ""}
-												onClick={() => setStatus("rejected")}
-											>
-												<div>Rejected Appt..</div>
-												<div className="icon-container">
-													<i className="fa-solid fa-circle-xmark"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							)}
-
-							{/* advisor-section end  */}
-
-							{/* reply-link start  */}
-							<div className="reply-link">
-								{specificApp.reply?.length > 0 ? (
-									<h6 onClick={() => setReplyPopup(true)}>
-										View all <span>{specificApp.reply?.length}</span> replies
-									</h6>
-								) : (
-									<h6
-										style={{
-											textDecoration: "none",
-											color: "#2a9d8f",
-											cursor: "default"
-										}}
-									>
-										No Reply
-									</h6>
-								)}
-							</div>
-							{/* reply-link end  */}
-
-							{/* reply-box start  */}
-							{currentUser.role !== "administrator" && (
-								<div className="reply-box-container">
-									<span>Reply &nbsp;:</span>
-
-									<div className="reply-box">
-										<TextareaAutosize
-											placeholder="Your reply..."
-											onChange={(e) => setReplyText(e.target.value)}
-											minRows={2}
-											id="reply-box"
-											value={!replyPopup && replyText}
-										/>
-										<button className="btn btn-success" onClick={submitHandler}>
-											Submit
-										</button>
-									</div>
-								</div>
-							)}
-
-							{/* reply-box end  */}
-
-							{/* delete control section start  */}
-							{currentUser.role === "administrator" && (
-								<div className="delete-controller">
-									<button
-										className="btn btn-danger"
-										onClick={() => setConformPopup(!conformPopup)}
-									>
-										Delete
-									</button>
-
-									<button
-										className="btn btn-dark"
-										onClick={() => setAppDisplay(false)}
-									>
-										Cancel
-									</button>
-								</div>
-							)}
-
-							{/* for popup model section start  */}
-							{conformPopup && (
-								<div
-									className="conformation-popup"
-									data-aos="fade-down"
-									data-aos-delay="0"
-								>
-									<h5>Do you want to delete that appointment?</h5>
-									<div className="delete-controller">
-										<button
-											className="btn btn-dark"
-											onClick={() => {
-												setConformPopup(!conformPopup);
-											}}
-										>
-											Cancel
-										</button>
-
-										<button
-											className="btn btn-danger"
-											onClick={appointmentDeleteHandler}
-										>
-											Submit
-										</button>
-									</div>
-								</div>
-							)}
-							{/* for popup model section end  */}
-
-							{/* delete control section end  */}
-
-							{/* for close icon start */}
-							<span className="icon" onClick={() => setAppDisplay(false)}>
-								<i className="fa-solid fa-circle-xmark"></i>
-							</span>
-							{/* for close icon end */}
-						</div>
+			{isLoading ? (
+				<div>
+					<div className="loading-animation">
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
+						<div className="obj"></div>
 					</div>
 				</div>
+			) : (
+				<>
+					<div className="appointment-details-container">
+						<div className="row m-0 layout-center">
+							<div className="col-9 p-0">
+								<div
+									ref={myRef}
+									className="appointment-details"
+									id={replyPopup ? "appt-blur" : ""}
+									data-aos="fade-up"
+									data-aos-delay="0"
+								>
+									{/* header section start  */}
+									<div className="header">
+										{currentUser.role !== "student" && (
+											<div className="user-info">
+												<img
+													src={`uploads/profile-img/${specificApp.student?.profile_img}`}
+													alt="profile-img"
+													className="profile-img img-fluid"
+												/>
 
-				{replyPopup && (
-					<ReplyPopup
-						setReplyPopup={setReplyPopup}
-						currentUser={currentUser}
-						specificApp={specificApp}
-						replyText={replyText}
-						setReplyText={setReplyText}
-						submitHandler={submitHandler}
-					/>
-				)}
-			</div>
+												<div className="info">
+													<h6>{specificApp.student?.name}</h6>
+													<h6>
+														Id&nbsp;: &nbsp;
+														<span>{specificApp.student?.id}</span>
+													</h6>
+												</div>
+											</div>
+										)}
+
+										<div className="subject">
+											<h3>{specificApp?.subject}</h3>
+										</div>
+
+										{currentUser.role === "administrator" && (
+											<div className="user-info">
+												<img
+													src={`uploads/profile-img/${specificApp.advisor?.profile_img}`}
+													alt="profile-img"
+													className="profile-img img-fluid"
+												/>
+
+												<div className="info">
+													<h6>{specificApp.advisor?.name}</h6>
+													<h6>
+														Id&nbsp;: &nbsp;
+														<span>{specificApp.advisor?.id}</span>
+													</h6>
+												</div>
+											</div>
+										)}
+									</div>
+									{/* header section end  */}
+
+									{/* details section start  */}
+									<div className="details">
+										<div className="top-row for-margin">
+											<div id="category">
+												<span>Category&nbsp;:</span>
+												<p>{specificApp?.category}</p>
+											</div>
+
+											<div id="date">
+												<span>Date&nbsp;:</span>
+												<p>
+													{moment(specificApp?.createdAt).format(
+														"h:mm A - MMMM DD, YYYY"
+													)}
+												</p>
+											</div>
+										</div>
+
+										<div className="for-margin">
+											<span>Description &nbsp;:</span>
+											<div className="description">
+												<p>{specificApp?.description}</p>
+											</div>
+										</div>
+
+										<div className="for-margin">
+											<span>Attachments &nbsp;:</span>
+											<div className="attachments">
+												{specificApp.attachments?.length > 0 ? (
+													specificApp.attachments.map((value, index) => {
+														return (
+															<a
+																href={`uploads/attachments/${value}`}
+																download
+																key={index}
+															>
+																{value.split(/[-]/).slice(0, 1, -1) +
+																	"." +
+																	value.split(".").slice(-1)[0]}
+															</a>
+														);
+													})
+												) : (
+													<h6>Null</h6>
+												)}
+											</div>
+										</div>
+
+										{currentUser.role === "student" && (
+											<div className="for-margin" id="status">
+												<span>Curr.. &nbsp;Status&nbsp;:</span>
+												<p>{specificApp?.status}</p>
+											</div>
+										)}
+
+										{currentUser.role === "student" && (
+											<div className="for-margin" id="appointment-date">
+												<span>Appt.. &nbsp;Date&nbsp;:</span>
+												{specificApp?.appointment_date ? (
+													<p>
+														{moment(specificApp?.appointment_date).format(
+															"h:mm A - MMMM DD, YYYY"
+														)}
+													</p>
+												) : (
+													<p>Null</p>
+												)}
+											</div>
+										)}
+									</div>
+									{/* details section start  */}
+
+									{/* advisor-section start  */}
+									{currentUser.role !== "student" && (
+										<div className="advisor-section">
+											<span>Appointment Date &nbsp;:</span>
+											<div className="wrapper">
+												<div className="app-date">
+													<DateTimePicker
+														className="date-picker"
+														onChange={(date) => setPicDate(date)}
+														value={picDate}
+														format="dd-MM-y  h:mm a"
+													/>
+												</div>
+
+												<div className="app-status">
+													<div
+														id="solved"
+														className={getStatus === "solved" ? "active" : ""}
+														onClick={() => setStatus("solved")}
+													>
+														<div>Solved Appt..</div>
+														<div className="icon-container">
+															<i className="fa-solid fa-circle-check"></i>
+														</div>
+													</div>
+
+													<div
+														id="pending"
+														className={getStatus === "pending" ? "active" : ""}
+														onClick={() => setStatus("pending")}
+													>
+														<div> Pending Appt..</div>
+														<div className="icon-container">
+															<i className="fa-solid fa-hourglass-half"></i>
+														</div>
+													</div>
+
+													<div
+														id="rejected"
+														className={getStatus === "rejected" ? "active" : ""}
+														onClick={() => setStatus("rejected")}
+													>
+														<div>Rejected Appt..</div>
+														<div className="icon-container">
+															<i className="fa-solid fa-circle-xmark"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
+
+									{/* advisor-section end  */}
+
+									{/* reply-link start  */}
+									<div className="reply-link">
+										{specificApp.reply?.length > 0 ? (
+											<h6 onClick={() => setReplyPopup(true)}>
+												View all <span>{specificApp.reply?.length}</span>{" "}
+												replies
+											</h6>
+										) : (
+											<h6
+												style={{
+													textDecoration: "none",
+													color: "#2a9d8f",
+													cursor: "default"
+												}}
+											>
+												No Reply
+											</h6>
+										)}
+									</div>
+									{/* reply-link end  */}
+
+									{/* reply-box start  */}
+									{currentUser.role !== "administrator" && (
+										<div className="reply-box-container">
+											<span>Reply &nbsp;:</span>
+
+											<div className="reply-box">
+												<TextareaAutosize
+													placeholder="Your reply..."
+													onChange={(e) => setReplyText(e.target.value)}
+													minRows={2}
+													id="reply-box"
+													value={!replyPopup && replyText}
+												/>
+												<button
+													className="btn btn-success"
+													onClick={submitHandler}
+												>
+													Submit
+												</button>
+											</div>
+										</div>
+									)}
+
+									{/* reply-box end  */}
+
+									{/* delete control section start  */}
+									{currentUser.role === "administrator" && (
+										<div className="delete-controller">
+											<button
+												className="btn btn-danger"
+												onClick={() => setConformPopup(!conformPopup)}
+											>
+												Delete
+											</button>
+
+											<button
+												className="btn btn-dark"
+												onClick={() => setAppDisplay(false)}
+											>
+												Cancel
+											</button>
+										</div>
+									)}
+
+									{/* for popup model section start  */}
+									{conformPopup && (
+										<div
+											className="conformation-popup"
+											data-aos="fade-down"
+											data-aos-delay="0"
+										>
+											<h5>Do you want to delete that appointment?</h5>
+											<div className="delete-controller">
+												<button
+													className="btn btn-dark"
+													onClick={() => {
+														setConformPopup(!conformPopup);
+													}}
+												>
+													Cancel
+												</button>
+
+												<button
+													className="btn btn-danger"
+													onClick={appointmentDeleteHandler}
+												>
+													Submit
+												</button>
+											</div>
+										</div>
+									)}
+									{/* for popup model section end  */}
+
+									{/* delete control section end  */}
+
+									{/* for close icon start */}
+									<span className="icon" onClick={() => setAppDisplay(false)}>
+										<i className="fa-solid fa-circle-xmark"></i>
+									</span>
+									{/* for close icon end */}
+								</div>
+							</div>
+						</div>
+
+						{replyPopup && (
+							<ReplyPopup
+								setReplyPopup={setReplyPopup}
+								currentUser={currentUser}
+								specificApp={specificApp}
+								replyText={replyText}
+								setReplyText={setReplyText}
+								submitHandler={submitHandler}
+							/>
+						)}
+					</div>
+				</>
+			)}
 		</>
 	);
 };
