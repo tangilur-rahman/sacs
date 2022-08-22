@@ -39,13 +39,10 @@ const Homepage = ({
 	const [totalValue, setTotalValue] = useState("");
 	const [profileT, setProfileT] = useState(false);
 
-	// for total value fetching animation
-	const [totalLoading, setTotalLoading] = useState(false);
-
 	// for edit user by administrator
 	const [userEdit, setUserEdit] = useState(false);
 
-	// for refetching when any new user created
+	// for refetching when any user new created
 	const [created, setCreated] = useState("");
 
 	// for get current user
@@ -120,7 +117,6 @@ const Homepage = ({
 						setMessageId={setMessageId}
 						selected={selected}
 						setSelected={setSelected}
-						setTotalLoading={setTotalLoading}
 					/>
 
 					<div className="container-fluid p-0 homepage-main-container">
@@ -129,7 +125,7 @@ const Homepage = ({
 							id={
 								userEdit ||
 								registerT ||
-								totalLoading ||
+								totalValue.list?.length > 0 ||
 								appDisplay ||
 								profileT === "profile"
 									? "blur"
@@ -160,24 +156,12 @@ const Homepage = ({
 							setCreated={setCreated}
 						/>
 
-						{totalLoading ? (
+						{totalValue && (
 							<ListOfTotal
 								totalValue={totalValue}
 								setTotalValue={setTotalValue}
 								setUserEdit={setUserEdit}
-								setTotalLoading={setTotalLoading}
 							/>
-						) : (
-							<div className="loading-animation">
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-								<div className="obj"></div>
-							</div>
 						)}
 
 						{appDisplay && (
