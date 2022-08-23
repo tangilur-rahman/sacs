@@ -509,6 +509,9 @@ const ProfileEdit = ({
 											className={userEdit ? "remove-pd" : ""}
 											id={userEdit && editT ? "outline-style" : ""}
 										>
+											<p className={editT ? "input-text-hide" : "input-text"}>
+												{editT ? "" : "Semester :"}
+											</p>
 											<SemesterDropDown
 												getSemester={getSemester}
 												setSemester={setSemester}
@@ -637,6 +640,7 @@ const ProfileEdit = ({
 
 									{userEdit.role === "student" ? (
 										<span className={userEdit ? "remove-pd" : ""} id="for-year">
+											<p className="input-text">Academic Year :</p>
 											<YearDropdown
 												getYear={getYear}
 												setYear={setYear}
