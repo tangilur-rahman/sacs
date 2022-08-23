@@ -519,7 +519,9 @@ const Navbar = ({
 														/>
 
 														<div>
-															<h6>{value.sender_name}</h6>
+															<h6 style={{ " max-width": "120px" }}>
+																{value.sender_name}
+															</h6>
 															<span>{value.text}</span>
 														</div>
 														<div className="notification-time">

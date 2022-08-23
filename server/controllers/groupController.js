@@ -154,25 +154,10 @@ const allGroupMembers = async (req, res) => {
 	}
 };
 
-// for search document which come from notification
-const searchDocument = async (req, res) => {
-	try {
-		const document = await groupModel
-			.findOne({ _id: req.params._id })
-			.populate("student", "name profile_img")
-			.populate("advisor", "name profile_img");
-
-		res.status(200).json(document);
-	} catch (error) {
-		res.status(500).json({ error: "Not Found Students" });
-	}
-};
-
 module.exports = {
 	createOrGet,
 	submitMessage,
 	submitFile,
 	changeGroupInfo,
-	allGroupMembers,
-	searchDocument
+	allGroupMembers
 };

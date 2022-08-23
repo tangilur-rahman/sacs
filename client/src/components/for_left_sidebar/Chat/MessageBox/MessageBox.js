@@ -23,9 +23,6 @@ const MessageBox = ({
 	// for rending messages array
 	const [displayMessages, setDisplayMessages] = useState("");
 
-	// for get specific message document from notification
-	const [document, setDocument] = useState("");
-
 	useEffect(() => {
 		if (messageId && !getMessages) {
 			(async () => {
@@ -37,7 +34,6 @@ const MessageBox = ({
 					if (response.status === 200) {
 						if (result) {
 							setMessages(result);
-							setDocument(true);
 						} else {
 							return;
 						}
@@ -54,34 +50,6 @@ const MessageBox = ({
 						theme: "colored",
 						autoClose: 3000
 					});
-				}
-
-				if (!document) {
-					try {
-						const response = await fetch(
-							`/group-chat/notification/${messageId}`
-						);
-						const result = await response.json();
-						if (response.status === 200) {
-							if (result) {
-								setMessages(result);
-							} else {
-								return;
-							}
-						} else if (result.error) {
-							toast.error(result.error, {
-								position: "top-right",
-								theme: "colored",
-								autoClose: 3000
-							});
-						}
-					} catch (error) {
-						toast.error(error.message, {
-							position: "top-right",
-							theme: "colored",
-							autoClose: 3000
-						});
-					}
 				}
 			})();
 		} else {

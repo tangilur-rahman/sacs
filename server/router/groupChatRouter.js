@@ -10,8 +10,7 @@ const {
 	submitMessage,
 	submitFile,
 	changeGroupInfo,
-	allGroupMembers,
-	searchDocument
+	allGroupMembers
 } = require("./../controllers/groupController");
 
 const authUser = require("./../middleware/authUser");
@@ -38,8 +37,5 @@ group_chat.put("/update", authUser, uploadImg.single("file"), changeGroupInfo);
 
 // for get all groupMembers
 group_chat.get("/members/:_id", allGroupMembers);
-
-// for get search result from notification
-group_chat.get("/notification/:_id", authUser, searchDocument);
 
 module.exports = group_chat;
