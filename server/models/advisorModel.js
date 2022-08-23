@@ -27,12 +27,13 @@ const schema = mongoose.Schema(
 		},
 
 		phone: {
-			type: Number,
+			type: String,
 			validate(value) {
 				if (!validator.isMobilePhone(value, ["bn-BD"])) {
 					throw new Error("Invalid phone number!");
 				}
-			}
+			},
+			default: ""
 		},
 
 		gender: {

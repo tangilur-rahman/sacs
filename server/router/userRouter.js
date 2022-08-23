@@ -26,7 +26,7 @@ const { multerForImg } = require("../Config/multerManager");
 user.get("/", authUser, currentUser);
 
 // for get total students when advisor
-user.get("/advisor/students", authUser, getTotalStudents);
+user.get("/total-students/:_id", getTotalStudents);
 
 // for get all advisors when admin
 user.get("/advisor-list", authUser, getAllAdvisors);

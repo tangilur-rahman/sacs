@@ -93,7 +93,7 @@ const createNewUser = async (req, res) => {
 									(value) => min >= value.minRange && max <= value.maxRange
 								);
 
-								if (checkRange.length) {
+								if (checkRange.length > 0) {
 									res.status(400).json({ message: "That range already given" });
 								} else {
 									const document = await advisorModel({

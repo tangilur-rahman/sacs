@@ -11,7 +11,6 @@ import "./ProfileEdit.css";
 // dropdown components
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
 import GenderDropdown from "./Dropdown/GenderDropdown/GenderDropdown";
-import RoleDropdown from "./Dropdown/RoleDropdown/RoleDropdown";
 import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
 import YearDropdown from "./Dropdown/YearDropdown/YearDropdown";
 
@@ -34,9 +33,10 @@ const ProfileEdit = ({
 	const [getId, setId] = useState(userEdit.id);
 	const [getEmail, setEmail] = useState(userEdit.email);
 	const [getGender, setGender] = useState(userEdit.gender);
-	const [getRole, setRole] = useState(userEdit.role);
 	const [getDepart, setDepart] = useState(userEdit.department);
 	const [getSemester, setSemester] = useState(userEdit.semester);
+	const [getMin, setMin] = useState(userEdit.minRange);
+	const [getMax, setMax] = useState(userEdit.maxRange);
 	const [getYear, setYear] = useState(userEdit.year);
 
 	// for get total students from advisors
@@ -143,10 +143,12 @@ const ProfileEdit = ({
 
 	// get total students for advisor start
 	useEffect(() => {
-		if (currentUser.role === "advisor") {
+		if (currentUser.role === "advisor" || userEdit.role === "advisor") {
 			(async () => {
+				const _id = userEdit ? userEdit._id : currentUser._id;
+
 				try {
-					const response = await fetch("user/advisor/students");
+					const response = await fetch(`/user/total-students/${_id}`);
 
 					const result = await response.json();
 
@@ -168,7 +170,7 @@ const ProfileEdit = ({
 				}
 			})();
 		}
-	}, [currentUser]);
+	}, [currentUser, userEdit]);
 	// get total students for advisor end
 
 	// for displaying phone-number start
@@ -192,9 +194,11 @@ const ProfileEdit = ({
 				(getDepart === userEdit.department ? "" : getDepart) ||
 				(getEmail === userEdit.email ? "" : getEmail) ||
 				(getGender === userEdit.gender ? "" : getGender) ||
-				(getRole === userEdit.role ? "" : getRole) ||
+				(getMin === userEdit.minRange ? "" : getMin) ||
+				(getMax === userEdit.maxRange ? "" : getMax) ||
 				(getYear === userEdit.year ? "" : getYear) ||
 				(getSemester === userEdit.semester ? "" : getSemester) ||
+				(getPhone === userEdit.phone ? "" : getPhone) ||
 				newPassword
 			)
 		) {
@@ -208,14 +212,17 @@ const ProfileEdit = ({
 			try {
 				const userDocument = {
 					_id: userEdit._id,
+					department: userEdit.department,
 					getName: getName === userEdit.name ? "" : getName,
 					getId: getId === userEdit.id ? "" : getId,
 					getDepart: getDepart === userEdit.department ? "" : getDepart,
 					getEmail: getEmail === userEdit.email ? "" : getEmail,
 					getGender: getGender === userEdit.gender ? "" : getGender,
-					getRole: getRole === userEdit.role ? "" : getRole,
+					getMin: getMin === userEdit.minRange ? "" : getMin,
+					getMax: getMax === userEdit.maxRange ? "" : getMax,
 					getYear: getYear === userEdit.year ? "" : getYear,
 					getSemester: getSemester === userEdit.semester ? "" : getSemester,
+					getPhone: getPhone === userEdit.phone ? "" : getPhone,
 					newPassword
 				};
 
@@ -400,7 +407,10 @@ const ProfileEdit = ({
 							</div>
 							<div className="curr-user-info">
 								<div className="row info">
-									<span id="name">
+									<span
+										id="name"
+										className={userEdit && editT ? "outline-style" : ""}
+									>
 										Name :&nbsp;
 										<input
 											value={userEdit ? getName : currentUser.name}
@@ -409,7 +419,7 @@ const ProfileEdit = ({
 										/>
 									</span>
 
-									<span>
+									<span className={userEdit && editT ? "outline-style" : ""}>
 										ID :&nbsp;
 										<input
 											type="number"
@@ -419,7 +429,10 @@ const ProfileEdit = ({
 										/>
 									</span>
 
-									<span id="email">
+									<span
+										id="email"
+										className={userEdit && editT ? "outline-style" : ""}
+									>
 										Email :&nbsp;
 										<input
 											type="email"
@@ -430,8 +443,14 @@ const ProfileEdit = ({
 									</span>
 
 									{userEdit ? (
-										<span className={userEdit ? "remove-pd" : ""}>
-											Gender :
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
+											<p className={editT ? "input-text-hide" : "input-text"}>
+												{editT ? "" : "Gender :"}
+											</p>
+
 											<GenderDropdown
 												getGender={getGender}
 												setGender={setGender}
@@ -446,7 +465,13 @@ const ProfileEdit = ({
 									)}
 
 									{userEdit ? (
-										<span className={userEdit ? "remove-pd" : ""}>
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
+											<p className={editT ? "input-text-hide" : "input-text"}>
+												{editT ? "" : "Department :"}
+											</p>
 											<DepartDropdown
 												getDepart={getDepart}
 												setDepart={setDepart}
@@ -465,12 +490,11 @@ const ProfileEdit = ({
 										)
 									)}
 
-									{currentUser.role === "advisor" && (
+									{(userEdit.role === "advisor" ||
+										currentUser.role === "advisor") && (
 										<span>
 											Total &nbsp;
-											{getTotalS && getTotalS.length > 1
-												? "students"
-												: "student"}
+											{getTotalS && getTotalS > 1 ? "students" : "student"}
 											&nbsp;:&nbsp;
 											<input
 												value={getTotalS ? getTotalS : "Null"}
@@ -480,8 +504,11 @@ const ProfileEdit = ({
 										</span>
 									)}
 
-									{userEdit ? (
-										<span className={userEdit ? "remove-pd" : ""}>
+									{userEdit.role === "student" ? (
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
 											<SemesterDropDown
 												getSemester={getSemester}
 												setSemester={setSemester}
@@ -497,13 +524,49 @@ const ProfileEdit = ({
 										)
 									)}
 
-									{userEdit && (
-										<span className={userEdit ? "remove-pd" : ""}>
-											<RoleDropdown
-												getRole={getRole}
-												setRole={setRole}
-												editT={editT}
-											/>
+									{userEdit.role === "advisor" && (
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
+											{editT ? (
+												<div
+													className="range-container"
+													title="Student Id Range"
+												>
+													<h6>Range&nbsp;:</h6>
+													<div className="range-fields">
+														<input
+															type="number"
+															placeholder="id"
+															value={getMin}
+															onChange={(event) => setMin(event.target.value)}
+														/>
+														-
+														<input
+															type="number"
+															placeholder="id"
+															value={getMax}
+															onChange={(event) => setMax(event.target.value)}
+														/>
+													</div>
+												</div>
+											) : (
+												<>
+													<p
+														className={editT ? "input-text-hide" : "input-text"}
+													>
+														{editT ? "" : "Id Range :"}
+													</p>
+													&nbsp;
+													<input
+														value={
+															userEdit.minRange + " - " + userEdit.maxRange
+														}
+														readOnly
+													/>
+												</>
+											)}
 										</span>
 									)}
 
@@ -554,24 +617,25 @@ const ProfileEdit = ({
 										</span>
 									)}
 
-									{!userEdit && currentUser.role === "advisor" && (
+									{(userEdit.role === "advisor" ||
+										currentUser.role === "advisor") && (
 										<span id={editT ? "phone-number" : ""}>
 											<label htmlFor="phone">
-												Phone : &nbsp; {editT && <h6>+880</h6>}
+												Phone : &nbsp; {editT && <h6>+88</h6>}
 											</label>
 
 											<input
 												type={editT ? "number" : "text"}
 												name="phone"
 												id="phone"
-												value={displayValue(currentUser)}
+												value={displayValue(userEdit ? userEdit : currentUser)}
 												readOnly={editT ? false : true}
 												onChange={(event) => setPhone(event.target.value)}
 											/>
 										</span>
 									)}
 
-									{userEdit && userEdit.role !== "administrator" ? (
+									{userEdit.role === "student" ? (
 										<span className={userEdit ? "remove-pd" : ""} id="for-year">
 											<YearDropdown
 												getYear={getYear}

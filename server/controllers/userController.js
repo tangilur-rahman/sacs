@@ -27,7 +27,7 @@ const currentUser = async (req, res) => {
 const getTotalStudents = async (req, res) => {
 	try {
 		const totalStudents = await studentModel.find({
-			advisor: req.currentUser._id
+			advisor: req.params._id
 		});
 
 		if (totalStudents) {
@@ -81,18 +81,17 @@ const updateAdvisor = async (req, res) => {
 	try {
 		const {
 			_id,
+			department,
 			getName,
 			getId,
 			getDepart,
 			getEmail,
 			getGender,
-			getRole,
-			getYear,
-			getSemester,
+			getMin,
+			getMax,
+			getPhone,
 			newPassword
 		} = req.body.userDocument;
-
-		console.log(req.body.userDocument);
 
 		if (getName) {
 			await advisorModel.updateOne({ _id }, { $set: { name: getName } });
@@ -129,19 +128,29 @@ const updateAdvisor = async (req, res) => {
 			);
 		}
 
-		if (getSemester) {
-			await advisorModel.updateOne(
-				{ _id },
-				{ $set: { semester: getSemester } }
+		if (getPhone) {
+			if (getPhone.length === 11) {
+				await advisorModel.updateOne({ _id }, { $set: { phone: getPhone } });
+			} else {
+				throw new Error("Invalid phone number!");
+			}
+		}
+
+		if (getMin && getMax) {
+			const getAllAdvisor = await advisorModel.find({ department });
+
+			const checkRange = getAllAdvisor.filter(
+				(value) => getMin >= value.minRange && getMax <= value.maxRange
 			);
-		}
 
-		if (getYear) {
-			await advisorModel.updateOne({ _id }, { $set: { year: getYear } });
-		}
-
-		if (getRole) {
-			await advisorModel.updateOne({ _id }, { $set: { role: getRole } });
+			if (checkRange.length > 0) {
+				throw new Error("That range already given");
+			} else {
+				await advisorModel.updateOne(
+					{ _id },
+					{ $set: { minRange: getMin, maxRange: getMax } }
+				);
+			}
 		}
 
 		if (newPassword) {
@@ -149,6 +158,7 @@ const updateAdvisor = async (req, res) => {
 				res.status(400).json({ message: "Password is too short!" });
 			} else {
 				const hashPassword = await bcrypt.hash(newPassword, 10);
+
 				await advisorModel.updateOne(
 					{ _id },
 					{ $set: { password: hashPassword } }
@@ -164,8 +174,6 @@ const updateAdvisor = async (req, res) => {
 
 // for update student by admin
 const updateStudent = async (req, res) => {
-	console.log(req.body.userDocument);
-
 	try {
 		const {
 			_id,
