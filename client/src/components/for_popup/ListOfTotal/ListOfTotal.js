@@ -206,6 +206,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																type="text"
 																readOnly
 																value={value.gender}
+																style={{ textTransform: "capitalize" }}
 															/>
 														</td>
 
@@ -213,7 +214,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 															<input
 																type="text"
 																readOnly
-																value={value.department}
+																value={value.department.toUpperCase()}
 															/>
 														</td>
 
