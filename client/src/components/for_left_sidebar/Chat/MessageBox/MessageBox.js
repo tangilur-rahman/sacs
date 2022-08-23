@@ -23,6 +23,7 @@ const MessageBox = ({
 	// for rending messages array
 	const [displayMessages, setDisplayMessages] = useState("");
 
+	// for personal message start
 	useEffect(() => {
 		if (messageId && !getMessages) {
 			(async () => {
@@ -57,7 +58,44 @@ const MessageBox = ({
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [messageId]);
+	// for personal message end
+
+	// for group message start
+	useEffect(() => {
+		if (messageId && !getMessages) {
+			(async () => {
+				try {
+					const response = await fetch(`/group-chat/notification/${messageId}`);
+					const result = await response.json();
+					if (response.status === 200) {
+						if (result) {
+							setMessages(result);
+						} else {
+							return;
+						}
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		} else {
+			return;
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [messageId]);
+	// for group message end
 
 	// for get all messages & attachments
 	useEffect(() => {

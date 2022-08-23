@@ -173,6 +173,44 @@ const InputBox = ({
 
 					setNotifiUpdate(notificationObject);
 				}
+			} else {
+				if (currentUser.role === "advisor") {
+					const notificationObject = {
+						id: `student-${getMessages.room}`,
+						sender_name: currentUser.name,
+						sender_profile: currentUser.profile_img,
+						kind: "message",
+						last_message: `${currentUser.name} send a message in group.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: getMessages._id
+					};
+
+					mySocket?.emit("send_group_notification", {
+						notificationObject,
+						room: getMessages.room
+					});
+
+					setNotifiUpdate(notificationObject);
+				} else if (currentUser.role === "student") {
+					const notificationObject = {
+						id: `advisor-${getMessages.room}`,
+						sender_name: currentUser.name,
+						sender_profile: currentUser.profile_img,
+						kind: "message",
+						last_message: `${currentUser.name} send a message in group.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: getMessages._id
+					};
+
+					mySocket?.emit("send_group_notification", {
+						notificationObject,
+						room: getMessages.room
+					});
+
+					setNotifiUpdate(notificationObject);
+				}
 			}
 			// for send notification socket end
 
@@ -316,6 +354,44 @@ const InputBox = ({
 						mySocket?.emit("send_notification", {
 							notificationObject,
 							room: getMessages.advisor._id
+						});
+
+						setNotifiUpdate(notificationObject);
+					}
+				} else {
+					if (currentUser.role === "advisor") {
+						const notificationObject = {
+							id: `student-${getMessages.room}`,
+							sender_name: currentUser.name,
+							sender_profile: currentUser.profile_img,
+							kind: "message",
+							last_message: `${currentUser.name} send a message in group.`,
+							isRead: false,
+							time: Date.now(),
+							from_where: getMessages._id
+						};
+
+						mySocket?.emit("send_group_notification", {
+							notificationObject,
+							room: getMessages.room
+						});
+
+						setNotifiUpdate(notificationObject);
+					} else if (currentUser.role === "student") {
+						const notificationObject = {
+							id: `advisor-${getMessages.room}`,
+							sender_name: currentUser.name,
+							sender_profile: currentUser.profile_img,
+							kind: "message",
+							last_message: `${currentUser.name} send a message in group.`,
+							isRead: false,
+							time: Date.now(),
+							from_where: getMessages._id
+						};
+
+						mySocket?.emit("send_group_notification", {
+							notificationObject,
+							room: getMessages.room
 						});
 
 						setNotifiUpdate(notificationObject);
@@ -496,6 +572,44 @@ const InputBox = ({
 					mySocket.emit("send_notification", {
 						notificationObject,
 						room: getMessages.advisor._id
+					});
+
+					setNotifiUpdate(notificationObject);
+				}
+			} else {
+				if (currentUser.role === "advisor") {
+					const notificationObject = {
+						id: `student-${getMessages.room}`,
+						sender_name: currentUser.name,
+						sender_profile: currentUser.profile_img,
+						kind: "message",
+						last_message: `${currentUser.name} send a attachment in group.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: getMessages._id
+					};
+
+					mySocket?.emit("send_group_notification", {
+						notificationObject,
+						room: getMessages.room
+					});
+
+					setNotifiUpdate(notificationObject);
+				} else if (currentUser.role === "student") {
+					const notificationObject = {
+						id: `advisor-${getMessages.room}`,
+						sender_name: currentUser.name,
+						sender_profile: currentUser.profile_img,
+						kind: "message",
+						last_message: `${currentUser.name} send a attachment in group.`,
+						isRead: false,
+						time: Date.now(),
+						from_where: getMessages._id
+					};
+
+					mySocket?.emit("send_group_notification", {
+						notificationObject,
+						room: getMessages.room
 					});
 
 					setNotifiUpdate(notificationObject);

@@ -11,12 +11,38 @@ const getNotifications = async (req, res) => {
 			});
 
 			res.status(200).json(notifications);
-		} else {
+		} else if (req.currentUser.role === "advisor") {
 			const notifications = await notificationModel.findOne({
 				id: req.currentUser._id
 			});
 
-			res.status(200).json(notifications);
+			const notificationsGroup = await notificationModel.findOne({
+				id: `advisor-${req.currentUser._id}`
+			});
+
+			if (notifications || notificationsGroup) {
+				const notificationArray = notifications.notification.concat(
+					notificationsGroup.notification
+				);
+
+				res.status(200).json(notificationArray);
+			}
+		} else if (req.currentUser.role === "student") {
+			const notifications = await notificationModel.findOne({
+				id: req.currentUser._id
+			});
+
+			const notificationsGroup = await notificationModel.findOne({
+				id: `student-${req.currentUser.advisor._id}`
+			});
+
+			if (notifications || notificationsGroup) {
+				const notificationArray = notifications.notification.concat(
+					notificationsGroup.notification
+				);
+
+				res.status(200).json(notificationArray);
+			}
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -84,13 +110,33 @@ const makeAllRead = async (req, res) => {
 
 			document.save();
 			res.status(200).json({ message: "successfully update" });
-		} else {
+		} else if (req.currentUser.role === "advisor") {
 			const document = await notificationModel.findOne({
 				id: req.currentUser._id
 			});
 			document.notification.map((value) => (value.isRead = true));
 
+			const groupNotification = await notificationModel.findOne({
+				id: `advisor-${req.currentUser._id}`
+			});
+			groupNotification.notification.map((value) => (value.isRead = true));
+
 			document.save();
+			groupNotification.save();
+			res.status(200).json({ message: "successfully update" });
+		} else if (req.currentUser.role === "student") {
+			const document = await notificationModel.findOne({
+				id: req.currentUser._id
+			});
+			document.notification.map((value) => (value.isRead = true));
+
+			const groupNotification = await notificationModel.findOne({
+				id: `student-${req.currentUser.advisor._id}`
+			});
+			groupNotification.notification.map((value) => (value.isRead = true));
+
+			document.save();
+			groupNotification.save();
 			res.status(200).json({ message: "successfully update" });
 		}
 	} catch (error) {

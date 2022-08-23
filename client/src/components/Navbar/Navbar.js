@@ -105,7 +105,7 @@ const Navbar = ({
 				const result = await response.json();
 
 				if (response.status === 200) {
-					setNotifications(result ? result.notification : "");
+					setNotifications(result ? result : "");
 				} else if (result.error) {
 					toast.error(result.error, {
 						position: "top-right",
@@ -135,6 +135,10 @@ const Navbar = ({
 		} else {
 			mySocket?.emit("join_room_notification", currentUser._id);
 			mySocket?.on("receive_notification", (notification) => {
+				setSocketN(notification);
+			});
+
+			mySocket?.on("receive_group_notification", (notification) => {
 				setSocketN(notification);
 			});
 		}

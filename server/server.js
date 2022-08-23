@@ -81,6 +81,12 @@ io.on("connection", (socket) => {
 	socket.on("send_notification", ({ notificationObject, room }) => {
 		io.to(room).emit("receive_notification", notificationObject);
 	});
+
+	socket.on("send_group_notification", ({ notificationObject, room }) => {
+		socket.broadcast
+			.to(room)
+			.emit("receive_group_notification", notificationObject);
+	});
 	// for notification end
 });
 // socket section end
