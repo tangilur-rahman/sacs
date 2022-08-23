@@ -43,8 +43,8 @@ const Navbar = ({
 	const [messageN_T, setMessageN_T] = useState("");
 
 	// for total-counter
-	const [totalAdvisors, setTotalAdvisors] = useState("");
-	const [totalStudents, setTotalStudents] = useState("");
+	const [totalAdvisors, setTotalAdvisors] = useState(0);
+	const [totalStudents, setTotalStudents] = useState(0);
 
 	// for close message dropdown from outside-click start
 	const messageRef = useRef();
