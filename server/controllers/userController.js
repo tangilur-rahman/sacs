@@ -63,7 +63,9 @@ const getAllStudents = async (req, res) => {
 // for get specific user when admin
 const getSpecificUser = async (req, res) => {
 	try {
-		const student = await studentModel.findOne({ _id: req.params._id });
+		const student = await studentModel
+			.findOne({ _id: req.params._id })
+			.populate("advisor", "name department gender");
 
 		if (student) {
 			res.status(200).json(student);
@@ -182,7 +184,7 @@ const updateStudent = async (req, res) => {
 			getDepart,
 			getEmail,
 			getGender,
-			getRole,
+			getAdvisor,
 			getYear,
 			getSemester,
 			newPassword
@@ -234,8 +236,8 @@ const updateStudent = async (req, res) => {
 			await studentModel.updateOne({ _id }, { $set: { year: getYear } });
 		}
 
-		if (getRole) {
-			await studentModel.updateOne({ _id }, { $set: { role: getRole } });
+		if (getAdvisor) {
+			await studentModel.updateOne({ _id }, { $set: { advisor: getAdvisor } });
 		}
 
 		if (newPassword) {
@@ -376,6 +378,19 @@ const searchStudents = async (req, res) => {
 	}
 };
 
+// for get all advisors department wise for students
+const getAdvisors = async (req, res) => {
+	try {
+		const advisorArray = await advisorModel.find({
+			department: req.params.department
+		});
+
+		res.status(200).json(advisorArray);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getAllAdvisors,
@@ -389,5 +404,6 @@ module.exports = {
 	deleteStudent,
 	searchAdvisors,
 	searchStudents,
-	getTotalStudents
+	getTotalStudents,
+	getAdvisors
 };

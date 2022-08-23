@@ -145,20 +145,24 @@ const createNewUser = async (req, res) => {
 									(value) => id >= value.minRange && id <= value.maxRange
 								);
 
-								const document = await studentModel({
-									name,
-									id,
-									email,
-									gender,
-									password: hashPassword,
-									role,
-									department,
-									semester,
-									year,
-									advisor: myAdvisor[0]._id
-								});
+								if (myAdvisor.length > 0) {
+									const document = await studentModel({
+										name,
+										id,
+										email,
+										gender,
+										password: hashPassword,
+										role,
+										department,
+										semester,
+										year,
+										advisor: myAdvisor[0]._id
+									});
 
-								await document.save();
+									await document.save();
+								} else {
+									throw Error("Haven't any advisor in that range!");
+								}
 
 								res
 									.status(200)

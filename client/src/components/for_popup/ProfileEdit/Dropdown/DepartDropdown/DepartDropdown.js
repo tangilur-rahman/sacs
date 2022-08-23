@@ -26,10 +26,15 @@ const DepartDropdown = ({ getDepart, setDepart, editT }) => {
 			return "অ   Bangla";
 		}
 	};
+
 	return (
 		<>
 			{!editT ? (
-				<input value={getDepart} style={{ textAlign: "start" }} readOnly />
+				<input
+					value={getDepart.toUpperCase()}
+					style={{ textAlign: "start" }}
+					readOnly
+				/>
 			) : (
 				<div
 					className={
@@ -45,7 +50,7 @@ const DepartDropdown = ({ getDepart, setDepart, editT }) => {
 						required
 					/>
 					<div className="option">
-						<div onClick={() => setDepart("css")}>
+						<div onClick={() => setDepart("cse")}>
 							<div>💻 &nbsp;CSE</div>
 						</div>
 

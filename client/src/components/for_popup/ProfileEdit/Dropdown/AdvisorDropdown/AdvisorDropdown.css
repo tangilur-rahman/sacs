@@ -1,0 +1,80 @@
+.curr-user-info .advisor-container {
+	position: relative;
+	width: 100%;
+}
+
+.curr-user-info .advisor-container::before {
+	content: "";
+	position: absolute;
+	right: 22px;
+	top: 8px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+
+.curr-user-info .advisor-container.active::before {
+	top: 13px;
+	transform: rotate(-225deg);
+}
+
+.curr-user-info .advisor-container input {
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	font-weight: 600;
+	font-size: 18px;
+	width: 100%;
+}
+
+.curr-user-info .advisor-container input::placeholder {
+	padding-left: 10px;
+	color: #757575;
+	font-weight: 500;
+}
+
+.curr-user-info .advisor-container .option {
+	position: absolute;
+	bottom: 54px;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 100;
+	font-weight: 500;
+}
+
+.curr-user-info .advisor-container.active .option {
+	display: block;
+	max-height: 55vh;
+	min-height: fit-content;
+	overflow: auto;
+}
+
+.curr-user-info .advisor-container .option div {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.curr-user-info .advisor-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+.curr-user-info .advisor-container .option div i {
+	position: relative;
+	top: 0px;
+	font-size: 1em;
+	margin: 0 10px 0 0;
+}

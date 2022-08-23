@@ -9,6 +9,7 @@ import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileEdit.css";
 
 // dropdown components
+import AdvisorDropdown from "./Dropdown/AdvisorDropdown/AdvisorDropdown";
 import DepartDropdown from "./Dropdown/DepartDropdown/DepartDropdown";
 import GenderDropdown from "./Dropdown/GenderDropdown/GenderDropdown";
 import SemesterDropDown from "./Dropdown/SemesterDropdown/SemesterDropdown";
@@ -34,10 +35,23 @@ const ProfileEdit = ({
 	const [getEmail, setEmail] = useState(userEdit.email);
 	const [getGender, setGender] = useState(userEdit.gender);
 	const [getDepart, setDepart] = useState(userEdit.department);
-	const [getSemester, setSemester] = useState(userEdit.semester);
-	const [getMin, setMin] = useState(userEdit.minRange);
-	const [getMax, setMax] = useState(userEdit.maxRange);
-	const [getYear, setYear] = useState(userEdit.year);
+	const [getSemester, setSemester] = useState(
+		userEdit.role === "student" && userEdit.semester
+	);
+	const [getMin, setMin] = useState(
+		userEdit.role === "advisor" && userEdit.minRange
+	);
+	const [getMax, setMax] = useState(
+		userEdit.role === "advisor" && userEdit.maxRange
+	);
+	const [getYear, setYear] = useState(
+		userEdit.role === "student" && userEdit.year
+	);
+	const [getAdvisor, setAdvisor] = useState(
+		userEdit.role === "student" && userEdit.advisor
+	);
+
+	const [getAdvisorArray, setAdvisorArray] = useState("");
 
 	// for get total students from advisors
 	const [getTotalS, setTotalS] = useState("");
@@ -189,16 +203,17 @@ const ProfileEdit = ({
 	const submitHandlerAdmin = async () => {
 		if (
 			!(
-				(getName === userEdit.name ? "" : getName) ||
-				(getId === userEdit.id ? "" : getId) ||
-				(getDepart === userEdit.department ? "" : getDepart) ||
-				(getEmail === userEdit.email ? "" : getEmail) ||
-				(getGender === userEdit.gender ? "" : getGender) ||
-				(getMin === userEdit.minRange ? "" : getMin) ||
-				(getMax === userEdit.maxRange ? "" : getMax) ||
-				(getYear === userEdit.year ? "" : getYear) ||
-				(getSemester === userEdit.semester ? "" : getSemester) ||
-				(getPhone === userEdit.phone ? "" : getPhone) ||
+				(getName === userEdit?.name ? "" : getName) ||
+				(getId === userEdit?.id ? "" : getId) ||
+				(getDepart === userEdit?.department ? "" : getDepart) ||
+				(getEmail === userEdit?.email ? "" : getEmail) ||
+				(getGender === userEdit?.gender ? "" : getGender) ||
+				(getMin === userEdit?.minRange ? "" : getMin) ||
+				(getMax === userEdit?.maxRange ? "" : getMax) ||
+				(getYear === userEdit?.year ? "" : getYear) ||
+				(getSemester === userEdit?.semester ? "" : getSemester) ||
+				(getPhone === userEdit?.phone ? "" : getPhone) ||
+				(getAdvisor._id === userEdit?.advisor?._id ? "" : getAdvisor._id) ||
 				newPassword
 			)
 		) {
@@ -213,16 +228,18 @@ const ProfileEdit = ({
 				const userDocument = {
 					_id: userEdit._id,
 					department: userEdit.department,
-					getName: getName === userEdit.name ? "" : getName,
-					getId: getId === userEdit.id ? "" : getId,
-					getDepart: getDepart === userEdit.department ? "" : getDepart,
-					getEmail: getEmail === userEdit.email ? "" : getEmail,
-					getGender: getGender === userEdit.gender ? "" : getGender,
-					getMin: getMin === userEdit.minRange ? "" : getMin,
-					getMax: getMax === userEdit.maxRange ? "" : getMax,
-					getYear: getYear === userEdit.year ? "" : getYear,
-					getSemester: getSemester === userEdit.semester ? "" : getSemester,
-					getPhone: getPhone === userEdit.phone ? "" : getPhone,
+					getName: getName === userEdit?.name ? "" : getName,
+					getId: getId === userEdit?.id ? "" : getId,
+					getDepart: getDepart === userEdit?.department ? "" : getDepart,
+					getEmail: getEmail === userEdit?.email ? "" : getEmail,
+					getGender: getGender === userEdit?.gender ? "" : getGender,
+					getMin: getMin === userEdit?.minRange ? "" : getMin,
+					getMax: getMax === userEdit?.maxRange ? "" : getMax,
+					getYear: getYear === userEdit?.year ? "" : getYear,
+					getSemester: getSemester === userEdit?.semester ? "" : getSemester,
+					getPhone: getPhone === userEdit?.phone ? "" : getPhone,
+					getAdvisor:
+						getAdvisor._id === userEdit?.advisor?._id ? "" : getAdvisor._id,
 					newPassword
 				};
 
@@ -366,6 +383,38 @@ const ProfileEdit = ({
 		}
 	};
 	// user delete handler end
+
+	// get department wise advisors for student start
+	useEffect(() => {
+		if (userEdit.role === "student") {
+			(async () => {
+				try {
+					const response = await fetch(
+						`/user/advisors/${getAdvisor.department}`
+					);
+					const result = await response.json();
+
+					if (response.status === 200) {
+						setAdvisorArray(result ? result : []);
+					} else if (result.error) {
+						toast.error(result.error, {
+							position: "top-right",
+							theme: "colored",
+							autoClose: 3000
+						});
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			})();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userEdit]);
+	// get department wise advisors for student end
 
 	return (
 		<>
@@ -627,19 +676,27 @@ const ProfileEdit = ({
 												Phone : &nbsp; {editT && <h6>+88</h6>}
 											</label>
 
-											<input
-												type={editT ? "number" : "text"}
-												name="phone"
-												id="phone"
-												value={displayValue(userEdit ? userEdit : currentUser)}
-												readOnly={editT ? false : true}
-												onChange={(event) => setPhone(event.target.value)}
-											/>
+											<form style={{ display: "inline-block" }}>
+												<input
+													type={editT ? "number" : "text"}
+													name="phone"
+													id="phone"
+													autoComplete="off"
+													value={displayValue(
+														userEdit ? userEdit : currentUser
+													)}
+													readOnly={editT ? false : true}
+													onChange={(event) => setPhone(event.target.value)}
+												/>
+											</form>
 										</span>
 									)}
 
 									{userEdit.role === "student" ? (
-										<span className={userEdit ? "remove-pd" : ""} id="for-year">
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
 											<p className="input-text">Academic Year :</p>
 											<YearDropdown
 												getYear={getYear}
@@ -654,6 +711,23 @@ const ProfileEdit = ({
 												<input value={currentUser.year} readOnly />
 											</span>
 										)
+									)}
+
+									{userEdit.role === "student" && (
+										<span
+											className={userEdit ? "remove-pd" : ""}
+											id={userEdit && editT ? "outline-style" : ""}
+										>
+											<p className={editT ? "input-text-hide" : "input-text"}>
+												{editT ? "" : "Advisor :"}
+											</p>
+											<AdvisorDropdown
+												getAdvisor={getAdvisor}
+												setAdvisor={setAdvisor}
+												getAdvisorArray={getAdvisorArray}
+												editT={editT}
+											/>
+										</span>
 									)}
 
 									{editT && (
