@@ -78,7 +78,10 @@ const MessageBox = ({
 						<Header getMessages={getMessages} setReloadGroup={setReloadGroup} />
 					)}
 
-					<ChatBox displayMessages={displayMessages} />
+					<ChatBox
+						displayMessages={displayMessages}
+						getMessages={getMessages}
+					/>
 
 					{getMessages && (
 						<InputBox

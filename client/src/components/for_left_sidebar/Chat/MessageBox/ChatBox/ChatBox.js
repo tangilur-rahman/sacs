@@ -9,7 +9,7 @@ import { GetContextApi } from "../../../../../ContextApi";
 import MessageSkeleton from "../../../../Skeleton/MessageSkeleton/MessageSkeleton";
 import "./ChatBox.css";
 
-const ChatBox = ({ displayMessages }) => {
+const ChatBox = ({ displayMessages, getMessages }) => {
 	// for get current user
 	const { currentUser } = GetContextApi();
 
@@ -84,7 +84,7 @@ const ChatBox = ({ displayMessages }) => {
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 500);
-	}, []);
+	}, [getMessages]);
 	// for loading toggle end
 
 	return (
