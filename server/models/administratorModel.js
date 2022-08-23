@@ -50,6 +50,18 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
+		group_room: [
+			{
+				room: String
+			}
+		],
+
+		advisor_room: [
+			{
+				room: String
+			}
+		],
+
 		token: {
 			type: String,
 			default: ""

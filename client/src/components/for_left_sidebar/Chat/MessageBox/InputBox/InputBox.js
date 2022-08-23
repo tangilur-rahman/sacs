@@ -94,8 +94,10 @@ const InputBox = ({
 		if (socketMessage) {
 			setDisplayMessages([...displayMessages, socketMessage]);
 			if (
-				getMessages.room ===
-				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+				(currentUser.role === "advisor" &&
+					getMessages.room === currentUser._id) ||
+				(currentUser.role === "student" &&
+					getMessages.room === currentUser.advisor._id)
 			) {
 				setLatestGroup(socketMessage);
 			} else {
@@ -128,8 +130,10 @@ const InputBox = ({
 			// for send notification socket start
 			if (
 				!(
-					getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id)
 				)
 			) {
 				if (currentUser.role === "advisor") {
@@ -177,8 +181,10 @@ const InputBox = ({
 				setAttachText("");
 
 				if (
-					getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id)
 				) {
 					const response = await fetch("/group-chat", {
 						method: "PUT",
@@ -271,8 +277,10 @@ const InputBox = ({
 				// for send notification socket start
 				if (
 					!(
-						getMessages.room ===
-						`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+						(currentUser.role === "advisor" &&
+							getMessages.room === currentUser._id) ||
+						(currentUser.role === "student" &&
+							getMessages.room === currentUser.advisor._id)
 					)
 				) {
 					if (currentUser.role === "advisor") {
@@ -319,8 +327,10 @@ const InputBox = ({
 					setInputText("");
 					setAttachText("");
 					if (
-						getMessages.room ===
-						`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+						(currentUser.role === "advisor" &&
+							getMessages.room === currentUser._id) ||
+						(currentUser.role === "student" &&
+							getMessages.room === currentUser.advisor._id)
 					) {
 						const response = await fetch("/group-chat", {
 							method: "PUT",
@@ -447,8 +457,10 @@ const InputBox = ({
 			// for send notification socket start
 			if (
 				!(
-					getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id)
 				)
 			) {
 				if (currentUser.role === "advisor") {
@@ -503,8 +515,10 @@ const InputBox = ({
 				formData.append("file", getFile);
 
 				if (
-					getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
+					(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id)
 				) {
 					const response = await fetch("/group-chat/file", {
 						method: "PUT",

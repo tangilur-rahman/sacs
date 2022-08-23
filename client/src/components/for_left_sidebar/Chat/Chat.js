@@ -36,15 +36,7 @@ const Chat = ({ messageId }) => {
 
 	const getGroupChat = async () => {
 		try {
-			const response = await fetch("/group-chat", {
-				method: "POST",
-				body: JSON.stringify({
-					department: currentUser.department,
-					semester: currentUser.semester,
-					year: currentUser.year
-				}),
-				headers: { "Content-Type": "application/json" }
-			});
+			const response = await fetch("/group-chat");
 
 			const result = await response.json();
 
@@ -68,7 +60,7 @@ const Chat = ({ messageId }) => {
 
 	useEffect(() => {
 		if (currentUser) {
-			getGroupChat();
+			currentUser.role !== "administrator" && getGroupChat();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reloadGroup]);

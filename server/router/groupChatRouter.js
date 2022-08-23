@@ -22,7 +22,7 @@ const {
 } = require("./../Config/multerManager");
 
 // for create or get group-chat
-group_chat.post("/", authUser, createOrGet);
+group_chat.get("/", authUser, createOrGet);
 
 // for update group messages
 group_chat.put("/", authUser, submitMessage);
@@ -37,7 +37,7 @@ const uploadImg = multerForImg("file");
 group_chat.put("/update", authUser, uploadImg.single("file"), changeGroupInfo);
 
 // for get all groupMembers
-group_chat.put("/members", authUser, allGroupMembers);
+group_chat.get("/members/:_id", allGroupMembers);
 
 // for get search result from notification
 group_chat.get("/notification/:_id", authUser, searchDocument);

@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
 	{
+		room: {
+			type: mongoose.Types.ObjectId,
+			trim: true
+		},
+
 		group_name: {
 			type: String,
 			trim: true
@@ -45,12 +50,7 @@ const schema = mongoose.Schema(
 				},
 				time: Date
 			}
-		],
-
-		room: {
-			type: String,
-			trim: true
-		}
+		]
 	},
 	{
 		timestamps: true

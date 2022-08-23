@@ -443,7 +443,11 @@ const Navbar = ({
 															<span>{value.sender_name}</span>
 
 															<h6
-																style={{ wordSpacing: "0", textAlign: "start" }}
+																style={{
+																	wordSpacing: "0",
+																	textAlign: "start",
+																	"align-self": "flex-start"
+																}}
 															>
 																<span>{value.last_message}</span>
 															</h6>

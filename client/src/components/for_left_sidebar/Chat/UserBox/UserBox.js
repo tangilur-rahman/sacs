@@ -58,15 +58,17 @@ const UserBox = ({
 				{currentUser?.role !== "student" && (
 					<div className="search">
 						<i className="bi bi-search-heart"></i>
-						<input
-							type="search"
-							name="search"
-							id="search"
-							autoComplete="off"
-							placeholder="Search or start new chat"
-							onChange={(event) => setSearch(event.target.value)}
-							value={search}
-						/>
+						<form>
+							<input
+								type="search"
+								name="search"
+								id="search"
+								autoComplete="off"
+								placeholder="Search or start new chat"
+								onChange={(event) => setSearch(event.target.value)}
+								value={search}
+							/>
+						</form>
 					</div>
 				)}
 

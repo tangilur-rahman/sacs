@@ -1,31 +1,67 @@
 // external modules
 
 // internal modules
+const adminModel = require("../models/administratorModel");
 const groupModel = require("../models/groupChatModel");
 const studentModel = require("../models/studentModel");
 
 // create or get group-chat
 const createOrGet = async (req, res) => {
 	try {
-		const { department, semester, year } = req.body;
+		if (req.currentUser.role === "administrator") {
+			const findGroups = await groupModel.find({});
+			res.status(200).json(findGroups);
+		} else if (req.currentUser.role === "advisor") {
+			const findGroup = await groupModel.findOne({ room: req.currentUser._id });
 
-		// check group exist or not
-		const getGroup = await groupModel.findOne({
-			room: `${department}-${semester}-${year}`
-		});
+			if (findGroup) {
+				res.status(200).json(findGroup);
+			} else {
+				// create that group
+				const createGroup = await groupModel({
+					group_name:
+						"Department Of" + " " + req.currentUser.department.toUpperCase(),
+					room: req.currentUser._id
+				});
 
-		if (getGroup) {
-			res.status(200).json(getGroup);
-		} else {
-			// create that group
-			const createGroup = await groupModel({
-				group_name: "Department Of" + " " + department,
-				room: `${department}-${semester}-${year}`
+				const document = await adminModel.findOne({ role: "administrator" });
+
+				document.group_room.push({
+					room: req.currentUser._id
+				});
+
+				await document.save();
+
+				await createGroup.save();
+
+				res.status(200).json(createGroup);
+			}
+		} else if (req.currentUser.role === "student") {
+			const findGroup = await groupModel.findOne({
+				room: req.currentUser.advisor._id
 			});
 
-			await createGroup.save();
+			if (findGroup) {
+				res.status(200).json(findGroup);
+			} else {
+				// create that group
+				const createGroup = await groupModel({
+					group_name:
+						"Department Of" + " " + req.currentUser.department.toUpperCase(),
+					room: req.currentUser.advisor._id
+				});
+				const document = await adminModel.findOne({ role: "administrator" });
 
-			res.status(200).json(createGroup);
+				document.group_room.push({
+					room: req.currentUser.advisor._id
+				});
+
+				await document.save();
+
+				await createGroup.save();
+
+				res.status(200).json(createGroup);
+			}
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -73,8 +109,6 @@ const submitFile = async (req, res) => {
 		await groupDoc.save();
 		res.status(200).json({ message: "Submitted Successfully" });
 	} catch (error) {
-		console.log(error.message);
-
 		res.status(500).json({ error: error.message });
 	}
 };
@@ -110,12 +144,8 @@ const changeGroupInfo = async (req, res) => {
 
 const allGroupMembers = async (req, res) => {
 	try {
-		const { department, semester, year } = req.body;
-
 		const getAllMembers = await studentModel.find({
-			department,
-			semester,
-			year
+			advisor: req.params._id
 		});
 
 		res.status(200).json(getAllMembers);

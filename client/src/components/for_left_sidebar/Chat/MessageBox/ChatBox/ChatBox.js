@@ -84,7 +84,7 @@ const ChatBox = ({ displayMessages }) => {
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 500);
-	}, [displayMessages]);
+	}, []);
 	// for loading toggle end
 
 	return (

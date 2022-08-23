@@ -132,38 +132,42 @@ const Header = ({ getMessages, setReloadGroup }) => {
 
 	// get all group members start
 	useEffect(() => {
-		// get group name & image
-		setGroupName(
-			getMessages.room ===
-				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
-				getMessages.group_name
-		);
+		if (currentUser) {
+			// get group name & image
+			if (currentUser.role === "advisor") {
+				setGroupName(
+					getMessages.room === currentUser._id && getMessages.group_name
+				);
 
-		setPreviewImg(
-			getMessages.room ===
-				`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
-				? `/uploads/profile-img/${getMessages?.group_img}`
-				: ""
-		);
+				setPreviewImg(
+					getMessages.room === currentUser._id
+						? `/uploads/profile-img/${getMessages?.group_img}`
+						: ""
+				);
+			} else if (currentUser.role === "student") {
+				setGroupName(
+					getMessages.room === currentUser.advisor._id && getMessages.group_name
+				);
 
-		// get all group members
-		if (
-			getMessages.room ===
-			`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}`
-		) {
+				setPreviewImg(
+					getMessages.room === currentUser.advisor._id
+						? `/uploads/profile-img/${getMessages?.group_img}`
+						: ""
+				);
+			}
+
+			// get all group members
+
 			(async () => {
 				try {
-					const roomArray = getMessages.room.split("-");
+					let room;
+					if (currentUser.role === "advisor") {
+						room = currentUser._id;
+					} else if (currentUser.role === "student") {
+						room = currentUser.advisor._id;
+					}
 
-					const department = roomArray[0];
-					const semester = roomArray[1];
-					const year = roomArray[2];
-
-					const response = await fetch("/group-chat/members", {
-						method: "PUT",
-						body: JSON.stringify({ department, semester, year }),
-						headers: { "Content-Type": "application/json" }
-					});
+					const response = await fetch(`/group-chat/members/${room}`);
 
 					const result = await response.json();
 
@@ -263,8 +267,10 @@ const Header = ({ getMessages, setReloadGroup }) => {
 			<div className="header-container">
 				<div className="selected-user">
 					{/* header img start  */}
-					{getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
+					{(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id) ? (
 						<img src={previewImg} alt="profile-img" className="img-fluid" />
 					) : currentUser.role === "advisor" ? (
 						<img
@@ -282,8 +288,10 @@ const Header = ({ getMessages, setReloadGroup }) => {
 					{/* header img end  */}
 
 					{/* header name start  */}
-					{getMessages.room ===
-					`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` ? (
+					{(currentUser.role === "advisor" &&
+						getMessages.room === currentUser._id) ||
+					(currentUser.role === "student" &&
+						getMessages.room === currentUser.advisor._id) ? (
 						<h6>{groupName}</h6>
 					) : currentUser.role === "advisor" ? (
 						<h6>{getMessages.student.name}</h6>
@@ -303,8 +311,10 @@ const Header = ({ getMessages, setReloadGroup }) => {
 					{dropdownT && (
 						<ul ref={dropdownRef} data-aos="fade-left">
 							{currentUser?.role !== "student" &&
-								getMessages.room ===
-									`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` && (
+								((currentUser.role === "advisor" &&
+									getMessages.room === currentUser._id) ||
+									(currentUser.role === "student" &&
+										getMessages.room === currentUser.advisor._id)) && (
 									<li
 										onClick={() => {
 											setViewGroup("group");
@@ -372,8 +382,11 @@ const Header = ({ getMessages, setReloadGroup }) => {
 													onClick={() => {
 														setGroupEdit(false);
 														setPreviewImg(
-															getMessages.room ===
-																`${currentUser?.department}-${currentUser?.semester}-${currentUser?.year}` &&
+															((currentUser.role === "advisor" &&
+																getMessages.room === currentUser._id) ||
+																(currentUser.role === "student" &&
+																	getMessages.room ===
+																		currentUser.advisor._id)) &&
 																`/uploads/profile-img/${getMessages.group_img}`
 														);
 													}}
