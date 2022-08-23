@@ -290,46 +290,6 @@ const Navbar = ({
 	}, [selected]);
 	// make all read handler end
 
-	// fetching all advisors & students from server start
-	const totalClickHandler = async (selected) => {
-		try {
-			if (selected === "List Of Advisors") {
-				const response = await fetch("/user/advisor-list");
-				const result = await response.json();
-
-				if (response.status === 200) {
-					setTotalValue({ list: result, title: selected });
-				} else if (result.error) {
-					toast.error(result.error, {
-						position: "top-right",
-						theme: "colored",
-						autoClose: 3000
-					});
-				}
-			} else if (selected === "List Of Students") {
-				const response = await fetch("/user/student-list");
-				const result = await response.json();
-
-				if (response.status === 200) {
-					setTotalValue({ list: result, title: selected });
-				} else if (result.error) {
-					toast.error(result.error, {
-						position: "top-right",
-						theme: "colored",
-						autoClose: 3000
-					});
-				}
-			}
-		} catch (error) {
-			toast.error(error.message, {
-				position: "top-right",
-				theme: "colored",
-				autoClose: 3000
-			});
-		}
-	};
-	//	fetching all advisors & students from server end
-
 	// for get total count of advisors & students start
 	useEffect(() => {
 		if (currentUser?.role === "administrator") {
@@ -404,7 +364,7 @@ const Navbar = ({
 								<div
 									className="total"
 									onClick={() =>
-										totalAdvisors && totalClickHandler("List Of Advisors")
+										totalAdvisors && setTotalValue("List Of Advisors")
 									}
 								>
 									Total Advisors : &nbsp; <span>{totalAdvisors}</span>
@@ -413,7 +373,7 @@ const Navbar = ({
 								<div
 									className="total"
 									onClick={() =>
-										totalStudents && totalClickHandler("List Of Students")
+										totalStudents && setTotalValue("List Of Students")
 									}
 								>
 									Total Students : &nbsp; <span>{totalStudents}</span>

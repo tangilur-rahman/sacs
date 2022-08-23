@@ -210,7 +210,9 @@ const ProfileEdit = ({
 				(getGender === userEdit?.gender ? "" : getGender) ||
 				(getMin === userEdit?.minRange ? "" : getMin) ||
 				(getMax === userEdit?.maxRange ? "" : getMax) ||
-				(getYear === userEdit?.year ? "" : getYear) ||
+				(getYear.getFullYear() === userEdit?.year
+					? ""
+					: getYear.getFullYear()) ||
 				(getSemester === userEdit?.semester ? "" : getSemester) ||
 				(getPhone === userEdit?.phone ? "" : getPhone) ||
 				(getAdvisor._id === userEdit?.advisor?._id ? "" : getAdvisor._id) ||
@@ -235,7 +237,10 @@ const ProfileEdit = ({
 					getGender: getGender === userEdit?.gender ? "" : getGender,
 					getMin: getMin === userEdit?.minRange ? "" : getMin,
 					getMax: getMax === userEdit?.maxRange ? "" : getMax,
-					getYear: getYear === userEdit?.year ? "" : getYear,
+					getYear:
+						getYear.getFullYear() === userEdit?.year
+							? ""
+							: getYear.getFullYear(),
 					getSemester: getSemester === userEdit?.semester ? "" : getSemester,
 					getPhone: getPhone === userEdit?.phone ? "" : getPhone,
 					getAdvisor:

@@ -62,7 +62,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 			semester: getSemester,
 			min,
 			max,
-			year: year ? year.getFullYear() : ""
+			year: year ? year?.getFullYear() : ""
 		};
 
 		try {

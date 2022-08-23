@@ -125,7 +125,7 @@ const Homepage = ({
 							id={
 								userEdit ||
 								registerT ||
-								totalValue.list?.length > 0 ||
+								totalValue ||
 								appDisplay ||
 								profileT === "profile"
 									? "blur"

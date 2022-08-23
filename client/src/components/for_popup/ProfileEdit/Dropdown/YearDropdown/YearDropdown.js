@@ -9,7 +9,11 @@ const YearDropdown = ({ getYear, setYear, editT }) => {
 		<>
 			<div className="year-container">
 				{!editT ? (
-					<input value={getYear} style={{ textAlign: "start" }} readOnly />
+					<input
+						value={new Date(getYear).getFullYear()}
+						style={{ textAlign: "start" }}
+						readOnly
+					/>
 				) : (
 					<DatePicker
 						maxDetail="decade"

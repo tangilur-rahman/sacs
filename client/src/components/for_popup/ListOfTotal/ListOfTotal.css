@@ -131,6 +131,10 @@
 	cursor: pointer;
 }
 
+.total-container .table-container table tbody tr td {
+	text-align: center;
+}
+
 .total-container .table-container table tbody input {
 	border: none;
 	outline: none;
@@ -172,6 +176,10 @@
 .total-container .table-container table #department input {
 	width: 101px;
 	text-transform: uppercase;
+}
+
+.total-container .table-container table #range input {
+	width: 100px;
 }
 
 .total-container .table-container table #semester input {
