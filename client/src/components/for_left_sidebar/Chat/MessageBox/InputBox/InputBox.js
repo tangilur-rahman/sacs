@@ -85,7 +85,9 @@ const InputBox = ({
 			setSocketMessage(message);
 		});
 
-		setFile("");
+		if (getFile) {
+			setFile("");
+		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getMessages]);
