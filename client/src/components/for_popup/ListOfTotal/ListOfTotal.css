@@ -131,6 +131,10 @@
 	cursor: pointer;
 }
 
+.total-container .table-container table tbody tr:hover {
+	background-color: #f2f2f2;
+}
+
 .total-container .table-container table tbody tr td {
 	text-align: center;
 }
@@ -161,7 +165,7 @@
 }
 
 .total-container .table-container table #name input {
-	width: 160px;
+	width: 160px !important;
 	text-transform: capitalize;
 }
 
@@ -205,6 +209,93 @@
 	}
 }
 
+@media screen and (max-width: 1250px) {
+	.total-container .header h2 {
+		padding: 20px 0 10px 0;
+	}
+	.table-container table tbody {
+		margin-top: 10px;
+	}
+
+	.total-container .table-container table tbody tr {
+		border-color: 3px solid #9ecaed;
+		box-shadow: 0 0 10px #9ecaed;
+		border-radius: 10px;
+		margin-bottom: 25px;
+	}
+
+	.total-container .table-container table tbody tr:hover {
+		background-color: white;
+	}
+
+	.total-container .table-container table tbody input {
+		padding: 5px 0;
+		text-align: end;
+		width: 100% !important;
+	}
+
+	.total-container .table-container table #name {
+		justify-content: flex-end;
+	}
+
+	.table-container table thead {
+		display: none;
+	}
+
+	.table-container table,
+	.table-container table tbody,
+	.table-container table tr,
+	.table-container table td {
+		display: block;
+		width: 100%;
+	}
+
+	.table-container table tr {
+		margin-bottom: 15px;
+	}
+
+	.table-container table td {
+		text-align: right !important;
+		padding-left: 50%;
+		position: relative;
+		padding-right: 30px;
+	}
+
+	.table-container table #count {
+		padding-right: 30px;
+	}
+
+	.table-container table td::before {
+		content: attr(data-label);
+		position: absolute;
+		left: 0;
+		width: 50%;
+		padding-left: 30px;
+		font-size: 15px;
+		font-weight: bold;
+		text-align: left;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.table-container table td {
+		padding-left: 40%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.table-container table td::before {
+		padding-left: 10px;
+	}
+	.table-container table td {
+		padding-right: 10px;
+	}
+
+	.table-container table #count {
+		padding-right: 20px;
+	}
+}
+
 @media screen and (max-width: 1020px) {
 	.total-container .header .user-search {
 		width: 230px;
@@ -230,5 +321,11 @@
 		margin: 0 10% 0 0;
 		width: 40%;
 		transition: all 0.5s;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.total-container .header h2 {
+		font-size: 1rem;
 	}
 }
