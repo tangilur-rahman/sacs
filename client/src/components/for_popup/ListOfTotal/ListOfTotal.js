@@ -24,6 +24,9 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 	// for displaying users
 	const [displayingUser, setDisplayingUser] = useState("");
 
+	// for displaying users
+	const [initialTotal, setInitialTotal] = useState("");
+
 	// for outside-click closed start
 	const myRef = useRef();
 
@@ -69,6 +72,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 
 						if (response.status === 200) {
 							setDisplayingUser(result ? result : "");
+							setInitialTotal(result ? result : "");
 							setIsLoading(false);
 						} else if (result.error) {
 							toast.error(result.error, {
@@ -83,6 +87,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 
 						if (response.status === 200) {
 							setDisplayingUser(result ? result : "");
+							setInitialTotal(result ? result : "");
 							setIsLoading(false);
 						} else if (result.error) {
 							toast.error(result.error, {
@@ -140,7 +145,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 	useEffect(() => {
 		if (searchText) {
 			(async () => {
-				if (totalValue.title === "List Of Advisors") {
+				if (totalValue === "List Of Advisors") {
 					try {
 						const response = await fetch(`/user/advisor/search/${searchText}`);
 						const result = await response.json();
@@ -193,7 +198,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 		}
 
 		if (!searchText) {
-			setDisplayingUser(displayingUser);
+			setDisplayingUser(initialTotal);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchResult, searchText]);

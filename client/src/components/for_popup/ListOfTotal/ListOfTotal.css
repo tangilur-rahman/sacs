@@ -238,6 +238,11 @@
 		justify-content: flex-end;
 	}
 
+	.total-container .table-container table #name img {
+		order: 2;
+		margin-left: 10px;
+	}
+
 	.table-container table thead {
 		display: none;
 	}
