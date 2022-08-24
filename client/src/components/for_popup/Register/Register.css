@@ -147,3 +147,50 @@
 	text-align: center;
 }
 /* range container style end  */
+
+/* media query start  */
+@media screen and (max-width: 1300px) {
+	.signup-container .right #academic {
+		display: none !important;
+		border: 1px solid red;
+	}
+}
+@media screen and (max-width: 991px) {
+	.signup-container .right form {
+		padding: 10px 40px 0;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.signup-container .right .range-container h6 {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.signup-container .right form {
+		padding: 10px 20px 0;
+	}
+}
+
+@media screen and (max-width: 510px) {
+	.right form .btn-container #btn-remove-pd {
+		padding: 7px 7px;
+	}
+
+	.right form .btn-container #btn-remove-pd:first-child {
+		margin: 0 20px 0 0;
+	}
+}
+
+@media screen and (max-width: 444px) {
+	.signup-container .right form .year span {
+		margin-right: 5px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.signup-container .right #year-hidden {
+		display: none !important;
+	}
+}

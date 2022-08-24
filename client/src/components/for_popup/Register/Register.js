@@ -140,16 +140,16 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 					data-aos-delay="0"
 				>
 					<div className="row m-0 signup-wrapper">
-						<div className="col-10 p-0 ">
+						<div className="col-xl-10 col-lg-11 col-md-8  col-11 p-0 ">
 							<div ref={myRef} className="row m-0 signup-container">
-								<div className="col-6 p-0 left">
+								<div className="col-lg-6 d-none d-lg-flex p-0 left">
 									<img
 										src="/assets/images/sign-up-img.png"
 										alt="cover-img"
 										className="img-fluid"
 									/>
 								</div>
-								<div className="col-6 p-0 right">
+								<div className="col-lg-6 p-0 right">
 									<h2>Register New User</h2>
 									<form>
 										<div className="form-floating mb-3">
@@ -290,7 +290,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 														className="range-container"
 														title="Student Id Range"
 													>
-														<h6>Range :</h6>
+														<h6>Range</h6>
 														<div className="range-fields">
 															<input
 																type="number"
@@ -318,7 +318,21 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 										<div className="signup-footer">
 											{getRole === "student" && getRole !== null && (
 												<div className="year">
-													<span>Academic Year :</span>
+													<span>
+														<div
+															style={{ display: "inline-block" }}
+															id="academic"
+														>
+															Academic
+														</div>
+
+														<div
+															style={{ display: "inline-block" }}
+															id="year-hidden"
+														>
+															Year :
+														</div>
+													</span>
 													<YearDropdown year={year} setYear={setYear} />
 												</div>
 											)}
@@ -334,6 +348,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 												<button
 													type="button"
 													className="btn btn-danger"
+													id={getRole === "student" ? "btn-remove-pd" : ""}
 													onClick={() => setRegisterT(false)}
 												>
 													Cancel
@@ -343,6 +358,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 													type="button"
 													className="btn btn-success"
 													onClick={submitHandle}
+													id={getRole === "student" ? "btn-remove-pd" : ""}
 												>
 													Submit
 												</button>

@@ -53,7 +53,7 @@ const DepartDropdown = ({ getDepart, setDepart }) => {
 					</div>
 
 					<div onClick={() => setDepart("pharmacy")}>
-						<span>💊 &nbsp; B.PHARMACY</span>
+						<span>💊&nbsp; PHARMACY</span>
 					</div>
 
 					<div onClick={() => setDepart("bba")}>
