@@ -346,6 +346,10 @@
 	}
 }
 
+.navbar-container .right .icon-style span.visible {
+	visibility: hidden !important;
+}
+
 /* media query start  */
 @media screen and (min-width: 1200px) {
 	.navbar-container .right .icon-style span {
@@ -400,7 +404,7 @@
 
 @media screen and (max-width: 430px) {
 	.navbar-container {
-		padding: 7px 0;
+		padding: 5px 0;
 	}
 
 	.navbar-container .left img {

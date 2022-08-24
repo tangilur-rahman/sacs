@@ -370,8 +370,7 @@ const Navbar = ({
 										totalAdvisors && setTotalValue("List Of Advisors")
 									}
 								>
-									{totalAdvisors > 1 ? "Total Advisors :" : "Total Advisor :"}
-									&nbsp; <span>{totalAdvisors}</span>
+									Total Advisors : &nbsp; <span>{totalAdvisors}</span>
 								</div>
 
 								<div
@@ -380,8 +379,7 @@ const Navbar = ({
 										totalStudents && setTotalValue("List Of Students")
 									}
 								>
-									{totalStudents > 1 ? "Total Students :" : "Total Student :"}
-									&nbsp; <span>{totalStudents}</span>
+									Total Students : &nbsp; <span>{totalStudents}</span>
 								</div>
 							</div>
 						)}
@@ -390,14 +388,15 @@ const Navbar = ({
 					<div className="col-xl-3 col-md-5 col-7 p-0 nav-right-container">
 						<div className="right">
 							<div className="icon-style">
-								{currentUser.role === "administrator" && (
-									<span
-										id="create-new-user"
-										onClick={() => setRegisterT(!registerT)}
-									>
-										<i className="bi bi-plus-circle-dotted"></i>
-									</span>
-								)}
+								<span
+									className={
+										currentUser.role === "administrator" ? "" : "visible"
+									}
+									id="create-new-user"
+									onClick={() => setRegisterT(!registerT)}
+								>
+									<i className="bi bi-plus-circle-dotted"></i>
+								</span>
 
 								<span>
 									<i
