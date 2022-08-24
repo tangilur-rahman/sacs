@@ -8,6 +8,9 @@ import sortArray from "sort-array";
 import "./ListOfTotal.css";
 
 const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
+	// searchbar view toggle
+	const [searchToggle, setSearchToggle] = useState("");
+
 	// check fetching complete or not from server
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -34,6 +37,23 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 	useEffect(() => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for outside-click closed end
+
+	// for outside-click closed start
+	const searchRef = useRef();
+
+	const handleClickOutsideSearch = (e) => {
+		if (!searchRef.current?.contains(e.target)) {
+			setSearchToggle(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideSearch);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideSearch);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for outside-click closed end
@@ -198,8 +218,16 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 						<div ref={myRef} className="col-11 p-0 total-container">
 							{/* table start  */}
 							<div className="header">
-								<div className="user-search" ref={myRef}>
-									<i className="bi bi-search-heart"></i>
+								<div
+									className={
+										searchToggle ? "user-search active" : "user-search"
+									}
+									ref={myRef}
+								>
+									<i
+										className="bi bi-search-heart"
+										onClick={() => setSearchToggle(!searchToggle)}
+									></i>
 									<input
 										type="search"
 										autoComplete="on"
@@ -210,6 +238,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 												? "Search advisors"
 												: "Search students"
 										}
+										ref={searchRef}
 									/>
 								</div>
 								<h2>{totalValue}</h2>
