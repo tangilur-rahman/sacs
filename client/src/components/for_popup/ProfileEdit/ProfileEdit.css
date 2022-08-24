@@ -287,22 +287,13 @@
 	top: 28%;
 }
 
-.profile-edit-container
-	.layout
-	.wrapper
-	.conformation-popup
-	.delete-controller {
+.layout .wrapper .conformation-popup .delete-controller {
 	margin-top: 20px;
 	display: flex;
 	justify-content: flex-end;
 }
 
-.profile-edit-container
-	.layout
-	.wrapper
-	.conformation-popup
-	.delete-controller
-	button:first-child {
+.layout .wrapper .conformation-popup .delete-controller button:first-child {
 	margin-right: 30px;
 }
 /* for delete conform popup style end  */
