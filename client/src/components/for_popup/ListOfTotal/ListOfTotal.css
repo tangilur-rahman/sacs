@@ -329,6 +329,12 @@
 	}
 }
 
+@media screen and (max-width: 600px) {
+	.total-container .header .user-search.active {
+		width: 70%;
+	}
+}
+
 @media screen and (max-width: 400px) {
 	.total-container .header h2 {
 		font-size: 21px;
