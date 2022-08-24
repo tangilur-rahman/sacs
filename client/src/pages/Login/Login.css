@@ -100,3 +100,32 @@
 	opacity: 0.7;
 }
 /* password eye style end  */
+
+/* media query start  */
+@media screen and (max-width: 650px) {
+	.login-container .form-container-wrapper {
+		margin-top: -60px;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.login-container .form-container-wrapper {
+		margin-top: -70px;
+	}
+
+	.login-container .form-container .right form {
+		padding: 10px 20px 20px;
+	}
+
+	.login-container .form-container .right img {
+		width: 300px;
+		height: 70px;
+	}
+}
+
+@media screen and (max-width: 410px) {
+	.login-container .form-container .right img {
+		width: 260px;
+		height: 70px;
+	}
+}

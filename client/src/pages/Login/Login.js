@@ -90,16 +90,16 @@ const Login = () => {
 		<>
 			<div className="container-fluid p-0">
 				<div className="row m-0 login-container">
-					<div className="col-9 p-0 ">
+					<div className="col-xl-9 col-lg-10 col-md-8 col-sm-10 col-11 p-0 form-container-wrapper">
 						<div className="row m-0 form-container">
-							<div className="col-6 left p-0">
+							<div className="col-lg-6 d-none d-lg-flex left p-0">
 								<img
 									src="/assets/images/login-img.png"
 									alt="nsu-img"
 									className="img-fluid"
 								/>
 							</div>
-							<div className="col-6 right p-0">
+							<div className="col-lg-6 right p-0">
 								<img
 									src="/assets/images/login-logo.png"
 									alt="university-logo"
