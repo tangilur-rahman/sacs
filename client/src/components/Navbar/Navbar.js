@@ -350,7 +350,7 @@ const Navbar = ({
 		<>
 			<div className="container-fluid navbar-main-container">
 				<div className="row col-11 navbar-container">
-					<div className="col-3 p-0">
+					<div className="col-xl-3 col-md-6 col-5 p-0">
 						<div className="left">
 							<img
 								src="/assets/logo/sacs-logo.png"
@@ -361,7 +361,7 @@ const Navbar = ({
 						</div>
 					</div>
 
-					<div className="col-6 p-0">
+					<div className="col-xl-6 d-none d-xl-flex p-0">
 						{currentUser?.role === "administrator" && (
 							<div className="middle">
 								<div
@@ -370,7 +370,8 @@ const Navbar = ({
 										totalAdvisors && setTotalValue("List Of Advisors")
 									}
 								>
-									Total Advisors : &nbsp; <span>{totalAdvisors}</span>
+									{totalAdvisors > 1 ? "Total Advisors :" : "Total Advisor :"}
+									&nbsp; <span>{totalAdvisors}</span>
 								</div>
 
 								<div
@@ -379,17 +380,21 @@ const Navbar = ({
 										totalStudents && setTotalValue("List Of Students")
 									}
 								>
-									Total Students : &nbsp; <span>{totalStudents}</span>
+									{totalStudents > 1 ? "Total Students :" : "Total Student :"}
+									&nbsp; <span>{totalStudents}</span>
 								</div>
 							</div>
 						)}
 					</div>
 
-					<div className="col-3 p-0">
+					<div className="col-xl-3 col-md-5 col-7 p-0 nav-right-container">
 						<div className="right">
 							<div className="icon-style">
 								{currentUser.role === "administrator" && (
-									<span onClick={() => setRegisterT(!registerT)}>
+									<span
+										id="create-new-user"
+										onClick={() => setRegisterT(!registerT)}
+									>
 										<i className="bi bi-plus-circle-dotted"></i>
 									</span>
 								)}
@@ -567,6 +572,52 @@ const Navbar = ({
 											<i className="bi bi-person-circle"></i>
 											<span>My Profile</span>
 										</li>
+
+										{currentUser.role === "administrator" && (
+											<li
+												id="create"
+												onClick={() => {
+													setRegisterT(!registerT);
+													setLogoutT(false);
+												}}
+											>
+												<i className="bi bi-plus-circle-dotted"></i>
+												<span>Create User</span>
+											</li>
+										)}
+
+										{currentUser.role === "administrator" && (
+											<li
+												className="total-values"
+												onClick={() => {
+													totalAdvisors && setTotalValue("List Of Advisors");
+													setLogoutT(false);
+												}}
+											>
+												<i>🧑‍🏫</i>
+												<span>
+													{totalAdvisors > 1 ? "Advisors" : "Advisor"}
+													<h6>{totalAdvisors}</h6>
+												</span>
+											</li>
+										)}
+
+										{currentUser.role === "administrator" && (
+											<li
+												className="total-values"
+												onClick={() => {
+													totalStudents && setTotalValue("List Of Students");
+													setLogoutT(false);
+												}}
+											>
+												<i>🧑</i>
+												<span>
+													{totalStudents > 1 ? "Students" : "Student"}
+													<h6>{totalStudents}</h6>
+												</span>
+											</li>
+										)}
+
 										<li
 											onClick={() => {
 												setProfileT("logout");
