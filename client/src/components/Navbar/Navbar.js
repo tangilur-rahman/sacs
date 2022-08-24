@@ -344,7 +344,6 @@ const Navbar = ({
 			})();
 		}
 	}, [created, currentUser]);
-
 	// for get total count of advisors & students end
 
 	return (
