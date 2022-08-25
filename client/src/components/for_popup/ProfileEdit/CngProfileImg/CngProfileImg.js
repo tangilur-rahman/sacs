@@ -216,7 +216,10 @@ const CngProfileImg = ({
 				data-aos-delay="1000"
 			>
 				<div ref={modalRef} className="row m-0 c-pro-layout">
-					<div ref={myUseRef} className="col-5 p-0 wrapper">
+					<div
+						ref={myUseRef}
+						className=" col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10 col-11 p-0 wrapper"
+					>
 						<div id="left">
 							<img src={previewImg} alt="profile-img" />
 						</div>
