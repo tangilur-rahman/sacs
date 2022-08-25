@@ -225,7 +225,7 @@ const CngProfileImg = ({
 						</div>
 
 						<div id="right">
-							<h5>Do you want change your profile picture?</h5>
+							<h5>Do you want to change your profile picture?</h5>
 							<div className="c-pro-btn">
 								<button
 									className="btn btn-danger"

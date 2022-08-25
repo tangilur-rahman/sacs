@@ -646,7 +646,6 @@ const ProfileEdit = ({
 												name="current_p"
 												id="currPassword"
 												value={cpassword}
-												autoFocus
 												onChange={(event) => setCpassword(event.target.value)}
 											/>
 
