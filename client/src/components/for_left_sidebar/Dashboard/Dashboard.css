@@ -11,42 +11,53 @@
 
 .appointment-summary .appointment-count {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 	background-color: white;
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
-	padding: 25px 12px 20px 25px;
-	width: 243px;
+	padding: 12px 12px 10px 17px;
+	flex-grow: 1;
+	margin-right: 20px;
 }
 
-.appointment-count .total,
+.appointment-summary .appointment-count:last-child {
+	margin-right: 0;
+}
+
+.appointment-summary .appointment-count .title span {
+	display: inline-block;
+}
+
+.appointment-count .title,
 .solved,
 .pending,
 .rejected {
-	display: flex;
-	flex-direction: column;
-	font-weight: 500;
+	font-weight: 600;
 }
 
-.appointment-summary .appointment-count .total span {
+.appointment-container .total-number {
+	display: flex;
+	justify-content: space-between;
+}
+
+.appointment-summary .appointment-count .total-number span.number {
 	font-size: 23px;
 	font-weight: 600;
+	margin: 5px 0 0px 0px;
+	/* border: 1px solid red; */
+}
+
+#total .total-number span.number {
 	color: #0077b6;
 }
 
-.appointment-count .solved span {
-	font-size: 23px;
-	font-weight: 600;
+#solved .total-number span.number {
 	color: #06d6a0;
 }
-.appointment-count .pending span {
-	font-size: 23px;
-	font-weight: 600;
+#pending .total-number span.number {
 	color: #7209b7;
 }
-.appointment-count .rejected span {
-	font-size: 23px;
-	font-weight: 600;
+#rejected .total-number span.number {
 	color: #f3722c;
 }
 
@@ -55,6 +66,10 @@
 	align-self: center;
 	padding: 12px;
 	border-radius: 50%;
+}
+
+.appointment-summary .appointment-count .total-icon {
+	margin-top: -22px;
 }
 
 .appointment-container #total-icon {
@@ -90,9 +105,8 @@
 	border-radius: var(--card-border-radius);
 	box-shadow: var(--box-shadow);
 	height: 67vh;
-	margin-top: 40px;
+	margin-top: 25px;
 	overflow-y: scroll;
-	/* padding: 20px 10px 0; */
 }
 
 .appointment-list .header {
@@ -202,3 +216,138 @@
 	width: 4px;
 }
 /* appointment-list style end  */
+
+.appointment-list .table-container table thead tr .th-short {
+	display: none;
+}
+
+.appointment-list .header .btn span:last-child {
+	display: none;
+}
+
+/* media query start  */
+@media screen and (min-width: 1430px) {
+	.appointment-count .title span.full {
+		display: inline-block;
+	}
+
+	.appointment-count .title span.short {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 1430px) {
+	.appointment-count .title span.full {
+		display: none;
+	}
+
+	.appointment-count .title span.short {
+		display: inline-block;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.appointment-summary .appointment-count .total-icon {
+		margin-top: 0px;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.appointment-list .table-container table thead tr .th-full {
+		display: none;
+	}
+	.appointment-list .table-container table thead tr .th-short {
+		display: table-cell;
+	}
+}
+
+@media screen and (max-width: 930px) {
+	.appointment-summary {
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.appointment-summary .appointment-count .total-icon {
+		margin-top: -22px;
+	}
+
+	.appointment-summary .appointment-count {
+		flex-basis: 45%;
+	}
+
+	.appointment-summary #total {
+		margin: 0 7.5px 0 0;
+	}
+
+	.appointment-summary #solved {
+		margin: 0 0 0 7.5px;
+	}
+
+	.appointment-summary #pending {
+		margin: 15px 7.5px 0 0;
+	}
+
+	.appointment-summary #rejected {
+		margin: 15px 0 0 7.5px;
+	}
+
+	.appointment-list .table-container {
+		margin-top: 15px;
+		padding: 0 12px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.appointment-summary .appointment-count {
+		padding: 7px 12px 0px 17px;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.appointment-list .header h5 {
+		padding: 0px 0 0 10px;
+	}
+
+	.appointment-list .header .btn {
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+	}
+
+	.appointment-list .header .btn span:first-child {
+		display: none;
+	}
+
+	.appointment-list .header .btn span:last-child {
+		display: inline-block;
+		margin-left: 3px;
+	}
+
+	.appointment-list .header .btn span:last-child i {
+		transform: scale(1.9);
+		display: inline-block;
+		margin-right: 3px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.appointment-summary .appointment-count {
+		flex-basis: 100%;
+	}
+
+	.appointment-summary #total {
+		margin: 0;
+	}
+
+	.appointment-summary #solved {
+		margin: 10px 0 0 0;
+	}
+
+	.appointment-summary #pending {
+		margin: 10px 0 0 0;
+	}
+
+	.appointment-summary #rejected {
+		margin: 10px 0 0 0;
+	}
+}

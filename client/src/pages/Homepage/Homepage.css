@@ -17,7 +17,7 @@
 
 .homepage-container .left {
 	margin-right: 15px;
-	width: 325px;
+	max-width: 300px;
 }
 
 .homepage-container .right {
@@ -84,3 +84,16 @@
 }
 
 /* loading-container style end  */
+
+/* media query start  */
+@media screen and (max-width: 930px) {
+	.homepage-container .left {
+		margin-right: 0px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.homepage-container .right {
+		width: 100%;
+	}
+}

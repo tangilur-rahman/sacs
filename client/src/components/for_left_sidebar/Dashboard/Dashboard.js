@@ -73,55 +73,75 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 				<div className="row m-0 appointment-container">
 					<div className="col-12 p-0 ">
 						<div className="appointment-summary">
-							<div className="appointment-count">
-								<div className="total">
-									Total Appointment <span>{getAppointments?.length}</span>
+							<div className="appointment-count" id="total">
+								<div className="title">
+									<span className="full">Total Appointments</span>
+									<span className="short">Total Appt...</span>
 								</div>
-								<span className="icon" id="total-icon">
-									<i className="fa-solid fa-list-check"></i>
-								</span>
+								<div className="total-number">
+									<span className="number">{getAppointments?.length}</span>
+									<span className="icon total-icon" id="total-icon">
+										<i className="fa-solid fa-list-check"></i>
+									</span>
+								</div>
 							</div>
-							<div className="appointment-count">
-								<div className="solved">
-									Solved Appt..
-									<span>
+							<div className="appointment-count" id="solved">
+								<div className="title">
+									<span className="full">Solved &nbsp;Appointments</span>
+									<span className="short">Solved &nbsp;Appt..</span>
+								</div>
+
+								<div className="total-number">
+									<span className="number">
 										{getAppointments &&
 											getAppointments.filter(
 												(value) => value.status === "solved"
 											).length}
 									</span>
+
+									<span className="icon total-icon" id="solved-icon">
+										<i className="fa-solid fa-circle-check"></i>
+									</span>
 								</div>
-								<span className="icon" id="solved-icon">
-									<i className="fa-solid fa-circle-check"></i>
-								</span>
 							</div>
-							<div className="appointment-count">
-								<div className="pending">
-									Pending Appt..
-									<span>
+
+							<div className="appointment-count" id="pending">
+								<div className="title">
+									<span className="full">Pending &nbsp;Appointments</span>
+									<span className="short">Pending &nbsp;Appt..</span>
+								</div>
+
+								<div className="total-number">
+									<span className="number">
 										{getAppointments &&
 											getAppointments.filter(
 												(value) => value.status === "pending"
 											).length}
 									</span>
+
+									<span className="icon total-icon" id="pending-icon">
+										<i className="fa-solid fa-hourglass-half"></i>
+									</span>
 								</div>
-								<span className="icon" id="pending-icon">
-									<i className="fa-solid fa-hourglass-half"></i>
-								</span>
 							</div>
-							<div className="appointment-count">
-								<div className="rejected">
-									Rejected Appt..
-									<span>
+							<div className="appointment-count" id="rejected">
+								<div className="title">
+									<span className="full">Rejected &nbsp;Appointments</span>
+									<span className="short">Rejected &nbsp;Appt..</span>
+								</div>
+
+								<div className="total-number">
+									<span className="number">
 										{getAppointments &&
 											getAppointments.filter(
 												(value) => value.status === "rejected"
 											).length}
 									</span>
+
+									<span className="icon total-icon" id="rejected-icon">
+										<i className="fa-solid fa-circle-xmark"></i>
+									</span>
 								</div>
-								<span className="icon" id="rejected-icon">
-									<i className="fa-solid fa-circle-xmark"></i>
-								</span>
 							</div>
 						</div>
 					</div>
@@ -139,8 +159,14 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 										className="btn"
 										onClick={() => setSelected("appointment")}
 									>
-										<i className="bi bi-plus-circle-dotted"></i> Create
-										Appointment
+										<span>
+											<i className="bi bi-plus-circle-dotted"></i> Create
+											Appointment
+										</span>
+
+										<span title="create a appointment">
+											<i className="bi bi-plus-circle-dotted"></i>
+										</span>
 									</button>
 								)}
 							</div>
@@ -156,10 +182,35 @@ const Dashboard = ({ setSelected, setAppDisplay }) => {
 										<thead>
 											<tr>
 												<th scope="col">#</th>
-												<th scope="col">Appt.. Subject</th>
-												<th scope="col">Appt.. Category</th>
-												<th scope="col">Appt.. Description</th>
-												<th scope="col">Submitted Date</th>
+
+												<th scope="col" className="th-full">
+													Appt.. Subject
+												</th>
+												<th scope="col" className="th-short">
+													Appt.. Sub...
+												</th>
+
+												<th scope="col" className="th-full">
+													Appt.. Category
+												</th>
+												<th scope="col" className="th-short">
+													Appt.. Cate...
+												</th>
+
+												<th scope="col" className="th-full">
+													Appt.. Description
+												</th>
+												<th scope="col" className="th-short">
+													Appt.. Des...
+												</th>
+
+												<th scope="col" className="th-full">
+													Submitted Date
+												</th>
+												<th scope="col" className="th-short">
+													Sub... Date
+												</th>
+
 												<th scope="col">Status</th>
 											</tr>
 										</thead>

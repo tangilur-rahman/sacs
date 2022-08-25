@@ -2,6 +2,7 @@
 	background-color: hsl(252, 30%, 95%);
 	color: hsl(252deg 75% 60%);
 }
+
 .left .tab-container .dashboard-active::before {
 	content: "";
 	display: block;
@@ -48,4 +49,43 @@
 	height: 100%;
 	position: absolute;
 	background-color: #1a479e;
+}
+
+/* media query start  */
+@media screen and (max-width: 992px) {
+	.left .tab-container {
+		position: absolute;
+		top: -20px;
+		left: 0;
+		z-index: 1;
+		width: 60px;
+		background-color: transparent !important;
+		box-shadow: none;
+	}
+
+	.left .tab-container:hover {
+		width: 190px;
+		background-color: white !important;
+		box-shadow: var(--box-shadow);
+		transition: all 0.5s;
+		z-index: 9999;
+	}
+
+	.left .tab-container .dashboard-active {
+		background-color: transparent;
+	}
+
+	.left .tab-container .dashboard-active:hover {
+		background-color: hsl(252, 30%, 95%);
+	}
+
+	.left .tab-container span i {
+		margin-left: 24px;
+		display: inline-block;
+		opacity: 0.4;
+	}
+
+	.left .tab-container span i:hover {
+		opacity: 1;
+	}
 }

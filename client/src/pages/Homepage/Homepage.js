@@ -134,7 +134,7 @@ const Homepage = ({
 						>
 							<div className="col-11 p-0 ">
 								<div className="row m-0 ">
-									<div className="col-3 p-0 left">
+									<div className=" col-lg-3 col-1 p-0 left">
 										<LeftSidebar
 											currentUser={currentUser}
 											selected={selected}
@@ -142,7 +142,7 @@ const Homepage = ({
 										/>
 									</div>
 
-									<div className="col-8 right">
+									<div className="col-lg-8 col-10 p-0 right">
 										<Outlet />
 									</div>
 								</div>

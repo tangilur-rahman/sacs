@@ -45,6 +45,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-left: 40px;
 }
 
 .navbar-container .middle .total {
@@ -351,6 +352,12 @@
 }
 
 /* media query start  */
+@media screen and (max-width: 1300px) {
+	.navbar-container .middle {
+		margin-left: 0px;
+	}
+}
+
 @media screen and (min-width: 1200px) {
 	.navbar-container .right .icon-style span {
 		margin: 0 25px 0 0;

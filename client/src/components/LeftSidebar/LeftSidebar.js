@@ -7,7 +7,7 @@ import TabContainer from "./TabContainer/TabContainer";
 const LeftSidebar = ({ currentUser, selected, setSelected }) => {
 	return (
 		<>
-			<div className="current-user">
+			<div className="current-user d-none d-lg-flex">
 				<img
 					src={`uploads/profile-img/${currentUser.profile_img}`}
 					alt="profile-img"
