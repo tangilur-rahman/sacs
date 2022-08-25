@@ -288,11 +288,9 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 															key={index}
 															onClick={() => setSpecificUser(value._id)}
 														>
-															<td id="count" data-label="#">
-																{index + 1}
-															</td>
+															<td id="count">{index + 1}</td>
 
-															<td id="name" data-label="Name :">
+															<td id="name">
 																<img
 																	src={`uploads/profile-img/${value.profile_img}`}
 																	alt="profile-img"
@@ -306,11 +304,11 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																/>
 															</td>
 
-															<td id="id" data-label="Id :">
+															<td id="id">
 																<input type="text" readOnly value={value.id} />
 															</td>
 
-															<td id="email" data-label="Email :">
+															<td id="email">
 																<input
 																	type="text"
 																	readOnly
@@ -318,7 +316,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																/>
 															</td>
 
-															<td id="gender" data-label="Gender :">
+															<td id="gender">
 																<input
 																	type="text"
 																	readOnly
@@ -327,7 +325,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																/>
 															</td>
 
-															<td id="department" data-label="Department :">
+															<td id="department">
 																<input
 																	type="text"
 																	readOnly
@@ -336,7 +334,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 															</td>
 
 															{totalValue === "List Of Advisors" && (
-																<td id="range" data-label="Range :">
+																<td id="range">
 																	<input
 																		type="text"
 																		readOnly
@@ -349,7 +347,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 
 															{totalValue !== "List Of Advisors" && (
 																<>
-																	<td id="semester" data-label="Semester :">
+																	<td id="semester">
 																		<input
 																			type="text"
 																			readOnly
@@ -357,7 +355,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																		/>
 																	</td>
 
-																	<td id="year" data-label="Academic Year :">
+																	<td id="year">
 																		<input
 																			type="text"
 																			readOnly
@@ -367,7 +365,7 @@ const ListOfTotal = ({ totalValue, setTotalValue, setUserEdit }) => {
 																</>
 															)}
 
-															<td id="update-date" data-label="Update Date :">
+															<td id="update-date">
 																<input
 																	type="text"
 																	readOnly
