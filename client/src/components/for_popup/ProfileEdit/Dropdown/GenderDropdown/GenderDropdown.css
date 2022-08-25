@@ -75,3 +75,10 @@
 	font-size: 1em;
 	margin: 0 10px 0 0;
 }
+
+/* media query start  */
+@media screen and (max-width: 700px) {
+	.curr-user-info .gender-container .option {
+		top: -180px;
+	}
+}
