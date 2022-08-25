@@ -217,14 +217,6 @@
 	background-color: transparent;
 }
 
-.profile-edit-container .curr-user-info #phone {
-	max-width: 200px;
-}
-
-.profile-edit-container .curr-user-info #phone-number input {
-	margin-left: 5px;
-}
-
 .profile-edit-container .curr-user-info #current-p {
 	outline: 3px solid #c2daff;
 }
@@ -242,6 +234,11 @@
 	font-weight: 600;
 	color: #006d77;
 	margin: 0;
+}
+
+.profile-edit-container .curr-user-info #phone {
+	margin-left: 5px;
+	max-width: 160px;
 }
 
 .profile-edit-container .profile-btn {

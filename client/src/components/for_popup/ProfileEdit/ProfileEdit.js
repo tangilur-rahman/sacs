@@ -194,7 +194,7 @@ const ProfileEdit = ({
 		} else if (user.phone) {
 			return "+88 " + user.phone;
 		} else {
-			return "null";
+			return "Null";
 		}
 	};
 	// for displaying phone-number end
@@ -478,6 +478,7 @@ const ProfileEdit = ({
 											value={userEdit ? getId : currentUser.id}
 											readOnly={userEdit && editT ? false : true}
 											onChange={(event) => setId(event.target.value)}
+											style={{ maxWidth: "180px" }}
 										/>
 									</span>
 
