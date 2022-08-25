@@ -60,10 +60,13 @@
 .advisor-info-container .advisor-info span {
 	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
-	padding: 15px 20px;
-	margin: 20px;
+	padding: 10px 20px;
+	margin: 15px 20px;
 	font-weight: 500;
 	flex-basis: 40%;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .advisor-info-container .advisor-info span label {
@@ -73,8 +76,7 @@
 .advisor-info-container .advisor-info span input {
 	border: none;
 	outline: none;
-	width: 65%;
-	padding-left: 5px;
+	padding-left: 7px;
 	font-weight: 600;
 	color: #006d77;
 	overflow: hidden;
@@ -83,19 +85,16 @@
 }
 
 .advisor-info-container .advisor-info #name input {
-	width: 84%;
+	max-width: 200px;
 }
 
 .advisor-info-container .advisor-info #email input {
-	width: 85%;
+	max-width: 205px;
 	text-transform: none;
-}
-.advisor-info-container .advisor-info #year input {
-	width: max-content;
 }
 
 .advisor-info-container .advisor-info #phone-number input {
-	width: 60%;
+	max-width: 190px;
 	margin-left: 5px;
 }
 
@@ -108,6 +107,35 @@
 
 .advisor-info-container .advisor-info #department {
 	text-transform: uppercase;
+	max-width: 150px;
+}
+/* input field style end  */
+
+/* media query start  */
+@media screen and (max-width: 1230px) {
+	.advisor-info-container .advisor-info span {
+		flex-basis: 44%;
+	}
 }
 
-/* input field style end  */
+@media screen and (max-width: 950px) {
+	.advisor-info-container .advisor-info .info {
+		padding: 0 30px;
+		border: 1px solid red;
+	}
+
+	.advisor-info-container .advisor-info span {
+		flex-basis: 100%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.advisor-info-container .advisor-info .info {
+		margin: 10px 0 0 0;
+		padding: 0 10px;
+	}
+
+	.advisor-info-container .advisor-info span input {
+		padding-left: 4px;
+	}
+}

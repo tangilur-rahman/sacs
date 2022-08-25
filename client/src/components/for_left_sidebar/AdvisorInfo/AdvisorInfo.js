@@ -49,8 +49,6 @@ const AdvisorInfo = () => {
 		}
 	}, [currentUser]);
 
-	console.log(getAdvisor);
-
 	return (
 		<>
 			<div className="advisor-info-container">
@@ -67,18 +65,23 @@ const AdvisorInfo = () => {
 								</span>
 							</div>
 							<div className="advisor-info">
-								<div className="row info">
+								<div className="row info m-0">
 									<span id="name">
 										Name : <input value={getAdvisor?.name} readOnly />
 									</span>
 									<span>
-										ID : <input value={getAdvisor?.id} readOnly />
+										ID :
+										<input
+											value={getAdvisor?.id}
+											readOnly
+											style={{ "max-width": "170px" }}
+										/>
 									</span>
 									<span id="email">
 										Email : <input value={getAdvisor?.email} readOnly />
 									</span>
 									<span id="phone-number">
-										Phone : &nbsp;
+										Phone :
 										{getAdvisor.phone ? (
 											<div style={{ display: "inline-block" }}>
 												<h6>+880</h6>
@@ -92,15 +95,20 @@ const AdvisorInfo = () => {
 													display: "inline-block"
 												}}
 											>
-												Null
+												&nbsp;&nbsp;Null
 											</div>
 										)}
 									</span>
 									<span>
-										Gender : <input value={getAdvisor?.gender} readOnly />
+										Gender :
+										<input
+											value={getAdvisor?.gender}
+											readOnly
+											style={{ "max-width": "170px" }}
+										/>
 									</span>
 									<span>
-										Department : &nbsp;
+										Department :
 										<input
 											value={getAdvisor?.department}
 											readOnly

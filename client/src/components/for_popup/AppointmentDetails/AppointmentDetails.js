@@ -415,7 +415,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 				<>
 					<div className="appointment-details-container">
 						<div className="row m-0 layout-center">
-							<div className="col-9 p-0">
+							<div className="col-xxl-9 col-11 p-0">
 								<div
 									ref={myRef}
 									className="appointment-details"
@@ -426,7 +426,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 									{/* header section start  */}
 									<div className="header">
 										{currentUser.role !== "student" && (
-											<div className="user-info">
+											<div className="user-info" title="Student">
 												<img
 													src={`uploads/profile-img/${specificApp.student?.profile_img}`}
 													alt="profile-img"
@@ -448,7 +448,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 										</div>
 
 										{currentUser.role === "administrator" && (
-											<div className="user-info">
+											<div className="user-info" title="Advisor">
 												<img
 													src={`uploads/profile-img/${specificApp.advisor?.profile_img}`}
 													alt="profile-img"
@@ -486,7 +486,7 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 										</div>
 
 										<div className="for-margin">
-											<span>Description &nbsp;:</span>
+											<span>Description:</span>
 											<div className="description">
 												<p>{specificApp?.description}</p>
 											</div>
@@ -541,19 +541,63 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 
 									{/* advisor-section start  */}
 									{currentUser.role !== "student" && (
-										<div className="advisor-section">
-											<span>Appointment Date &nbsp;:</span>
-											<div className="wrapper">
-												<div className="app-date">
-													<DateTimePicker
-														className="date-picker"
-														onChange={(date) => setPicDate(date)}
-														value={picDate}
-														format="dd-MM-y  h:mm a"
-													/>
-												</div>
+										<>
+											<div className="advisor-section">
+												<span>Appointment Date &nbsp;:</span>
+												<div className="wrapper">
+													<div className="app-date">
+														<DateTimePicker
+															className="date-picker"
+															onChange={(date) => setPicDate(date)}
+															value={picDate}
+															format="dd-MM-y  h:mm a"
+														/>
+													</div>
 
-												<div className="app-status">
+													<div className="app-status" id="inside-wrapper">
+														<div
+															id="solved"
+															className={getStatus === "solved" ? "active" : ""}
+															onClick={() => setStatus("solved")}
+														>
+															<div>Solved Appt..</div>
+															<div className="icon-container">
+																<i className="fa-solid fa-circle-check"></i>
+															</div>
+														</div>
+
+														<div
+															id="pending"
+															className={
+																getStatus === "pending" ? "active" : ""
+															}
+															onClick={() => setStatus("pending")}
+														>
+															<div> Pending Appt..</div>
+															<div className="icon-container">
+																<i className="fa-solid fa-hourglass-half"></i>
+															</div>
+														</div>
+
+														<div
+															id="rejected"
+															className={
+																getStatus === "rejected" ? "active" : ""
+															}
+															onClick={() => setStatus("rejected")}
+														>
+															<div>Rejected Appt..</div>
+															<div className="icon-container">
+																<i className="fa-solid fa-circle-xmark"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div id="outside-advisor">
+												<span>Status :</span>
+												<div className="wrapper">
 													<div
 														id="solved"
 														className={getStatus === "solved" ? "active" : ""}
@@ -588,9 +632,8 @@ const AppointmentDetails = ({ appDisplay, setAppDisplay, currentUser }) => {
 													</div>
 												</div>
 											</div>
-										</div>
+										</>
 									)}
-
 									{/* advisor-section end  */}
 
 									{/* reply-link start  */}

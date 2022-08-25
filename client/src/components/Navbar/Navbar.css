@@ -358,6 +358,10 @@
 	.nav-profile ul li.total-values {
 		display: none;
 	}
+
+	.right .icon-style span i .notification-count {
+		right: -37px !important;
+	}
 }
 
 @media screen and (max-width: 650px) {
@@ -425,5 +429,44 @@
 	.navbar-container .left h2 {
 		transform: scale(0.6, 1.5);
 		margin: 0 0 0px -23px;
+	}
+}
+
+/* media query for responsive box  */
+@media screen and (max-width: 650px) {
+	.right .notification-container#for-message {
+		right: -180px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.right .notification-container#for-appointment {
+		right: -100px;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.right .notification-container#for-message {
+		right: -160px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.right .notification-container#for-message {
+		right: -154px;
+		width: 414px;
+	}
+
+	.right .notification-container .notification-display {
+		padding: 5px 2px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.right .notification-container {
+		width: 300px !important;
+	}
+	.right .notification-container .notification-display img {
+		display: none;
 	}
 }

@@ -423,6 +423,7 @@ const Navbar = ({
 										<div
 											ref={messageRef}
 											className="notification-container"
+											id="for-message"
 											data-aos="fade-left"
 											data-aos-delay="0"
 										>
@@ -505,6 +506,7 @@ const Navbar = ({
 											className="notification-container"
 											data-aos="fade-left"
 											data-aos-delay="0"
+											id="for-appointment"
 										>
 											{sortArray(appointmentN, {
 												by: "time",
