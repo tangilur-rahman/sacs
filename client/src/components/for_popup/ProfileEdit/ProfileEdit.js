@@ -429,7 +429,7 @@ const ProfileEdit = ({
 				data-aos-delay="0"
 			>
 				<div className="row m-0 layout">
-					<div className="col-9 p-0">
+					<div className="col-xl-9 col-lg-10 col-11 p-0">
 						<div
 							ref={myRef}
 							className="wrapper"
@@ -460,16 +460,14 @@ const ProfileEdit = ({
 								</span>
 							</div>
 							<div className="curr-user-info">
-								<div className="row info">
-									<span
-										id="name"
-										className={userEdit && editT ? "outline-style" : ""}
-									>
+								<div className="row info m-0">
+									<span className={userEdit && editT ? "outline-style" : ""}>
 										Name :&nbsp;
 										<input
 											value={userEdit ? getName : currentUser.name}
 											readOnly={userEdit && editT ? false : true}
 											onChange={(event) => setName(event.target.value)}
+											style={{ maxWidth: "200px" }}
 										/>
 									</span>
 
@@ -514,13 +512,19 @@ const ProfileEdit = ({
 									) : (
 										<span>
 											Gender :&nbsp;
-											<input value={currentUser.gender} readOnly />
+											<input
+												value={currentUser.gender}
+												readOnly
+												style={{ maxWidth: "160px" }}
+											/>
 										</span>
 									)}
 
 									{userEdit ? (
 										<span
-											className={userEdit ? "remove-pd" : ""}
+											className={
+												userEdit ? "remove-pd department" : "department"
+											}
 											id={userEdit && editT ? "outline-style" : ""}
 										>
 											<p className={editT ? "input-text-hide" : "input-text"}>
@@ -534,7 +538,7 @@ const ProfileEdit = ({
 										</span>
 									) : (
 										currentUser?.role !== "administrator" && (
-											<span>
+											<span className="department">
 												Department : &nbsp;
 												<input
 													value={currentUser.department.toUpperCase()}
@@ -546,7 +550,7 @@ const ProfileEdit = ({
 
 									{(userEdit.role === "advisor" ||
 										currentUser.role === "advisor") && (
-										<span>
+										<span id="total-students">
 											Total &nbsp;
 											{getTotalS && getTotalS > 1 ? "students" : "student"}
 											&nbsp;:&nbsp;
@@ -576,7 +580,11 @@ const ProfileEdit = ({
 										currentUser?.role === "student" && (
 											<span>
 												Semester :&nbsp;
-												<input value={currentUser.semester} readOnly />
+												<input
+													value={currentUser.semester}
+													readOnly
+													style={{ maxWidth: "190px" }}
+												/>
 											</span>
 										)
 									)}
@@ -621,6 +629,7 @@ const ProfileEdit = ({
 															userEdit.minRange + " - " + userEdit.maxRange
 														}
 														readOnly
+														style={{ maxWidth: "190px" }}
 													/>
 												</>
 											)}
@@ -629,7 +638,7 @@ const ProfileEdit = ({
 
 									{!userEdit && editT && (
 										<span id="current-p" className="password-field">
-											<label htmlFor="currPassword">Current Password :</label>
+											<label htmlFor="currPassword">Current Pass..:</label>
 
 											<input
 												type={typeC_P_T ? "text" : "password"}
@@ -663,11 +672,11 @@ const ProfileEdit = ({
 									)}
 
 									{!userEdit && currentUser.role === "administrator" && (
-										<span>
-											Last Updated :&nbsp;
+										<span title="last-updated">
+											Updated:&nbsp;
 											<input
 												value={moment(currentUser.updatedAt).format(
-													"h:mm A - MMMM DD, YYYY"
+													"h:mm A - MMM DD, YYYY"
 												)}
 												readOnly
 											/>
@@ -711,9 +720,13 @@ const ProfileEdit = ({
 										</span>
 									) : (
 										currentUser.role === "student" && (
-											<span id="year">
+											<span>
 												Academic Year :&nbsp;
-												<input value={currentUser.year} readOnly />
+												<input
+													value={currentUser.year}
+													readOnly
+													style={{ maxWidth: "100px" }}
+												/>
 											</span>
 										)
 									)}
@@ -736,9 +749,12 @@ const ProfileEdit = ({
 									)}
 
 									{editT && (
-										<div className="last-field">
-											<span id="new-p" className="password-field">
-												<label htmlFor="newPassword">New Password :</label>
+										<>
+											<span
+												className="password-field new-password-field"
+												id="outline-style"
+											>
+												<label htmlFor="newPassword">New Pass..:</label>
 
 												<input
 													type={typeN_P_T ? "text" : "password"}
@@ -748,6 +764,9 @@ const ProfileEdit = ({
 														setNewPassword(event.target.value)
 													}
 													value={newPassword}
+													style={{
+														maxWidth: "175px"
+													}}
 												/>
 
 												{/* for type toggle start  */}
@@ -770,7 +789,8 @@ const ProfileEdit = ({
 
 												{/* for type toggle end  */}
 											</span>
-											<div className="profile-btn">
+
+											<span className="profile-btn">
 												{userEdit ? (
 													<button
 														className="btn btn-success"
@@ -786,8 +806,8 @@ const ProfileEdit = ({
 														Submit
 													</button>
 												)}
-											</div>
-										</div>
+											</span>
+										</>
 									)}
 								</div>
 							</div>

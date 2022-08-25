@@ -29,7 +29,10 @@ const AdvisorDropdown = ({
 			{!editT ? (
 				<input
 					value={getAdvisor.name}
-					style={{ textAlign: "start" }}
+					style={{
+						textAlign: "start",
+						maxWidth: "200px"
+					}}
 					readOnly
 				/>
 			) : (

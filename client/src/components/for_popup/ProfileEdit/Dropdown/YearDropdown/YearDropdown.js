@@ -11,7 +11,7 @@ const YearDropdown = ({ getYear, setYear, editT }) => {
 				{!editT ? (
 					<input
 						value={new Date(getYear).getFullYear()}
-						style={{ textAlign: "start" }}
+						style={{ textAlign: "start", maxWidth: "100px" }}
 						readOnly
 					/>
 				) : (

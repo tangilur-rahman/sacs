@@ -22,7 +22,7 @@ const GenderDropdown = ({ getGender, setGender, editT }) => {
 			{!editT ? (
 				<input
 					value={displayGender()}
-					style={{ textAlign: "start" }}
+					style={{ textAlign: "start", maxWidth: "160px" }}
 					readOnly
 				/>
 			) : (

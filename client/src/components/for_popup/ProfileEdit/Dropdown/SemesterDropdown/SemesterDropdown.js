@@ -9,7 +9,11 @@ const SemesterDropDown = ({ getSemester, setSemester, editT }) => {
 	return (
 		<>
 			{!editT ? (
-				<input value={getSemester} style={{ textAlign: "start" }} readOnly />
+				<input
+					value={getSemester}
+					style={{ textAlign: "start", maxWidth: "190px" }}
+					readOnly
+				/>
 			) : (
 				<div
 					className={

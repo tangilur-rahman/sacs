@@ -318,7 +318,7 @@ const Register = ({ registerT, setRegisterT, setCreated }) => {
 										<div className="signup-footer">
 											{getRole === "student" && getRole !== null && (
 												<div className="year">
-													<span>
+													<span title="student academic year">
 														<div
 															style={{ display: "inline-block" }}
 															id="academic"
