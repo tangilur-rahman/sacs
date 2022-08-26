@@ -106,6 +106,10 @@
 	.login-container .form-container-wrapper {
 		margin-top: -60px;
 	}
+
+	.login-container .form-container {
+		height: 350px;
+	}
 }
 
 @media screen and (max-width: 550px) {

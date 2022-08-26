@@ -86,6 +86,16 @@ const Login = () => {
 		}
 	};
 
+	// when press enter key submit start
+	const onKeyDown = (event) => {
+		if (event.key === "Enter") {
+			submitHandler();
+		} else {
+			return;
+		}
+	};
+	// when press enter key submit end
+
 	return (
 		<>
 			<div className="container-fluid p-0">
@@ -127,6 +137,7 @@ const Login = () => {
 											value={password}
 											placeholder="Password"
 											onChange={onChangeHandler}
+											onKeyDown={onKeyDown}
 										/>
 										<label htmlFor="password">Password :</label>
 
